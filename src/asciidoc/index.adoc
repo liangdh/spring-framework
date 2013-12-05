@@ -410,12 +410,12 @@ this:
 [subs="verbatim,quotes,attributes"]
 ----
 <dependencies>
-   <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-context</artifactId>
-      <version>{spring-version}</version>
-      <scope>runtime</scope>
-   </dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context</artifactId>
+		<version>{spring-version}</version>
+		<scope>runtime</scope>
+	</dependency>
 </dependencies>
 ----
 
@@ -432,11 +432,11 @@ location in your Maven configuration. For full releases:
 [subs="verbatim,quotes"]
 ----
 <repositories>
-   <repository>
-      <id>io.spring.repo.maven.release</id>
-      <url>https://repo.spring.io/release/</url>
-      <snapshots><enabled>false</enabled></snapshots>
-   </repository>
+	<repository>
+		<id>io.spring.repo.maven.release</id>
+		<url>https://repo.spring.io/release/</url>
+		<snapshots><enabled>false</enabled></snapshots>
+	</repository>
 </repositories>
 ----
 
@@ -446,11 +446,11 @@ For milestones:
 [subs="verbatim,quotes"]
 ----
 <repositories>
-   <repository>
-      <id>io.spring.repo.maven.milestone</id>
-      <url>https://repo.spring.io/milestone/</url>
-      <snapshots><enabled>false</enabled></snapshots>
-   </repository>
+	<repository>
+		<id>io.spring.repo.maven.milestone</id>
+		<url>https://repo.spring.io/milestone/</url>
+		<snapshots><enabled>false</enabled></snapshots>
+	</repository>
 </repositories>
 ----
 
@@ -460,11 +460,11 @@ And for snapshots:
 [subs="verbatim,quotes"]
 ----
 <repositories>
-   <repository>
-      <id>io.spring.repo.maven.snapshot</id>
-      <url>https://repo.spring.io/snapshot/</url>
-      <snapshots><enabled>true</enabled></snapshots>
-   </repository>
+	<repository>
+		<id>io.spring.repo.maven.snapshot</id>
+		<url>https://repo.spring.io/snapshot/</url>
+		<snapshots><enabled>true</enabled></snapshots>
+	</repository>
 </repositories>
 ----
 
@@ -475,12 +475,12 @@ dependencies. The names are usually easy to guess, e.g. in this case it is:
 [subs="verbatim,quotes,attributes"]
 ----
 <dependencies>
-   <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>org.springframework.context</artifactId>
-      <version>{spring-version}</version>
-      <scope>runtime</scope>
-   </dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>org.springframework.context</artifactId>
+		<version>{spring-version}</version>
+		<scope>runtime</scope>
+	</dependency>
 </dependencies>
 ----
 
@@ -491,10 +491,10 @@ important):
 [subs="verbatim,quotes"]
 ----
 <repositories>
-   <repository>
-      <id>com.springsource.repository.bundles.release</id>
-      <url>http://repository.springsource.com/maven/bundles/release/</url>
-   </repository>
+	<repository>
+		<id>com.springsource.repository.bundles.release</id>
+		<url>http://repository.springsource.com/maven/bundles/release/</url>
+	</repository>
 </repositories>
 ----
 
@@ -517,25 +517,19 @@ To configure Ivy to point to the SpringSource EBR add the following resolvers to
 [subs="verbatim,quotes"]
 ----
 <resolvers>
+	<url name="com.springsource.repository.bundles.release">
+		<ivy pattern="http://repository.springsource.com/ivy/bundles/release/
+			[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+		<artifact pattern="http://repository.springsource.com/ivy/bundles/release/
+			[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+	</url>
 
-  <url name="com.springsource.repository.bundles.release">
-
-    <ivy pattern="http://repository.springsource.com/ivy/bundles/release/
-      [organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
-    <artifact pattern="http://repository.springsource.com/ivy/bundles/release/
-      [organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
-
-  </url>
-
-  <url name="com.springsource.repository.bundles.external">
-
-    <ivy pattern="http://repository.springsource.com/ivy/bundles/external/
-       [organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
-    <artifact pattern="http://repository.springsource.com/ivy/bundles/external/
-       [organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
-
-  </url>
-
+	<url name="com.springsource.repository.bundles.external">
+		<ivy pattern="http://repository.springsource.com/ivy/bundles/external/
+			[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+		<artifact pattern="http://repository.springsource.com/ivy/bundles/external/
+			[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+	</url>
 </resolvers>
 ----
 
@@ -551,7 +545,7 @@ Ivy snippet ready for you to include in your dependencies section. For example (
 [subs="verbatim,quotes,attributes"]
 ----
 <dependency org="org.springframework"
-      name="org.springframework.core" rev="{spring-version}" conf="compile->runtime"/>
+	name="org.springframework.core" rev="{spring-version}" conf="compile->runtime"/>
 ----
 
 
@@ -602,18 +596,18 @@ Spring dependencies are declared, you only have to do that once.
 [subs="verbatim,quotes,attributes"]
 ----
 <dependencies>
-   <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-context</artifactId>
-      <version>{spring-version}</version>
-      <scope>runtime</scope>
-      <exclusions>
-         <exclusion>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-         </exclusion>
-      </exclusions>
-   </dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context</artifactId>
+		<version>{spring-version}</version>
+		<scope>runtime</scope>
+		<exclusions>
+			<exclusion>
+				<groupId>commons-logging</groupId>
+				<artifactId>commons-logging</artifactId>
+			</exclusion>
+		</exclusions>
+	</dependency>
 </dependencies>
 ----
 
@@ -647,43 +641,43 @@ implementation itself. In Maven you would do that like this
 [subs="verbatim,quotes,attributes"]
 ----
 <dependencies>
-       <dependency>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-context</artifactId>
-          <version>{spring-version}</version>
-          <scope>runtime</scope>
-          <exclusions>
-             <exclusion>
-                <groupId>commons-logging</groupId>
-                <artifactId>commons-logging</artifactId>
-             </exclusion>
-          </exclusions>
-       </dependency>
-       <dependency>
-          <groupId>org.slf4j</groupId>
-          <artifactId>jcl-over-slf4j</artifactId>
-          <version>1.5.8</version>
-          <scope>runtime</scope>
-       </dependency>
-       <dependency>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-api</artifactId>
-          <version>1.5.8</version>
-          <scope>runtime</scope>
-       </dependency>
-       <dependency>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-log4j12</artifactId>
-          <version>1.5.8</version>
-          <scope>runtime</scope>
-       </dependency>
-       <dependency>
-          <groupId>log4j</groupId>
-          <artifactId>log4j</artifactId>
-          <version>1.2.14</version>
-          <scope>runtime</scope>
-       </dependency>
-    </dependencies>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context</artifactId>
+		<version>{spring-version}</version>
+		<scope>runtime</scope>
+		<exclusions>
+			<exclusion>
+				<groupId>commons-logging</groupId>
+				<artifactId>commons-logging</artifactId>
+			</exclusion>
+		</exclusions>
+	</dependency>
+	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>jcl-over-slf4j</artifactId>
+		<version>1.5.8</version>
+		<scope>runtime</scope>
+	</dependency>
+	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>slf4j-api</artifactId>
+		<version>1.5.8</version>
+		<scope>runtime</scope>
+	</dependency>
+	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>slf4j-log4j12</artifactId>
+		<version>1.5.8</version>
+		<scope>runtime</scope>
+	</dependency>
+	<dependency>
+		<groupId>log4j</groupId>
+		<artifactId>log4j</artifactId>
+		<version>1.2.14</version>
+		<scope>runtime</scope>
+	</dependency>
+</dependencies>
 ----
 
 That might seem like a lot of dependencies just to get some logging. Well it is, but it
@@ -717,18 +711,18 @@ is your dependency declaration:
 [subs="verbatim,quotes,attributes"]
 ----
 <dependencies>
-   <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-context</artifactId>
-      <version>{spring-version}</version>
-      <scope>runtime</scope>
-   </dependency>
-   <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <version>1.2.14</version>
-      <scope>runtime</scope>
-   </dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context</artifactId>
+		<version>{spring-version}</version>
+		<scope>runtime</scope>
+	</dependency>
+	<dependency>
+		<groupId>log4j</groupId>
+		<artifactId>log4j</artifactId>
+		<version>1.2.14</version>
+		<scope>runtime</scope>
+	</dependency>
 </dependencies>
 ----
 
@@ -953,10 +947,10 @@ properties of a database setup
 [subs="verbatim,quotes"]
 ----
 <bean class="mycompany.RewardsTestDatabase">
-    <property name="databaseName"
-        value="#{systemProperties.databaseName}"/>
-    <property name="keyGenerator"
-        value="#{strategyBean.databaseKeyGenerator}"/>
+	<property name="databaseName"
+		value="#{systemProperties.databaseName}"/>
+	<property name="keyGenerator"
+		value="#{strategyBean.databaseKeyGenerator}"/>
 </bean>
 ----
 
@@ -969,11 +963,11 @@ annotations:
 @Repository
 public class RewardsTestDatabase {
 
-    @Value("#{systemProperties.databaseName}")
-    public void setDatabaseName(String dbName) { ... }
+	@Value("#{systemProperties.databaseName}")
+	public void setDatabaseName(String dbName) { ... }
 
-    @Value("#{strategyBean.databaseKeyGenerator}")
-    public void setKeyGenerator(KeyGenerator kg) { ... }
+	@Value("#{strategyBean.databaseKeyGenerator}")
+	public void setKeyGenerator(KeyGenerator kg) { ... }
 }
 ----
 
@@ -1007,34 +1001,40 @@ package org.example.config;
 
 @Configuration
 public class AppConfig {
-    private @Value("#{jdbcProperties.url}") String jdbcUrl;
-    private @Value("#{jdbcProperties.username}") String username;
-    private @Value("#{jdbcProperties.password}") String password;
 
-    @Bean
-    public FooService fooService() {
-        return new FooServiceImpl(fooRepository());
+	@Value("#{jdbcProperties.url}")
+	private String jdbcUrl;
+
+	@Value("#{jdbcProperties.username}")
+	private String username;
+
+	@Value("#{jdbcProperties.password}")
+	private String password;
+
+	@Bean
+	public FooService fooService() {
+		return new FooServiceImpl(fooRepository());
+	}
+
+	@Bean
+	public FooRepository fooRepository() {
+		return new HibernateFooRepository(sessionFactory());
+	}
+
+	@Bean
+	public SessionFactory sessionFactory() {
+		// wire up a session factory
+		AnnotationSessionFactoryBean asFactoryBean =
+			new AnnotationSessionFactoryBean();
+		asFactoryBean.setDataSource(dataSource());
+		// additional config
+		return asFactoryBean.getObject();
     }
 
-    @Bean
-    public FooRepository fooRepository() {
-        return new HibernateFooRepository(sessionFactory());
-    }
-
-    @Bean
-    public SessionFactory sessionFactory() {
-        // wire up a session factory
-        AnnotationSessionFactoryBean asFactoryBean =
-            new AnnotationSessionFactoryBean();
-        asFactoryBean.setDataSource(dataSource());
-        // additional config
-        return asFactoryBean.getObject();
-    }
-
-    @Bean
-    public DataSource dataSource() {
-        return new DriverManagerDataSource(jdbcUrl, username, password);
-    }
+	@Bean
+	public DataSource dataSource() {
+		return new DriverManagerDataSource(jdbcUrl, username, password);
+	}
 }
 ----
 
@@ -1055,9 +1055,9 @@ Or you can bootstrap a `@Configuration` class directly using
 [subs="verbatim,quotes"]
 ----
 public static void main(String[] args) {
-    ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
-    FooService fooService = ctx.getBean(FooService.class);
-    fooService.doStuff();
+	ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
+	FooService fooService = ctx.getBean(FooService.class);
+	fooService.doStuff();
 }
 ----
 
@@ -1844,19 +1844,19 @@ The following example shows the basic structure of XML-based configuration metad
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-           http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-  <bean id="..." class="...">
-    <!-- collaborators and configuration for this bean go here -->
-  </bean>
+	<bean id="..." class="...">
+		<!-- collaborators and configuration for this bean go here -->
+	</bean>
 
-  <bean id="..." class="...">
-    <!-- collaborators and configuration for this bean go here -->
-  </bean>
+	<bean id="..." class="...">
+		<!-- collaborators and configuration for this bean go here -->
+	</bean>
 
-  <!-- more bean definitions go here -->
+	<!-- more bean definitions go here -->
 
 </beans>
 ----
@@ -1880,7 +1880,7 @@ as the local file system, from the Java `CLASSPATH`, and so on.
 [subs="verbatim,quotes"]
 ----
 ApplicationContext context =
-    new ClassPathXmlApplicationContext(new String[] {"services.xml", "daos.xml"});
+	new ClassPathXmlApplicationContext(new String[] {"services.xml", "daos.xml"});
 ----
 
 [NOTE]
@@ -1899,20 +1899,19 @@ The following example shows the service layer objects `(services.xml)` configura
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-           http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-  <!-- services -->
+	<!-- services -->
 
-  <bean id="petStore"
-        class="org.springframework.samples.jpetstore.services.PetStoreServiceImpl">
-    <property name="accountDao" ref="accountDao"/>
-    <property name="itemDao" ref="itemDao"/>
-    <!-- additional collaborators and configuration for this bean go here -->
-  </bean>
+	<bean id="petStore" class="org.springframework.samples.jpetstore.services.PetStoreServiceImpl">
+		<property name="accountDao" ref="accountDao"/>
+		<property name="itemDao" ref="itemDao"/>
+		<!-- additional collaborators and configuration for this bean go here -->
+	</bean>
 
-  <!-- more bean definitions for services go here -->
+	<!-- more bean definitions for services go here -->
 
 </beans>
 ----
@@ -1924,20 +1923,20 @@ The following example shows the data access objects `daos.xml` file:
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-           http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-  <bean id="accountDao"
-      class="org.springframework.samples.jpetstore.dao.ibatis.SqlMapAccountDao">
-    <!-- additional collaborators and configuration for this bean go here -->
-  </bean>
+	<bean id="accountDao"
+		class="org.springframework.samples.jpetstore.dao.ibatis.SqlMapAccountDao">
+		<!-- additional collaborators and configuration for this bean go here -->
+	</bean>
 
-  <bean id="itemDao" class="org.springframework.samples.jpetstore.dao.ibatis.SqlMapItemDao">
-    <!-- additional collaborators and configuration for this bean go here -->
-  </bean>
+	<bean id="itemDao" class="org.springframework.samples.jpetstore.dao.ibatis.SqlMapItemDao">
+		<!-- additional collaborators and configuration for this bean go here -->
+	</bean>
 
-  <!-- more bean definitions for data access objects go here -->
+	<!-- more bean definitions for data access objects go here -->
 
 </beans>
 ----
@@ -1965,12 +1964,12 @@ to load bean definitions from another file or files. For example:
 [subs="verbatim,quotes"]
 ----
 <beans>
-    <import resource="services.xml"/>
-    <import resource="resources/messageSource.xml"/>
-    <import resource="/resources/themeSource.xml"/>
+	<import resource="services.xml"/>
+	<import resource="resources/messageSource.xml"/>
+	<import resource="/resources/themeSource.xml"/>
 
-    <bean id="bean1" class="..."/>
-    <bean id="bean2" class="..."/>
+	<bean id="bean1" class="..."/>
+	<bean id="bean2" class="..."/>
 </beans>
 ----
 
@@ -2016,7 +2015,7 @@ The `ApplicationContext` enables you to read bean definitions and access them as
 ----
 // create and configure beans
 ApplicationContext context =
-    new ClassPathXmlApplicationContext(new String[] {"services.xml", "daos.xml"});
+	new ClassPathXmlApplicationContext(new String[] {"services.xml", "daos.xml"});
 
 // retrieve configured instance
 PetStoreService service = context.getBean("petStore", PetStoreService.class);
@@ -2271,20 +2270,20 @@ method must be a __static__ method.
 [subs="verbatim,quotes"]
 ----
 <bean id="clientService"
-      class="examples.ClientService"
-      factory-method="createInstance"/>
+	class="examples.ClientService"
+	factory-method="createInstance"/>
 ----
 
 [source,java]
 [subs="verbatim,quotes"]
 ----
 public class ClientService {
-  private static ClientService clientService = new ClientService();
-  private ClientService() {}
+	private static ClientService clientService = new ClientService();
+	private ClientService() {}
 
-  public static ClientService createInstance() {
-    return clientService;
-  }
+	public static ClientService createInstance() {
+		return clientService;
+	}
 }
 ----
 
@@ -2308,25 +2307,25 @@ factory method itself with the `factory-method` attribute.
 ----
 <!-- the factory bean, which contains a method called createInstance() -->
 <bean id="serviceLocator" class="examples.DefaultServiceLocator">
-  <!-- inject any dependencies required by this locator bean -->
+	<!-- inject any dependencies required by this locator bean -->
 </bean>
 
 <!-- the bean to be created via the factory bean -->
 <bean id="clientService"
-      factory-bean="serviceLocator"
-      factory-method="createClientServiceInstance"/>
+	factory-bean="serviceLocator"
+	factory-method="createClientServiceInstance"/>
 ----
 
 [source,java]
 [subs="verbatim,quotes"]
 ----
 public class DefaultServiceLocator {
-  private static ClientService clientService = new ClientServiceImpl();
-  private DefaultServiceLocator() {}
+	private static ClientService clientService = new ClientServiceImpl();
+	private DefaultServiceLocator() {}
 
-  public ClientService createClientServiceInstance() {
-    return clientService;
-  }
+	public ClientService createClientServiceInstance() {
+		return clientService;
+	}
 }
 ----
 
@@ -2339,30 +2338,30 @@ One factory class can also hold more than one factory method as shown here:
   <!-- inject any dependencies required by this locator bean -->
 </bean>
 <bean id="clientService"
-      factory-bean="serviceLocator"
-      factory-method="createClientServiceInstance"/>
+	factory-bean="serviceLocator"
+	factory-method="createClientServiceInstance"/>
 
 <bean id="accountService"
-      factory-bean="serviceLocator"
-      factory-method="createAccountServiceInstance"/>
+	factory-bean="serviceLocator"
+	factory-method="createAccountServiceInstance"/>
 ----
 
 [source,java]
 [subs="verbatim,quotes"]
 ----
 public class DefaultServiceLocator {
-  private static ClientService clientService = new ClientServiceImpl();
-  private static AccountService accountService = new AccountServiceImpl();
+	private static ClientService clientService = new ClientServiceImpl();
+	private static AccountService accountService = new AccountServiceImpl();
 
-  private DefaultServiceLocator() {}
+	private DefaultServiceLocator() {}
 
-  public ClientService createClientServiceInstance() {
-    return clientService;
-  }
+	public ClientService createClientServiceInstance() {
+		return clientService;
+	}
 
-  public AccountService createAccountServiceInstance() {
-    return accountService;
-  }
+	public AccountService createAccountServiceInstance() {
+		return accountService;
+	}
 }
 ----
 
@@ -2400,7 +2399,7 @@ that is, the other objects they work with, only through constructor arguments, a
 to a factory method, or properties that are set on the object instance after it is
 constructed or returned from a factory method. The container then __injects__ those
 dependencies when it creates the bean. This process is fundamentally the inverse, hence
-the name__Inversion of Control__ (IoC), of the bean itself controlling the instantiation
+the name __Inversion of Control__ (IoC), of the bean itself controlling the instantiation
 or location of its dependencies on its own by using direct construction of classes, or
 the __Service Locator__ pattern.
 
@@ -2429,15 +2428,15 @@ has no dependencies on container specific interfaces, base classes or annotation
 ----
 public class SimpleMovieLister {
 
-  // the SimpleMovieLister has a dependency on a MovieFinder
-  private MovieFinder movieFinder;
+	// the SimpleMovieLister has a dependency on a MovieFinder
+	private MovieFinder movieFinder;
 
-  // a constructor so that the Spring container can 'inject' a MovieFinder
-  public SimpleMovieLister(MovieFinder movieFinder) {
-      this.movieFinder = movieFinder;
-  }
+	// a constructor so that the Spring container can 'inject' a MovieFinder
+	public SimpleMovieLister(MovieFinder movieFinder) {
+		this.movieFinder = movieFinder;
+	}
 
-  // business logic that actually 'uses' the injected MovieFinder is omitted...
+	// business logic that actually 'uses' the injected MovieFinder is omitted...
 }
 ----
 
@@ -2456,9 +2455,9 @@ package x.y;
 
 public class Foo {
 
-  public Foo(Bar bar, Baz baz) {
-      // ...
-  }
+	public Foo(Bar bar, Baz baz) {
+		// ...
+	}
 }
 ----
 
@@ -2471,13 +2470,13 @@ element.
 [subs="verbatim,quotes"]
 ----
 <beans>
-  <bean id="foo" class="x.y.Foo">
-      <constructor-arg ref="bar"/>
-      <constructor-arg ref="baz"/>
-  </bean>
+	<bean id="foo" class="x.y.Foo">
+		<constructor-arg ref="bar"/>
+		<constructor-arg ref="baz"/>
+	</bean>
 
-  <bean id="bar" class="x.y.Bar"/>
-  <bean id="baz" class="x.y.Baz"/>
+	<bean id="bar" class="x.y.Bar"/>
+	<bean id="baz" class="x.y.Baz"/>
 
 </beans>
 ----
@@ -2494,16 +2493,16 @@ package examples;
 
 public class ExampleBean {
 
-  // No. of years to the calculate the Ultimate Answer
-  private int years;
+	// No. of years to the calculate the Ultimate Answer
+	private int years;
 
-  // The Answer to Life, the Universe, and Everything
-  private String ultimateAnswer;
+	// The Answer to Life, the Universe, and Everything
+	private String ultimateAnswer;
 
-  public ExampleBean(int years, String ultimateAnswer) {
-      this.years = years;
-      this.ultimateAnswer = ultimateAnswer;
-  }
+	public ExampleBean(int years, String ultimateAnswer) {
+		this.years = years;
+		this.ultimateAnswer = ultimateAnswer;
+	}
 }
 ----
 
@@ -2517,8 +2516,8 @@ For example:
 [subs="verbatim,quotes"]
 ----
 <bean id="exampleBean" class="examples.ExampleBean">
-<constructor-arg type="int" value="7500000"/>
-<constructor-arg type="java.lang.String" value="42"/>
+	<constructor-arg type="int" value="7500000"/>
+	<constructor-arg type="java.lang.String" value="42"/>
 </bean>
 ----
 --
@@ -2532,8 +2531,8 @@ example:
 [subs="verbatim,quotes"]
 ----
 <bean id="exampleBean" class="examples.ExampleBean">
-<constructor-arg index="0" value="7500000"/>
-<constructor-arg index="1" value="42"/>
+	<constructor-arg index="0" value="7500000"/>
+	<constructor-arg index="1" value="42"/>
 </bean>
 ----
 
@@ -2550,8 +2549,8 @@ As of Spring 3.0 you can also use the constructor parameter name for value disam
 [subs="verbatim,quotes"]
 ----
 <bean id="exampleBean" class="examples.ExampleBean">
-<constructor-arg name="years" value="7500000"/>
-<constructor-arg name="ultimateanswer" value="42"/>
+	<constructor-arg name="years" value="7500000"/>
+	<constructor-arg name="ultimateanswer" value="42"/>
 </bean>
 ----
 
@@ -2569,13 +2568,13 @@ package examples;
 
 public class ExampleBean {
 
-  // Fields omitted
+	// Fields omitted
 
-  @ConstructorProperties({"years", "ultimateAnswer"})
-  public ExampleBean(int years, String ultimateAnswer) {
-      this.years = years;
-      this.ultimateAnswer = ultimateAnswer;
-  }
+	@ConstructorProperties({"years", "ultimateAnswer"})
+	public ExampleBean(int years, String ultimateAnswer) {
+		this.years = years;
+		this.ultimateAnswer = ultimateAnswer;
+	}
 }
 ----
 --
@@ -2596,15 +2595,15 @@ on container specific interfaces, base classes or annotations.
 ----
 public class SimpleMovieLister {
 
-  // the SimpleMovieLister has a dependency on the MovieFinder
-  private MovieFinder movieFinder;
+	// the SimpleMovieLister has a dependency on the MovieFinder
+	private MovieFinder movieFinder;
 
-  // a setter method so that the Spring container can 'inject' a MovieFinder
-  public void setMovieFinder(MovieFinder movieFinder) {
-      this.movieFinder = movieFinder;
-  }
+	// a setter method so that the Spring container can 'inject' a MovieFinder
+	public void setMovieFinder(MovieFinder movieFinder) {
+		this.movieFinder = movieFinder;
+	}
 
-  // business logic that actually 'uses' the injected MovieFinder is omitted...
+	// business logic that actually 'uses' the injected MovieFinder is omitted...
 }
 ----
 
@@ -2722,13 +2721,12 @@ part of a Spring XML configuration file specifies some bean definitions:
 [subs="verbatim,quotes"]
 ----
 <bean id="exampleBean" class="examples.ExampleBean">
+	<!-- setter injection using the nested <ref/> element -->
+	<property name="beanOne"><ref bean="anotherExampleBean"/></property>
 
-<!-- setter injection using the nested <ref/> element -->
-<property name="beanOne"><ref bean="anotherExampleBean"/></property>
-
-<!-- setter injection using the neater 'ref' attribute -->
-<property name="beanTwo" ref="yetAnotherBean"/>
-<property name="integerProperty" value="1"/>
+	<!-- setter injection using the neater 'ref' attribute -->
+	<property name="beanTwo" ref="yetAnotherBean"/>
+	<property name="integerProperty" value="1"/>
 </bean>
 
 <bean id="anotherExampleBean" class="examples.AnotherBean"/>
@@ -2740,21 +2738,21 @@ part of a Spring XML configuration file specifies some bean definitions:
 ----
 public class ExampleBean {
 
-  private AnotherBean beanOne;
-  private YetAnotherBean beanTwo;
-  private int i;
+	private AnotherBean beanOne;
+	private YetAnotherBean beanTwo;
+	private int i;
 
-  public void setBeanOne(AnotherBean beanOne) {
-      this.beanOne = beanOne;
-  }
+	public void setBeanOne(AnotherBean beanOne) {
+		this.beanOne = beanOne;
+	}
 
-  public void setBeanTwo(YetAnotherBean beanTwo) {
-      this.beanTwo = beanTwo;
-  }
+	public void setBeanTwo(YetAnotherBean beanTwo) {
+		this.beanTwo = beanTwo;
+	}
 
-  public void setIntegerProperty(int i) {
-      this.i = i;
-  }
+	public void setIntegerProperty(int i) {
+		this.i = i;
+	}
 }
 ----
 
@@ -2765,16 +2763,15 @@ in the XML file. The following example uses constructor-based DI:
 [subs="verbatim,quotes"]
 ----
 <bean id="exampleBean" class="examples.ExampleBean">
+	<!-- constructor injection using the nested <ref/> element -->
+	<constructor-arg>
+		<ref bean="anotherExampleBean"/>
+	</constructor-arg>
 
-<!-- constructor injection using the nested <ref/> element -->
-<constructor-arg>
-  <ref bean="anotherExampleBean"/>
-</constructor-arg>
+	<!-- constructor injection using the neater 'ref' attribute -->
+	<constructor-arg ref="yetAnotherBean"/>
 
-<!-- constructor injection using the neater 'ref' attribute -->
-<constructor-arg ref="yetAnotherBean"/>
-
-<constructor-arg type="int" value="1"/>
+	<constructor-arg type="int" value="1"/>
 </bean>
 
 <bean id="anotherExampleBean" class="examples.AnotherBean"/>
@@ -2786,15 +2783,15 @@ in the XML file. The following example uses constructor-based DI:
 ----
 public class ExampleBean {
 
-  private AnotherBean beanOne;
-  private YetAnotherBean beanTwo;
-  private int i;
+	private AnotherBean beanOne;
+	private YetAnotherBean beanTwo;
+	private int i;
 
-  public ExampleBean(
-      AnotherBean anotherBean, YetAnotherBean yetAnotherBean, int i) {
-      this.beanOne = anotherBean;
-      this.beanTwo = yetAnotherBean;
-      this.i = i;
+	public ExampleBean(
+		AnotherBean anotherBean, YetAnotherBean yetAnotherBean, int i) {
+		this.beanOne = anotherBean;
+		this.beanTwo = yetAnotherBean;
+		this.i = i;
   }
 }
 ----
@@ -2808,11 +2805,10 @@ told to call a `static` factory method to return an instance of the object:
 [source,xml]
 [subs="verbatim,quotes"]
 ----
-<bean id="exampleBean" class="examples.ExampleBean"
-    factory-method="createInstance">
-<constructor-arg ref="anotherExampleBean"/>
-<constructor-arg ref="yetAnotherBean"/>
-<constructor-arg value="1"/>
+<bean id="exampleBean" class="examples.ExampleBean" factory-method="createInstance">
+	<constructor-arg ref="anotherExampleBean"/>
+	<constructor-arg ref="yetAnotherBean"/>
+	<constructor-arg value="1"/>
 </bean>
 
 <bean id="anotherExampleBean" class="examples.AnotherBean"/>
@@ -2824,21 +2820,21 @@ told to call a `static` factory method to return an instance of the object:
 ----
 public class ExampleBean {
 
-  // a private constructor
-  private ExampleBean(...) {
-    ...
-  }
+	// a private constructor
+	private ExampleBean(...) {
+		...
+	}
 
-  // a static factory method; the arguments to this method can be
-  // considered the dependencies of the bean that is returned,
-  // regardless of how those arguments are actually used.
-  public static ExampleBean createInstance (
-          AnotherBean anotherBean, YetAnotherBean yetAnotherBean, int i) {
+	// a static factory method; the arguments to this method can be
+	// considered the dependencies of the bean that is returned,
+	// regardless of how those arguments are actually used.
+	public static ExampleBean createInstance (
+		AnotherBean anotherBean, YetAnotherBean yetAnotherBean, int i) {
 
-      ExampleBean eb = new ExampleBean (...);
-      // some other operations...
-      return eb;
-  }
+		ExampleBean eb = new ExampleBean (...);
+		// some other operations...
+		return eb;
+	}
 }
 ----
 
@@ -2888,17 +2884,17 @@ XML configuration.
 [subs="verbatim,quotes"]
 ----
 <beans xmlns="http://www.springframework.org/schema/beans"
-     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-     xmlns:p="http://www.springframework.org/schema/p"
-     xsi:schemaLocation="http://www.springframework.org/schema/beans
-     http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 <bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource"
-      destroy-method="close"
-      p:driverClassName="com.mysql.jdbc.Driver"
-      p:url="jdbc:mysql://localhost:3306/mydb"
-      p:username="root"
-      p:password="masterkaoli"/>
+	destroy-method="close"
+	p:driverClassName="com.mysql.jdbc.Driver"
+	p:url="jdbc:mysql://localhost:3306/mydb"
+	p:username="root"
+	p:password="masterkaoli"/>
 
 </beans>
 ----
@@ -2915,15 +2911,15 @@ You can also configure a `java.util.Properties` instance as:
 [subs="verbatim,quotes"]
 ----
 <bean id="mappings"
-    class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 
- <!-- typed as a java.util.Properties -->
- <property name="properties">
-    <value>
-       jdbc.driver.className=com.mysql.jdbc.Driver
-       jdbc.url=jdbc:mysql://localhost:3306/mydb
-    </value>
- </property>
+	<!-- typed as a java.util.Properties -->
+	<property name="properties">
+		<value>
+			jdbc.driver.className=com.mysql.jdbc.Driver
+			jdbc.url=jdbc:mysql://localhost:3306/mydb
+		</value>
+	</property>
 </bean>
 ----
 
@@ -2945,9 +2941,9 @@ element.
 <bean id="theTargetBean" class="..."/>
 
 <bean id="theClientBean" class="...">
-  <property name="targetName">
-      <idref bean="theTargetBean" />
-  </property>
+	<property name="targetName">
+		<idref bean="theTargetBean" />
+	</property>
 </bean>
 ----
 
@@ -2960,7 +2956,7 @@ following snippet:
 <bean id="theTargetBean" class="..." />
 
 <bean id="client" class="...">
-  <property name="targetName" value="theTargetBean" />
+	<property name="targetName" value="theTargetBean" />
 </bean>
 ----
 
@@ -2980,8 +2976,8 @@ validate the bean id earlier, at XML document parse time.
 [subs="verbatim,quotes"]
 ----
 <property name="targetName">
- <!-- a bean with id 'theTargetBean' must exist; otherwise an exception will be thrown -->
- <idref bean="theTargetBean"/>
+	<!-- a bean with id 'theTargetBean' must exist; otherwise an exception will be thrown -->
+	<idref bean="theTargetBean"/>
 </property>
 ----
 
@@ -3040,7 +3036,7 @@ container with a proxy that will have the same name as the parent bean.
 ----
 <!-- in the parent context -->
 <bean id="accountService" class="com.foo.SimpleAccountService">
-  <!-- insert dependencies as required as here -->
+	<!-- insert dependencies as required as here -->
 </bean>
 ----
 
@@ -3049,11 +3045,11 @@ container with a proxy that will have the same name as the parent bean.
 ----
 <!-- in the child (descendant) context -->
 <bean id="accountService"  <-- bean name is the same as the parent bean -->
-    class="org.springframework.aop.framework.ProxyFactoryBean">
-    <property name="target">
-        <ref parent="accountService"/>  <!-- notice how we refer to the parent bean -->
-    </property>
-  <!-- insert other configuration and dependencies as required here -->
+	class="org.springframework.aop.framework.ProxyFactoryBean">
+	<property name="target">
+		<ref parent="accountService"/>  <!-- notice how we refer to the parent bean -->
+	</property>
+	<!-- insert other configuration and dependencies as required here -->
 </bean>
 ----
 
@@ -3067,13 +3063,13 @@ so-called __inner bean__.
 [subs="verbatim,quotes"]
 ----
 <bean id="outer" class="...">
-<!-- instead of using a reference to a target bean, simply define the target bean inline -->
-<property name="target">
-  <bean class="com.example.Person"> <!-- this is the inner bean -->
-    <property name="name" value="Fiona Apple"/>
-    <property name="age" value="25"/>
-  </bean>
-</property>
+	<!-- instead of using a reference to a target bean, simply define the target bean inline -->
+	<property name="target">
+		<bean class="com.example.Person"> <!-- this is the inner bean -->
+			<property name="name" value="Fiona Apple"/>
+			<property name="age" value="25"/>
+		</bean>
+	</property>
 </bean>
 ----
 
@@ -3093,35 +3089,35 @@ respectively.
 [subs="verbatim,quotes"]
 ----
 <bean id="moreComplexObject" class="example.ComplexObject">
-<!-- results in a setAdminEmails(java.util.Properties) call -->
-<property name="adminEmails">
-  <props>
-      <prop key="administrator">administrator@example.org</prop>
-      <prop key="support">support@example.org</prop>
-      <prop key="development">development@example.org</prop>
-  </props>
-</property>
-<!-- results in a setSomeList(java.util.List) call -->
-<property name="someList">
-  <list>
-      <value>a list element followed by a reference</value>
-      <ref bean="myDataSource" />
-  </list>
-</property>
-<!-- results in a setSomeMap(java.util.Map) call -->
-<property name="someMap">
-  <map>
-      <entry key="an entry" value="just some string"/>
-      <entry key ="a ref" value-ref="myDataSource"/>
-  </map>
-</property>
-<!-- results in a setSomeSet(java.util.Set) call -->
-<property name="someSet">
-  <set>
-      <value>just some string</value>
-      <ref bean="myDataSource" />
-  </set>
-</property>
+	<!-- results in a setAdminEmails(java.util.Properties) call -->
+	<property name="adminEmails">
+		<props>
+			<prop key="administrator">administrator@example.org</prop>
+			<prop key="support">support@example.org</prop>
+			<prop key="development">development@example.org</prop>
+		</props>
+	</property>
+	<!-- results in a setSomeList(java.util.List) call -->
+	<property name="someList">
+		<list>
+			<value>a list element followed by a reference</value>
+			<ref bean="myDataSource" />
+		</list>
+	</property>
+	<!-- results in a setSomeMap(java.util.Map) call -->
+	<property name="someMap">
+		<map>
+			<entry key="an entry" value="just some string"/>
+			<entry key ="a ref" value-ref="myDataSource"/>
+		</map>
+	</property>
+	<!-- results in a setSomeSet(java.util.Set) call -->
+	<property name="someSet">
+		<set>
+			<value>just some string</value>
+			<ref bean="myDataSource" />
+		</set>
+	</property>
 </bean>
 ----
 
@@ -3153,23 +3149,23 @@ The following example demonstrates collection merging:
 [subs="verbatim,quotes"]
 ----
 <beans>
-<bean id="parent" abstract="true" class="example.ComplexObject">
-  <property name="adminEmails">
-      <props>
-          <prop key="administrator">administrator@example.com</prop>
-          <prop key="support">support@example.com</prop>
-      </props>
-  </property>
-</bean>
-<bean id="child" parent="parent">
-  <property name="adminEmails">
-      <!-- the merge is specified on the *child* collection definition -->
-      <props merge="true">
-          <prop key="sales">sales@example.com</prop>
-          <prop key="support">support@example.co.uk</prop>
-      </props>
-  </property>
-</bean>
+	<bean id="parent" abstract="true" class="example.ComplexObject">
+		<property name="adminEmails">
+			<props>
+				<prop key="administrator">administrator@example.com</prop>
+				<prop key="support">support@example.com</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="child" parent="parent">
+		<property name="adminEmails">
+			<!-- the merge is specified on the *child* collection definition -->
+			<props merge="true">
+				<prop key="sales">sales@example.com</prop>
+				<prop key="support">support@example.co.uk</prop>
+			</props>
+		</property>
+	</bean>
 <beans>
 ----
 
@@ -3222,11 +3218,11 @@ the appropriate type prior to being added to the `Collection`.
 ----
 public class Foo {
 
-  private Map<String, Float> accounts;
+	private Map<String, Float> accounts;
 
-  public void setAccounts(Map<String, Float> accounts) {
-      this.accounts = accounts;
-  }
+	public void setAccounts(Map<String, Float> accounts) {
+		this.accounts = accounts;
+	}
 }
 ----
 
@@ -3234,15 +3230,15 @@ public class Foo {
 [subs="verbatim,quotes"]
 ----
 <beans>
-  <bean id="foo" class="x.y.Foo">
-      <property name="accounts">
-          <map>
-              <entry key="one" value="9.99"/>
-              <entry key="two" value="2.75"/>
-              <entry key="six" value="3.99"/>
-          </map>
-      </property>
-  </bean>
+	<bean id="foo" class="x.y.Foo">
+		<property name="accounts">
+			<map>
+				<entry key="one" value="9.99"/>
+				<entry key="two" value="2.75"/>
+				<entry key="six" value="3.99"/>
+			</map>
+		</property>
+	</bean>
 </beans>
 ----
 
@@ -3263,7 +3259,7 @@ following XML-based configuration metadata snippet sets the email property to th
 [subs="verbatim,quotes"]
 ----
 <bean class="ExampleBean">
-<property name="email" value=""/>
+	<property name="email" value=""/>
 </bean>
 ----
 
@@ -3274,7 +3270,7 @@ The preceding example is equivalent to the following Java code:
 [subs="verbatim,quotes"]
 ----
 <bean class="ExampleBean">
-<property name="email"><null/></property>
+	<property name="email"><null/></property>
 </bean>
 ----
 
@@ -3299,17 +3295,17 @@ uses standard XML format and the second uses the p-namespace.
 [subs="verbatim,quotes"]
 ----
 <beans xmlns="http://www.springframework.org/schema/beans"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns:p="http://www.springframework.org/schema/p"
-  xsi:schemaLocation="http://www.springframework.org/schema/beans
-      http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-  <bean name="classic" class="com.example.ExampleBean">
-      <property name="email" value="foo@bar.com"/>
-  </bean>
+	<bean name="classic" class="com.example.ExampleBean">
+		<property name="email" value="foo@bar.com"/>
+	</bean>
 
-  <bean name="p-namespace" class="com.example.ExampleBean"
-        p:email="foo@bar.com"/>
+	<bean name="p-namespace" class="com.example.ExampleBean"
+		p:email="foo@bar.com"/>
 </beans>
 ----
 
@@ -3325,24 +3321,24 @@ another bean:
 [subs="verbatim,quotes"]
 ----
 <beans xmlns="http://www.springframework.org/schema/beans"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns:p="http://www.springframework.org/schema/p"
-  xsi:schemaLocation="http://www.springframework.org/schema/beans
-      http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-  <bean name="john-classic" class="com.example.Person">
-      <property name="name" value="John Doe"/>
-      <property name="spouse" ref="jane"/>
-  </bean>
+	<bean name="john-classic" class="com.example.Person">
+		<property name="name" value="John Doe"/>
+		<property name="spouse" ref="jane"/>
+	</bean>
 
-  <bean name="john-modern"
-      class="com.example.Person"
-      p:name="John Doe"
-      p:spouse-ref="jane"/>
+	<bean name="john-modern"
+		class="com.example.Person"
+		p:name="John Doe"
+		p:spouse-ref="jane"/>
 
-  <bean name="jane" class="com.example.Person">
-      <property name="name" value="Jane Doe"/>
-  </bean>
+	<bean name="jane" class="com.example.Person">
+		<property name="name" value="Jane Doe"/>
+	</bean>
 </beans>
 ----
 
@@ -3376,23 +3372,23 @@ Let's review the examples from <<beans-constructor-injection>> with the `c` name
 [subs="verbatim,quotes"]
 ----
 <beans xmlns="http://www.springframework.org/schema/beans"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns:c="http://www.springframework.org/schema/c"
-  xsi:schemaLocation="http://www.springframework.org/schema/beans
-      http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-  <bean id="bar" class="x.y.Bar"/>
-  <bean id="baz" class="x.y.Baz"/>
+	<bean id="bar" class="x.y.Bar"/>
+	<bean id="baz" class="x.y.Baz"/>
 
-  <-- 'traditional' declaration -->
-  <bean id="foo" class="x.y.Foo">
-      <constructor-arg ref="bar"/>
-      <constructor-arg ref="baz"/>
-      <constructor-arg value="foo@bar.com"/>
-  </bean>
+	<-- 'traditional' declaration -->
+	<bean id="foo" class="x.y.Foo">
+		<constructor-arg ref="bar"/>
+		<constructor-arg ref="baz"/>
+		<constructor-arg value="foo@bar.com"/>
+	</bean>
 
-  <-- 'c-namespace' declaration -->
-  <bean id="foo" class="x.y.Foo" c:bar-ref="bar" c:baz-ref="baz" c:email="foo@bar.com">
+	<-- 'c-namespace' declaration -->
+	<bean id="foo" class="x.y.Foo" c:bar-ref="bar" c:baz-ref="baz" c:email="foo@bar.com">
 
 </beans>
 ----
@@ -3435,7 +3431,7 @@ following bean definition.
 [subs="verbatim,quotes"]
 ----
 <bean id="foo" class="foo.Bar">
-<property name="fred.bob.sammy" value="123" />
+	<property name="fred.bob.sammy" value="123" />
 </bean>
 ----
 
@@ -3473,7 +3469,7 @@ delimiters:
 [subs="verbatim,quotes"]
 ----
 <bean id="beanOne" class="ExampleBean" depends-on="manager,accountDao">
-<property name="manager" ref="manager" />
+	<property name="manager" ref="manager" />
 </bean>
 
 <bean id="manager" class="ManagerBean" />
@@ -3483,7 +3479,7 @@ delimiters:
 [NOTE]
 ====
 The `depends-on` attribute in the bean definition can specify both an initialization
-time dependency and, in the case of<<beans-factory-scopes-singleton,singleton>> beans
+time dependency and, in the case of <<beans-factory-scopes-singleton,singleton>> beans
 only, a corresponding destroy time dependency. Dependent beans that define a
 `depends-on` relationship with a given bean are destroyed first, prior to the given bean
 itself being destroyed. Thus `depends-on` can also control shutdown order.
@@ -3528,7 +3524,7 @@ You can also control lazy-initialization at the container level by using the
 [subs="verbatim,quotes"]
 ----
 <beans default-lazy-init="true">
-  <!-- no beans will be pre-instantiated... -->
+	<!-- no beans will be pre-instantiated... -->
 </beans>
 ----
 
@@ -3685,25 +3681,25 @@ import org.springframework.context.ApplicationContextAware;
 
 public class CommandManager implements ApplicationContextAware {
 
- private ApplicationContext applicationContext;
+	private ApplicationContext applicationContext;
 
- public Object process(Map commandState) {
-    // grab a new instance of the appropriate Command
-    Command command = createCommand();
-    // set the state on the (hopefully brand new) Command instance
-    command.setState(commandState);
-    return command.execute();
- }
+	public Object process(Map commandState) {
+		// grab a new instance of the appropriate Command
+		Command command = createCommand();
+		// set the state on the (hopefully brand new) Command instance
+		command.setState(commandState);
+		return command.execute();
+	}
 
- protected Command createCommand() {
-    // notice the Spring API dependency!
-    return this.applicationContext.getBean("command", Command.class);
- }
+	protected Command createCommand() {
+		// notice the Spring API dependency!
+		return this.applicationContext.getBean("command", Command.class);
+	}
 
- public void setApplicationContext(ApplicationContext applicationContext)
-                                                                  throws BeansException {
-    this.applicationContext = applicationContext;
- }
+	public void setApplicationContext(
+			ApplicationContext applicationContext) throws BeansException {
+		this.applicationContext = applicationContext;
+	}
 }
 ----
 
@@ -3753,16 +3749,16 @@ package fiona.apple;
 
 public abstract class CommandManager {
 
- public Object process(Object commandState) {
-    // grab a new instance of the appropriate Command interface
-    Command command = createCommand();
-    // set the state on the (hopefully brand new) Command instance
-    command.setState(commandState);
-    return command.execute();
- }
+	public Object process(Object commandState) {
+		// grab a new instance of the appropriate Command interface
+		Command command = createCommand();
+		// set the state on the (hopefully brand new) Command instance
+		command.setState(commandState);
+		return command.execute();
+	}
 
-  // okay... but where is the implementation of this method?
- protected abstract Command createCommand();
+	// okay... but where is the implementation of this method?
+	protected abstract Command createCommand();
 }
 ----
 
@@ -3784,12 +3780,12 @@ the original class. For example:
 ----
 <!-- a stateful bean deployed as a prototype (non-singleton) -->
 <bean id="command" class="fiona.apple.AsyncCommand" scope="prototype">
-<!-- inject dependencies here as required -->
+	<!-- inject dependencies here as required -->
 </bean>
 
 <!-- commandProcessor uses statefulCommandHelper -->
 <bean id="commandManager" class="fiona.apple.CommandManager">
-<lookup-method name="createCommand" bean="command"/>
+	<lookup-method name="createCommand" bean="command"/>
 </bean>
 ----
 
@@ -3826,11 +3822,11 @@ the following class, with a method computeValue, which we want to override:
 ----
 public class MyValueCalculator {
 
-public String computeValue(String input) {
-  // some real code...
-}
+	public String computeValue(String input) {
+		// some real code...
+	}
 
-// some other methods...
+	// some other methods...
 
 }
 ----
@@ -3841,17 +3837,18 @@ interface provides the new method definition.
 [source,java]
 [subs="verbatim,quotes"]
 ----
-/** meant to be used to override the existing computeValue(String)
-  implementation in MyValueCalculator
-*/
+/**
+ * meant to be used to override the existing computeValue(String)
+ * implementation in MyValueCalculator
+ */
 public class ReplacementComputeValue implements MethodReplacer {
 
-  public Object reimplement(Object o, Method m, Object[] args) throws Throwable {
-      // get the input value, work with it, and return a computed result
-      String input = (String) args[0];
-      ...
-      return ...;
-  }
+	public Object reimplement(Object o, Method m, Object[] args) throws Throwable {
+		// get the input value, work with it, and return a computed result
+		String input = (String) args[0];
+		...
+		return ...;
+	}
 }
 ----
 
@@ -3863,10 +3860,10 @@ look like this:
 ----
 <bean id="myValueCalculator" class="x.y.z.MyValueCalculator">
 
-<!-- arbitrary method replacement -->
-<replaced-method name="computeValue" replacer="replacementComputeValue">
-  <arg-type>String</arg-type>
-</replaced-method>
+	<!-- arbitrary method replacement -->
+	<replaced-method name="computeValue" replacer="replacementComputeValue">
+		<arg-type>String</arg-type>
+	</replaced-method>
 </bean>
 
 <bean id="replacementComputeValue" class="a.b.c.ReplacementComputeValue"/>
@@ -3883,8 +3880,8 @@ substring of the fully qualified type name. For example, the following all match
 [subs="verbatim,quotes"]
 ----
 java.lang.String
-  String
-  Str
+String
+Str
 ----
 
 Because the number of arguments is often enough to distinguish between each possible
@@ -4076,13 +4073,13 @@ DispatcherServlet (for example, when using JSF or Struts), you need to add the f
 [subs="verbatim,quotes"]
 ----
 <web-app>
-...
-<listener>
-  <listener-class>
-      org.springframework.web.context.request.RequestContextListener
-  </listener-class>
-</listener>
-...
+	...
+	<listener>
+		<listener-class>
+			org.springframework.web.context.request.RequestContextListener
+		</listener-class>
+	</listener>
+	...
 </web-app>
 ----
 
@@ -4097,16 +4094,16 @@ as appropriate.)
 [subs="verbatim,quotes"]
 ----
 <web-app>
-..
-<filter>
-  <filter-name>requestContextFilter</filter-name>
-  <filter-class>org.springframework.web.filter.RequestContextFilter</filter-class>
-</filter>
-<filter-mapping>
-  <filter-name>requestContextFilter</filter-name>
-  <url-pattern>/*</url-pattern>
-</filter-mapping>
-...
+	...
+	<filter>
+		<filter-name>requestContextFilter</filter-name>
+		<filter-class>org.springframework.web.filter.RequestContextFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>requestContextFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	...
 </web-app>
 ----
 
@@ -4202,27 +4199,24 @@ understand the "why" as well as the "how" behind it.
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-     xmlns:aop="http://www.springframework.org/schema/aop"
-     xsi:schemaLocation="http://www.springframework.org/schema/beans
-         http://www.springframework.org/schema/beans/spring-beans.xsd
-         http://www.springframework.org/schema/aop
-         http://www.springframework.org/schema/aop/spring-aop.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-  <!-- an HTTP Session-scoped bean exposed as a proxy -->
-  <bean id="userPreferences" class="com.foo.UserPreferences" scope="session">
+	<!-- an HTTP Session-scoped bean exposed as a proxy -->
+	<bean id="userPreferences" class="com.foo.UserPreferences" scope="session">
+		<!-- instructs the container to proxy the surrounding bean -->
+		<aop:scoped-proxy/>
+	</bean>
 
-        <!-- instructs the container to proxy the surrounding bean -->
-        <aop:scoped-proxy/>
-  </bean>
-
-  <!-- a singleton-scoped bean injected with a proxy to the above bean -->
-  <bean id="userService" class="com.foo.SimpleUserService">
-
-      <!-- a reference to the proxied userPreferences bean -->
-      <property name="userPreferences" ref="userPreferences"/>
-
-  </bean>
+	<!-- a singleton-scoped bean injected with a proxy to the above bean -->
+	<bean id="userService" class="com.foo.SimpleUserService">
+		<!-- a reference to the proxied userPreferences bean -->
+		<property name="userPreferences" ref="userPreferences"/>
+	</bean>
 </beans>
 ----
 
@@ -4240,7 +4234,7 @@ definition as it stands is __incomplete.)__
 <bean id="userPreferences" class="com.foo.UserPreferences" scope="session"/>
 
 <bean id="userManager" class="com.foo.UserManager">
-  <property name="userPreferences" ref="userPreferences"/>
+	<property name="userPreferences" ref="userPreferences"/>
 </bean>
 ----
 
@@ -4274,10 +4268,10 @@ Thus you need the following, correct and complete, configuration when injecting
 [subs="verbatim,quotes"]
 ----
 <bean id="userPreferences" class="com.foo.UserPreferences" scope="session">
-  <aop:scoped-proxy/>
+	<aop:scoped-proxy/>
 </bean>
 <bean id="userManager" class="com.foo.UserManager">
-  <property name="userPreferences" ref="userPreferences"/>
+	<property name="userPreferences" ref="userPreferences"/>
 </bean>
 ----
 
@@ -4303,10 +4297,10 @@ interfaces.
 ----
 <!-- DefaultUserPreferences implements the UserPreferences interface -->
 <bean id="userPreferences" class="com.foo.DefaultUserPreferences" scope="session">
-  <aop:scoped-proxy proxy-target-class="false"/>
+	<aop:scoped-proxy proxy-target-class="false"/>
 </bean>
 <bean id="userManager" class="com.foo.UserManager">
-  <property name="userPreferences" ref="userPreferences"/>
+	<property name="userPreferences" ref="userPreferences"/>
 </bean>
 ----
 
@@ -4431,31 +4425,31 @@ of the scope. You can also do the `Scope` registration declaratively, using the
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-     xmlns:aop="http://www.springframework.org/schema/aop"
-     xsi:schemaLocation="http://www.springframework.org/schema/beans
-         http://www.springframework.org/schema/beans/spring-beans.xsd
-         http://www.springframework.org/schema/aop
-         http://www.springframework.org/schema/aop/spring-aop.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-  <bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
-      <property name="scopes">
-          <map>
-              <entry key="thread">
-                  <bean class="org.springframework.context.support.SimpleThreadScope"/>
-              </entry>
-          </map>
-      </property>
-  </bean>
+	<bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+		<property name="scopes">
+			<map>
+				<entry key="thread">
+					<bean class="org.springframework.context.support.SimpleThreadScope"/>
+				</entry>
+			</map>
+		</property>
+	</bean>
 
-  <bean id="bar" class="x.y.Bar" scope="thread">
-      <property name="name" value="Rick"/>
-      <aop:scoped-proxy/>
-  </bean>
+	<bean id="bar" class="x.y.Bar" scope="thread">
+		<property name="name" value="Rick"/>
+		<aop:scoped-proxy/>
+	</bean>
 
-  <bean id="foo" class="x.y.Foo">
-      <property name="bar" ref="bar"/>
-  </bean>
+	<bean id="foo" class="x.y.Foo">
+		<property name="bar" ref="bar"/>
+	</bean>
 
 </beans>
 ----
@@ -4536,9 +4530,9 @@ no-argument signature. For example, the following definition:
 ----
 public class ExampleBean {
 
-  public void init() {
-      // do some initialization work
-  }
+	public void init() {
+		// do some initialization work
+	}
 }
 ----
 
@@ -4555,9 +4549,9 @@ public class ExampleBean {
 ----
 public class AnotherExampleBean implements InitializingBean {
 
-  public void afterPropertiesSet() {
-      // do some initialization work
-  }
+	public void afterPropertiesSet() {
+		// do some initialization work
+	}
 }
 ----
 
@@ -4594,9 +4588,9 @@ example, the following definition:
 ----
 public class ExampleBean {
 
-  public void cleanup() {
-      // do some destruction work (like releasing pooled connections)
-  }
+	public void cleanup() {
+		// do some destruction work (like releasing pooled connections)
+	}
 }
 ----
 
@@ -4613,9 +4607,9 @@ public class ExampleBean {
 ----
 public class AnotherExampleBean implements DisposableBean {
 
-  public void destroy() {
-      // do some destruction work (like releasing pooled connections)
-  }
+	public void destroy() {
+		// do some destruction work (like releasing pooled connections)
+	}
 }
 ----
 
@@ -4648,18 +4642,18 @@ following example.
 ----
 public class DefaultBlogService implements BlogService {
 
-  private BlogDao blogDao;
+	private BlogDao blogDao;
 
-  public void setBlogDao(BlogDao blogDao) {
-      this.blogDao = blogDao;
-  }
+	public void setBlogDao(BlogDao blogDao) {
+		this.blogDao = blogDao;
+	}
 
-  // this is (unsurprisingly) the initialization callback method
-  public void init() {
-      if (this.blogDao == null) {
-          throw new IllegalStateException("The [blogDao] property must be set.");
-      }
-  }
+	// this is (unsurprisingly) the initialization callback method
+	public void init() {
+		if (this.blogDao == null) {
+			throw new IllegalStateException("The [blogDao] property must be set.");
+		}
+	}
 }
 ----
 
@@ -4668,9 +4662,9 @@ public class DefaultBlogService implements BlogService {
 ----
 <beans default-init-method="init">
 
-  <bean id="blogService" class="com.foo.DefaultBlogService">
-      <property name="blogDao" ref="blogDao" />
-  </bean>
+	<bean id="blogService" class="com.foo.DefaultBlogService">
+		<property name="blogDao" ref="blogDao" />
+	</bean>
 
 </beans>
 ----
@@ -4742,11 +4736,11 @@ lifecycle requirements (e.g. starts and stops some background process):
 ----
 public interface Lifecycle {
 
-  void start();
+	void start();
 
-  void stop();
+	void stop();
 
-  boolean isRunning();
+	boolean isRunning();
 
 }
 ----
@@ -4761,9 +4755,9 @@ implementations defined within that context. It does this by delegating to a
 ----
 public interface LifecycleProcessor extends Lifecycle {
 
-  void onRefresh();
+	void onRefresh();
 
-  void onClose();
+	void onClose();
 
 }
 ----
@@ -4785,15 +4779,15 @@ another option, namely the `getPhase()` method as defined on its super-interface
 ----
 public interface Phased {
 
-  int getPhase();
+	int getPhase();
 
 }
 
 public interface SmartLifecycle extends Lifecycle, Phased {
 
-  boolean isAutoStartup();
+	boolean isAutoStartup();
 
-  void stop(Runnable callback);
+	void stop(Runnable callback);
 
 }
 ----
@@ -4823,8 +4817,8 @@ defining the following would be sufficient:
 [subs="verbatim,quotes"]
 ----
 <bean id="lifecycleProcessor" class="org.springframework.context.support.DefaultLifecycleProcessor">
-  <!-- timeout value in milliseconds -->
-  <property name="timeoutPerShutdownPhase" value="10000"/>
+	<!-- timeout value in milliseconds -->
+	<property name="timeoutPerShutdownPhase" value="10000"/>
 </bean>
 ----
 
@@ -4869,17 +4863,17 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public final class Boot {
 
-  public static void main(final String[] args) throws Exception {
-      AbstractApplicationContext ctx
-          = new ClassPathXmlApplicationContext(new String []{"beans.xml"});
+	public static void main(final String[] args) throws Exception {
+		AbstractApplicationContext ctx
+			= new ClassPathXmlApplicationContext(new String []{"beans.xml"});
 
-      // add a shutdown hook for the above context...
-      ctx.registerShutdownHook();
+		// add a shutdown hook for the above context...
+		ctx.registerShutdownHook();
 
-      // app runs here...
+		// app runs here...
 
-      // main method exits, hook is called prior to the app shutting down...
-  }
+		// main method exits, hook is called prior to the app shutting down...
+	}
 }
 ----
 
@@ -4932,7 +4926,7 @@ a reference to the name defined in its associated object definition.
 ----
 public interface BeanNameAware {
 
-  void setBeanName(string name) throws BeansException;
+	void setBeanName(string name) throws BeansException;
 }
 ----
 
@@ -5046,18 +5040,16 @@ specifying the parent bean as the value of this attribute.
 [subs="verbatim,quotes"]
 ----
 <bean id="inheritedTestBean" abstract="true"
-    class="org.springframework.beans.TestBean">
-  <property name="name" value="parent"/>
-  <property name="age" value="1"/>
+		class="org.springframework.beans.TestBean">
+	<property name="name" value="parent"/>
+	<property name="age" value="1"/>
 </bean>
 
 <bean id="inheritsWithDifferentClass"
-      class="org.springframework.beans.DerivedTestBean"
-      **parent="inheritedTestBean"** init-method="initialize">
-
-  <property name="name" value="override"/>
-  <!-- the age property value of 1 will be inherited from  parent -->
-
+		class="org.springframework.beans.DerivedTestBean"
+		**parent="inheritedTestBean"** init-method="initialize">
+	<property name="name" value="override"/>
+	<!-- the age property value of 1 will be inherited from  parent -->
 </bean>
 ----
 
@@ -5081,14 +5073,14 @@ marking the parent bean definition as `abstract` is required, as follows:
 [subs="verbatim,quotes"]
 ----
 <bean id="inheritedTestBeanWithoutClass" abstract="true">
-    <property name="name" value="parent"/>
-    <property name="age" value="1"/>
+	<property name="name" value="parent"/>
+	<property name="age" value="1"/>
 </bean>
 
 <bean id="inheritsWithClass" class="org.springframework.beans.DerivedTestBean"
-    parent="inheritedTestBeanWithoutClass" init-method="initialize">
-  <property name="name" value="override"/>
-  <!-- age will inherit the value of 1 from the parent bean definition-->
+		parent="inheritedTestBeanWithoutClass" init-method="initialize">
+	<property name="name" value="override"/>
+	<!-- age will inherit the value of 1 from the parent bean definition-->
 </bean>
 ----
 
@@ -5241,17 +5233,17 @@ import org.springframework.beans.BeansException;
 
 public class InstantiationTracingBeanPostProcessor implements BeanPostProcessor {
 
-  // simply return the instantiated bean as-is
-  public Object postProcessBeforeInitialization(Object bean, String beanName)
-                                                                     throws BeansException {
-      return bean; // we could potentially return any object reference here...
-  }
+	// simply return the instantiated bean as-is
+	public Object postProcessBeforeInitialization(Object bean,
+			String beanName) throws BeansException {
+		return bean; // we could potentially return any object reference here...
+	}
 
-  public Object postProcessAfterInitialization(Object bean, String beanName)
-                                                                     throws BeansException {
-      System.out.println("Bean '" + beanName + "' created : " + bean.toString());
-      return bean;
-  }
+	public Object postProcessAfterInitialization(Object bean,
+			String beanName) throws BeansException {
+		System.out.println("Bean '" + beanName + "' created : " + bean.toString());
+		return bean;
+	}
 }
 ----
 
@@ -5260,23 +5252,23 @@ public class InstantiationTracingBeanPostProcessor implements BeanPostProcessor 
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-     xmlns:lang="http://www.springframework.org/schema/lang"
-     xsi:schemaLocation="http://www.springframework.org/schema/beans
-         http://www.springframework.org/schema/beans/spring-beans.xsd
-         http://www.springframework.org/schema/lang
-         http://www.springframework.org/schema/lang/spring-lang.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:lang="http://www.springframework.org/schema/lang"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/lang
+		http://www.springframework.org/schema/lang/spring-lang.xsd">
 
-  <lang:groovy id="messenger"
-        script-source="classpath:org/springframework/scripting/groovy/Messenger.groovy">
-      <lang:property name="message" value="Fiona Apple Is Just So Dreamy."/>
-  </lang:groovy>
+	<lang:groovy id="messenger"
+			script-source="classpath:org/springframework/scripting/groovy/Messenger.groovy">
+		<lang:property name="message" value="Fiona Apple Is Just So Dreamy."/>
+	</lang:groovy>
 
-  <!--
-      when the above bean (messenger) is instantiated, this custom
-      BeanPostProcessor implementation will output the fact to the system console
-   -->
-  <bean class="scripting.InstantiationTracingBeanPostProcessor"/>
+	<!--
+	when the above bean (messenger) is instantiated, this custom
+	BeanPostProcessor implementation will output the fact to the system console
+	-->
+	<bean class="scripting.InstantiationTracingBeanPostProcessor"/>
 
 </beans>
 ----
@@ -5298,11 +5290,11 @@ import org.springframework.scripting.Messenger;
 
 public final class Boot {
 
-  public static void main(final String[] args) throws Exception {
-      ApplicationContext ctx = new ClassPathXmlApplicationContext("scripting/beans.xml");
-      Messenger messenger = (Messenger) ctx.getBean("messenger");
-      System.out.println(messenger);
-  }
+	public static void main(final String[] args) throws Exception {
+		ApplicationContext ctx = new ClassPathXmlApplicationContext("scripting/beans.xml");
+		Messenger messenger = (Messenger) ctx.getBean("messenger");
+		System.out.println(messenger);
+	}
 }
 ----
 
@@ -5408,15 +5400,15 @@ log4j / JSP EL style.
 [subs="verbatim,quotes"]
 ----
 <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-  <property name="locations" value="classpath:com/foo/jdbc.properties"/>
+	<property name="locations" value="classpath:com/foo/jdbc.properties"/>
 </bean>
 
 <bean id="dataSource" destroy-method="close"
-    class="org.apache.commons.dbcp.BasicDataSource">
-  <property name="driverClassName" value="${jdbc.driverClassName}"/>
-  <property name="url" value="${jdbc.url}"/>
-  <property name="username" value="${jdbc.username}"/>
-  <property name="password" value="${jdbc.password}"/>
+		class="org.apache.commons.dbcp.BasicDataSource">
+	<property name="driverClassName" value="${jdbc.driverClassName}"/>
+	<property name="url" value="${jdbc.url}"/>
+	<property name="username" value="${jdbc.username}"/>
+	<property name="password" value="${jdbc.password}"/>
 </bean>
 ----
 
@@ -5472,12 +5464,12 @@ example:
 [subs="verbatim,quotes"]
 ----
 <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-  <property name="locations">
-      <value>classpath:com/foo/strategy.properties</value>
-  </property>
-  <property name="properties">
-      <value>custom.strategy.class=com.foo.DefaultStrategy</value>
-  </property>
+	<property name="locations">
+		<value>classpath:com/foo/strategy.properties</value>
+	</property>
+	<property name="properties">
+		<value>custom.strategy.class=com.foo.DefaultStrategy</value>
+	</property>
 </bean>
 
 <bean id="serviceStrategy" class="${custom.strategy.class}"/>
@@ -5642,14 +5634,14 @@ configuration (notice the inclusion of the `context` namespace):
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-     xmlns:context="http://www.springframework.org/schema/context"
-     xsi:schemaLocation="http://www.springframework.org/schema/beans
-         http://www.springframework.org/schema/beans/spring-beans.xsd
-         http://www.springframework.org/schema/context
-         http://www.springframework.org/schema/context/spring-context.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd">
 
-   <context:annotation-config/>
+	<context:annotation-config/>
 
 </beans>
 ----
@@ -5683,14 +5675,14 @@ example:
 ----
 public class SimpleMovieLister {
 
-  private MovieFinder movieFinder;
+	private MovieFinder movieFinder;
 
-  @Required
-  public void setMovieFinder(MovieFinder movieFinder) {
-      this.movieFinder = movieFinder;
-  }
+	@Required
+	public void setMovieFinder(MovieFinder movieFinder) {
+		this.movieFinder = movieFinder;
+	}
 
-  // ...
+	// ...
 }
 ----
 
@@ -5714,14 +5706,14 @@ As expected, you can apply the `@Autowired` annotation to "traditional" setter m
 ----
 public class SimpleMovieLister {
 
-  private MovieFinder movieFinder;
+	private MovieFinder movieFinder;
 
-  @Autowired
-  public void setMovieFinder(MovieFinder movieFinder) {
-      this.movieFinder = movieFinder;
-  }
+	@Autowired
+	public void setMovieFinder(MovieFinder movieFinder) {
+		this.movieFinder = movieFinder;
+	}
 
-  // ...
+	// ...
 }
 ----
 
@@ -5739,18 +5731,18 @@ arguments:
 ----
 public class MovieRecommender {
 
-  private MovieCatalog movieCatalog;
+	private MovieCatalog movieCatalog;
 
-  private CustomerPreferenceDao customerPreferenceDao;
+	private CustomerPreferenceDao customerPreferenceDao;
 
-  @Autowired
-  public void prepare(MovieCatalog movieCatalog,
-                      CustomerPreferenceDao customerPreferenceDao) {
-      this.movieCatalog = movieCatalog;
-      this.customerPreferenceDao = customerPreferenceDao;
-  }
+	@Autowired
+	public void prepare(MovieCatalog movieCatalog,
+			CustomerPreferenceDao customerPreferenceDao) {
+		this.movieCatalog = movieCatalog;
+		this.customerPreferenceDao = customerPreferenceDao;
+	}
 
-  // ...
+	// ...
 }
 ----
 
@@ -5761,17 +5753,17 @@ You can apply `@Autowired` to constructors and fields:
 ----
 public class MovieRecommender {
 
-  @Autowired
-  private MovieCatalog movieCatalog;
+	@Autowired
+	private MovieCatalog movieCatalog;
 
-  private CustomerPreferenceDao customerPreferenceDao;
+	private CustomerPreferenceDao customerPreferenceDao;
 
-  @Autowired
-  public MovieRecommender(CustomerPreferenceDao customerPreferenceDao) {
-      this.customerPreferenceDao = customerPreferenceDao;
-  }
+	@Autowired
+	public MovieRecommender(CustomerPreferenceDao customerPreferenceDao) {
+		this.customerPreferenceDao = customerPreferenceDao;
+	}
 
-  // ...
+	// ...
 }
 ----
 
@@ -5784,10 +5776,10 @@ of that type:
 ----
 public class MovieRecommender {
 
-  @Autowired
-  private MovieCatalog[] movieCatalogs;
+	@Autowired
+	private MovieCatalog[] movieCatalogs;
 
-  // ...
+	// ...
 }
 ----
 
@@ -5798,14 +5790,14 @@ The same applies for typed collections:
 ----
 public class MovieRecommender {
 
-  private Set<MovieCatalog> movieCatalogs;
+	private Set<MovieCatalog> movieCatalogs;
 
-  @Autowired
-  public void setMovieCatalogs(Set<MovieCatalog> movieCatalogs) {
-      this.movieCatalogs = movieCatalogs;
-  }
+	@Autowired
+	public void setMovieCatalogs(Set<MovieCatalog> movieCatalogs) {
+		this.movieCatalogs = movieCatalogs;
+	}
 
-  // ...
+	// ...
 }
 ----
 
@@ -5818,14 +5810,14 @@ corresponding bean names:
 ----
 public class MovieRecommender {
 
-  private Map<String, MovieCatalog> movieCatalogs;
+	private Map<String, MovieCatalog> movieCatalogs;
 
-  @Autowired
-  public void setMovieCatalogs(Map<String, MovieCatalog> movieCatalogs) {
-      this.movieCatalogs = movieCatalogs;
-  }
+	@Autowired
+	public void setMovieCatalogs(Map<String, MovieCatalog> movieCatalogs) {
+		this.movieCatalogs = movieCatalogs;
+	}
 
-  // ...
+	// ...
 }
 ----
 
@@ -5838,14 +5830,14 @@ indicating__required__ dependencies. This behavior can be changed as demonstrate
 ----
 public class SimpleMovieLister {
 
-  private MovieFinder movieFinder;
+	private MovieFinder movieFinder;
 
-  @Autowired(required=false)
-  public void setMovieFinder(MovieFinder movieFinder) {
-      this.movieFinder = movieFinder;
-  }
+	@Autowired(required=false)
+	public void setMovieFinder(MovieFinder movieFinder) {
+		this.movieFinder = movieFinder;
+	}
 
-  // ...
+	// ...
 }
 ----
 
@@ -5874,13 +5866,13 @@ automatically resolved, with no special setup necessary.
 ----
 public class MovieRecommender {
 
-  @Autowired
-  private ApplicationContext context;
+	@Autowired
+	private ApplicationContext context;
 
-  public MovieRecommender() {
-  }
+	public MovieRecommender() {
+	}
 
-  // ...
+	// ...
 }
 ----
 
@@ -5907,11 +5899,11 @@ argument. In the simplest case, this can be a plain descriptive value:
 ----
 public class MovieRecommender {
 
-  @Autowired
-  **@Qualifier("main")**
-  private MovieCatalog movieCatalog;
+	@Autowired
+	**@Qualifier("main")**
+	private MovieCatalog movieCatalog;
 
-  // ...
+	// ...
 }
 ----
 
@@ -5923,18 +5915,18 @@ method parameters:
 ----
 public class MovieRecommender {
 
-  private MovieCatalog movieCatalog;
+	private MovieCatalog movieCatalog;
 
-  private CustomerPreferenceDao customerPreferenceDao;
+	private CustomerPreferenceDao customerPreferenceDao;
 
-  @Autowired
-  public void prepare(**@Qualifier("main")**MovieCatalog movieCatalog,
-                      CustomerPreferenceDao customerPreferenceDao) {
-      this.movieCatalog = movieCatalog;
-      this.customerPreferenceDao = customerPreferenceDao;
-  }
+	@Autowired
+	public void prepare(**@Qualifier("main")**MovieCatalog movieCatalog,
+			CustomerPreferenceDao customerPreferenceDao) {
+		this.movieCatalog = movieCatalog;
+		this.customerPreferenceDao = customerPreferenceDao;
+	}
 
-  // ...
+	// ...
 }
 ----
 
@@ -5946,28 +5938,28 @@ The corresponding bean definitions appear as follows. The bean with qualifier va
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns:context="http://www.springframework.org/schema/context"
-  xsi:schemaLocation="http://www.springframework.org/schema/beans
-      http://www.springframework.org/schema/beans/spring-beans.xsd
-      http://www.springframework.org/schema/context
-      http://www.springframework.org/schema/context/spring-context.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <context:annotation-config/>
+	<context:annotation-config/>
 
-  <bean class="example.SimpleMovieCatalog">
-      **<qualifier value="main"/>**
+	<bean class="example.SimpleMovieCatalog">
+		**<qualifier value="main"/>**
 
-      <!-- inject any dependencies required by this bean -->
-  </bean>
+		<!-- inject any dependencies required by this bean -->
+	</bean>
 
-  <bean class="example.SimpleMovieCatalog">
-      **<qualifier value="action"/>**
+	<bean class="example.SimpleMovieCatalog">
+		**<qualifier value="action"/>**
 
-      <!-- inject any dependencies required by this bean -->
-  </bean>
+		<!-- inject any dependencies required by this bean -->
+	</bean>
 
-  <bean id="movieRecommender" class="example.MovieRecommender"/>
+	<bean id="movieRecommender" class="example.MovieRecommender"/>
 
 </beans>
 ----
@@ -6022,7 +6014,7 @@ provide the `@Qualifier` annotation within your definition:
 **@Qualifier**
 public @interface Genre {
 
-    String value();
+	String value();
 }
 ----
 
@@ -6033,17 +6025,17 @@ Then you can provide the custom qualifier on autowired fields and parameters:
 ----
 public class MovieRecommender {
 
-  @Autowired
-  **@Genre("Action")**
-  private MovieCatalog actionCatalog;
-  private MovieCatalog comedyCatalog;
+	@Autowired
+	**@Genre("Action")**
+	private MovieCatalog actionCatalog;
+	private MovieCatalog comedyCatalog;
 
-  @Autowired
-  public void setComedyCatalog(**@Genre("Comedy")** MovieCatalog comedyCatalog) {
-    this.comedyCatalog = comedyCatalog;
-  }
+	@Autowired
+	public void setComedyCatalog(**@Genre("Comedy")** MovieCatalog comedyCatalog) {
+		this.comedyCatalog = comedyCatalog;
+	}
 
-  // ...
+	// ...
 }
 ----
 
@@ -6059,26 +6051,26 @@ demonstrated in the following example.
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns:context="http://www.springframework.org/schema/context"
-  xsi:schemaLocation="http://www.springframework.org/schema/beans
-      http://www.springframework.org/schema/beans/spring-beans.xsd
-      http://www.springframework.org/schema/context
-      http://www.springframework.org/schema/context/spring-context.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <context:annotation-config/>
+	<context:annotation-config/>
 
-  <bean class="example.SimpleMovieCatalog">
-      **<qualifier type="Genre" value="Action"/>**
-      <!-- inject any dependencies required by this bean -->
-  </bean>
+	<bean class="example.SimpleMovieCatalog">
+		**<qualifier type="Genre" value="Action"/>**
+		<!-- inject any dependencies required by this bean -->
+	</bean>
 
-  <bean class="example.SimpleMovieCatalog">
-      **_<qualifier type="example.Genre" value="Comedy"/>**
-      <!-- inject any dependencies required by this bean -->
-  </bean>
+	<bean class="example.SimpleMovieCatalog">
+		**_<qualifier type="example.Genre" value="Comedy"/>**
+		<!-- inject any dependencies required by this bean -->
+	</bean>
 
-  <bean id="movieRecommender" class="example.MovieRecommender"/>
+	<bean id="movieRecommender" class="example.MovieRecommender"/>
 
 </beans>
 ----
@@ -6110,11 +6102,11 @@ Then add the annotation to the field or property to be autowired:
 ----
 public class MovieRecommender {
 
-  @Autowired
-  **@Offline**
-  private MovieCatalog offlineCatalog;
+	@Autowired
+	**@Offline**
+	private MovieCatalog offlineCatalog;
 
-  // ...
+	// ...
 }
 ----
 
@@ -6124,8 +6116,8 @@ Now the bean definition only needs a qualifier `type`:
 [subs="verbatim,quotes"]
 ----
 <bean class="example.SimpleMovieCatalog">
-  **<qualifier type="Offline"/>**
-  <!-- inject any dependencies required by this bean -->
+	**<qualifier type="Offline"/>**
+	<!-- inject any dependencies required by this bean -->
 </bean>
 ----
 
@@ -6143,9 +6135,9 @@ consider the following annotation definition:
 @Qualifier
 public @interface MovieQualifier {
 
-  String genre();
+	String genre();
 
-  Format format();
+	Format format();
 }
 ----
 
@@ -6155,8 +6147,7 @@ In this case `Format` is an enum:
 [subs="verbatim,quotes"]
 ----
 public enum Format {
-
-  VHS, DVD, BLURAY
+	VHS, DVD, BLURAY
 }
 ----
 
@@ -6168,23 +6159,24 @@ for both attributes: `genre` and `format`.
 ----
 public class MovieRecommender {
 
-  @Autowired
-  @MovieQualifier(format=Format.VHS, genre="Action")
-  private MovieCatalog actionVhsCatalog;
+	@Autowired
+	@MovieQualifier(format=Format.VHS, genre="Action")
+	private MovieCatalog actionVhsCatalog;
 
-  @Autowired
-  @MovieQualifier(format=Format.VHS, genre="Comedy")
-  private MovieCatalog comedyVhsCatalog;
+	@Autowired
+	@MovieQualifier(format=Format.VHS, genre="Comedy")
+	private MovieCatalog comedyVhsCatalog;
 
-  @Autowired
-  @MovieQualifier(format=Format.DVD, genre="Action")
-  private MovieCatalog actionDvdCatalog;
+	@Autowired
+	@MovieQualifier(format=Format.DVD, genre="Action")
+	private MovieCatalog actionDvdCatalog;
 
-  @Autowired
-  @MovieQualifier(format=Format.BLURAY, genre="Comedy")
-  private MovieCatalog comedyBluRayCatalog;
+	@Autowired
+	@MovieQualifier(format=Format.BLURAY, genre="Comedy")
+	private MovieCatalog comedyBluRayCatalog;
 
-  // ...
+	// ...
+
 }
 ----
 
@@ -6200,42 +6192,42 @@ the following example.
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns:context="http://www.springframework.org/schema/context"
-  xsi:schemaLocation="http://www.springframework.org/schema/beans
-      http://www.springframework.org/schema/beans/spring-beans.xsd
-      http://www.springframework.org/schema/context
-      http://www.springframework.org/schema/context/spring-context.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <context:annotation-config/>
+	<context:annotation-config/>
 
-  <bean class="example.SimpleMovieCatalog">
-      <qualifier type="MovieQualifier">
-          <attribute key="format" value="VHS"/>
-          <attribute key="genre" value="Action"/>
-      </qualifier>
-      <!-- inject any dependencies required by this bean -->
-  </bean>
+	<bean class="example.SimpleMovieCatalog">
+		<qualifier type="MovieQualifier">
+			<attribute key="format" value="VHS"/>
+			<attribute key="genre" value="Action"/>
+		</qualifier>
+		<!-- inject any dependencies required by this bean -->
+	</bean>
 
-  <bean class="example.SimpleMovieCatalog">
-      <qualifier type="MovieQualifier">
-          <attribute key="format" value="VHS"/>
-          <attribute key="genre" value="Comedy"/>
-      </qualifier>
-      <!-- inject any dependencies required by this bean -->
-  </bean>
+	<bean class="example.SimpleMovieCatalog">
+		<qualifier type="MovieQualifier">
+			<attribute key="format" value="VHS"/>
+			<attribute key="genre" value="Comedy"/>
+		</qualifier>
+		<!-- inject any dependencies required by this bean -->
+	</bean>
 
-  <bean class="example.SimpleMovieCatalog">
-      <meta key="format" value="DVD"/>
-      <meta key="genre" value="Action"/>
-      <!-- inject any dependencies required by this bean -->
-  </bean>
+	<bean class="example.SimpleMovieCatalog">
+		<meta key="format" value="DVD"/>
+		<meta key="genre" value="Action"/>
+		<!-- inject any dependencies required by this bean -->
+	</bean>
 
-  <bean class="example.SimpleMovieCatalog">
-      <meta key="format" value="BLURAY"/>
-      <meta key="genre" value="Comedy"/>
-      <!-- inject any dependencies required by this bean -->
-  </bean>
+	<bean class="example.SimpleMovieCatalog">
+		<meta key="format" value="BLURAY"/>
+		<meta key="genre" value="Comedy"/>
+		<!-- inject any dependencies required by this bean -->
+	</bean>
 
 </beans>
 ----
@@ -6254,12 +6246,12 @@ annotation types even if they are not annotated with Spring's `@Qualifier` annot
 [subs="verbatim,quotes"]
 ----
 <bean id="customAutowireConfigurer"
-     class="org.springframework.beans.factory.annotation.CustomAutowireConfigurer">
-  <property name="customQualifierTypes">
-      <set>
-          <value>example.CustomQualifier</value>
-      </set>
-  </property>
+		class="org.springframework.beans.factory.annotation.CustomAutowireConfigurer">
+	<property name="customQualifierTypes">
+		<set>
+			<value>example.CustomQualifier</value>
+		</set>
+	</property>
 </bean>
 ----
 
@@ -6294,12 +6286,12 @@ demonstrated in this example:
 ----
 public class SimpleMovieLister {
 
-  private MovieFinder movieFinder;
+	private MovieFinder movieFinder;
 
-  **@Resource(name="myMovieFinder")**
-  public void setMovieFinder(MovieFinder movieFinder) {
-    this.movieFinder = movieFinder;
-  }
+	**@Resource(name="myMovieFinder")**
+	public void setMovieFinder(MovieFinder movieFinder) {
+		this.movieFinder = movieFinder;
+	}
 }
 ----
 
@@ -6313,12 +6305,12 @@ name "movieFinder" injected into its setter method:
 ----
 public class SimpleMovieLister {
 
-  private MovieFinder movieFinder;
+	private MovieFinder movieFinder;
 
-  **@Resource**
-  public void setMovieFinder(MovieFinder movieFinder) {
-    this.movieFinder = movieFinder;
-  }
+	**@Resource**
+	public void setMovieFinder(MovieFinder movieFinder) {
+		this.movieFinder = movieFinder;
+	}
 }
 ----
 
@@ -6348,16 +6340,16 @@ dependency type `ApplicationContext`.
 ----
 public class MovieRecommender {
 
-  @Resource
-  private CustomerPreferenceDao customerPreferenceDao;
+	@Resource
+	private CustomerPreferenceDao customerPreferenceDao;
 
-  @Resource
-  private ApplicationContext context;
+	@Resource
+	private ApplicationContext context;
 
-  public MovieRecommender() {
-  }
+	public MovieRecommender() {
+	}
 
-  // ...
+	// ...
 }
 ----
 
@@ -6382,15 +6374,15 @@ pre-populated upon initialization and cleared upon destruction.
 ----
 public class CachingMovieLister {
 
-  @PostConstruct
-  public void populateMovieCache() {
-      // populates the movie cache upon initialization...
-  }
+	@PostConstruct
+	public void populateMovieCache() {
+		// populates the movie cache upon initialization...
+	}
 
-  @PreDestroy
-  public void clearMovieCache() {
-      // clears the movie cache upon destruction...
-  }
+	@PreDestroy
+	public void clearMovieCache() {
+		// clears the movie cache upon destruction...
+	}
 }
 ----
 
@@ -6464,12 +6456,12 @@ are eligible for such autodetection:
 @Service
 public class SimpleMovieLister {
 
-  private MovieFinder movieFinder;
+	private MovieFinder movieFinder;
 
-  @Autowired
-  public SimpleMovieLister(MovieFinder movieFinder) {
-      this.movieFinder = movieFinder;
-  }
+	@Autowired
+	public SimpleMovieLister(MovieFinder movieFinder) {
+		this.movieFinder = movieFinder;
+	}
 }
 ----
 
@@ -6478,7 +6470,7 @@ public class SimpleMovieLister {
 ----
 @Repository
 public class JpaMovieFinder implements MovieFinder {
-  // implementation elided for clarity
+	// implementation elided for clarity
 }
 ----
 
@@ -6492,14 +6484,14 @@ includes the parent package of each class.)
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-     xmlns:context="http://www.springframework.org/schema/context"
-     xsi:schemaLocation="http://www.springframework.org/schema/beans
-         http://www.springframework.org/schema/beans/spring-beans.xsd
-         http://www.springframework.org/schema/context
-         http://www.springframework.org/schema/context/spring-context.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd">
 
-   <context:component-scan base-package="org.example"/>
+	<context:component-scan base-package="org.example"/>
 
 </beans>
 ----
@@ -6575,13 +6567,12 @@ and using "stub" repositories instead.
 [subs="verbatim,quotes"]
 ----
 <beans>
-
-   <context:component-scan base-package="org.example">
-      <context:include-filter type="regex" expression=".*Stub.*Repository"/>
-      <context:exclude-filter type="annotation"
-                              expression="org.springframework.stereotype.Repository"/>
-   </context:component-scan>
-
+	<context:component-scan base-package="org.example">
+		<context:include-filter type="regex"
+				expression=".*Stub.*Repository"/>
+		<context:exclude-filter type="annotation"
+				expression="org.springframework.stereotype.Repository"/>
+	</context:component-scan>
 </beans>
 ----
 
@@ -6607,14 +6598,14 @@ this with the same `@Bean` annotation used to define bean metadata within
 @Component
 public class FactoryMethodComponent {
 
-  @Bean @Qualifier("public")
-  public TestBean publicInstance() {
-      return new TestBean("publicInstance");
+	@Bean @Qualifier("public")
+	public TestBean publicInstance() {
+		return new TestBean("publicInstance");
   }
 
-  public void doWork() {
-      // Component method implementation omitted
-  }
+	public void doWork() {
+		// Component method implementation omitted
+	}
 }
 ----
 
@@ -6635,32 +6626,35 @@ public class FactoryMethodComponent {
 
   private static int i;
 
-  @Bean @Qualifier("public")
-  public TestBean publicInstance() {
-      return new TestBean("publicInstance");
-  }
+	@Bean
+	@Qualifier("public")
+	public TestBean publicInstance() {
+		return new TestBean("publicInstance");
+	}
 
-  // use of a custom qualifier and autowiring of method parameters
+	// use of a custom qualifier and autowiring of method parameters
 
-  @Bean
-  protected TestBean protectedInstance(@Qualifier("public") TestBean spouse,
-                                       @Value("#{privateInstance.age}") String country) {
-      TestBean tb = new TestBean("protectedInstance", 1);
-      tb.setSpouse(tb);
-      tb.setCountry(country);
-      return tb;
-  }
+	@Bean
+	protected TestBean protectedInstance(
+			@Qualifier("public") TestBean spouse,
+			@Value("#{privateInstance.age}") String country) {
+		TestBean tb = new TestBean("protectedInstance", 1);
+		tb.setSpouse(tb);
+		tb.setCountry(country);
+		return tb;
+	}
 
-  @Bean @Scope(BeanDefinition.SCOPE_SINGLETON)
-  private TestBean privateInstance() {
-      return new TestBean("privateInstance", i++);
-  }
+	@Bean
+	@Scope(BeanDefinition.SCOPE_SINGLETON)
+	private TestBean privateInstance() {
+		return new TestBean("privateInstance", i++);
+	}
 
-  @Bean @Scope(value = WebApplicationContext.SCOPE_SESSION,
-               proxyMode = ScopedProxyMode.TARGET_CLASS)
-  public TestBean requestScopedInstance() {
-      return new TestBean("requestScopedInstance", 3);
-  }
+	@Bean
+	@Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
+	public TestBean requestScopedInstance() {
+		return new TestBean("requestScopedInstance", 3);
+	}
 }
 ----
 
@@ -6698,7 +6692,7 @@ were detected, the names would be myMovieLister and movieFinderImpl:
 ----
 @Service("myMovieLister")
 public class SimpleMovieLister {
-  // ...
+	// ...
 }
 ----
 
@@ -6707,7 +6701,7 @@ public class SimpleMovieLister {
 ----
 @Repository
 public class MovieFinderImpl implements MovieFinder {
-  // ...
+	// ...
 }
 ----
 
@@ -6724,10 +6718,8 @@ fully-qualified class name when configuring the scanner:
 [subs="verbatim,quotes"]
 ----
 <beans>
-
-   <context:component-scan base-package="org.example"
-                           name-generator="org.example.MyNameGenerator" />
-
+	<context:component-scan base-package="org.example"
+		name-generator="org.example.MyNameGenerator" />
 </beans>
 ----
 
@@ -6750,7 +6742,7 @@ within the annotation:
 @Scope("prototype")
 @Repository
 public class MovieFinderImpl implements MovieFinder {
-  // ...
+	// ...
 }
 ----
 
@@ -6767,10 +6759,8 @@ fully-qualified class name when configuring the scanner:
 [subs="verbatim,quotes"]
 ----
 <beans>
-
-   <context:component-scan base-package="org.example"
-                           scope-resolver="org.example.MyScopeResolver" />
-
+	<context:component-scan base-package="org.example"
+			scope-resolver="org.example.MyScopeResolver" />
 </beans>
 ----
 
@@ -6784,10 +6774,8 @@ the following configuration will result in standard JDK dynamic proxies:
 [subs="verbatim,quotes"]
 ----
 <beans>
-
-   <context:component-scan base-package="org.example"
-                           scoped-proxy="interfaces" />
-
+	<context:component-scan base-package="org.example"
+		scoped-proxy="interfaces" />
 </beans>
 ----
 
@@ -6811,7 +6799,7 @@ technique:
 @Component
 **@Qualifier("Action")**
 public class ActionMovieCatalog implements MovieCatalog {
-  // ...
+	// ...
 }
 ----
 
@@ -6821,7 +6809,7 @@ public class ActionMovieCatalog implements MovieCatalog {
 @Component
 **@Genre("Action")**
 public class ActionMovieCatalog implements MovieCatalog {
-  // ...
+	// ...
 }
 ----
 
@@ -6831,7 +6819,7 @@ public class ActionMovieCatalog implements MovieCatalog {
 @Component
 **@Offline**
 public class CachingMovieCatalog implements MovieCatalog {
-  // ...
+	// ...
 }
 ----
 
@@ -6863,9 +6851,9 @@ You can add the following dependency to your file pom.xml:
 [subs="verbatim,quotes"]
 ----
 <dependency>
-    <groupId>javax.inject</groupId>
-    <artifactId>javax.inject</artifactId>
-    <version>1</version>
+	<groupId>javax.inject</groupId>
+	<artifactId>javax.inject</artifactId>
+	<version>1</version>
 </dependency>
 ----
 ====
@@ -6884,13 +6872,14 @@ import javax.inject.Inject;
 
 public class SimpleMovieLister {
 
-  private MovieFinder movieFinder;
+	private MovieFinder movieFinder;
 
-  @Inject
-  public void setMovieFinder(MovieFinder movieFinder) {
-      this.movieFinder = movieFinder;
-  }
-  // ...
+	@Inject
+	public void setMovieFinder(MovieFinder movieFinder) {
+		this.movieFinder = movieFinder;
+	}
+
+	// ...
 }
 ----
 
@@ -6907,20 +6896,21 @@ import javax.inject.Named;
 
 public class SimpleMovieLister {
 
-  private MovieFinder movieFinder;
+	private MovieFinder movieFinder;
 
-  @Inject
-  public void setMovieFinder(@Named("main") MovieFinder movieFinder) {
-      this.movieFinder = movieFinder;
-  }
-  // ...
+	@Inject
+	public void setMovieFinder(@Named("main") MovieFinder movieFinder) {
+		this.movieFinder = movieFinder;
+	}
+
+	// ...
 }
 ----
 
 
 
 [[beans-named]]
-====  @Named: a standard equivalent to the `@Component` annotation
+==== @Named: a standard equivalent to the `@Component` annotation
 
 Instead of `@Component`, `@javax.inject.Named` may be used as follows:
 
@@ -6933,13 +6923,14 @@ import javax.inject.Named;
 @Named("movieListener")
 public class SimpleMovieLister {
 
-  private MovieFinder movieFinder;
+	private MovieFinder movieFinder;
 
-  @Inject
-  public void setMovieFinder(MovieFinder movieFinder) {
-      this.movieFinder = movieFinder;
-  }
-  // ...
+	@Inject
+	public void setMovieFinder(MovieFinder movieFinder) {
+		this.movieFinder = movieFinder;
+	}
+
+	// ...
 }
 ----
 
@@ -6956,13 +6947,14 @@ import javax.inject.Named;
 @Named
 public class SimpleMovieLister {
 
-  private MovieFinder movieFinder;
+	private MovieFinder movieFinder;
 
-  @Inject
-  public void setMovieFinder(MovieFinder movieFinder) {
-      this.movieFinder = movieFinder;
-  }
-  // ...
+	@Inject
+	public void setMovieFinder(MovieFinder movieFinder) {
+		this.movieFinder = movieFinder;
+	}
+
+	// ...
 }
 ----
 
@@ -6973,7 +6965,7 @@ component-scanning in the exact same way as when using Spring annotations:
 [subs="verbatim,quotes"]
 ----
 <beans>
-    <context:component-scan base-package="org.example"/>
+	<context:component-scan base-package="org.example"/>
 </beans>
 ----
 
@@ -7072,10 +7064,10 @@ The simplest possible `@Configuration` class would read as follows:
 ----
 @Configuration
 public class AppConfig {
-  @Bean
-  public MyService myService() {
-      return new MyServiceImpl();
-  }
+	@Bean
+	public MyService myService() {
+		return new MyServiceImpl();
+	}
 }
 ----
 
@@ -7085,7 +7077,7 @@ The `AppConfig` class above would be equivalent to the following Spring `<beans/
 [subs="verbatim,quotes"]
 ----
 <beans>
-  <bean id="myService" class="com.acme.services.MyServiceImpl"/>
+	<bean id="myService" class="com.acme.services.MyServiceImpl"/>
 </beans>
 ----
 
@@ -7122,24 +7114,23 @@ XML-free usage of the Spring container:
 [subs="verbatim,quotes"]
 ----
 public static void main(String[] args) {
-  ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
-  MyService myService = ctx.getBean(MyService.class);
-  myService.doStuff();
+	ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
+	MyService myService = ctx.getBean(MyService.class);
+	myService.doStuff();
 }
 ----
 
-As mentioned above,
-        `AnnotationConfigApplicationContext` is not limited to working only with
-`@Configuration` classes. Any `@Component` or JSR-330 annotated class may be supplied as
-input to the constructor. For example:
+As mentioned above, `AnnotationConfigApplicationContext` is not limited to working only
+with `@Configuration` classes. Any `@Component` or JSR-330 annotated class may be supplied
+as input to the constructor. For example:
 
 [source,java]
 [subs="verbatim,quotes"]
 ----
 public static void main(String[] args) {
-  ApplicationContext ctx = new AnnotationConfigApplicationContext(MyServiceImpl.class, Dependency1.class, Dependency2.class);
-  MyService myService = ctx.getBean(MyService.class);
-  myService.doStuff();
+	ApplicationContext ctx = new AnnotationConfigApplicationContext(MyServiceImpl.class, Dependency1.class, Dependency2.class);
+	MyService myService = ctx.getBean(MyService.class);
+	myService.doStuff();
 }
 ----
 
@@ -7158,12 +7149,12 @@ when programmatically building an `AnnotationConfigApplicationContext`.
 [subs="verbatim,quotes"]
 ----
 public static void main(String[] args) {
-  AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
-  ctx.register(AppConfig.class, OtherConfig.class);
-  ctx.register(AdditionalConfig.class);
-  ctx.refresh();
-  MyService myService = ctx.getBean(MyService.class);
-  myService.doStuff();
+	AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
+	ctx.register(AppConfig.class, OtherConfig.class);
+	ctx.register(AdditionalConfig.class);
+	ctx.refresh();
+	MyService myService = ctx.getBean(MyService.class);
+	myService.doStuff();
 }
 ----
 
@@ -7178,7 +7169,7 @@ declaration from Spring's `context:` namespace
 [subs="verbatim,quotes"]
 ----
 <beans>
-  <context:component-scan base-package="com.acme"/>
+	<context:component-scan base-package="com.acme"/>
 </beans>
 ----
 
@@ -7191,10 +7182,10 @@ definitions within the container. `AnnotationConfigApplicationContext` exposes t
 [subs="verbatim,quotes"]
 ----
 public static void main(String[] args) {
-  AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
-  ctx.scan("com.acme");
-  ctx.refresh();
-  MyService myService = ctx.getBean(MyService.class);
+	AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
+	ctx.scan("com.acme");
+	ctx.refresh();
+	MyService myService = ctx.getBean(MyService.class);
 }
 ----
 
@@ -7222,53 +7213,53 @@ init-param:
 [subs="verbatim,quotes"]
 ----
 <web-app>
-  <!-- Configure ContextLoaderListener to use AnnotationConfigWebApplicationContext
-       instead of the default XmlWebApplicationContext -->
-  <context-param>
-      <param-name>contextClass</param-name>
-      <param-value>
-          org.springframework.web.context.support.AnnotationConfigWebApplicationContext
-      </param-value>
-  </context-param>
+	<!-- Configure ContextLoaderListener to use AnnotationConfigWebApplicationContext
+		instead of the default XmlWebApplicationContext -->
+	<context-param>
+		<param-name>contextClass</param-name>
+		<param-value>
+			org.springframework.web.context.support.AnnotationConfigWebApplicationContext
+		</param-value>
+	</context-param>
 
-  <!-- Configuration locations must consist of one or more comma- or space-delimited
-       fully-qualified @Configuration classes. Fully-qualified packages may also be
-       specified for component-scanning -->
-  <context-param>
-      <param-name>contextConfigLocation</param-name>
-      <param-value>com.acme.AppConfig</param-value>
-  </context-param>
+	<!-- Configuration locations must consist of one or more comma- or space-delimited
+		fully-qualified @Configuration classes. Fully-qualified packages may also be
+		specified for component-scanning -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>com.acme.AppConfig</param-value>
+	</context-param>
 
-  <!-- Bootstrap the root application context as usual using ContextLoaderListener -->
-  <listener>
-      <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-  </listener>
+	<!-- Bootstrap the root application context as usual using ContextLoaderListener -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
 
-  <!-- Declare a Spring MVC DispatcherServlet as usual -->
-  <servlet>
-      <servlet-name>dispatcher</servlet-name>
-      <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-      <!-- Configure DispatcherServlet to use AnnotationConfigWebApplicationContext
-           instead of the default XmlWebApplicationContext -->
-      <init-param>
-          <param-name>contextClass</param-name>
-          <param-value>
-              org.springframework.web.context.support.AnnotationConfigWebApplicationContext
-          </param-value>
-      </init-param>
-      <!-- Again, config locations must consist of one or more comma- or space-delimited
-           and fully-qualified @Configuration classes -->
-      <init-param>
-          <param-name>contextConfigLocation</param-name>
-          <param-value>com.acme.web.MvcConfig</param-value>
-      </init-param>
-  </servlet>
+	<!-- Declare a Spring MVC DispatcherServlet as usual -->
+	<servlet>
+		<servlet-name>dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!-- Configure DispatcherServlet to use AnnotationConfigWebApplicationContext
+			instead of the default XmlWebApplicationContext -->
+		<init-param>
+			<param-name>contextClass</param-name>
+			<param-value>
+				org.springframework.web.context.support.AnnotationConfigWebApplicationContext
+			</param-value>
+		</init-param>
+		<!-- Again, config locations must consist of one or more comma- or space-delimited
+			and fully-qualified @Configuration classes -->
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>com.acme.web.MvcConfig</param-value>
+		</init-param>
+	</servlet>
 
-  <!-- map all requests for /app/* to the dispatcher servlet -->
-  <servlet-mapping>
-      <servlet-name>dispatcher</servlet-name>
-      <url-pattern>/app/*</url-pattern>
-  </servlet-mapping>
+	<!-- map all requests for /app/* to the dispatcher servlet -->
+	<servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>/app/*</url-pattern>
+	</servlet-mapping>
 </web-app>
 ----
 
@@ -7300,10 +7291,10 @@ the method name. The following is a simple example of a `@Bean` method declarati
 @Configuration
 public class AppConfig {
 
-  @Bean
-  public TransferService transferService() {
-      return new TransferServiceImpl();
-  }
+	@Bean
+	public TransferService transferService() {
+		return new TransferServiceImpl();
+	}
 
 }
 ----
@@ -7314,7 +7305,7 @@ The preceding configuration is exactly equivalent to the following Spring XML:
 [subs="verbatim,quotes"]
 ----
 <beans>
-  <bean id="transferService" class="com.acme.TransferServiceImpl"/>
+	<bean id="transferService" class="com.acme.TransferServiceImpl"/>
 </beans>
 ----
 
@@ -7352,27 +7343,29 @@ on the `bean` element:
 [subs="verbatim,quotes"]
 ----
 public class Foo {
-  public void init() {
-      // initialization logic
-  }
+	public void init() {
+		// initialization logic
+	}
 }
 
 public class Bar {
-  public void cleanup() {
-      // destruction logic
-  }
+	public void cleanup() {
+		// destruction logic
+	}
 }
 
 @Configuration
 public class AppConfig {
-  @Bean(initMethod = "init")
-  public Foo foo() {
-      return new Foo();
-  }
-  @Bean(destroyMethod = "cleanup")
-  public Bar bar() {
-      return new Bar();
-  }
+
+	@Bean(initMethod = "init")
+	public Foo foo() {
+		return new Foo();
+	}
+
+	@Bean(destroyMethod = "cleanup")
+	public Bar bar() {
+		return new Bar();
+	}
 }
 ----
 
@@ -7384,14 +7377,14 @@ method directly during construction:
 ----
 @Configuration
 public class AppConfig {
-  @Bean
-  public Foo foo() {
-      Foo foo = new Foo();
-      foo.init();
-      return foo;
-  }
+	@Bean
+	public Foo foo() {
+		Foo foo = new Foo();
+		foo.init();
+	return foo;
+	}
 
-  // ...
+	// ...
 }
 ----
 
@@ -7420,11 +7413,11 @@ The default scope is `singleton`, but you can override this with the `@Scope` an
 ----
 @Configuration
 public class MyConfiguration {
-  @Bean
-  **@Scope("prototype")**
-  public Encryptor encryptor() {
-    // ...
-  }
+	@Bean
+	**@Scope("prototype")**
+	public Encryptor encryptor() {
+		// ...
+	}
 }
 ----
 
@@ -7448,15 +7441,15 @@ link) to our `@Bean` using Java, it would look like the following:
 @Bean
 **@Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)**
 public UserPreferences userPreferences() {
-  return new UserPreferences();
+	return new UserPreferences();
 }
 
 @Bean
 public Service userService() {
-  UserService service = new SimpleUserService();
-  // a reference to the proxied userPreferences bean
-  service.setUserPreferences(userPreferences());
-  return service;
+	UserService service = new SimpleUserService();
+	// a reference to the proxied userPreferences bean
+	service.setUserPreferences(userPreferences());
+	return service;
 }
 ----
 
@@ -7472,10 +7465,10 @@ resulting bean. This functionality can be overridden, however, with the `name` a
 @Configuration
 public class AppConfig {
 
-  @Bean(name = "myFoo")
-  public Foo foo() {
-      return new Foo();
-  }
+	@Bean(name = "myFoo")
+	public Foo foo() {
+		return new Foo();
+	}
 
 }
 ----
@@ -7493,10 +7486,10 @@ annotation accepts a String array for this purpose.
 @Configuration
 public class AppConfig {
 
-  @Bean(name = { "dataSource", "subsystemA-dataSource", "subsystemB-dataSource" })
-  public DataSource dataSource() {
-      // instantiate, configure and return DataSource bean...
-  }
+	@Bean(name = { "dataSource", "subsystemA-dataSource", "subsystemB-dataSource" })
+	public DataSource dataSource() {
+		// instantiate, configure and return DataSource bean...
+	}
 
 }
 ----
@@ -7523,15 +7516,15 @@ as having one bean method call another:
 @Configuration
 public class AppConfig {
 
-  @Bean
-  public Foo foo() {
-      return new Foo(bar());
-  }
+	@Bean
+	public Foo foo() {
+		return new Foo(bar());
+	}
 
-  @Bean
-  public Bar bar() {
-      return new Bar();
-  }
+	@Bean
+	public Bar bar() {
+		return new Bar();
+	}
 
 }
 ----
@@ -7558,17 +7551,17 @@ type of configuration provides a natural means for implementing this pattern.
 [subs="verbatim,quotes"]
 ----
 public abstract class CommandManager {
-  public Object process(Object commandState) {
-      // grab a new instance of the appropriate Command interface
-      Command command = createCommand();
+	public Object process(Object commandState) {
+		// grab a new instance of the appropriate Command interface
+		Command command = createCommand();
 
-      // set the state on the (hopefully brand new) Command instance
-      command.setState(commandState);
-      return command.execute();
-  }
+		// set the state on the (hopefully brand new) Command instance
+		command.setState(commandState);
+	return command.execute();
+	}
 
-  // okay... but where is the implementation of this method?
-  protected abstract Command createCommand();
+	// okay... but where is the implementation of this method?
+	protected abstract Command createCommand();
 }
 ----
 
@@ -7582,20 +7575,20 @@ the abstract `createCommand()` method is overridden in such a way that it looks 
 @Bean
 @Scope("prototype")
 public AsyncCommand asyncCommand() {
-  AsyncCommand command = new AsyncCommand();
-  // inject dependencies here as required
-  return command;
+	AsyncCommand command = new AsyncCommand();
+	// inject dependencies here as required
+	return command;
 }
 
 @Bean
 public CommandManager commandManager() {
-  // return new anonymous implementation of CommandManager with command() overridden
-  // to return a new prototype Command object
-  return new CommandManager() {
-      protected Command createCommand() {
-          return asyncCommand();
-      }
-  }
+	// return new anonymous implementation of CommandManager with command() overridden
+	// to return a new prototype Command object
+	return new CommandManager() {
+		protected Command createCommand() {
+			return asyncCommand();
+		}
+	}
 }
 ----
 
@@ -7610,23 +7603,24 @@ The following example shows a `@Bean` annotated method being called twice:
 @Configuration
 public class AppConfig {
 
-  @Bean
-  public ClientService clientService1() {
-    ClientServiceImpl clientService = new ClientServiceImpl();
-    clientService.setClientDao(clientDao());
-    return clientService;
-  }
-  @Bean
-  public ClientService clientService2() {
-    ClientServiceImpl clientService = new ClientServiceImpl();
-    clientService.setClientDao(clientDao());
-    return clientService;
-  }
+	@Bean
+	public ClientService clientService1() {
+		ClientServiceImpl clientService = new ClientServiceImpl();
+		clientService.setClientDao(clientDao());
+		return clientService;
+	}
 
-  @Bean
-  public ClientDao clientDao() {
-    return new ClientDaoImpl();
-  }
+	@Bean
+	public ClientService clientService2() {
+		ClientServiceImpl clientService = new ClientServiceImpl();
+		clientService.setClientDao(clientDao());
+		return clientService;
+	}
+
+	@Bean
+	public ClientDao clientDao() {
+		return new ClientDaoImpl();
+	}
 }
 ----
 
@@ -7674,35 +7668,42 @@ another configuration class:
 ----
 @Configuration
 public class ConfigA {
-  public @Bean A a() { return new A(); }
+
+ 	@Bean
+	public A a() {
+		return new A();
+	}
 }
 
 @Configuration
 @Import(ConfigA.class)
 public class ConfigB {
-  public @Bean B b() { return new B(); }
+
+	@Bean
+	public B b() {
+		return new B();
+	}
 }
 ----
 
-Now, rather than needing to specify both
-        `ConfigA.class` and `ConfigB.class` when instantiating the context, only
-`ConfigB` needs to be supplied explicitly:
+Now, rather than needing to specify both `ConfigA.class` and `ConfigB.class` when
+instantiating the context, only `ConfigB` needs to be supplied explicitly:
 
 [source,java]
 [subs="verbatim,quotes"]
 ----
 public static void main(String[] args) {
-  ApplicationContext ctx = new AnnotationConfigApplicationContext(ConfigB.class);
+	ApplicationContext ctx = new AnnotationConfigApplicationContext(ConfigB.class);
 
-  // now both beans A and B will be available...
-  A a = ctx.getBean(A.class);
-  B b = ctx.getBean(B.class);
+	// now both beans A and B will be available...
+	A a = ctx.getBean(A.class);
+	B b = ctx.getBean(B.class);
 }
 ----
 
-This approach simplifies container instantiation, as only one class
-        needs to be dealt with, rather than requiring the developer to remember
-        a potentially large number of `@Configuration` classes during construction.
+This approach simplifies container instantiation, as only one class needs to be dealt
+with, rather than requiring the developer to remember a potentially large number of
+`@Configuration` classes during construction.
 
 [[beans-java-injecting-imported-beans]]
 ====== Injecting dependencies on imported @Bean definitions
@@ -7726,33 +7727,43 @@ depending on beans declared in the others:
 ----
 @Configuration
 public class ServiceConfig {
-  private @Autowired AccountRepository accountRepository;
 
-  public @Bean TransferService transferService() {
-      return new TransferServiceImpl(accountRepository);
-  }
+	@Autowired
+	private AccountRepository accountRepository;
+
+	@Bean
+	public TransferService transferService() {
+		return new TransferServiceImpl(accountRepository);
+	}
 }
 
 @Configuration
 public class RepositoryConfig {
-  private @Autowired DataSource dataSource;
 
-  public @Bean AccountRepository accountRepository() {
-      return new JdbcAccountRepository(dataSource);
-  }
+	@Autowired
+	private DataSource dataSource;
+
+	@Bean
+	public AccountRepository accountRepository() {
+		return new JdbcAccountRepository(dataSource);
+	}
 }
 
 @Configuration
 @Import({ServiceConfig.class, RepositoryConfig.class})
 public class SystemTestConfig {
-  public @Bean DataSource dataSource() { /* return new DataSource */ }
+
+	@Bean
+	public DataSource dataSource() {
+		// return new DataSource
+	}
 }
 
 public static void main(String[] args) {
-  ApplicationContext ctx = new AnnotationConfigApplicationContext(SystemTestConfig.class);
-  // everything wires up across configuration classes...
-  TransferService transferService = ctx.getBean(TransferService.class);
-  transferService.transfer(100.00, "A123", "C456");
+	ApplicationContext ctx = new AnnotationConfigApplicationContext(SystemTestConfig.class);
+	// everything wires up across configuration classes...
+	TransferService transferService = ctx.getBean(TransferService.class);
+	transferService.transfer(100.00, "A123", "C456");
 }
 ----
 
@@ -7777,55 +7788,68 @@ configuration classes themselves:
 ----
 @Configuration
 public class ServiceConfig {
-  private @Autowired RepositoryConfig repositoryConfig;
 
-  public @Bean TransferService transferService() {
-      // navigate 'through' the config class to the @Bean method!
-      return new TransferServiceImpl(repositoryConfig.accountRepository());
-  }
+	@Autowired
+	private RepositoryConfig repositoryConfig;
+
+	@Bean
+	public TransferService transferService() {
+		// navigate 'through' the config class to the @Bean method!
+		return new TransferServiceImpl(repositoryConfig.accountRepository());
+	}
 }
 ----
 
-In the situation above, it is completely explicit where
-            `AccountRepository` is defined. However, `ServiceConfig` is now tightly
-coupled to `RepositoryConfig`; that's the tradeoff. This tight coupling can be somewhat
-mitigated by using interface-based or abstract class-based `@Configuration` classes.
-Consider the following:
+In the situation above, it is completely explicit where `AccountRepository` is defined.
+However, `ServiceConfig` is now tightly coupled to `RepositoryConfig`; that's the
+tradeoff. This tight coupling can be somewhat mitigated by using interface-based or
+abstract class-based `@Configuration` classes. Consider the following:
 
 [source,java]
 [subs="verbatim,quotes"]
 ----
 @Configuration
 public class ServiceConfig {
-  private @Autowired RepositoryConfig repositoryConfig;
 
-  public @Bean TransferService transferService() {
-      return new TransferServiceImpl(repositoryConfig.accountRepository());
-  }
+	@Autowired
+	private RepositoryConfig repositoryConfig;
+
+	@Bean
+	public TransferService transferService() {
+		return new TransferServiceImpl(repositoryConfig.accountRepository());
+	}
 }
 
 @Configuration
 public interface RepositoryConfig {
-  @Bean AccountRepository accountRepository();
+
+	@Bean
+	AccountRepository accountRepository();
 }
 
 @Configuration
 public class DefaultRepositoryConfig implements RepositoryConfig {
-  public @Bean AccountRepository accountRepository() {
-      return new JdbcAccountRepository(...);
-  }
+
+	@Bean
+	public AccountRepository accountRepository() {
+		return new JdbcAccountRepository(...);
+	}
 }
 
 @Configuration
 @Import({ServiceConfig.class, DefaultRepositoryConfig.class}) // import the concrete config!
 public class SystemTestConfig {
-  public @Bean DataSource dataSource() { /* return DataSource */ }
+
+	@Bean
+	public DataSource dataSource() {
+		// return DataSource
+	}
 }
 
 public static void main(String[] args) {
-  ApplicationContext ctx = new AnnotationConfigApplicationContext(SystemTestConfig.class);
-  TransferService transferService = ctx.getBean(TransferService.class);
-  transferService.transfer(100.00, "A123", "C456");
+	ApplicationContext ctx = new AnnotationConfigApplicationContext(SystemTestConfig.class);
+	TransferService transferService = ctx.getBean(TransferService.class);
+	transferService.transfer(100.00, "A123", "C456");
 }
 ----
 
@@ -7870,15 +7894,19 @@ properly.
 ----
 @Configuration
 public class AppConfig {
-  private @Autowired DataSource dataSource;
 
-  public @Bean AccountRepository accountRepository() {
-      return new JdbcAccountRepository(dataSource);
-  }
+	@Autowired
+	private DataSource dataSource;
 
-  public @Bean TransferService transferService() {
-      return new TransferService(accountRepository());
-  }
+	@Bean
+	public AccountRepository accountRepository() {
+		return new JdbcAccountRepository(dataSource);
+	}
+
+	@Bean
+	public TransferService transferService() {
+		return new TransferService(accountRepository());
+	}
 }
 ----
 
@@ -7887,17 +7915,17 @@ public class AppConfig {
 ----
 system-test-config.xml
 <beans>
-  <!-- enable processing of annotations such as @Autowired and @Configuration -->
-  <context:annotation-config/>
-  <context:property-placeholder location="classpath:/com/acme/jdbc.properties"/>
+	<!-- enable processing of annotations such as @Autowired and @Configuration -->
+	<context:annotation-config/>
+	<context:property-placeholder location="classpath:/com/acme/jdbc.properties"/>
 
-  <bean class="com.acme.AppConfig"/>
+	<bean class="com.acme.AppConfig"/>
 
-  <bean class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-      <property name="url" value="${jdbc.url}"/>
-      <property name="username" value="${jdbc.username}"/>
-      <property name="password" value="${jdbc.password}"/>
-  </bean>
+	<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="url" value="${jdbc.url}"/>
+		<property name="username" value="${jdbc.username}"/>
+		<property name="password" value="${jdbc.password}"/>
+	</bean>
 </beans>
 ----
 
@@ -7914,9 +7942,9 @@ jdbc.password=
 [subs="verbatim,quotes"]
 ----
 public static void main(String[] args) {
-  ApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:/com/acme/system-test-config.xml");
-  TransferService transferService = ctx.getBean(TransferService.class);
-  // ...
+	ApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:/com/acme/system-test-config.xml");
+	TransferService transferService = ctx.getBean(TransferService.class);
+	// ...
 }
 ----
 
@@ -7944,21 +7972,21 @@ functionality.
 ----
 system-test-config.xml
 <beans>
-  <!-- picks up and registers AppConfig as a bean definition -->
-  <context:component-scan base-package="com.acme"/>
-  <context:property-placeholder location="classpath:/com/acme/jdbc.properties"/>
+	<!-- picks up and registers AppConfig as a bean definition -->
+	<context:component-scan base-package="com.acme"/>
+	<context:property-placeholder location="classpath:/com/acme/jdbc.properties"/>
 
-  <bean class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-      <property name="url" value="${jdbc.url}"/>
-      <property name="username" value="${jdbc.username}"/>
-      <property name="password" value="${jdbc.password}"/>
-  </bean>
+	<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="url" value="${jdbc.url}"/>
+		<property name="username" value="${jdbc.username}"/>
+		<property name="password" value="${jdbc.password}"/>
+	</bean>
 </beans>
 ----
 --
 
 [[beans-java-combining-java-centric]]
-======  @Configuration class-centric use of XML with `@ImportResource`
+====== @Configuration class-centric use of XML with `@ImportResource`
 
 In applications where `@Configuration` classes are the primary mechanism for configuring
 the container, it will still likely be necessary to use at least some XML. In these
@@ -7972,13 +8000,20 @@ bare minimum.
 @Configuration
 @ImportResource("classpath:/com/acme/properties-config.xml")
 public class AppConfig {
-  private @Value("${jdbc.url}") String url;
-  private @Value("${jdbc.username}") String username;
-  private @Value("${jdbc.password}") String password;
 
-  public @Bean DataSource dataSource() {
-      return new DriverManagerDataSource(url, username, password);
-  }
+	@Value("${jdbc.url}")
+	private String url;
+
+	@Value("${jdbc.username}")
+	private String username;
+
+	@Value("${jdbc.password}")
+	private String password;
+
+	@Bean
+	public DataSource dataSource() {
+		return new DriverManagerDataSource(url, username, password);
+	}
 }
 ----
 
@@ -7987,7 +8022,7 @@ public class AppConfig {
 ----
 properties-config.xml
 <beans>
-  <context:property-placeholder location="classpath:/com/acme/jdbc.properties"/>
+	<context:property-placeholder location="classpath:/com/acme/jdbc.properties"/>
 </beans>
 ----
 
@@ -8004,9 +8039,9 @@ jdbc.password=
 [subs="verbatim,quotes"]
 ----
 public static void main(String[] args) {
-  ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
-  TransferService transferService = ctx.getBean(TransferService.class);
-  // ...
+	ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
+	TransferService transferService = ctx.getBean(TransferService.class);
+	// ...
 }
 ----
 
@@ -8038,7 +8073,7 @@ Alternatively for XML configuration use the `context:load-time-weaver` element:
 [subs="verbatim,quotes"]
 ----
 <beans>
-     <context:load-time-weaver/>
+	<context:load-time-weaver/>
 </beans>
 ----
 
@@ -8119,16 +8154,16 @@ example:
 [subs="verbatim,quotes"]
 ----
 <beans>
-<bean id="messageSource"
-      class="org.springframework.context.support.ResourceBundleMessageSource">
-  <property name="basenames">
-    <list>
-      <value>format</value>
-      <value>exceptions</value>
-      <value>windows</value>
-    </list>
-  </property>
-</bean>
+	<bean id="messageSource"
+			class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>format</value>
+				<value>exceptions</value>
+				<value>windows</value>
+			</list>
+		</property>
+	</bean>
 </beans>
 ----
 
@@ -8160,9 +8195,9 @@ implementations and so can be cast to the `MessageSource` interface.
 [subs="verbatim,quotes"]
 ----
 public static void main(String[] args) {
-  MessageSource resources = new ClassPathXmlApplicationContext("beans.xml");
-  String message = resources.getMessage("message", null, "Default", null);
-  System.out.println(message);
+	MessageSource resources = new ClassPathXmlApplicationContext("beans.xml");
+	String message = resources.getMessage("message", null, "Default", null);
+	System.out.println(message);
 }
 ----
 
@@ -8189,15 +8224,15 @@ converted into Strings and inserted into placeholders in the lookup message.
 ----
 <beans>
 
-  <!-- this MessageSource is being used in a web application -->
-  <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-      <property name="basename" value="exceptions"/>
-  </bean>
+	<!-- this MessageSource is being used in a web application -->
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value="exceptions"/>
+	</bean>
 
-  <!-- lets inject the above MessageSource into this POJO -->
-  <bean id="example" class="com.foo.Example">
-      <property name="messages" ref="messageSource"/>
-  </bean>
+	<!-- lets inject the above MessageSource into this POJO -->
+	<bean id="example" class="com.foo.Example">
+		<property name="messages" ref="messageSource"/>
+	</bean>
 
 </beans>
 ----
@@ -8207,17 +8242,17 @@ converted into Strings and inserted into placeholders in the lookup message.
 ----
 public class Example {
 
-  private MessageSource messages;
+	private MessageSource messages;
 
-  public void setMessages(MessageSource messages) {
-      this.messages = messages;
-  }
+	public void setMessages(MessageSource messages) {
+		this.messages = messages;
+	}
 
-  public void execute() {
-      String message = this.messages.getMessage("argument.required",
-          new Object [] {"userDao"}, "Required", null);
-      System.out.println(message);
-  }
+	public void execute() {
+		String message = this.messages.getMessage("argument.required",
+			new Object [] {"userDao"}, "Required", null);
+		System.out.println(message);
+	}
 
 }
 ----
@@ -8252,10 +8287,10 @@ argument.required=Ebagum lad, the '{0}' argument is required, I say, required.
 [subs="verbatim,quotes"]
 ----
 public static void main(final String[] args) {
-  MessageSource resources = new ClassPathXmlApplicationContext("beans.xml");
-  String message = resources.getMessage("argument.required",
-      new Object [] {"userDao"}, "Required", Locale.UK);
-  System.out.println(message);
+	MessageSource resources = new ClassPathXmlApplicationContext("beans.xml");
+	String message = resources.getMessage("argument.required",
+		new Object [] {"userDao"}, "Required", Locale.UK);
+	System.out.println(message);
 }
 ----
 
@@ -8342,16 +8377,16 @@ simple class that extends Spring's `ApplicationEvent` base class:
 [subs="verbatim,quotes"]
 ----
 public class BlackListEvent extends ApplicationEvent {
-  private final String address;
-  private final String test;
+	private final String address;
+	private final String test;
 
-  public BlackListEvent(Object source, String address, String test) {
-      super(source);
-      this.address = address;
-      this.test = test;
-  }
+	public BlackListEvent(Object source, String address, String test) {
+		super(source);
+		this.address = address;
+		this.test = test;
+	}
 
-  // accessor and other methods...
+	// accessor and other methods...
 }
 ----
 
@@ -8365,25 +8400,25 @@ example demonstrates such a class:
 ----
 public class EmailService implements ApplicationEventPublisherAware {
 
-  private List<String> blackList;
-  private ApplicationEventPublisher publisher;
+	private List<String> blackList;
+	private ApplicationEventPublisher publisher;
 
-  public void setBlackList(List<String> blackList) {
-      this.blackList = blackList;
-  }
+	public void setBlackList(List<String> blackList) {
+		this.blackList = blackList;
+	}
 
-  public void setApplicationEventPublisher(ApplicationEventPublisher publisher) {
-      this.publisher = publisher;
-  }
+	public void setApplicationEventPublisher(ApplicationEventPublisher publisher) {
+		this.publisher = publisher;
+	}
 
-  public void sendEmail(String address, String text) {
-      if (blackList.contains(address)) {
-          BlackListEvent event = new BlackListEvent(this, address, text);
-          publisher.publishEvent(event);
-          return;
-      }
-      // send email...
-  }
+	public void sendEmail(String address, String text) {
+		if (blackList.contains(address)) {
+			BlackListEvent event = new BlackListEvent(this, address, text);
+			publisher.publishEvent(event);
+			return;
+		}
+		// send email...
+	}
 }
 ----
 
@@ -8402,15 +8437,15 @@ demonstrates such a class:
 ----
 public class BlackListNotifier implements ApplicationListener<BlackListEvent> {
 
-  private String notificationAddress;
+	private String notificationAddress;
 
-  public void setNotificationAddress(String notificationAddress) {
-      this.notificationAddress = notificationAddress;
-  }
+	public void setNotificationAddress(String notificationAddress) {
+		this.notificationAddress = notificationAddress;
+	}
 
-  public void onApplicationEvent(BlackListEvent event) {
-// notify appropriate parties via notificationAddress...
-  }
+	public void onApplicationEvent(BlackListEvent event) {
+		// notify appropriate parties via notificationAddress...
+	}
 }
 ----
 
@@ -8432,17 +8467,17 @@ the classes above:
 [subs="verbatim,quotes"]
 ----
 <bean id="emailService" class="example.EmailService">
-  <property name="blackList">
-      <list>
-          <value>known.spammer@example.org</value>
-          <value>known.hacker@example.org</value>
-          <value>john.doe@example.org</value>
-      </list>
-  </property>
+	<property name="blackList">
+		<list>
+			<value>known.spammer@example.org</value>
+			<value>known.hacker@example.org</value>
+			<value>john.doe@example.org</value>
+		</list>
+	</property>
 </bean>
 
 <bean id="blackListNotifier" class="example.BlackListNotifier">
-  <property name="notificationAddress" value="blacklist@example.org"/>
+	<property name="notificationAddress" value="blacklist@example.org"/>
 </bean>
 ----
 
@@ -8521,16 +8556,21 @@ You can register an `ApplicationContext` using the `ContextLoaderListener` as fo
 [subs="verbatim,quotes"]
 ----
 <context-param>
-<param-name>contextConfigLocation</param-name>
-<param-value>/WEB-INF/daoContext.xml /WEB-INF/applicationContext.xml</param-value>
+	<param-name>contextConfigLocation</param-name>
+	<param-value>/WEB-INF/daoContext.xml /WEB-INF/applicationContext.xml</param-value>
 </context-param>
 
 <listener>
-<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 </listener>
 
-<!-- or use the ContextLoaderServlet instead of the above listener__<servlet><servlet-name>context</servlet-name><servlet-class>org.springframework.web.context.ContextLoaderServlet</servlet-class><load-on-startup>1</load-on-startup></servlet>
---__>
+<!-- or use the ContextLoaderServlet instead of the above listener
+__<servlet>
+	<servlet-name>context</servlet-name>
+	<servlet-class>org.springframework.web.context.ContextLoaderServlet</servlet-class>
+	<load-on-startup>1</load-on-startup>
+</servlet>__
+-->
 ----
 
 The listener inspects the `contextConfigLocation` parameter. If the parameter does not
@@ -8758,19 +8798,19 @@ access to low-level resources.
 ----
 public interface Resource extends InputStreamSource {
 
-    boolean exists();
+	boolean exists();
 
-    boolean isOpen();
+	boolean isOpen();
 
-    URL getURL() throws IOException;
+	URL getURL() throws IOException;
 
-    File getFile() throws IOException;
+	File getFile() throws IOException;
 
-    Resource createRelative(String relativePath) throws IOException;
+	Resource createRelative(String relativePath) throws IOException;
 
-    String getFilename();
+	String getFilename();
 
-    String getDescription();
+	String getDescription();
 }
 ----
 
@@ -8779,7 +8819,7 @@ public interface Resource extends InputStreamSource {
 ----
 public interface InputStreamSource {
 
-    InputStream getInputStream() throws IOException;
+	InputStream getInputStream() throws IOException;
 }
 ----
 
@@ -8931,7 +8971,7 @@ The `ResourceLoader` interface is meant to be implemented by objects that can re
 [subs="verbatim,quotes"]
 ----
 public interface ResourceLoader {
-    Resource getResource(String location);
+	Resource getResource(String location);
 }
 ----
 
@@ -9020,7 +9060,7 @@ that expect to be provided with a `ResourceLoader` reference.
 ----
 public interface ResourceLoaderAware {
 
-   void setResourceLoader(ResourceLoader resourceLoader);
+	void setResourceLoader(ResourceLoader resourceLoader);
 }
 ----
 
@@ -9071,7 +9111,7 @@ be configured with a simple string for that resource, as follows:
 [subs="verbatim,quotes"]
 ----
 <bean id="myBean" class="...">
-  <property name="template" value="some/resource/path/myTemplate.txt"/>
+	<property name="template" value="some/resource/path/myTemplate.txt"/>
 </bean>
 ----
 
@@ -9128,7 +9168,7 @@ used. But if you create a `FileSystemXmlApplicationContext` as follows:
 [subs="verbatim,quotes"]
 ----
 ApplicationContext ctx =
-    new FileSystemXmlApplicationContext("conf/appContext.xml");
+	new FileSystemXmlApplicationContext("conf/appContext.xml");
 ----
 
 The bean definition will be loaded from a filesystem location, in this case relative to
@@ -9142,7 +9182,7 @@ definition. So this `FileSystemXmlApplicationContext`...
 [subs="verbatim,quotes"]
 ----
 ApplicationContext ctx =
-    new FileSystemXmlApplicationContext("classpath:conf/appContext.xml");
+	new FileSystemXmlApplicationContext("classpath:conf/appContext.xml");
 ----
 
 ... will actually load its bean definitions from the classpath. However, it is still a
@@ -9166,10 +9206,10 @@ this:
 [subs="verbatim,quotes"]
 ----
 com/
-  foo/
-    services.xml
-    daos.xml
-    MessengerService.class
+	foo/
+		services.xml
+		daos.xml
+		MessengerService.class
 ----
 
 A `ClassPathXmlApplicationContext` instance composed of the beans defined in the
@@ -19185,7 +19225,7 @@ Specifically, the resource locations or annotated classes for a test class are a
 to the list of resource locations or annotated classes declared by superclasses.
 Similarly, the initializers for a given test class will be added to the set of
 initializers defined by test superclasses. Thus, subclasses have the option
-of__extending__ the resource locations, annotated classes, or context initializers.
+of __extending__ the resource locations, annotated classes, or context initializers.
 
 If `@ContextConfiguration`'s `inheritLocations` or `inheritInitializers` attribute is
 set to `false`, the resource locations or annotated classes and the context
