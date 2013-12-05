@@ -1484,23 +1484,6 @@ default Servlet container error page.
 
 
 
-[[new-in-3.2-webmvc-generic-types-rest-template]]
-=== Support for generic types in the RestTemplate and in @RequestBody arguments
-The `RestTemplate` can now read an HTTP response to a generic type (e.g.
-`List<Account>`). There are three new `exchange()` methods that accept
-`ParameterizedTypeReference`, a new class that enables capturing and passing generic
-type info.
-
-In support of this feature, the `HttpMessageConverter` is extended by
-`GenericHttpMessageConverter` adding a method for reading content given a specified
-parameterized type. The new interface is implemented by the
-`MappingJacksonHttpMessageConverter` and also by a new
-`Jaxb2CollectionHttpMessageConverter` that can read read a generic `Collection` where
-the generic type is a JAXB type annotated with `@XmlRootElement` or `@XmlType`.
-
-
-
-
 [[new-in-3.2-webmvc-jackson-json]]
 === Jackson JSON 2 and related improvements
 The Jackson JSON 2 library is now supported. Due to packaging changes in the Jackson
@@ -1533,15 +1516,6 @@ An `@RequestBody` or an `@RequestPart` argument can now be followed by an `Error
 argument making it possible to handle validation errors (as a result of an `@Valid`
 annotation) locally within the `@RequestMapping` method. `@RequestBody` now also
 supports a required flag.
-
-
-
-
-[[new-in-3.2-webmvc-http-patch]]
-=== HTTP PATCH method
-The HTTP request method `PATCH` may now be used in `@RequestMapping` methods as well as
-in the `RestTemplate` in conjunction with Apache HttpComponents HttpClient version 4.2
-or later. The JDK `HttpURLConnection` does not support the `PATCH` method.
 
 
 
@@ -38540,9 +38514,9 @@ This section describes how to use the `RestTemplate` and its associated
 
 [[rest-resttemplate]]
 ==== RestTemplate
-Invoking RESTful services in Java is typically done using a helper class such as Jakarta
-Commons `HttpClient`. For common REST operations this approach is too low level as shown
-below.
+Invoking RESTful services in Java is typically done using a helper class such as Apache
+HttpComponents `HttpClient`. For common REST operations this approach is too low level as
+shown below.
 
 [source,java]
 [subs="verbatim,quotes"]
@@ -38597,6 +38571,10 @@ practices.
 | PUT
 | http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/client/RestTemplate.html#put(String,%20Object,%20Object...)[put(String
   url, Object request, String...urlVariables)]
+
+| PATCH and others
+| http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/client/RestTemplate.html#exchange(java.lang.String,%20org.springframework.http.HttpMethod,%20org.springframework.http.HttpEntity,%20java.lang.Class,%20java.lang.Object...)[exchange]
+  http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/client/RestTemplate.html#execute(java.lang.String,%20org.springframework.http.HttpMethod,%20org.springframework.web.client.RequestCallback,%20org.springframework.web.client.ResponseExtractor,%20java.lang.Object...)[execute]
 |===
 
 The names of `RestTemplate` methods follow a naming convention, the first part indicates
@@ -38608,6 +38586,15 @@ HTTP Location header where the newly created object can be found. In case of an
 exception processing the HTTP request, an exception of the type `RestClientException`
 will be thrown; this behavior can be changed by plugging in another
 `ResponseErrorHandler` implementation into the `RestTemplate`.
+
+The `exchange` and `execute` methods are generalized versions of the more
+specific methods listed above them and can support additional combinations and methods,
+like HTTP PATCH. However, note that the underlying HTTP library must also support the
+desired combination. The JDK `HttpURLConnection` does not support the `PATCH` method, but
+Apache HttpComponents HttpClient version 4.2 or later does. They also enable
+`RestTemplate` to read an HTTP response to a generic type (e.g. `List<Account>`), using a
+`ParameterizedTypeReference`, a new class that enables capturing and passing generic
+type info.
 
 Objects passed to and returned from these methods are converted to and from HTTP
 messages by `HttpMessageConverter` instances. Converters for the main mime types are
