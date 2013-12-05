@@ -762,16 +762,10 @@ in the public domain for alternative approaches, and your mileage may vary depen
 the exact version and feature set of the container.
 
 
-
-
-
-
 [[spring-whats-new]]
+= What's New in Spring 4
+
 = What's New in Spring 3
-
-
-
-
 
 [[new-in-3.0]]
 == New Features and Enhancements in Spring Framework 3.0
@@ -787,8 +781,6 @@ The Spring Framework is now based on Java 5, and Java 6 is fully supported.
 Furthermore, Spring is compatible with J2EE 1.4 and Java EE 5, while at the same time
 introducing some early support for Java EE 6.
 ****
-
-
 
 
 [[new-in-3.0-intro]]
@@ -1457,24 +1449,6 @@ See <<mvc-ann-async>>.
 First-class support for testing Spring MVC applications with a fluent API and without a
 Servlet container. Server-side tests involve use of the `DispatcherServlet` while
 client-side REST tests rely on the `RestTemplate`. See <<spring-mvc-test-framework>>.
-
-
-
-
-[[new-in-3.2-webmvc-content-negotiation]]
-=== Content negotiation improvements
-A `ContentNegotiationStrategy` is now available for resolving the requested media types
-from an incoming request. The available implementations are based on the file extension,
-query parameter, the 'Accept' header, or a fixed content type. Equivalent options were
-previously available only in the ContentNegotiatingViewResolver but are now available
-throughout.
-
-`ContentNegotiationManager` is the central class to use when configuring content
-negotiation options. For more details see <<mvc-config-content-negotiation>>.
-
-The introduction of `ContentNegotiationManger` also enables selective suffix pattern
-matching for incoming requests. For more details, see the Javadoc of
-http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/servlet/mvc/method/annotation/RequestMappingHandlerMapping.html#setUseRegisteredSuffixPatternMatch(boolean)[RequestMappingHandlerMapping.setUseRegisteredSuffixPatternMatch].
 
 
 [[new-in-3.2-matrix-variables]]
@@ -32221,19 +32195,25 @@ And in XML use the `<mvc:interceptors>` element:
 
 [[mvc-config-content-negotiation]]
 ==== Configuring Content Negotiation
-Staring with Spring Framework 3.2, you can configure how Spring MVC determines the
-requested media types from the client for request mapping as well as for content
-negotiation purposes. The available options are to check the file extension in the
-request URI, the "Accept" header, a request parameter, as well as to fall back on a
-default content type. By default, file extension in the request URI is checked first and
-the "Accept" header is checked next.
+You can configure how Spring MVC determines the requested media types from the client
+for request mapping as well as for content negotiation purposes. The available options
+are to check the file extension in the request URI, the "Accept" header, a request
+parameter, as well as to fall back on a default content type. By default, file extension
+in the request URI is checked first and the "Accept" header is checked next.
 
 For file extensions in the request URI, the MVC Java config and the MVC namespace,
 automatically register extensions such as `.json`, `.xml`, `.rss`, and `.atom` if the
 corresponding dependencies such as Jackson, JAXB2, or Rome are present on the classpath.
 Additional extensions may be not need to be registered explicitly if they can be
 discovered via `ServletContext.getMimeType(String)` or the __Java Activation Framework__
-(see `javax.activation.MimetypesFileTypeMap`).
+(see `javax.activation.MimetypesFileTypeMap`). You can register more extensions with the
+http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/servlet/mvc/method/annotation/RequestMappingHandlerMapping.html#setUseRegisteredSuffixPatternMatch(boolean)[setUseRegisteredSuffixPatternMatch
+method].
+
+The introduction of `ContentNegotiationManger` also enables selective suffix pattern
+matching for incoming requests. For more details, see the Javadoc of
+
+
 
 Below is an example of customizing content negotiation options through the MVC Java
 config:
