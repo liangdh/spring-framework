@@ -9833,7 +9833,7 @@ com
 	chank
 		pop
 			Foo
-			FooEditor   // the PropertyEditor for the Foo class
+			FooEditor // the PropertyEditor for the Foo class
 ----
 
 Note that you can also use the standard `BeanInfo` JavaBeans mechanism here as well
@@ -9850,7 +9850,7 @@ com
 	chank
 		pop
 			Foo
-			FooBeanInfo   // the BeanInfo for the Foo class
+			FooBeanInfo // the BeanInfo for the Foo class
 ----
 
 Here is the Java source code for the referenced `FooBeanInfo` class. This would
@@ -10556,8 +10556,8 @@ To trigger formatting, simply annotate fields with @NumberFormat:
 ----
 public class MyModel {
 
-    @NumberFormat(style=Style.CURRENCY)
-    private BigDecimal decimal;
+	@NumberFormat(style=Style.CURRENCY)
+	private BigDecimal decimal;
 
 }
 ----
@@ -11394,7 +11394,7 @@ Inventor object in the previous example.
 [subs="verbatim,quotes"]
 ----
 Expression exp = parser.parseExpression("name == 'Nikola Tesla'");
-boolean result = exp.getValue(context, Boolean.class);  // evaluates to true
+boolean result = exp.getValue(context, Boolean.class); // evaluates to true
 ----
 
 
@@ -11867,25 +11867,25 @@ operators are demonstrated below.
 int two = parser.parseExpression("1 + 1").getValue(Integer.class); // 2
 
 String testString = parser.parseExpression(
-		"'test' + ' ' + 'string'").getValue(String.class);  // 'test string'
+		"'test' + ' ' + 'string'").getValue(String.class); // 'test string'
 
 // Subtraction
-int four =  parser.parseExpression("1 - -3").getValue(Integer.class); // 4
+int four = parser.parseExpression("1 - -3").getValue(Integer.class); // 4
 
 double d = parser.parseExpression("1000.00 - 1e4").getValue(Double.class); // -9000
 
 // Multiplication
-int six =  parser.parseExpression("-2 * -3").getValue(Integer.class); // 6
+int six = parser.parseExpression("-2 * -3").getValue(Integer.class); // 6
 
 double twentyFour = parser.parseExpression("2.0 * 3e0 * 4").getValue(Double.class); // 24.0
 
 // Division
-int minusTwo =  parser.parseExpression("6 / -3").getValue(Integer.class); // -2
+int minusTwo = parser.parseExpression("6 / -3").getValue(Integer.class); // -2
 
 double one = parser.parseExpression("8.0 / 4e0 / 2").getValue(Double.class); // 1.0
 
 // Modulus
-int three =  parser.parseExpression("7 % 4").getValue(Integer.class); // 3
+int three = parser.parseExpression("7 % 4").getValue(Integer.class); // 3
 
 int one = parser.parseExpression("8 / 5 % 2").getValue(Integer.class); // 1
 
@@ -11982,7 +11982,7 @@ System.out.println(tesla.getName()) // "Mike Tesla"
 ===== The #this and #root variables
 The variable #this is always defined and refers to the current evaluation object
 (against which unqualified references are resolved). The variable #root is always
-defined and refers to the root context object.  Although #this may vary as components of
+defined and refers to the root context object. Although #this may vary as components of
 an expression are evaluated, #root always refers to the root.
 
 [source,java]
@@ -12128,7 +12128,7 @@ ExpressionParser parser = new SpelExpressionParser();
 
 String name = parser.parseExpression("null?:'Unknown'").getValue(String.class);
 
-System.out.println(name);  // 'Unknown'
+System.out.println(name); // 'Unknown'
 ----
 
 Here is a more complex example.
@@ -12210,8 +12210,8 @@ selection would allow us to easily get a list of Serbian inventors:
 [source,java]
 [subs="verbatim,quotes"]
 ----
-List<Inventor> list = (List<Inventor>)
-      parser.parseExpression("Members.?[Nationality == 'Serbian']").getValue(societyContext);
+List<Inventor> list = (List<Inventor>) parser.parseExpression(
+		"Members.?[Nationality == 'Serbian']").getValue(societyContext);
 ----
 
 Selection is possible upon both lists and maps. In the former case the selection
@@ -12701,7 +12701,7 @@ determines that a bean is advised by one or more aspects, it will automatically 
 a proxy for that bean to intercept method invocations and ensure that advice is executed
 as needed.
 
-The @AspectJ support can be enabled with XML or Java style configuration.  In either
+The @AspectJ support can be enabled with XML or Java style configuration. In either
 case you will also need to ensure that AspectJ's `aspectjweaver.jar` library is on the
 classpath of your application (version 1.6.8 or later). This library is available in the
 `'lib'` directory of an AspectJ distribution or via the Maven Central repository.
@@ -13483,10 +13483,10 @@ import org.aspectj.lang.annotation.After;
 @Aspect
 public class AfterFinallyExample {
 
-  @After("com.xyz.myapp.SystemArchitecture.dataAccessOperation()")
-  public void doReleaseLock() {
-    // ...
-  }
+	@After("com.xyz.myapp.SystemArchitecture.dataAccessOperation()")
+	public void doReleaseLock() {
+		// ...
+	}
 
 }
 ----
@@ -13535,20 +13535,20 @@ import org.aspectj.lang.ProceedingJoinPoint;
 @Aspect
 public class AroundExample {
 
-  @Around("com.xyz.myapp.SystemArchitecture.businessService()")
-  public Object doBasicProfiling(ProceedingJoinPoint pjp) throws Throwable {
-    // start stopwatch
-    Object retVal = pjp.proceed();
-    // stop stopwatch
-    return retVal;
-  }
+	@Around("com.xyz.myapp.SystemArchitecture.businessService()")
+	public Object doBasicProfiling(ProceedingJoinPoint pjp) throws Throwable {
+		// start stopwatch
+		Object retVal = pjp.proceed();
+		// stop stopwatch
+		return retVal;
+	}
 
 }
 ----
 
 The value returned by the around advice will be the return value seen by the caller of
 the method. A simple caching aspect for example could return a value from a cache if it
-has one, and invoke proceed()    if it does not. Note that proceed may be invoked once,
+has one, and invoke proceed() if it does not. Note that proceed may be invoked once,
 many times, or not at all within the body of the around advice, all of these are quite
 legal.
 
@@ -13588,10 +13588,9 @@ You could write the following:
 [source,java]
 [subs="verbatim,quotes"]
 ----
-@Before("com.xyz.myapp.SystemArchitecture.dataAccessOperation() &&" +
-        "args(account,..)")
+@Before("com.xyz.myapp.SystemArchitecture.dataAccessOperation() && args(account,..)")
 public void validateAccount(Account account) {
-  // ...
+	// ...
 }
 ----
 
@@ -13608,13 +13607,12 @@ from the advice. This would look as follows:
 [source,java]
 [subs="verbatim,quotes"]
 ----
-@Pointcut("com.xyz.myapp.SystemArchitecture.dataAccessOperation() &&" +
-          "args(account,..)")
+@Pointcut("com.xyz.myapp.SystemArchitecture.dataAccessOperation() && args(account,..)")
 private void accountDataAccessOperation(Account account) {}
 
 @Before("accountDataAccessOperation(account)")
 public void validateAccount(Account account) {
-  // ...
+	// ...
 }
 ----
 
@@ -13634,7 +13632,7 @@ First the definition of the `@Auditable` annotation:
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface Auditable {
-    AuditCode value();
+	AuditCode value();
 }
 ----
 
@@ -13643,11 +13641,10 @@ And then the advice that matches the execution of `@Auditable` methods:
 [source,java]
 [subs="verbatim,quotes"]
 ----
-@Before("com.xyz.lib.Pointcuts.anyPublicMethod() && " +
-        "@annotation(auditable)")
+@Before("com.xyz.lib.Pointcuts.anyPublicMethod() && @annotation(auditable)")
 public void audit(Auditable auditable) {
-  AuditCode code = auditable.value();
-  // ...
+	AuditCode code = auditable.value();
+	// ...
 }
 ----
 
@@ -13660,8 +13657,8 @@ you have a generic type like this:
 [subs="verbatim,quotes"]
 ----
 public interface Sample<T> {
-  void sampleGenericMethod(T param);
-  void sampleGenericCollectionMethod(Collection>T> param);
+	void sampleGenericMethod(T param);
+	void sampleGenericCollectionMethod(Collection>T> param);
 }
 ----
 
@@ -13673,7 +13670,7 @@ typing the advice parameter to the parameter type you want to intercept the meth
 ----
 @Before("execution(* ..Sample+.sampleGenericMethod(*)) && args(param)")
 public void beforeSampleMethod(MyType param) {
-  // Advice implementation
+	// Advice implementation
 }
 ----
 
@@ -13686,7 +13683,7 @@ pointcut like this:
 ----
 @Before("execution(* ..Sample+.sampleGenericCollectionMethod(*)) && args(param)")
 public void beforeSampleMethod(Collection<MyType> param) {
-  // Advice implementation
+	// Advice implementation
 }
 ----
 
@@ -13702,20 +13699,19 @@ expressions to declared parameter names in (advice and pointcut) method signatur
 Parameter names are __not__ available through Java reflection, so Spring AOP uses the
 following strategies to determine parameter names:
 
-* If the parameter names have been specified by the user       explicitly, then the
-  specified parameter names are used: both the advice and the pointcut annotations have
+* If the parameter names have been specified by the user explicitly, then the specified
+  parameter names are used: both the advice and the pointcut annotations have
   an optional "argNames" attribute which can be used to specify the argument names of
   the annotated method - these argument names__are__ available at runtime. For example:
 
 [source,java]
 [subs="verbatim,quotes"]
 ----
-@Before(
-   value="com.xyz.lib.Pointcuts.anyPublicMethod() && target(bean) && @annotation(auditable)",
-   argNames="bean,auditable")
+@Before(value="com.xyz.lib.Pointcuts.anyPublicMethod() && target(bean) && @annotation(auditable)",
+		argNames="bean,auditable")
 public void audit(Object bean, Auditable auditable) {
-  AuditCode code = auditable.value();
-  // ... use code and bean
+	AuditCode code = auditable.value();
+	// ... use code and bean
 }
 ----
 
@@ -13727,12 +13723,11 @@ the join point object, the "argNames" attribute need not include it:
 [source,java]
 [subs="verbatim,quotes"]
 ----
-@Before(
-   value="com.xyz.lib.Pointcuts.anyPublicMethod() && target(bean) && @annotation(auditable)",
-   argNames="bean,auditable")
+@Before(value="com.xyz.lib.Pointcuts.anyPublicMethod() && target(bean) && @annotation(auditable)",
+		argNames="bean,auditable")
 public void audit(JoinPoint jp, Object bean, Auditable auditable) {
-  AuditCode code = auditable.value();
-  // ... use code, bean, and jp
+	AuditCode code = auditable.value();
+	// ... use code, bean, and jp
 }
 ----
 
@@ -13745,10 +13740,9 @@ the "argNames" attribute:
 [source,java]
 [subs="verbatim,quotes"]
 ----
-@Before(
-   "com.xyz.lib.Pointcuts.anyPublicMethod()")
+@Before("com.xyz.lib.Pointcuts.anyPublicMethod()")
 public void audit(JoinPoint jp) {
-  // ... use jp
+	// ... use jp
 }
 ----
 
@@ -13787,13 +13781,13 @@ For example:
 [source,java]
 [subs="verbatim,quotes"]
 ----
-@Around("execution(List<Account> find*(..)) &&" +
-        "com.xyz.myapp.SystemArchitecture.inDataAccessLayer() && " +
-        "args(accountHolderNamePattern)")
-public Object preProcessQueryPattern(ProceedingJoinPoint pjp, String accountHolderNamePattern)
-throws Throwable {
-  String newPattern = preProcess(accountHolderNamePattern);
-  return pjp.proceed(new Object[] {newPattern});
+@Around("execution(List<Account> find*(..)) && " +
+		"com.xyz.myapp.SystemArchitecture.inDataAccessLayer() && " +
+		"args(accountHolderNamePattern)")
+public Object preProcessQueryPattern(ProceedingJoinPoint pjp,
+		String accountHolderNamePattern) throws Throwable {
+	String newPattern = preProcess(accountHolderNamePattern);
+	return pjp.proceed(new Object[] {newPattern});
 }
 ----
 
@@ -13843,15 +13837,13 @@ the `UsageTracked` interface. (In order to expose statistics via JMX for example
 @Aspect
 public class UsageTracking {
 
-  @DeclareParents(value="com.xzy.myapp.service.*+",
-                  defaultImpl=DefaultUsageTracked.class)
-  public static UsageTracked mixin;
+	@DeclareParents(value="com.xzy.myapp.service.*+", defaultImpl=DefaultUsageTracked.class)
+	public static UsageTracked mixin;
 
-  @Before("com.xyz.myapp.SystemArchitecture.businessService() &&" +
-          "this(usageTracked)")
-  public void recordUsage(UsageTracked usageTracked) {
-    usageTracked.incrementUseCount();
-  }
+	@Before("com.xyz.myapp.SystemArchitecture.businessService() && this(usageTracked)")
+	public void recordUsage(UsageTracked usageTracked) {
+		usageTracked.incrementUseCount();
+	}
 
 }
 ----
@@ -13894,12 +13886,12 @@ annotation. Let's look at an example, and then we'll explain how it works.
 @Aspect("perthis(com.xyz.myapp.SystemArchitecture.businessService())")
 public class MyAspect {
 
-  private int someState;
+	private int someState;
 
-  @Before(com.xyz.myapp.SystemArchitecture.businessService())
-  public void recordServiceUsage() {
-    // ...
-  }
+	@Before(com.xyz.myapp.SystemArchitecture.businessService())
+	public void recordServiceUsage() {
+		// ...
+	}
 
 }
 ----
@@ -13942,39 +13934,38 @@ call proceed multiple times. Here's how the basic aspect implementation looks:
 @Aspect
 public class ConcurrentOperationExecutor implements Ordered {
 
-   private static final int DEFAULT_MAX_RETRIES = 2;
+	private static final int DEFAULT_MAX_RETRIES = 2;
 
-   private int maxRetries = DEFAULT_MAX_RETRIES;
-   private int order = 1;
+	private int maxRetries = DEFAULT_MAX_RETRIES;
+	private int order = 1;
 
-   public void setMaxRetries(int maxRetries) {
-      this.maxRetries = maxRetries;
-   }
+	public void setMaxRetries(int maxRetries) {
+		this.maxRetries = maxRetries;
+	}
 
-   public int getOrder() {
-      return this.order;
-   }
+	public int getOrder() {
+		return this.order;
+	}
 
-   public void setOrder(int order) {
-      this.order = order;
-   }
+	public void setOrder(int order) {
+		this.order = order;
+	}
 
-   @Around("com.xyz.myapp.SystemArchitecture.businessService()")
-   public Object doConcurrentOperation(ProceedingJoinPoint pjp) throws Throwable {
-      int numAttempts = 0;
-      PessimisticLockingFailureException lockFailureException;
-      do {
-         numAttempts++;
-         try {
-            return pjp.proceed();
-         }
-         catch(PessimisticLockingFailureException ex) {
-            lockFailureException = ex;
-         }
-      }
-      while(numAttempts <= this.maxRetries);
-      throw lockFailureException;
-   }
+	@Around("com.xyz.myapp.SystemArchitecture.businessService()")
+	public Object doConcurrentOperation(ProceedingJoinPoint pjp) throws Throwable {
+		int numAttempts = 0;
+		PessimisticLockingFailureException lockFailureException;
+		do {
+			numAttempts++;
+			try {
+				return pjp.proceed();
+			}
+			catch(PessimisticLockingFailureException ex) {
+				lockFailureException = ex;
+			}
+		} while(numAttempts <= this.maxRetries);
+		throw lockFailureException;
+	}
 
 }
 ----
@@ -13994,10 +13985,9 @@ The corresponding Spring configuration is:
 ----
 <aop:aspectj-autoproxy/>
 
-<bean id="concurrentOperationExecutor"
-  class="com.xyz.myapp.service.impl.ConcurrentOperationExecutor">
-     <property name="maxRetries" value="3"/>
-     <property name="order" value="100"/>
+<bean id="concurrentOperationExecutor" class="com.xyz.myapp.service.impl.ConcurrentOperationExecutor">
+	<property name="maxRetries" value="3"/>
+	<property name="order" value="100"/>
 </bean>
 ----
 
@@ -14009,7 +13999,7 @@ To refine the aspect so that it only retries idempotent operations, we might def
 ----
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Idempotent {
-  // marker annotation
+	// marker annotation
 }
 ----
 
@@ -14021,9 +14011,9 @@ expression so that only `@Idempotent` operations match:
 [subs="verbatim,quotes"]
 ----
 @Around("com.xyz.myapp.SystemArchitecture.businessService() && " +
-        "@annotation(com.xyz.myapp.service.Idempotent)")
+		"@annotation(com.xyz.myapp.service.Idempotent)")
 public Object doConcurrentOperation(ProceedingJoinPoint pjp) throws Throwable {
-  ...
+	...
 }
 ----
 
@@ -14073,13 +14063,13 @@ using the `ref` attribute:
 [subs="verbatim,quotes"]
 ----
 <aop:config>
-  <aop:aspect id="myAspect" ref="aBean">
-    ...
-  </aop:aspect>
+	<aop:aspect id="myAspect" ref="aBean">
+		...
+	</aop:aspect>
 </aop:config>
 
 <bean id="aBean" class="...">
-  ...
+	...
 </bean>
 ----
 
@@ -14101,8 +14091,8 @@ be defined as follows:
 ----
 <aop:config>
 
-  <aop:pointcut id="businessService"
-        expression="execution(* com.xyz.myapp.service.*.*(..))"/>
+	<aop:pointcut id="businessService"
+		expression="execution(* com.xyz.myapp.service.*.*(..))"/>
 
 </aop:config>
 ----
@@ -14119,8 +14109,8 @@ therefore, another way of defining the above pointcut would be:
 ----
 <aop:config>
 
-  <aop:pointcut id="businessService"
-        expression="com.xyz.myapp.SystemArchitecture.businessService()"/>
+	<aop:pointcut id="businessService"
+		expression="com.xyz.myapp.SystemArchitecture.businessService()"/>
 
 </aop:config>
 ----
@@ -14134,14 +14124,14 @@ Declaring a pointcut inside an aspect is very similar to declaring a top-level p
 ----
 <aop:config>
 
-  <aop:aspect id="myAspect" ref="aBean">
+	<aop:aspect id="myAspect" ref="aBean">
 
-    <aop:pointcut id="businessService"
-          expression="execution(* com.xyz.myapp.service.*.*(..))"/>
+		<aop:pointcut id="businessService"
+			expression="execution(* com.xyz.myapp.service.*.*(..))"/>
 
-    ...
+		...
 
-  </aop:aspect>
+	</aop:aspect>
 
 </aop:config>
 ----
@@ -14155,14 +14145,16 @@ collects the 'this' object as the join point context and passes it to advice:
 ----
 <aop:config>
 
-  <aop:aspect id="myAspect" ref="aBean">
+	<aop:aspect id="myAspect" ref="aBean">
 
-    <aop:pointcut id="businessService"
-          expression="execution(* com.xyz.myapp.service.*.*(..)) &amp;&amp; this(service)"/>
-    <aop:before pointcut-ref="businessService" method="monitor"/>
-    ...
+		<aop:pointcut id="businessService"
+			expression="execution(* com.xyz.myapp.service.*.*(..)) &amp;&amp; this(service)"/>
 
-  </aop:aspect>
+		<aop:before pointcut-ref="businessService" method="monitor"/>
+
+		...
+
+	</aop:aspect>
 
 </aop:config>
 ----
@@ -14174,7 +14166,7 @@ parameters of the matching names:
 [subs="verbatim,quotes"]
 ----
 public void monitor(Object service) {
-    ...
+	...
 }
 ----
 
@@ -14187,13 +14179,15 @@ respectively. For example, the previous pointcut may be better written as:
 ----
 <aop:config>
 
-  <aop:aspect id="myAspect" ref="aBean">
+	<aop:aspect id="myAspect" ref="aBean">
 
-    <aop:pointcut id="businessService"
-          expression="execution(* com.xyz.myapp.service.*.*(..)) **and** this(service)"/>
-    <aop:before pointcut-ref="businessService" method="monitor"/>
-    ...
-  </aop:aspect>
+		<aop:pointcut id="businessService"
+			expression="execution(* com.xyz.myapp.service.*.*(..)) **and** this(service)"/>
+
+		<aop:before pointcut-ref="businessService" method="monitor"/>
+
+		...
+	</aop:aspect>
 </aop:config>
 ----
 
@@ -14220,11 +14214,11 @@ Before advice runs before a matched method execution. It is declared inside an
 ----
 <aop:aspect id="beforeExample" ref="aBean">
 
-    <aop:before
-      pointcut-ref="dataAccessOperation"
-      method="doAccessCheck"/>
+	<aop:before
+		pointcut-ref="dataAccessOperation"
+		method="doAccessCheck"/>
 
-    ...
+	...
 
 </aop:aspect>
 ----
@@ -14238,11 +14232,11 @@ a `pointcut` attribute:
 ----
 <aop:aspect id="beforeExample" ref="aBean">
 
-    <aop:before
-      pointcut="execution(* com.xyz.myapp.dao.*.*(..))"
-      method="doAccessCheck"/>
+	<aop:before
+		pointcut="execution(* com.xyz.myapp.dao.*.*(..))"
+		method="doAccessCheck"/>
 
-    ...
+	...
 
 </aop:aspect>
 ----
@@ -14267,11 +14261,11 @@ declared inside an `<aop:aspect>` in the same way as before advice. For example:
 ----
 <aop:aspect id="afterReturningExample" ref="aBean">
 
-    <aop:after-returning
-      pointcut-ref="dataAccessOperation"
-      method="doAccessCheck"/>
+	<aop:after-returning
+		pointcut-ref="dataAccessOperation"
+		method="doAccessCheck"/>
 
-    ...
+	...
 
 </aop:aspect>
 ----
@@ -14285,12 +14279,12 @@ the return value should be passed:
 ----
 <aop:aspect id="afterReturningExample" ref="aBean">
 
-    <aop:after-returning
-      pointcut-ref="dataAccessOperation"
-      returning="retVal"
-      method="doAccessCheck"/>
+	<aop:after-returning
+		pointcut-ref="dataAccessOperation"
+		returning="retVal"
+		method="doAccessCheck"/>
 
-    ...
+	...
 
 </aop:aspect>
 ----
@@ -14316,11 +14310,11 @@ exception. It is declared inside an `<aop:aspect>` using the after-throwing elem
 ----
 <aop:aspect id="afterThrowingExample" ref="aBean">
 
-    <aop:after-throwing
-      pointcut-ref="dataAccessOperation"
-      method="doRecoveryActions"/>
+	<aop:after-throwing
+		pointcut-ref="dataAccessOperation"
+		method="doRecoveryActions"/>
 
-    ...
+	...
 
 </aop:aspect>
 ----
@@ -14334,12 +14328,12 @@ which the exception should be passed:
 ----
 <aop:aspect id="afterThrowingExample" ref="aBean">
 
-    <aop:after-throwing
-      pointcut-ref="dataAccessOperation"
-      throwing="dataAccessEx"
-      method="doRecoveryActions"/>
+	<aop:after-throwing
+		pointcut-ref="dataAccessOperation"
+		throwing="dataAccessEx"
+		method="doRecoveryActions"/>
 
-    ...
+	...
 
 </aop:aspect>
 ----
@@ -14365,11 +14359,11 @@ using the `after` element:
 ----
 <aop:aspect id="afterFinallyExample" ref="aBean">
 
-    <aop:after
-      pointcut-ref="dataAccessOperation"
-      method="doReleaseLock"/>
+	<aop:after
+		pointcut-ref="dataAccessOperation"
+		method="doReleaseLock"/>
 
-    ...
+	...
 
 </aop:aspect>
 ----
@@ -14397,11 +14391,11 @@ in the array will be used as the arguments to the method execution when it proce
 ----
 <aop:aspect id="aroundExample" ref="aBean">
 
-    <aop:around
-      pointcut-ref="businessService"
-      method="doBasicProfiling"/>
+	<aop:around
+		pointcut-ref="businessService"
+		method="doBasicProfiling"/>
 
-    ...
+	...
 
 </aop:aspect>
 ----
@@ -14413,10 +14407,10 @@ The implementation of the `doBasicProfiling` advice would be exactly the same as
 [subs="verbatim,quotes"]
 ----
 public Object doBasicProfiling(ProceedingJoinPoint pjp) throws Throwable {
-    // start stopwatch
-    Object retVal = pjp.proceed();
-    // stop stopwatch
-    return retVal;
+	// start stopwatch
+	Object retVal = pjp.proceed();
+	// stop stopwatch
+	return retVal;
 }
 ----
 
@@ -14436,9 +14430,9 @@ For example:
 [subs="verbatim,quotes"]
 ----
 <aop:before
-  pointcut="com.xyz.lib.Pointcuts.anyPublicMethod() and @annotation(auditable)"
-  method="audit"
-  arg-names="auditable"/>
+	pointcut="com.xyz.lib.Pointcuts.anyPublicMethod() and @annotation(auditable)"
+	method="audit"
+	arg-names="auditable"/>
 ----
 
 The `arg-names` attribute accepts a comma-delimited list of parameter names.
@@ -14453,14 +14447,14 @@ package x.y.service;
 
 public interface FooService {
 
-   Foo getFoo(String fooName, int age);
+	Foo getFoo(String fooName, int age);
 }
 
 public class DefaultFooService implements FooService {
 
-   public Foo getFoo(String name, int age) {
-      return new Foo(name, age);
-   }
+	public Foo getFoo(String name, int age) {
+		return new Foo(name, age);
+	}
 }
 ----
 
@@ -14479,17 +14473,16 @@ import org.springframework.util.StopWatch;
 
 public class SimpleProfiler {
 
-   public Object profile(ProceedingJoinPoint call, String name, int age) throws Throwable {
-      StopWatch clock = new StopWatch(
-            "Profiling for '" + name + "' and '" + age + "'");
-      try {
-         clock.start(call.toShortString());
-         return call.proceed();
-      } finally {
-         clock.stop();
-         System.out.println(clock.prettyPrint());
-      }
-   }
+	public Object profile(ProceedingJoinPoint call, String name, int age) throws Throwable {
+		StopWatch clock = new StopWatch("Profiling for '" + name + "' and '" + age + "'");
+		try {
+			clock.start(call.toShortString());
+			return call.proceed();
+		} finally {
+			clock.stop();
+			System.out.println(clock.prettyPrint());
+		}
+	}
 }
 ----
 
@@ -14500,30 +14493,30 @@ above advice for a particular join point:
 [subs="verbatim,quotes"]
 ----
 <beans xmlns="http://www.springframework.org/schema/beans"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:aop="http://www.springframework.org/schema/aop"
-      xsi:schemaLocation="
-http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-   <!-- this is the object that will be proxied by Spring's AOP infrastructure -->
-   <bean id="fooService" class="x.y.service.DefaultFooService"/>
+	<!-- this is the object that will be proxied by Spring's AOP infrastructure -->
+	<bean id="fooService" class="x.y.service.DefaultFooService"/>
 
-   <!-- this is the actual advice itself -->
-   <bean id="profiler" class="x.y.SimpleProfiler"/>
+	<!-- this is the actual advice itself -->
+	<bean id="profiler" class="x.y.SimpleProfiler"/>
 
-   <aop:config>
-      <aop:aspect ref="profiler">
+	<aop:config>
+		<aop:aspect ref="profiler">
 
-         <aop:pointcut id="theExecutionOfSomeFooServiceMethod"
-                    expression="execution(* x.y.service.FooService.getFoo(String,int))
-                    and args(name, age)"/>
+			<aop:pointcut id="theExecutionOfSomeFooServiceMethod"
+				expression="execution(* x.y.service.FooService.getFoo(String,int))
+				and args(name, age)"/>
 
-         <aop:around pointcut-ref="theExecutionOfSomeFooServiceMethod"
-                  method="profile"/>
+			<aop:around pointcut-ref="theExecutionOfSomeFooServiceMethod"
+				method="profile"/>
 
-      </aop:aspect>
-   </aop:config>
+		</aop:aspect>
+	</aop:config>
 
 </beans>
 ----
@@ -14540,11 +14533,11 @@ import x.y.service.FooService;
 
 public final class Boot {
 
-   public static void main(final String[] args) throws Exception {
-      BeanFactory ctx = new ClassPathXmlApplicationContext("x/y/plain.xml");
-      FooService foo = (FooService) ctx.getBean("fooService");
-      foo.getFoo("Pengo", 12);
-   }
+	public static void main(final String[] args) throws Exception {
+		BeanFactory ctx = new ClassPathXmlApplicationContext("x/y/plain.xml");
+		FooService foo = (FooService) ctx.getBean("fooService");
+		foo.getFoo("Pengo", 12);
+	}
 }
 ----
 
@@ -14586,15 +14579,15 @@ via JMX for example.)
 ----
 <aop:aspect id="usageTrackerAspect" ref="usageTracking">
 
-  <aop:declare-parents
-      types-matching="com.xzy.myapp.service.*+"
-      implement-interface="com.xyz.myapp.service.tracking.UsageTracked"
-      default-impl="com.xyz.myapp.service.tracking.DefaultUsageTracked"/>
+	<aop:declare-parents
+		types-matching="com.xzy.myapp.service.*+"
+		implement-interface="com.xyz.myapp.service.tracking.UsageTracked"
+		default-impl="com.xyz.myapp.service.tracking.DefaultUsageTracked"/>
 
-  <aop:before
-    pointcut="com.xyz.myapp.SystemArchitecture.businessService()
-              and this(usageTracked)"
-    method="recordUsage"/>
+	<aop:before
+		pointcut="com.xyz.myapp.SystemArchitecture.businessService()
+			and this(usageTracked)"
+			method="recordUsage"/>
 
 </aop:aspect>
 ----
@@ -14605,7 +14598,7 @@ The class backing the `usageTracking` bean would contain the method:
 [subs="verbatim,quotes"]
 ----
 public void recordUsage(UsageTracked usageTracked) {
-    usageTracked.incrementUseCount();
+	usageTracked.incrementUseCount();
 }
 ----
 
@@ -14649,19 +14642,19 @@ namespace support in Spring 2.0. Here's how it looks:
 ----
 <aop:config>
 
-  <aop:pointcut id="businessService"
-        expression="execution(* com.xyz.myapp.service.*.*(..))"/>
+	<aop:pointcut id="businessService"
+		expression="execution(* com.xyz.myapp.service.*.*(..))"/>
 
-  <aop:advisor
-      pointcut-ref="businessService"
-      advice-ref="tx-advice"/>
+	<aop:advisor
+		pointcut-ref="businessService"
+		advice-ref="tx-advice"/>
 
 </aop:config>
 
 <tx:advice id="tx-advice">
-  <tx:attributes>
-    <tx:method name="*" propagation="REQUIRED"/>
-  </tx:attributes>
+	<tx:attributes>
+		<tx:method name="*" propagation="REQUIRED"/>
+	</tx:attributes>
 </tx:advice>
 ----
 
@@ -14696,38 +14689,37 @@ a regular Java class using the schema support):
 ----
 public class ConcurrentOperationExecutor implements Ordered {
 
-   private static final int DEFAULT_MAX_RETRIES = 2;
+	private static final int DEFAULT_MAX_RETRIES = 2;
 
-   private int maxRetries = DEFAULT_MAX_RETRIES;
-   private int order = 1;
+	private int maxRetries = DEFAULT_MAX_RETRIES;
+	private int order = 1;
 
-   public void setMaxRetries(int maxRetries) {
-      this.maxRetries = maxRetries;
-   }
+	public void setMaxRetries(int maxRetries) {
+		this.maxRetries = maxRetries;
+	}
 
-   public int getOrder() {
-      return this.order;
-   }
+	public int getOrder() {
+		return this.order;
+	}
 
-   public void setOrder(int order) {
-      this.order = order;
-   }
+	public void setOrder(int order) {
+		this.order = order;
+	}
 
-   public Object doConcurrentOperation(ProceedingJoinPoint pjp) throws Throwable {
-      int numAttempts = 0;
-      PessimisticLockingFailureException lockFailureException;
-      do {
-         numAttempts++;
-         try {
-            return pjp.proceed();
-         }
-         catch(PessimisticLockingFailureException ex) {
-            lockFailureException = ex;
-         }
-      }
-      while(numAttempts <= this.maxRetries);
-      throw lockFailureException;
-   }
+	public Object doConcurrentOperation(ProceedingJoinPoint pjp) throws Throwable {
+		int numAttempts = 0;
+		PessimisticLockingFailureException lockFailureException;
+		do {
+			numAttempts++;
+			try {
+				return pjp.proceed();
+			}
+			catch(PessimisticLockingFailureException ex) {
+				lockFailureException = ex;
+			}
+		} while(numAttempts <= this.maxRetries);
+		throw lockFailureException;
+	}
 
 }
 ----
@@ -14752,23 +14744,23 @@ The corresponding Spring configuration is:
 ----
 <aop:config>
 
-  <aop:aspect id="concurrentOperationRetry" ref="concurrentOperationExecutor">
+	<aop:aspect id="concurrentOperationRetry" ref="concurrentOperationExecutor">
 
-    <aop:pointcut id="idempotentOperation"
-        expression="execution(* com.xyz.myapp.service.*.*(..))"/>
+		<aop:pointcut id="idempotentOperation"
+			expression="execution(* com.xyz.myapp.service.*.*(..))"/>
 
-    <aop:around
-       pointcut-ref="idempotentOperation"
-       method="doConcurrentOperation"/>
+		<aop:around
+			pointcut-ref="idempotentOperation"
+			method="doConcurrentOperation"/>
 
-  </aop:aspect>
+	</aop:aspect>
 
 </aop:config>
 
 <bean id="concurrentOperationExecutor"
-  class="com.xyz.myapp.service.impl.ConcurrentOperationExecutor">
-     <property name="maxRetries" value="3"/>
-     <property name="order" value="100"/>
+	class="com.xyz.myapp.service.impl.ConcurrentOperationExecutor">
+		<property name="maxRetries" value="3"/>
+		<property name="order" value="100"/>
 </bean>
 ----
 
@@ -14781,7 +14773,7 @@ idempotent operations, by introducing an `Idempotent` annotation:
 ----
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Idempotent {
-  // marker annotation
+	// marker annotation
 }
 ----
 
@@ -14793,8 +14785,8 @@ pointcut expression so that only `@Idempotent` operations match:
 [subs="verbatim,quotes"]
 ----
 <aop:pointcut id="idempotentOperation"
-        expression="execution(* com.xyz.myapp.service.*.*(..)) and
-                    @annotation(com.xyz.myapp.service.Idempotent)"/>
+		expression="execution(* com.xyz.myapp.service.*.*(..)) and
+		@annotation(com.xyz.myapp.service.Idempotent)"/>
 ----
 
 
@@ -14863,13 +14855,13 @@ something like:
 [subs="verbatim,quotes"]
 ----
 @Pointcut(execution(* get*()))
-  public void propertyAccess() {}
+	public void propertyAccess() {}
 
-  @Pointcut(execution(org.xyz.Account+ *(..))
-  public void operationReturningAnAccount() {}
+	@Pointcut(execution(org.xyz.Account+ *(..))
+	public void operationReturningAnAccount() {}
 
-  @Pointcut(propertyAccess() && operationReturningAnAccount())
-  public void accountPropertyAccess() {}
+	@Pointcut(propertyAccess() && operationReturningAnAccount())
+	public void accountPropertyAccess() {}
 ----
 
 In the XML style I can declare the first two pointcuts:
@@ -14878,10 +14870,10 @@ In the XML style I can declare the first two pointcuts:
 [subs="verbatim,quotes"]
 ----
 <aop:pointcut id="propertyAccess"
-      expression="execution(* get*())"/>
+		expression="execution(* get*())"/>
 
-  <aop:pointcut id="operationReturningAnAccount"
-      expression="execution(org.xyz.Account+ *(..))"/>
+<aop:pointcut id="operationReturningAnAccount"
+		expression="execution(org.xyz.Account+ *(..))"/>
 ----
 
 The downside of the XML approach is that you cannot define the '
@@ -14943,7 +14935,7 @@ the `<aop:config>` element to true:
 [subs="verbatim,quotes"]
 ----
 <aop:config proxy-target-class="true">
-    <!-- other beans defined here... -->
+	<!-- other beans defined here... -->
 </aop:config>
 ----
 
@@ -14986,15 +14978,14 @@ code snippet.
 ----
 public class SimplePojo implements Pojo {
 
-   public void foo() {
-      // this next method invocation is a direct
-      call on the 'this' reference
-      this.bar();
-   }
+	public void foo() {
+		// this next method invocation is a direct call on the 'this' reference
+		this.bar();
+	}
 
-   public void bar() {
-      // some logic...
-   }
+	public void bar() {
+		// some logic...
+	}
 }
 ----
 
@@ -15008,13 +14999,13 @@ image::images/aop-proxy-plain-pojo-call.png[]
 ----
 public class Main {
 
-   public static void main(String[] args) {
+	public static void main(String[] args) {
 
-      Pojo pojo = new SimplePojo();
+		Pojo pojo = new SimplePojo();
 
-      // this is a direct method call on the 'pojo' reference
-      pojo.foo();
-   }
+		// this is a direct method call on the 'pojo' reference
+		pojo.foo();
+	}
 }
 ----
 
@@ -15028,17 +15019,17 @@ image::images/aop-proxy-call.png[]
 ----
 public class Main {
 
-   public static void main(String[] args) {
+	public static void main(String[] args) {
 
-      ProxyFactory factory = new ProxyFactory(new SimplePojo());
-      factory.addInterface(Pojo.class);
-      factory.addAdvice(new RetryAdvice());
+		ProxyFactory factory = new ProxyFactory(new SimplePojo());
+		factory.addInterface(Pojo.class);
+		factory.addAdvice(new RetryAdvice());
 
-      Pojo pojo = (Pojo) factory.getProxy();
+		Pojo pojo = (Pojo) factory.getProxy();
 
-      // this is a method call on the proxy!
-      pojo.foo();
-   }
+		// this is a method call on the proxy!
+		pojo.foo();
+	}
 }
 ----
 
@@ -15065,14 +15056,14 @@ your class to Spring AOP by doing this:
 ----
 public class SimplePojo implements Pojo {
 
-   public void foo() {
-      // this works, but... gah!
-      ((Pojo) AopContext.currentProxy()).bar();
-   }
+	public void foo() {
+		// this works, but... gah!
+		((Pojo) AopContext.currentProxy()).bar();
+	}
 
-   public void bar() {
-      // some logic...
-   }
+	public void bar() {
+		// some logic...
+	}
 }
 ----
 
@@ -15085,18 +15076,18 @@ also requires some additional configuration when the proxy is being created:
 ----
 public class Main {
 
-   public static void main(String[] args) {
+	public static void main(String[] args) {
 
-      ProxyFactory factory = new ProxyFactory(new SimplePojo());
-      factory.adddInterface(Pojo.class);
-      factory.addAdvice(new RetryAdvice());
-      factory.setExposeProxy(true);
+		ProxyFactory factory = new ProxyFactory(new SimplePojo());
+		factory.adddInterface(Pojo.class);
+		factory.addAdvice(new RetryAdvice());
+		factory.setExposeProxy(true);
 
-      Pojo pojo = (Pojo) factory.getProxy();
+		Pojo pojo = (Pojo) factory.getProxy();
 
-      // this is a method call on the proxy!
-      pojo.foo();
-   }
+		// this is a method call on the proxy!
+		pojo.foo();
+	}
 }
 ----
 
@@ -15179,7 +15170,7 @@ import org.springframework.beans.factory.annotation.Configurable;
 
 @Configurable
 public class Account {
-   // ...
+	// ...
 }
 ----
 
@@ -15194,7 +15185,7 @@ is simply to omit the `id` attribute:
 [subs="verbatim,quotes"]
 ----
 <bean class="com.xyz.myapp.domain.Account" scope="prototype">
-  <property name="fundsTransferService" ref="fundsTransferService"/>
+	<property name="fundsTransferService" ref="fundsTransferService"/>
 </bean>
 ----
 
@@ -15210,7 +15201,7 @@ import org.springframework.beans.factory.annotation.Configurable;
 
 @Configurable("account")
 public class Account {
-   // ...
+	// ...
 }
 ----
 
@@ -15299,9 +15290,8 @@ If you are using the DTD instead of schema, the equivalent definition is:
 [source,xml]
 [subs="verbatim,quotes"]
 ----
-<bean
-      class="org.springframework.beans.factory.aspectj.AnnotationBeanConfigurerAspect"
-      factory-method="aspectOf"/>
+<bean class="org.springframework.beans.factory.aspectj.AnnotationBeanConfigurerAspect"
+		factory-method="aspectOf"/>
 ----
 
 Instances of `@Configurable` objects created __before__ the aspect has been configured
@@ -15315,10 +15305,10 @@ configuration aspect.
 [subs="verbatim,quotes"]
 ----
 <bean id="myService"
-  class="com.xzy.myapp.service.MyService"
-  depends-on="org.springframework.beans.factory.aspectj.AnnotationBeanConfigurerAspect">
+		class="com.xzy.myapp.service.MyService"
+		depends-on="org.springframework.beans.factory.aspectj.AnnotationBeanConfigurerAspect">
 
-  <!-- ... -->
+	<!-- ... -->
 
 </bean>
 ----
@@ -15411,15 +15401,15 @@ fully-qualified class names:
 ----
 public aspect DomainObjectConfiguration extends AbstractBeanConfigurerAspect {
 
-  public DomainObjectConfiguration() {
-    setBeanWiringInfoResolver(new ClassNameBeanWiringInfoResolver());
-  }
+	public DomainObjectConfiguration() {
+		setBeanWiringInfoResolver(new ClassNameBeanWiringInfoResolver());
+	}
 
-  // the creation of a new bean (any object in the domain model)
-  protected pointcut beanCreation(Object beanInstance) :
-    initialization(new(..)) &&
-    SystemArchitecture.inDomainModel() &&
-    this(beanInstance);
+	// the creation of a new bean (any object in the domain model)
+	protected pointcut beanCreation(Object beanInstance) :
+		initialization(new(..)) &&
+		SystemArchitecture.inDomainModel() &&
+		this(beanInstance);
 
 }
 ----
@@ -15444,9 +15434,9 @@ an instance itself. For example:
 [subs="verbatim,quotes"]
 ----
 <bean id="profiler" class="com.xyz.profiler.Profiler"
-      **factory-method="aspectOf"**>
+		**factory-method="aspectOf"**>
 
-      <property name="profilingStrategy" ref="jamonProfilingStrategy"/>
+	<property name="profilingStrategy" ref="jamonProfilingStrategy"/>
 </bean>
 ----
 
@@ -15469,8 +15459,8 @@ configuration:
 [subs="verbatim,quotes"]
 ----
 <aop:aspectj-autoproxy>
-  <aop:include name="thisBean"/>
-  <aop:include name="thatBean"/>
+	<aop:include name="thisBean"/>
+	<aop:include name="thatBean"/>
 </aop:aspectj-autoproxy>
 ----
 
@@ -15552,20 +15542,20 @@ import org.springframework.core.annotation.Order;
 @Aspect
 public class ProfilingAspect {
 
-    @Around("methodsToBeProfiled()")
-    public Object profile(ProceedingJoinPoint pjp) throws Throwable {
-        StopWatch sw = new StopWatch(getClass().getSimpleName());
-        try {
-            sw.start(pjp.getSignature().getName());
-            return pjp.proceed();
-        } finally {
-            sw.stop();
-            System.out.println(sw.prettyPrint());
-        }
-    }
+	@Around("methodsToBeProfiled()")
+	public Object profile(ProceedingJoinPoint pjp) throws Throwable {
+		StopWatch sw = new StopWatch(getClass().getSimpleName());
+		try {
+			sw.start(pjp.getSignature().getName());
+			return pjp.proceed();
+		} finally {
+			sw.stop();
+			System.out.println(sw.prettyPrint());
+		}
+	}
 
-    @Pointcut("execution(public * foo..*.*(..))")
-    public void methodsToBeProfiled(){}
+	@Pointcut("execution(public * foo..*.*(..))")
+	public void methodsToBeProfiled(){}
 }
 ----
 
@@ -15577,25 +15567,20 @@ namely the presence of a file (or files) on the Java classpath called '
 [source,xml]
 [subs="verbatim,quotes"]
 ----
-<!DOCTYPE aspectj PUBLIC
-        "-//AspectJ//DTD//EN" "http://www.eclipse.org/aspectj/dtd/aspectj.dtd">
+<!DOCTYPE aspectj PUBLIC "-//AspectJ//DTD//EN" "http://www.eclipse.org/aspectj/dtd/aspectj.dtd">
 <aspectj>
 
-    <weaver>
+	<weaver>
+		<!-- only weave classes in our application-specific packages -->
+		<include within="foo.*"/>
+	</weaver>
 
-        <!-- only weave classes in our application-specific packages -->
-        <include within="foo.*"/>
+	<aspects>
+		<!-- weave in just this aspect -->
+		<aspect name="foo.ProfilingAspect"/>
+	</aspects>
 
-    </weaver>
-
-    <aspects>
-
-        <!-- weave in just this aspect -->
-        <aspect name="foo.ProfilingAspect"/>
-
-    </aspects>
-
-  </aspectj>
+</aspectj>
 ----
 
 Now to the Spring-specific portion of the configuration. We need to configure a
@@ -15610,20 +15595,20 @@ are some more options that you can specify, but these are detailed later).
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="
-http://www.springframework.org/schema/beans
-    http://www.springframework.org/schema/beans/spring-beans.xsd
-http://www.springframework.org/schema/context
-    http://www.springframework.org/schema/context/spring-context.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!-- a service object; we will be profiling its methods -->
-    <bean id="entitlementCalculationService"
-          class="foo.StubEntitlementCalculationService"/>
+	<!-- a service object; we will be profiling its methods -->
+	<bean id="entitlementCalculationService"
+			class="foo.StubEntitlementCalculationService"/>
 
-    <!-- this switches on the load-time weaving -->
-    **<context:load-time-weaver/>**
+	<!-- this switches on the load-time weaving -->
+	**<context:load-time-weaver/>**
 </beans>
 ----
 
@@ -15640,16 +15625,16 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public final class Main {
 
-    public static void main(String[] args) {
+	public static void main(String[] args) {
 
-        ApplicationContext ctx = new ClassPathXmlApplicationContext("beans.xml", Main.class);
+		ApplicationContext ctx = new ClassPathXmlApplicationContext("beans.xml", Main.class);
 
-        EntitlementCalculationService entitlementCalculationService
-            = (EntitlementCalculationService) ctx.getBean("entitlementCalculationService");
+		EntitlementCalculationService entitlementCalculationService
+			= (EntitlementCalculationService) ctx.getBean("entitlementCalculationService");
 
-        // the profiling aspect is 'woven' around this method execution
-        entitlementCalculationService.calculateEntitlement();
-    }
+		// the profiling aspect is 'woven' around this method execution
+		entitlementCalculationService.calculateEntitlement();
+	}
 }
 ----
 
@@ -15701,16 +15686,16 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public final class Main {
 
-    public static void main(String[] args) {
+	public static void main(String[] args) {
 
-        new ClassPathXmlApplicationContext("beans.xml", Main.class);
+		new ClassPathXmlApplicationContext("beans.xml", Main.class);
 
-        EntitlementCalculationService entitlementCalculationService =
-            new StubEntitlementCalculationService();
+		EntitlementCalculationService entitlementCalculationService =
+			new StubEntitlementCalculationService();
 
-        // the profiling aspect will be 'woven' around this method execution
-        entitlementCalculationService.calculateEntitlement();
-    }
+		// the profiling aspect will be 'woven' around this method execution
+		entitlementCalculationService.calculateEntitlement();
+	}
 }
 ----
 
@@ -15816,15 +15801,15 @@ Alternatively, if you prefer XML based configuration, use the
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="
-http://www.springframework.org/schema/beans
-    http://www.springframework.org/schema/beans/spring-beans.xsd
-http://www.springframework.org/schema/context
-    http://www.springframework.org/schema/context/spring-context.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <context:load-time-weaver/>
+	<context:load-time-weaver/>
 
 </beans>
 ----
@@ -15878,10 +15863,11 @@ To specify a specific `LoadTimeWeaver` with Java configuration implement the
 @Configuration
 @EnableLoadTimeWeaving
 public class AppConfig implements LoadTimeWeavingConfigurer {
-    @Override
-    public LoadTimeWeaver getLoadTimeWeaver() {
-        return new ReflectiveLoadTimeWeaver();
-    }
+
+	@Override
+	public LoadTimeWeaver getLoadTimeWeaver() {
+		return new ReflectiveLoadTimeWeaver();
+	}
 }
 ----
 
@@ -15894,16 +15880,16 @@ element:
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="
-http://www.springframework.org/schema/beans
-    http://www.springframework.org/schema/beans/spring-beans.xsd
-http://www.springframework.org/schema/context
-    http://www.springframework.org/schema/context/spring-context.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <context:load-time-weaver
-            weaver-class="org.springframework.instrument.classloading.ReflectiveLoadTimeWeaver"/>
+	<context:load-time-weaver
+			weaver-class="org.springframework.instrument.classloading.ReflectiveLoadTimeWeaver"/>
 
 </beans>
 ----
@@ -15966,8 +15952,8 @@ above and can be registered individually for __each__ web application as follows
 [subs="verbatim,quotes"]
 ----
 <Context path="/myWebApp" docBase="/my/webApp/location">
-    <Loader
-        loaderClass="org.springframework.instrument.classloading.tomcat.TomcatInstrumentableClassLoader"/>
+	<Loader
+		loaderClass="org.springframework.instrument.classloading.tomcat.TomcatInstrumentableClassLoader"/>
 </Context>
 ----
 
@@ -15996,8 +15982,8 @@ details about available context locations.
 [subs="verbatim,quotes"]
 ----
 <Context path="/myWebApp" docBase="/my/webApp/location">
-    <Loader
-        loaderClass="org.springframework.instrument.classloading.tomcat.TomcatInstrumentableClassLoader"/>
+	<Loader
+		loaderClass="org.springframework.instrument.classloading.tomcat.TomcatInstrumentableClassLoader"/>
 </Context>
 ----
 
@@ -16028,9 +16014,9 @@ __useSystemClassLoaderAsParent__ to `false` to fix this problem:
 [subs="verbatim,quotes"]
 ----
 <Context path="/myWebApp" docBase="/my/webApp/location">
-    <Loader
-        loaderClass="org.springframework.instrument.classloading.tomcat.TomcatInstrumentableClassLoader"
-            **useSystemClassLoaderAsParent="false"**/>
+	<Loader
+		loaderClass="org.springframework.instrument.classloading.tomcat.TomcatInstrumentableClassLoader"
+				**useSystemClassLoaderAsParent="false"**/>
 </Context>
 ----
 
@@ -16146,9 +16132,9 @@ target advices to particular classes and methods. The complete interface is show
 ----
 public interface Pointcut {
 
-    ClassFilter getClassFilter();
+	ClassFilter getClassFilter();
 
-    MethodMatcher getMethodMatcher();
+	MethodMatcher getMethodMatcher();
 
 }
 ----
@@ -16166,7 +16152,7 @@ matched:
 ----
 public interface ClassFilter {
 
-    boolean matches(Class clazz);
+	boolean matches(Class clazz);
 }
 ----
 
@@ -16178,11 +16164,11 @@ shown below:
 ----
 public interface MethodMatcher {
 
-    boolean matches(Method m, Class targetClass);
+	boolean matches(Method m, Class targetClass);
 
-    boolean isRuntime();
+	boolean isRuntime();
 
-    boolean matches(Method m, Class targetClass, Object[] args);
+	boolean matches(Method m, Class targetClass, Object[] args);
 }
 ----
 
@@ -16263,13 +16249,13 @@ The usage is shown below:
 [subs="verbatim,quotes"]
 ----
 <bean id="settersAndAbsquatulatePointcut"
-    class="org.springframework.aop.support.JdkRegexpMethodPointcut">
-    <property name="patterns">
-        <list>
-            <value>.*set.*</value>
-            <value>.*absquatulate</value>
-        </list>
-    </property>
+		class="org.springframework.aop.support.JdkRegexpMethodPointcut">
+	<property name="patterns">
+		<list>
+			<value>.*set.*</value>
+			<value>.*absquatulate</value>
+		</list>
+	</property>
 </bean>
 ----
 
@@ -16283,16 +16269,16 @@ pointcut and advice, as shown below:
 [subs="verbatim,quotes"]
 ----
 <bean id="settersAndAbsquatulateAdvisor"
-    class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
-    <property name="advice">
-        <ref bean="beanNameOfAopAllianceInterceptor"/>
-    </property>
-    <property name="patterns">
-        <list>
-            <value>.*set.*</value>
-            <value>.*absquatulate</value>
-        </list>
-    </property>
+		class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+	<property name="advice">
+		<ref bean="beanNameOfAopAllianceInterceptor"/>
+	</property>
+	<property name="patterns">
+		<list>
+			<value>.*set.*</value>
+			<value>.*absquatulate</value>
+		</list>
+	</property>
 </bean>
 ----
 
@@ -16343,9 +16329,9 @@ abstract method (although it's possible to override other methods to customize b
 ----
 class TestStaticPointcut extends StaticMethodMatcherPointcut {
 
-    public boolean matches(Method m, Class targetClass) {
-        // return true if custom criteria match
-    }
+	public boolean matches(Method m, Class targetClass) {
+		// return true if custom criteria match
+	}
 }
 ----
 
@@ -16413,7 +16399,7 @@ following interface:
 ----
 public interface MethodInterceptor extends Interceptor {
 
-    Object invoke(MethodInvocation invocation) throws Throwable;
+	Object invoke(MethodInvocation invocation) throws Throwable;
 }
 ----
 
@@ -16429,12 +16415,12 @@ A simple `MethodInterceptor` implementation looks as follows:
 ----
 public class DebugInterceptor implements MethodInterceptor {
 
-    public Object invoke(MethodInvocation invocation) throws Throwable {
-        System.out.println("Before: invocation=[" + invocation + "]");
-        Object rval = invocation.proceed();
-        System.out.println("Invocation returned");
-        return rval;
-    }
+	public Object invoke(MethodInvocation invocation) throws Throwable {
+		System.out.println("Before: invocation=[" + invocation + "]");
+		Object rval = invocation.proceed();
+		System.out.println("Invocation returned");
+		return rval;
+	}
 }
 ----
 
@@ -16474,7 +16460,7 @@ unlikely that Spring will ever implement it).
 ----
 public interface MethodBeforeAdvice extends BeforeAdvice {
 
-    void before(Method m, Object[] args, Object target) throws Throwable;
+	void before(Method m, Object[] args, Object target) throws Throwable;
 }
 ----
 
@@ -16492,15 +16478,15 @@ An example of a before advice in Spring, which counts all method invocations:
 ----
 public class CountingBeforeAdvice implements MethodBeforeAdvice {
 
-    private int count;
+	private int count;
 
-    public void before(Method m, Object[] args, Object target) throws Throwable {
-        ++count;
-    }
+	public void before(Method m, Object[] args, Object target) throws Throwable {
+		++count;
+	}
 
-    public int getCount() {
-        return count;
-    }
+	public int getCount() {
+		return count;
+	}
 }
 ----
 
@@ -16536,9 +16522,9 @@ The advice below is invoked if a `RemoteException` is thrown (including subclass
 ----
 public class RemoteThrowsAdvice implements ThrowsAdvice {
 
-    public void afterThrowing(RemoteException ex) throws Throwable {
-        // Do something with remote exception
-    }
+	public void afterThrowing(RemoteException ex) throws Throwable {
+		// Do something with remote exception
+	}
 }
 ----
 
@@ -16551,9 +16537,9 @@ arguments and target object:
 ----
 public class ServletThrowsAdviceWithArguments implements ThrowsAdvice {
 
-    public void afterThrowing(Method m, Object[] args, Object target, ServletException ex) {
-        // Do something with all arguments
-    }
+	public void afterThrowing(Method m, Object[] args, Object target, ServletException ex) {
+		// Do something with all arguments
+	}
 }
 ----
 
@@ -16566,13 +16552,13 @@ methods can be combined in a single class.
 ----
 public static class CombinedThrowsAdvice implements ThrowsAdvice {
 
-    public void afterThrowing(RemoteException ex) throws Throwable {
-        // Do something with remote exception
-    }
+	public void afterThrowing(RemoteException ex) throws Throwable {
+		// Do something with remote exception
+	}
 
-    public void afterThrowing(Method m, Object[] args, Object target, ServletException ex) {
-        // Do something with all arguments
-    }
+	public void afterThrowing(Method m, Object[] args, Object target, ServletException ex) {
+		// Do something with all arguments
+	}
 }
 ----
 
@@ -16601,8 +16587,8 @@ __org.springframework.aop.AfterReturningAdvice__ interface, shown below:
 ----
 public interface AfterReturningAdvice extends Advice {
 
-    void afterReturning(Object returnValue, Method m, Object[] args, Object target)
-            throws Throwable;
+	void afterReturning(Object returnValue, Method m, Object[] args, Object target)
+			throws Throwable;
 }
 ----
 
@@ -16617,16 +16603,16 @@ not thrown exceptions:
 ----
 public class CountingAfterReturningAdvice implements AfterReturningAdvice {
 
-    private int count;
+	private int count;
 
-    public void afterReturning(Object returnValue, Method m, Object[] args, Object target)
-            throws Throwable {
-        ++count;
-    }
+	public void afterReturning(Object returnValue, Method m, Object[] args, Object target)
+			throws Throwable {
+		++count;
+	}
 
-    public int getCount() {
-        return count;
-    }
+	public int getCount() {
+		return count;
+	}
 }
 ----
 
@@ -16652,7 +16638,7 @@ implementing the following interface:
 ----
 public interface IntroductionInterceptor extends MethodInterceptor {
 
-    boolean implementsInterface(Class intf);
+	boolean implementsInterface(Class intf);
 }
 ----
 
@@ -16670,14 +16656,14 @@ rather than method, level. You can only use introduction advice with the
 ----
 public interface IntroductionAdvisor extends Advisor, IntroductionInfo {
 
-    ClassFilter getClassFilter();
+	ClassFilter getClassFilter();
 
-    void validateInterfaces() throws IllegalArgumentException;
+	void validateInterfaces() throws IllegalArgumentException;
 }
 
 public interface IntroductionInfo {
 
-    Class[] getInterfaces();
+	Class[] getInterfaces();
 }
 ----
 
@@ -16696,9 +16682,9 @@ introduce the following interface to one or more objects:
 [subs="verbatim,quotes"]
 ----
 public interface Lockable {
-    void lock();
-    void unlock();
-    boolean locked();
+	void lock();
+	void unlock();
+	boolean locked();
 }
 ----
 
@@ -16738,28 +16724,28 @@ to that held in the target object.
 [source,java]
 [subs="verbatim,quotes"]
 ----
-public class LockMixin extends DelegatingIntroductionInterceptor
-    implements Lockable {
+public class LockMixin extends DelegatingIntroductionInterceptor implements Lockable {
 
-    private boolean locked;
+	private boolean locked;
 
-    public void lock() {
-        this.locked = true;
-    }
+	public void lock() {
+		this.locked = true;
+	}
 
-    public void unlock() {
-        this.locked = false;
-    }
+	public void unlock() {
+		this.locked = false;
+	}
 
-    public boolean locked() {
-        return this.locked;
-    }
+	public boolean locked() {
+		return this.locked;
+	}
 
-    public Object invoke(MethodInvocation invocation) throws Throwable {
-        if (locked() && invocation.getMethod().getName().indexOf("set") == 0)
-            throw new LockedException();
-        return super.invoke(invocation);
-    }
+	public Object invoke(MethodInvocation invocation) throws Throwable {
+		if (locked() && invocation.getMethod().getName().indexOf("set") == 0) {
+			throw new LockedException();
+		}
+		return super.invoke(invocation);
+	}
 
 }
 ----
@@ -16781,9 +16767,9 @@ configuration relevant for a `LockMixin`, so we simply create it using `new`.
 ----
 public class LockMixinAdvisor extends DefaultIntroductionAdvisor {
 
-    public LockMixinAdvisor() {
-        super(new LockMixin(), Lockable.class);
-    }
+	public LockMixinAdvisor() {
+		super(new LockMixin(), Lockable.class);
+	}
 }
 ----
 
@@ -16975,28 +16961,28 @@ Let's look at a simple example of `ProxyFactoryBean` in action. This example inv
 [subs="verbatim,quotes"]
 ----
 <bean id="personTarget" class="com.mycompany.PersonImpl">
-    <property name="name" value="Tony"/>
-    <property name="age" value="51"/>
+	<property name="name" value="Tony"/>
+	<property name="age" value="51"/>
 </bean>
 
 <bean id="myAdvisor" class="com.mycompany.MyAdvisor">
-    <property name="someProperty" value="Custom string property value"/>
+	<property name="someProperty" value="Custom string property value"/>
 </bean>
 
 <bean id="debugInterceptor" class="org.springframework.aop.interceptor.DebugInterceptor">
 </bean>
 
 <bean id="person"
-    class="org.springframework.aop.framework.ProxyFactoryBean">
-    <property name="proxyInterfaces" value="com.mycompany.Person"/>
+	class="org.springframework.aop.framework.ProxyFactoryBean">
+	<property name="proxyInterfaces" value="com.mycompany.Person"/>
 
-    <property name="target" ref="personTarget"/>
-    <property name="interceptorNames">
-        <list>
-            <value>myAdvisor</value>
-            <value>debugInterceptor</value>
-        </list>
-    </property>
+	<property name="target" ref="personTarget"/>
+	<property name="interceptorNames">
+		<list>
+			<value>myAdvisor</value>
+			<value>debugInterceptor</value>
+		</list>
+	</property>
 </bean>
 ----
 
@@ -17046,26 +17032,26 @@ advice is included only for completeness:
 [subs="verbatim,quotes"]
 ----
 <bean id="myAdvisor" class="com.mycompany.MyAdvisor">
-  <property name="someProperty" value="Custom string property value"/>
+	<property name="someProperty" value="Custom string property value"/>
 </bean>
 
 <bean id="debugInterceptor" class="org.springframework.aop.interceptor.DebugInterceptor"/>
 
 <bean id="person" class="org.springframework.aop.framework.ProxyFactoryBean">
-  <property name="proxyInterfaces" value="com.mycompany.Person"/>
-  <!-- Use inner bean, not local reference to target -->
-  <property name="target">
-    <bean class="com.mycompany.PersonImpl">
-      <property name="name" value="Tony"/>
-      <property name="age" value="51"/>
-    </bean>
-  </property>
-  <property name="interceptorNames">
-    <list>
-      <value>myAdvisor</value>
-      <value>debugInterceptor</value>
-    </list>
-  </property>
+	<property name="proxyInterfaces" value="com.mycompany.Person"/>
+	<!-- Use inner bean, not local reference to target -->
+	<property name="target">
+		<bean class="com.mycompany.PersonImpl">
+			<property name="name" value="Tony"/>
+			<property name="age" value="51"/>
+		</bean>
+	</property>
+	<property name="interceptorNames">
+		<list>
+			<value>myAdvisor</value>
+			<value>debugInterceptor</value>
+		</list>
+	</property>
 </bean>
 ----
 
@@ -17122,12 +17108,12 @@ if you need to add a standard set of 'global' advisors:
 [subs="verbatim,quotes"]
 ----
 <bean id="proxy" class="org.springframework.aop.framework.ProxyFactoryBean">
-  <property name="target" ref="service"/>
-  <property name="interceptorNames">
-    <list>
-      <value>global*</value>
-    </list>
-  </property>
+	<property name="target" ref="service"/>
+	<property name="interceptorNames">
+		<list>
+			<value>global*</value>
+		</list>
+	</property>
 </bean>
 
 <bean id="global_debug" class="org.springframework.aop.interceptor.DebugInterceptor"/>
@@ -17149,13 +17135,13 @@ First a parent, __template__, bean definition is created for the proxy:
 [subs="verbatim,quotes"]
 ----
 <bean id="txProxyTemplate" abstract="true"
-        class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
-  <property name="transactionManager" ref="transactionManager"/>
-  <property name="transactionAttributes">
-    <props>
-      <prop key="*">PROPAGATION_REQUIRED</prop>
-    </props>
-  </property>
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+	<property name="transactionManager" ref="transactionManager"/>
+	<property name="transactionAttributes">
+		<props>
+			<prop key="*">PROPAGATION_REQUIRED</prop>
+		</props>
+	</property>
 </bean>
 ----
 
@@ -17167,10 +17153,10 @@ proxy as an inner bean definition, since the target will never be used on its ow
 [subs="verbatim,quotes"]
 ----
 <bean id="myService" parent="txProxyTemplate">
-  <property name="target">
-    <bean class="org.springframework.samples.MyServiceImpl">
-    </bean>
-  </property>
+	<property name="target">
+		<bean class="org.springframework.samples.MyServiceImpl">
+		</bean>
+	</property>
 </bean>
 ----
 
@@ -17181,18 +17167,18 @@ this case, the transaction propagation settings:
 [subs="verbatim,quotes"]
 ----
 <bean id="mySpecialService" parent="txProxyTemplate">
-  <property name="target">
-    <bean class="org.springframework.samples.MySpecialServiceImpl">
-    </bean>
-  </property>
-  <property name="transactionAttributes">
-    <props>
-      <prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
-      <prop key="find*">PROPAGATION_REQUIRED,readOnly</prop>
-      <prop key="load*">PROPAGATION_REQUIRED,readOnly</prop>
-      <prop key="store*">PROPAGATION_REQUIRED</prop>
-    </props>
-  </property>
+	<property name="target">
+		<bean class="org.springframework.samples.MySpecialServiceImpl">
+		</bean>
+	</property>
+	<property name="transactionAttributes">
+		<props>
+			<prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+			<prop key="find*">PROPAGATION_REQUIRED,readOnly</prop>
+			<prop key="load*">PROPAGATION_REQUIRED,readOnly</prop>
+			<prop key="store*">PROPAGATION_REQUIRED</prop>
+		</props>
+	</property>
 </bean>
 ----
 
@@ -17266,8 +17252,7 @@ Advisor[] getAdvisors();
 
 void addAdvice(Advice advice) throws AopConfigException;
 
-void addAdvice(int pos, Advice advice)
-        throws AopConfigException;
+void addAdvice(int pos, Advice advice) throws AopConfigException;
 
 void addAdvisor(Advisor advisor) throws AopConfigException;
 
@@ -17320,8 +17305,7 @@ advised.addAdvice(new DebugInterceptor());
 // Add selective advice using a pointcut
 advised.addAdvisor(new DefaultPointcutAdvisor(mySpecialPointcut, myAdvice));
 
-assertEquals("Added two advisors",
-     oldAdvisorCount + 2, advised.getAdvisors().length);
+assertEquals("Added two advisors", oldAdvisorCount + 2, advised.getAdvisors().length);
 ----
 
 [NOTE]
@@ -17382,12 +17366,12 @@ AOP proxies for beans with names matching literal values or wildcards.
 [subs="verbatim,quotes"]
 ----
 <bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
-  <property name="beanNames" value="jdk*,onlyJdk"/>
-  <property name="interceptorNames">
-    <list>
-      <value>myInterceptor</value>
-    </list>
-  </property>
+	<property name="beanNames" value="jdk*,onlyJdk"/>
+	<property name="interceptorNames">
+		<list>
+			<value>myInterceptor</value>
+		</list>
+	</property>
 </bean>
 ----
 
@@ -17443,13 +17427,13 @@ bean" idiom shown earlier also offers this benefit.)
 <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>
 
 <bean class="org.springframework.transaction.interceptor.TransactionAttributeSourceAdvisor">
-  <property name="transactionInterceptor" ref="transactionInterceptor"/>
+	<property name="transactionInterceptor" ref="transactionInterceptor"/>
 </bean>
 
 <bean id="customAdvisor" class="com.mycompany.MyAdvisor"/>
 
 <bean id="businessObject1" class="com.mycompany.BusinessObject1">
-  <!-- Properties omitted -->
+	<!-- Properties omitted -->
 </bean>
 
 <bean id="businessObject2" class="com.mycompany.BusinessObject2"/>
@@ -17506,17 +17490,17 @@ this is generic, and can be used outside the JPetStore:
 <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>
 
 <bean class="org.springframework.transaction.interceptor.TransactionAttributeSourceAdvisor">
-  <property name="transactionInterceptor" ref="transactionInterceptor"/>
+	<property name="transactionInterceptor" ref="transactionInterceptor"/>
 </bean>
 
 <bean id="transactionInterceptor"
-    class="org.springframework.transaction.interceptor.TransactionInterceptor">
-  <property name="transactionManager" ref="transactionManager"/>
-  <property name="transactionAttributeSource">
-    <bean class="org.springframework.transaction.interceptor.AttributesTransactionAttributeSource">
-      <property name="attributes" ref="attributes"/>
-    </bean>
-  </property>
+		class="org.springframework.transaction.interceptor.TransactionInterceptor">
+	<property name="transactionManager" ref="transactionManager"/>
+	<property name="transactionAttributeSource">
+		<bean class="org.springframework.transaction.interceptor.AttributesTransactionAttributeSource">
+			<property name="attributes" ref="attributes"/>
+		</bean>
+	</property>
 </bean>
 
 <bean id="attributes" class="org.springframework.metadata.commons.CommonsAttributes"/>
@@ -17545,15 +17529,15 @@ proxies for beans containing that annotation:
 <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>
 
 <bean class="org.springframework.transaction.interceptor.TransactionAttributeSourceAdvisor">
-  <property name="transactionInterceptor" ref="transactionInterceptor"/>
+	<property name="transactionInterceptor" ref="transactionInterceptor"/>
 </bean>
 
 <bean id="transactionInterceptor"
-    class="org.springframework.transaction.interceptor.TransactionInterceptor">
-  <property name="transactionManager" ref="transactionManager"/>
-  <property name="transactionAttributeSource">
-    <bean class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource"/>
-  </property>
+		class="org.springframework.transaction.interceptor.TransactionInterceptor">
+	<property name="transactionManager" ref="transactionManager"/>
+	<property name="transactionAttributeSource">
+		<bean class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource"/>
+	</property>
 </bean>
 ----
 
@@ -17566,7 +17550,7 @@ this example, or Hibernate, JDO or JDBC):
 [subs="verbatim,quotes"]
 ----
 <bean id="transactionManager"
-    class="org.springframework.transaction.jta.JtaTransactionManager"/>
+		class="org.springframework.transaction.jta.JtaTransactionManager"/>
 ----
 
 [TIP]
@@ -17598,12 +17582,12 @@ using JavaBean properties:
 [subs="verbatim,quotes"]
 ----
 <bean id="lockMixin" class="org.springframework.aop.LockMixin"
-    scope="prototype"/>
+		scope="prototype"/>
 
 <bean id="lockableAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor"
-    scope="prototype">
-  <property name="pointcut" ref="myAttributeAwarePointcut"/>
-  <property name="advice" ref="lockMixin"/>
+		scope="prototype">
+	<property name="pointcut" ref="myAttributeAwarePointcut"/>
+	<property name="advice" ref="lockMixin"/>
 </bean>
 
 <bean id="anyBean" class="anyclass" ...
@@ -17658,8 +17642,7 @@ You can change the target via the `swap()` method on HotSwappableTargetSource as
 [source,java]
 [subs="verbatim,quotes"]
 ----
-HotSwappableTargetSource swapper =
-    (HotSwappableTargetSource) beanFactory.getBean("swapper");
+HotSwappableTargetSource swapper = (HotSwappableTargetSource) beanFactory.getBean("swapper");
 Object oldTarget = swapper.swap(newTarget);
 ----
 
@@ -17671,11 +17654,11 @@ The XML definitions required look as follows:
 <bean id="initialTarget" class="mycompany.OldTarget"/>
 
 <bean id="swapper" class="org.springframework.aop.target.HotSwappableTargetSource">
-  <constructor-arg ref="initialTarget"/>
+	<constructor-arg ref="initialTarget"/>
 </bean>
 
 <bean id="swappable" class="org.springframework.aop.framework.ProxyFactoryBean">
-  <property name="targetSource" ref="swapper"/>
+	<property name="targetSource" ref="swapper"/>
 </bean>
 ----
 
@@ -17711,18 +17694,18 @@ Sample configuration is shown below:
 [subs="verbatim,quotes"]
 ----
 <bean id="businessObjectTarget" class="com.mycompany.MyBusinessObject"
-    scope="prototype">
-  ... properties omitted
+		scope="prototype">
+	... properties omitted
 </bean>
 
 <bean id="poolTargetSource" class="org.springframework.aop.target.CommonsPoolTargetSource">
-  <property name="targetBeanName" value="businessObjectTarget"/>
-  <property name="maxSize" value="25"/>
+	<property name="targetBeanName" value="businessObjectTarget"/>
+	<property name="maxSize" value="25"/>
 </bean>
 
 <bean id="businessObject" class="org.springframework.aop.framework.ProxyFactoryBean">
-  <property name="targetSource" ref="poolTargetSource"/>
-  <property name="interceptorNames" value="myInterceptor"/>
+	<property name="targetSource" ref="poolTargetSource"/>
+	<property name="interceptorNames" value="myInterceptor"/>
 </bean>
 ----
 
@@ -17746,8 +17729,8 @@ need to define an advisor like this:
 [subs="verbatim,quotes"]
 ----
 <bean id="poolConfigAdvisor" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
-  <property name="targetObject" ref="poolTargetSource"/>
-  <property name="targetMethod" value="getPoolingConfigMixin"/>
+	<property name="targetObject" ref="poolTargetSource"/>
+	<property name="targetMethod" value="getPoolingConfigMixin"/>
 </bean>
 ----
 
@@ -17792,7 +17775,7 @@ To do this, you could modify the `poolTargetSource` definition shown above as fo
 [subs="verbatim,quotes"]
 ----
 <bean id="prototypeTargetSource" class="org.springframework.aop.target.PrototypeTargetSource">
-  <property name="targetBeanName" ref="businessObjectTarget"/>
+	<property name="targetBeanName" ref="businessObjectTarget"/>
 </bean>
 ----
 
@@ -17803,7 +17786,7 @@ source, the target bean must be a prototype bean definition.
 
 
 [[aop-ts-threadlocal]]
-====  ThreadLocal target sources
+==== ThreadLocal target sources
 
 `ThreadLocal` target sources are useful if you need an object to be created for each
 incoming request (per thread that is). The concept of a `ThreadLocal` provide a JDK-wide
@@ -17815,7 +17798,7 @@ of target source:
 [subs="verbatim,quotes"]
 ----
 <bean id="threadlocalTargetSource" class="org.springframework.aop.target.ThreadLocalTargetSource">
-  <property name="targetBeanName" value="businessObjectTarget"/>
+	<property name="targetBeanName" value="businessObjectTarget"/>
 </bean>
 ----
 
@@ -18179,7 +18162,7 @@ component classes, etc.
 ----
 **@ContextConfiguration**("/test-config.xml")
 public class XmlApplicationContextTests {
-  // class body...
+	// class body...
 }
 ----
 
@@ -18190,7 +18173,7 @@ public class XmlApplicationContextTests {
 ----
 **@ContextConfiguration**(**classes** = TestConfig.class)
 public class ConfigClassApplicationContextTests {
-  // class body...
+	// class body...
 }
 ----
 
@@ -18206,7 +18189,7 @@ As an alternative or in addition to declaring resource locations or annotated cl
 ----
 **@ContextConfiguration**(**initializers** = CustomContextIntializer.class)
 public class ContextInitializerTests {
-  // class body...
+	// class body...
 }
 ----
 
@@ -18224,7 +18207,7 @@ loader since the default loader supports either resource `locations` or annotate
 ----
 **@ContextConfiguration**(**locations** = "/test-context.xml", **loader** = CustomContextLoader.class)
 public class CustomLoaderXmlApplicationContextTests {
-  // class body...
+	// class body...
 }
 ----
 
@@ -18262,7 +18245,7 @@ path is used behind the scenes to create a `MockServletContext` which serves as 
 @ContextConfiguration
 **@WebAppConfiguration**
 public class WebAppTests {
-  // class body...
+	// class body...
 }
 ----
 
@@ -18280,7 +18263,7 @@ resource prefix is supplied the path is assumed to be a file system resource.
 @ContextConfiguration
 **@WebAppConfiguration("classpath:test-web-resources")**
 public class WebAppTests {
-  // class body...
+	// class body...
 }
 ----
 
@@ -18309,11 +18292,11 @@ hierarchy.
 [subs="verbatim,quotes"]
 ----
 @ContextHierarchy({
-    @ContextConfiguration("/parent-config.xml"),
-    @ContextConfiguration("/child-config.xml")
+	@ContextConfiguration("/parent-config.xml"),
+	@ContextConfiguration("/child-config.xml")
 })
 public class ContextHierarchyTests {
-    // class body...
+	// class body...
 }
 ----
 
@@ -18324,11 +18307,11 @@ public class ContextHierarchyTests {
 ----
 @WebAppConfiguration
 @ContextHierarchy({
-    @ContextConfiguration(classes = AppConfig.class),
-    @ContextConfiguration(classes = WebConfig.class)
+	@ContextConfiguration(classes = AppConfig.class),
+	@ContextConfiguration(classes = WebConfig.class)
 })
 public class WebIntegrationTests {
-    // class body...
+	// class body...
 }
 ----
 
@@ -18356,7 +18339,7 @@ should be active when loading an `ApplicationContext` for test classes.
 @ContextConfiguration
 **@ActiveProfiles**("dev")
 public class DeveloperTests {
-  // class body...
+	// class body...
 }
 ----
 
@@ -18368,7 +18351,7 @@ public class DeveloperTests {
 @ContextConfiguration
 **@ActiveProfiles**({"dev", "integration"})
 public class DeveloperIntegrationTests {
-  // class body...
+	// class body...
 }
 ----
 
@@ -18424,7 +18407,7 @@ configuration scenarios:
 ----
 **@DirtiesContext**
 public class ContextDirtyingTests {
-  // some tests that result in the Spring container being dirtied
+	// some tests that result in the Spring container being dirtied
 }
 ----
 
@@ -18440,7 +18423,7 @@ mode set to `AFTER_EACH_TEST_METHOD.`
 ----
 **@DirtiesContext**(**classMode** = ClassMode.AFTER_EACH_TEST_METHOD)
 public class ContextDirtyingTests {
-  // some tests that result in the Spring container being dirtied
+	// some tests that result in the Spring container being dirtied
 }
 ----
 
@@ -18456,7 +18439,7 @@ public class ContextDirtyingTests {
 **@DirtiesContext**
 @Test
 public void testProcessWhichDirtiesAppCtx() {
-    // some logic that results in the Spring container being dirtied
+	// some logic that results in the Spring container being dirtied
 }
 ----
 
@@ -18478,20 +18461,20 @@ specified instead, as seen below.
 [subs="verbatim,quotes"]
 ----
 @ContextHierarchy({
-    @ContextConfiguration("/parent-config.xml"),
-    @ContextConfiguration("/child-config.xml")
+	@ContextConfiguration("/parent-config.xml"),
+	@ContextConfiguration("/child-config.xml")
 })
 public class BaseTests {
-    // class body...
+	// class body...
 }
 
 public class ExtendedTests extends BaseTests {
 
-    @Test
-    @DirtiesContext(**hierarchyMode = HierarchyMode.CURRENT_LEVEL**)
-    public void test() {
-        // some logic that results in the child context being dirtied
-    }
+	@Test
+	@DirtiesContext(**hierarchyMode = HierarchyMode.CURRENT_LEVEL**)
+	public void test() {
+		// some logic that results in the child context being dirtied
+	}
 }
 ----
 
@@ -18516,7 +18499,7 @@ in conjunction with `@ContextConfiguration`.
 @ContextConfiguration
 **@TestExecutionListeners**({CustomTestExecutionListener.class, AnotherTestExecutionListener.class})
 public class CustomTestExecutionListenerTests {
-    // class body...
+	// class body...
 }
 ----
 
@@ -18545,7 +18528,7 @@ conjunction with `@ContextConfiguration`.
 @ContextConfiguration
 **@TransactionConfiguration**(**transactionManager** = "txMgr", **defaultRollback** = false)
 public class CustomConfiguredTransactionalTests {
-    // class body...
+	// class body...
 }
 ----
 
@@ -18581,7 +18564,7 @@ rollback flag configured at the class level.
 **@Rollback**(false)
 @Test
 public void testProcessWithoutRollback() {
-    // ...
+	// ...
 }
 ----
 
@@ -18600,7 +18583,7 @@ transaction is started for test methods configured to run within a transaction v
 ----
 **@BeforeTransaction**
 public void beforeTransaction() {
-    // logic to be executed before a transaction is started
+	// logic to be executed before a transaction is started
 }
 ----
 
@@ -18619,7 +18602,7 @@ transaction has ended for test methods configured to run within a transaction vi
 ----
 **@AfterTransaction**
 public void afterTransaction() {
-    // logic to be executed after a transaction has ended
+	// logic to be executed after a transaction has ended
 }
 ----
 
@@ -18680,7 +18663,7 @@ methods. Class-level usage overrides method-level usage.
 **@IfProfileValue**(**name**="java.vendor", **value**="Sun Microsystems Inc.")
 @Test
 public void testProcessWhichRunsOnlyOnSunJvm() {
-    // some logic that should run only on Java VMs from Sun Microsystems
+	// some logic that should run only on Java VMs from Sun Microsystems
 }
 ----
 
@@ -18698,7 +18681,7 @@ Consider the following example:
 **@IfProfileValue**(**name**="test-groups", **values**={"unit-tests", "integration-tests"})
 @Test
 public void testProcessWhichRunsForUnitOrIntegrationTestGroups() {
-    // some logic that should run only for unit and integration test groups
+	// some logic that should run only for unit and integration test groups
 }
 ----
 
@@ -18720,7 +18703,7 @@ retrieving __profile values__ configured through the `@IfProfileValue` annotatio
 ----
 **@ProfileValueSourceConfiguration**(CustomProfileValueSource.class)
 public class CustomProfileValueSourceTests {
-    // class body...
+	// class body...
 }
 ----
 
@@ -18744,7 +18727,7 @@ test (see `@Repeat`), as well as any __set up__ or __tear down__ of the test fix
 ----
 **@Timed**(millis=1000)
 public void testProcessWithOneSecondTimeout() {
-    // some logic that should not take longer than 1 second to execute
+	// some logic that should not take longer than 1 second to execute
 }
 ----
 
@@ -18778,7 +18761,7 @@ well as any __set up__ or __tear down__ of the test fixture.
 **@Repeat**(10)
 @Test
 public void testProcessRepeatedly() {
-    // ...
+	// ...
 }
 ----
 
@@ -18921,10 +18904,10 @@ on either a field or setter method. For example:
 @ContextConfiguration
 public class MyTest {
 
-    **@Autowired**
-    private ApplicationContext applicationContext;
+	**@Autowired**
+	private ApplicationContext applicationContext;
 
-    // class body...
+	// class body...
 }
 ----
 
@@ -18938,10 +18921,10 @@ the web application context into your test as follows:
 **@WebAppConfiguration**
 @ContextConfiguration
 public class MyWebAppTest {
-    **@Autowired**
-    private WebApplicationContext wac;
+	**@Autowired**
+	private WebApplicationContext wac;
 
-    // class body...
+	// class body...
 }
 ----
 
@@ -18983,7 +18966,7 @@ prefixed with `classpath:`, `file:`, `http:`, etc.) will be used __as is__.
 // "/test-config.xml" in the root of the classpath
 **@ContextConfiguration(locations={"/app-config.xml", "/test-config.xml"})**
 public class MyTest {
-    // class body...
+	// class body...
 }
 ----
 
@@ -18999,7 +18982,7 @@ demonstrated in the following example.
 @RunWith(SpringJUnit4ClassRunner.class)
 **@ContextConfiguration({"/app-config.xml", "/test-config.xml"})**
 public class MyTest {
-    // class body...
+	// class body...
 }
 ----
 
@@ -19020,7 +19003,7 @@ package com.example;
 // "classpath:/com/example/MyTest-context.xml"
 **@ContextConfiguration**
 public class MyTest {
-    // class body...
+	// class body...
 }
 ----
 
@@ -19037,7 +19020,7 @@ To load an `ApplicationContext` for your tests using __annotated classes__ (see
 // ApplicationContext will be loaded from AppConfig and TestConfig
 **@ContextConfiguration(classes = {AppConfig.class, TestConfig.class})**
 public class MyTest {
-    // class body...
+	// class body...
 }
 ----
 
@@ -19076,25 +19059,25 @@ class can contain more than one static inner configuration class if desired.
 **@ContextConfiguration**
 public class OrderServiceTest {
 
-    @Configuration
-    static class Config {
+	@Configuration
+	static class Config {
 
-        // this bean will be injected into the OrderServiceTest class
-        @Bean
-        public OrderService orderService() {
-            OrderService orderService = new OrderServiceImpl();
-            // set properties, etc.
-            return orderService;
-        }
-    }
+		// this bean will be injected into the OrderServiceTest class
+		@Bean
+		public OrderService orderService() {
+			OrderService orderService = new OrderServiceImpl();
+			// set properties, etc.
+			return orderService;
+		}
+	}
 
-    @Autowired
-    private OrderService orderService;
+	@Autowired
+	private OrderService orderService;
 
-    @Test
-    public void testOrderService() {
-        // test the orderService
-    }
+	@Test
+	public void testOrderService() {
+		// test the orderService
+	}
 
 }
 ----
@@ -19141,10 +19124,10 @@ annotation.
 // ApplicationContext will be loaded from TestConfig
 // and initialized by TestAppCtxInitializer
 **@ContextConfiguration(
-    classes = TestConfig.class,
-    initializers = TestAppCtxInitializer.class)**
+	classes = TestConfig.class,
+	initializers = TestAppCtxInitializer.class)**
 public class MyTest {
-    // class body...
+	// class body...
 }
 ----
 
@@ -19162,7 +19145,7 @@ files or configuration classes.
 // which presumably registers beans in the context
 **@ContextConfiguration(initializers = EntireAppInitializer.class)**
 public class MyTest {
-    // class body...
+	// class body...
 }
 ----
 
@@ -19197,14 +19180,14 @@ therefore __override__ (i.e., replace) those defined in __"base-config.xml"__.
 // in the root of the classpath
 **@ContextConfiguration("/base-config.xml")**
 public class BaseTest {
-    // class body...
+	// class body...
 }
 
 // ApplicationContext will be loaded from "/base-config.xml" and
 // "/extended-config.xml" in the root of the classpath
 **@ContextConfiguration("/extended-config.xml")**
 public class ExtendedTest extends BaseTest {
-    // class body...
+	// class body...
 }
 ----
 
@@ -19220,13 +19203,13 @@ override (i.e., replace) those defined in `BaseConfig`.
 // ApplicationContext will be loaded from BaseConfig
 **@ContextConfiguration(classes = BaseConfig.class)**
 public class BaseTest {
-    // class body...
+	// class body...
 }
 
 // ApplicationContext will be loaded from BaseConfig and ExtendedConfig
 **@ContextConfiguration(classes = ExtendedConfig.class)**
 public class ExtendedTest extends BaseTest {
-    // class body...
+	// class body...
 }
 ----
 
@@ -19243,14 +19226,14 @@ with Spring's `@Order` annotation.
 // ApplicationContext will be initialized by BaseInitializer
 **@ContextConfiguration(initializers=BaseInitializer.class)**
 public class BaseTest {
-    // class body...
+	// class body...
 }
 
 // ApplicationContext will be initialized by BaseInitializer
 // and ExtendedInitializer
 **@ContextConfiguration(initializers=ExtendedInitializer.class)**
 public class ExtendedTest extends BaseTest {
-    // class body...
+	// class body...
 }
 ----
 
@@ -19277,38 +19260,37 @@ Let's take a look at some examples with XML configuration and `@Configuration` c
 ----
 <!-- app-config.xml -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:jdbc="http://www.springframework.org/schema/jdbc"
-    xmlns:jee="http://www.springframework.org/schema/jee"
-    xsi:schemaLocation="...">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="...">
 
-    <bean id="transferService"
-        class="com.bank.service.internal.DefaultTransferService">
-        <constructor-arg ref="accountRepository"/>
-        <constructor-arg ref="feePolicy"/>
-    </bean>
+	<bean id="transferService"
+			class="com.bank.service.internal.DefaultTransferService">
+		<constructor-arg ref="accountRepository"/>
+		<constructor-arg ref="feePolicy"/>
+	</bean>
 
-    <bean id="accountRepository"
-        class="com.bank.repository.internal.JdbcAccountRepository">
-        <constructor-arg ref="dataSource"/>
-    </bean>
+	<bean id="accountRepository"
+			class="com.bank.repository.internal.JdbcAccountRepository">
+		<constructor-arg ref="dataSource"/>
+	</bean>
 
-    <bean id="feePolicy"
-        class="com.bank.service.internal.ZeroFeePolicy"/>
+	<bean id="feePolicy"
+		class="com.bank.service.internal.ZeroFeePolicy"/>
 
-    <beans profile="dev">
-        <jdbc:embedded-database id="dataSource">
-            <jdbc:script
-                location="classpath:com/bank/config/sql/schema.sql"/>
-            <jdbc:script
-                location="classpath:com/bank/config/sql/test-data.sql"/>
-        </jdbc:embedded-database>
-    </beans>
+	<beans profile="dev">
+		<jdbc:embedded-database id="dataSource">
+			<jdbc:script
+				location="classpath:com/bank/config/sql/schema.sql"/>
+			<jdbc:script
+				location="classpath:com/bank/config/sql/test-data.sql"/>
+		</jdbc:embedded-database>
+	</beans>
 
-    <beans profile="production">
-        <jee:jndi-lookup id="dataSource"
-            jndi-name="java:comp/env/jdbc/datasource"/>
-    </beans>
+	<beans profile="production">
+		<jee:jndi-lookup id="dataSource" jndi-name="java:comp/env/jdbc/datasource"/>
+	</beans>
 
 </beans>
 ----
@@ -19324,13 +19306,13 @@ package com.bank.service;
 @ActiveProfiles("dev")
 public class TransferServiceTest {
 
-   @Autowired
-   private TransferService transferService;
+	@Autowired
+	private TransferService transferService;
 
-   @Test
-   public void testTransferService() {
-       // test the transferService
-   }
+	@Test
+	public void testTransferService() {
+		// test the transferService
+	}
 }
 ----
 
@@ -19357,14 +19339,14 @@ integration test but using `@Configuration` classes instead of XML.
 @Profile("dev")
 public class StandaloneDataConfig {
 
-    @Bean
-    public DataSource dataSource() {
-        return new EmbeddedDatabaseBuilder()
-            .setType(EmbeddedDatabaseType.HSQL)
-            .addScript("classpath:com/bank/config/sql/schema.sql")
-            .addScript("classpath:com/bank/config/sql/test-data.sql")
-            .build();
-    }
+	@Bean
+	public DataSource dataSource() {
+		return new EmbeddedDatabaseBuilder()
+			.setType(EmbeddedDatabaseType.HSQL)
+			.addScript("classpath:com/bank/config/sql/schema.sql")
+			.addScript("classpath:com/bank/config/sql/test-data.sql")
+			.build();
+	}
 }
 ----
 
@@ -19375,11 +19357,11 @@ public class StandaloneDataConfig {
 @Profile("production")
 public class JndiDataConfig {
 
-    @Bean
-    public DataSource dataSource() throws Exception {
-        Context ctx = new InitialContext();
-        return (DataSource) ctx.lookup("java:comp/env/jdbc/datasource");
-    }
+	@Bean
+	public DataSource dataSource() throws Exception {
+		Context ctx = new InitialContext();
+		return (DataSource) ctx.lookup("java:comp/env/jdbc/datasource");
+	}
 }
 ----
 
@@ -19389,23 +19371,22 @@ public class JndiDataConfig {
 @Configuration
 public class TransferServiceConfig {
 
-    @Autowired DataSource dataSource;
+	@Autowired DataSource dataSource;
 
-    @Bean
-    public TransferService transferService() {
-        return new DefaultTransferService(accountRepository(),
-            feePolicy());
-    }
+	@Bean
+	public TransferService transferService() {
+		return new DefaultTransferService(accountRepository(), feePolicy());
+	}
 
-    @Bean
-    public AccountRepository accountRepository() {
-        return new JdbcAccountRepository(dataSource);
-    }
+	@Bean
+	public AccountRepository accountRepository() {
+		return new JdbcAccountRepository(dataSource);
+	}
 
-    @Bean
-    public FeePolicy feePolicy() {
-        return new ZeroFeePolicy();
-    }
+	@Bean
+	public FeePolicy feePolicy() {
+		return new ZeroFeePolicy();
+	}
 
 }
 ----
@@ -19416,21 +19397,20 @@ public class TransferServiceConfig {
 package com.bank.service;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(
-   classes = {
-       TransferServiceConfig.class,
-       StandaloneDataConfig.class,
-       JndiDataConfig.class})
+@ContextConfiguration(classes = {
+		TransferServiceConfig.class,
+		StandaloneDataConfig.class,
+		JndiDataConfig.class})
 @ActiveProfiles("dev")
 public class TransferServiceTest {
 
-   @Autowired
-   private TransferService transferService;
+	@Autowired
+	private TransferService transferService;
 
-   @Test
-   public void testTransferService() {
-      // test the transferService
-   }
+	@Test
+	public void testTransferService() {
+		// test the transferService
+	}
 }
 ----
 
@@ -19462,11 +19442,10 @@ annotations) has been moved to an abstract superclass, `AbstractIntegrationTest`
 package com.bank.service;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(
-    classes = {
-        TransferServiceConfig.class,
-        StandaloneDataConfig.class,
-        JndiDataConfig.class})
+@ContextConfiguration(classes = {
+		TransferServiceConfig.class,
+		StandaloneDataConfig.class,
+		JndiDataConfig.class})
 @ActiveProfiles("dev")
 public abstract class AbstractIntegrationTest {
 }
@@ -19480,13 +19459,13 @@ package com.bank.service;
 // "dev" profile inherited from superclass
 public class TransferServiceTest extends AbstractIntegrationTest {
 
-   @Autowired
-   private TransferService transferService;
+	@Autowired
+	private TransferService transferService;
 
-   @Test
-   public void testTransferService() {
-      // test the transferService
-   }
+	@Test
+	public void testTransferService() {
+		// test the transferService
+	}
 }
 ----
 
@@ -19501,7 +19480,7 @@ package com.bank.service;
 // "dev" profile overridden with "production"
 @ActiveProfiles(profiles = "production", inheritProfiles = false)
 public class ProductionTransferServiceTest extends AbstractIntegrationTest {
-    // test body
+	// test body
 }
 ----
 
@@ -19527,10 +19506,10 @@ package com.bank.service;
 
 // "dev" profile overridden programmatically via a custom resolver
 @ActiveProfiles(
-    resolver = OperatingSystemActiveProfilesResolver.class,
-    inheritProfiles = false)
+	resolver = OperatingSystemActiveProfilesResolver.class,
+	inheritProfiles = false)
 public class TransferServiceTest extends AbstractIntegrationTest {
-    // test body
+	// test body
 }
 ----
 
@@ -19541,12 +19520,12 @@ package com.bank.service.test;
 
 public class OperatingSystemActiveProfilesResolver implements ActiveProfilesResolver {
 
-    @Override
-    String[] resolve(Class<?> testClass) {
-        String profile = ...;
-        // determine the value of profile based on the operating system
-        return new String[] {profile};
-    }
+	@Override
+	String[] resolve(Class<?> testClass) {
+		String profile = ...;
+		// determine the value of profile based on the operating system
+		return new String[] {profile};
+	}
 }
 ----
 
@@ -19594,7 +19573,7 @@ a `WebApplicationContext`.
 @ContextConfiguration
 
 public class WacTests {
-    //...
+	//...
 }
 ----
 
@@ -19620,7 +19599,7 @@ nested `@Configuration` classes).
 @ContextConfiguration("/spring/test-servlet-config.xml")
 
 public class WacTests {
-    //...
+	//...
 }
 ----
 
@@ -19643,7 +19622,7 @@ whereas, `@ContextConfiguration` resource locations are classpath based.
 @ContextConfiguration("file:src/main/webapp/WEB-INF/servlet-config.xml")
 
 public class WacTests {
-    //...
+	//...
 }
 ----
 
@@ -19679,19 +19658,25 @@ whereas, the other mocks are managed per test method by the
 @ContextConfiguration
 public class WacTests {
 
-    @Autowired WebApplicationContext wac; // cached
+	@Autowired
+	WebApplicationContext wac; // cached
 
-    @Autowired MockServletContext servletContext; // cached
+	@Autowired
+	MockServletContext servletContext; // cached
 
-    @Autowired MockHttpSession session;
+	@Autowired
+	MockHttpSession session;
 
-    @Autowired MockHttpServletRequest request;
+	@Autowired
+	MockHttpServletRequest request;
 
-    @Autowired MockHttpServletResponse response;
+	@Autowired
+	MockHttpServletResponse response;
 
-    @Autowired ServletWebRequest webRequest;
+	@Autowired
+	ServletWebRequest webRequest;
 
-    //...
+	//...
 }
 ----
 --
@@ -19800,15 +19785,15 @@ lowest context in the hierarchy).
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextHierarchy({
-    @ContextConfiguration(classes = TestAppConfig.class),
-    @ContextConfiguration(classes = WebConfig.class)
+	@ContextConfiguration(classes = TestAppConfig.class),
+	@ContextConfiguration(classes = WebConfig.class)
 })
 public class ControllerIntegrationTests {
 
-    @Autowired
-    private WebApplicationContext wac;
+	@Autowired
+	private WebApplicationContext wac;
 
-    // ...
+	// ...
 }
 ----
 
@@ -19865,13 +19850,13 @@ set as the parent context for the contexts loaded from `"/user-config.xml"` and
 ----
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextHierarchy({
-    @ContextConfiguration(name = "parent", locations = "/app-config.xml"),
-    @ContextConfiguration(name = "child",  locations = "/user-config.xml")
+	@ContextConfiguration(name = "parent", locations = "/app-config.xml"),
+	@ContextConfiguration(name = "child", locations = "/user-config.xml")
 })
 public class BaseTests {}
 
 @ContextHierarchy(
-    @ContextConfiguration(name = "child",  locations = "/order-config.xml")
+	@ContextConfiguration(name = "child", locations = "/order-config.xml")
 )
 public class ExtendedTests extends BaseTests {}
 ----
@@ -19891,16 +19876,16 @@ application context for `ExtendedTests` will be loaded only from
 ----
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextHierarchy({
-    @ContextConfiguration(name = "parent", locations = "/app-config.xml"),
-    @ContextConfiguration(name = "child",  locations = "/user-config.xml")
+	@ContextConfiguration(name = "parent", locations = "/app-config.xml"),
+	@ContextConfiguration(name = "child", locations = "/user-config.xml")
 })
 public class BaseTests {}
 
 @ContextHierarchy(
-    @ContextConfiguration(
-        name = "child",
-        locations = "/test-user-config.xml",
-        inheritLocations = false
+	@ContextConfiguration(
+		name = "child",
+		locations = "/test-user-config.xml",
+		inheritLocations = false
 ))
 public class ExtendedTests extends BaseTests {}
 ----
@@ -19974,15 +19959,16 @@ The first code listing shows a JUnit-based implementation of the test class that
 // specifies the Spring configuration to load for this test fixture
 **@ContextConfiguration("repository-config.xml")**
 public class HibernateTitleRepositoryTests {
-    // this instance will be dependency injected by type
-    **@Autowired**
-    private HibernateTitleRepository titleRepository;
 
-    @Test
-    public void findById() {
-        Title title = titleRepository.findById(new Long(10));
-        assertNotNull(title);
-    }
+	// this instance will be dependency injected by type
+	**@Autowired**
+	private HibernateTitleRepository titleRepository;
+
+	@Test
+	public void findById() {
+		Title title = titleRepository.findById(new Long(10));
+		assertNotNull(title);
+	}
 }
 ----
 
@@ -19996,19 +19982,20 @@ seen below.
 // specifies the Spring configuration to load for this test fixture
 **@ContextConfiguration("repository-config.xml")**
 public class HibernateTitleRepositoryTests {
-    // this instance will be dependency injected by type
-    private HibernateTitleRepository titleRepository;
 
-    **@Autowired**
-    public void setTitleRepository(HibernateTitleRepository titleRepository) {
-        this.titleRepository = titleRepository;
-    }
+	// this instance will be dependency injected by type
+	private HibernateTitleRepository titleRepository;
 
-    @Test
-    public void findById() {
-        Title title = titleRepository.findById(new Long(10));
-        assertNotNull(title);
-    }
+	**@Autowired**
+	public void setTitleRepository(HibernateTitleRepository titleRepository) {
+		this.titleRepository = titleRepository;
+	}
+
+	@Test
+	public void findById() {
+		Title title = titleRepository.findById(new Long(10));
+		assertNotNull(title);
+	}
 }
 ----
 
@@ -20021,17 +20008,18 @@ this:
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-           http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <!-- this bean will be injected into the HibernateTitleRepositoryTests class -->
-    <bean id="**titleRepository**" class="**com.foo.repository.hibernate.HibernateTitleRepository**">
-        <property name="sessionFactory" ref="sessionFactory"/>
-    </bean>
-    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
-        <!-- configuration elided for brevity -->
-    </bean>
+	<!-- this bean will be injected into the HibernateTitleRepositoryTests class -->
+	<bean id="**titleRepository**" class="**com.foo.repository.hibernate.HibernateTitleRepository**">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<!-- configuration elided for brevity -->
+	</bean>
 
 </beans>
 ----
@@ -20050,11 +20038,11 @@ method in the superclass as well.
 ----
 // ...
 
-    @Autowired
-    @Override
-    public void setDataSource(**@Qualifier("myDataSource")** DataSource dataSource) {
-        **super**.setDataSource(dataSource);
-    }
+	@Autowired
+	@Override
+	public void setDataSource(**@Qualifier("myDataSource")** DataSource dataSource) {
+		**super**.setDataSource(dataSource);
+	}
 
 // ...
 ----
@@ -20096,16 +20084,16 @@ framework.
 ----
 <beans>
 
-  <bean id="userService"
-      class="com.example.SimpleUserService"
-      c:loginAction-ref="loginAction" />
+	<bean id="userService"
+			class="com.example.SimpleUserService"
+			c:loginAction-ref="loginAction" />
 
-  <bean id="loginAction" class="com.example.LoginAction"
-      c:username="#{request.getParameter('user')}"
-      c:password="#{request.getParameter('pswd')}"
-      scope="request">
-    <aop:scoped-proxy />
-  </bean>
+	<bean id="loginAction" class="com.example.LoginAction"
+			c:username="#{request.getParameter('user')}"
+			c:password="#{request.getParameter('pswd')}"
+			scope="request">
+		<aop:scoped-proxy />
+	</bean>
 
 </beans>
 ----
@@ -20128,19 +20116,19 @@ inputs for the username and password.
 @WebAppConfiguration
 public class RequestScopedBeanTests {
 
-    @Autowired UserService userService;
-    @Autowired MockHttpServletRequest request;
+	@Autowired UserService userService;
+	@Autowired MockHttpServletRequest request;
 
-    @Test
-    public void requestScope() {
+	@Test
+	public void requestScope() {
 
-        request.setParameter("user", "enigma");
-        request.setParameter("pswd", "$pr!ng");
+		request.setParameter("user", "enigma");
+		request.setParameter("pswd", "$pr!ng");
 
-        LoginResults results = userService.loginUser();
+		LoginResults results = userService.loginUser();
 
-        // assert results
-    }
+		// assert results
+	}
 }
 ----
 
@@ -20157,16 +20145,16 @@ framework.
 ----
 <beans>
 
-  <bean id="userService"
-      class="com.example.SimpleUserService"
-      c:userPreferences-ref="userPreferences" />
+	<bean id="userService"
+			class="com.example.SimpleUserService"
+			c:userPreferences-ref="userPreferences" />
 
-  <bean id="userPreferences"
-      class="com.example.UserPreferences"
-      c:theme="#{session.getAttribute('theme')}"
-      scope="session">
-    <aop:scoped-proxy />
-  </bean>
+	<bean id="userPreferences"
+			class="com.example.UserPreferences"
+			c:theme="#{session.getAttribute('theme')}"
+			scope="session">
+		<aop:scoped-proxy />
+	</bean>
 
 </beans>
 ----
@@ -20188,18 +20176,18 @@ configured theme.
 @WebAppConfiguration
 public class SessionScopedBeanTests {
 
-  @Autowired UserService userService;
-  @Autowired MockHttpSession session;
+	@Autowired UserService userService;
+	@Autowired MockHttpSession session;
 
-  @Test
-  public void sessionScope() throws Exception {
+	@Test
+	public void sessionScope() throws Exception {
 
-    session.setAttribute("theme", "blue");
+		session.setAttribute("theme", "blue");
 
-    Results results = userService.processUserPreferences();
+		Results results = userService.processUserPreferences();
 
-    // assert results
-  }
+		// assert results
+	}
 }
 ----
 
@@ -20262,32 +20250,32 @@ and configuration examples.
 @Transactional**
 public class FictitiousTransactionalTest {
 
-    **@BeforeTransaction**
-    public void verifyInitialDatabaseState() {
-        // logic to verify the initial state before a transaction is started
-    }
+	**@BeforeTransaction**
+	public void verifyInitialDatabaseState() {
+		// logic to verify the initial state before a transaction is started
+	}
 
-    @Before
-    public void setUpTestDataWithinTransaction() {
-        // set up test data within the transaction
-    }
+	@Before
+	public void setUpTestDataWithinTransaction() {
+		// set up test data within the transaction
+	}
 
-    @Test
-    // overrides the class-level defaultRollback setting
-    **@Rollback(true)**
-    public void modifyDatabaseWithinTransaction() {
-        // logic which uses the test data and modifies database state
-    }
+	@Test
+	// overrides the class-level defaultRollback setting
+	**@Rollback(true)**
+	public void modifyDatabaseWithinTransaction() {
+		// logic which uses the test data and modifies database state
+	}
 
-    @After
-    public void tearDownWithinTransaction() {
-        // execute "tear down" logic within the transaction
-    }
+	@After
+	public void tearDownWithinTransaction() {
+		// execute "tear down" logic within the transaction
+	}
 
-    **@AfterTransaction**
-    public void verifyFinalDatabaseState() {
-        // logic to verify the final state after transaction has rolled back
-    }
+	**@AfterTransaction**
+	public void verifyFinalDatabaseState() {
+		// logic to verify the final state after transaction has rolled back
+	}
 
 }
 ----
@@ -20314,16 +20302,16 @@ private SessionFactory sessionFactory;
 
 @Test // no expected exception!
 public void falsePositive() {
-    updateEntityInHibernateSession();
-    // False positive: an exception will be thrown once the session is
-    // finally flushed (i.e., in production code)
+	updateEntityInHibernateSession();
+	// False positive: an exception will be thrown once the session is
+	// finally flushed (i.e., in production code)
 }
 
 @Test(expected = GenericJDBCException.class)
 public void updateWithSessionFlush() {
-    updateEntityInHibernateSession();
-    // Manual flush is required to avoid false positive in test
-    sessionFactory.getCurrentSession().flush();
+	updateEntityInHibernateSession();
+	// Manual flush is required to avoid false positive in test
+	sessionFactory.getCurrentSession().flush();
 }
 
 // ...
@@ -20397,10 +20385,10 @@ configured through `@ContextConfiguration`.
 @TestExecutionListeners({})
 public class SimpleTest {
 
-    @Test
-    public void testMethod() {
-        // execute test logic...
-    }
+	@Test
+	public void testMethod() {
+		// execute test logic...
+	}
 }
 ----
 
@@ -20461,7 +20449,7 @@ Before inclusion in Spring Framework 3.2, the Spring MVC Test framework had alre
 existed as a separate project on GitHub where it grew and evolved through actual use,
 feedback, and the contribution of many.
 
-The standalone  https://github.com/SpringSource/spring-test-mvc[spring-test-mvc project]
+The standalone https://github.com/SpringSource/spring-test-mvc[spring-test-mvc project]
 is still available on GitHub and can be used in conjunction with Spring Framework 3.1.x.
 Applications upgrading to 3.2 should replace the `spring-test-mvc` dependency with a
 dependency on `spring-test`.
@@ -20527,23 +20515,23 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ContextConfiguration("test-servlet-context.xml")
 public class ExampleTests {
 
-    @Autowired
-    private WebApplicationContext wac;
+	@Autowired
+	private WebApplicationContext wac;
 
-    private MockMvc mockMvc;
+	private MockMvc mockMvc;
 
-    @Before
-    public void setup() {
-        this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
-    }
+	@Before
+	public void setup() {
+		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
+	}
 
-    @Test
-    public void getAccount() throws Exception {
-        this.mockMvc.perform(get("/accounts/1").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
-          .andExpect(status().isOk())
-          .andExpect(content().contentType("application/json"))
-          .andExpect(jsonPath("$.name").value("Lee"));
-    }
+	@Test
+	public void getAccount() throws Exception {
+		this.mockMvc.perform(get("/accounts/1").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+			.andExpect(status().isOk())
+			.andExpect(content().contentType("application/json"))
+			.andExpect(jsonPath("$.name").value("Lee"));
+	}
 
 }
 ----
@@ -20556,7 +20544,7 @@ as the test class (also supports JavaConfig) and injects the created
 The `MockMvc` is then used to perform a request to `"/accounts/1"` and verify the
 resulting response status is 200, the response content type is `"application/json"`, and
 response content has a JSON property called "name" with the value "Lee". JSON content is
-inspected with the help of Jayway's  https://github.com/jayway/JsonPath[JsonPath
+inspected with the help of Jayway's https://github.com/jayway/JsonPath[JsonPath
 project]. There are lots of other options for verifying the result of the performed
 request and those will be discussed later.
 
@@ -20588,17 +20576,17 @@ into the test to use to create a `MockMvc`:
 @ContextConfiguration("my-servlet-context.xml")
 public class MyWebTests {
 
-    @Autowired
-    private WebApplicationContext wac;
+	@Autowired
+	private WebApplicationContext wac;
 
-    private MockMvc mockMvc;
+	private MockMvc mockMvc;
 
-    @Before
-    public void setup() {
-        this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
-    }
+	@Before
+	public void setup() {
+		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
+	}
 
-    // ...
+	// ...
 
 }
 ----
@@ -20614,14 +20602,14 @@ builder-style methods:
 ----
 public class MyWebTests {
 
-    private MockMvc mockMvc;
+	private MockMvc mockMvc;
 
-    @Before
-    public void setup() {
-        this.mockMvc = MockMvcBuilders.standaloneSetup(new AccountController()).build();
-    }
+	@Before
+	public void setup() {
+		this.mockMvc = MockMvcBuilders.standaloneSetup(new AccountController()).build();
+	}
 
-    // ...
+	// ...
 
 }
 ----
@@ -20639,7 +20627,7 @@ mock service with Mockito:
 [subs="verbatim,quotes"]
 ----
 <bean id="accountService" class="org.mockito.Mockito" factory-method="mock">
-    <constructor-arg value="org.example.AccountService"/>
+	<constructor-arg value="org.example.AccountService"/>
 </bean>
 ----
 
@@ -20654,15 +20642,15 @@ expectations:
 @ContextConfiguration("test-servlet-context.xml")
 public class AccountTests {
 
-    @Autowired
-    private WebApplicationContext wac;
+	@Autowired
+	private WebApplicationContext wac;
 
-    private MockMvc mockMvc;
+	private MockMvc mockMvc;
 
-    @Autowired
-    private AccountService accountService;
+	@Autowired
+	private AccountService accountService;
 
-    // ...
+	// ...
 
 }
 ----
@@ -20740,15 +20728,15 @@ properties when building the `MockMvc`:
 ----
 public class MyWebTests {
 
-    private MockMvc mockMvc;
+	private MockMvc mockMvc;
 
-    @Before
-    public void setup() {
-        mockMvc = standaloneSetup(new AccountController())
-            .defaultRequest(get("/")
-                .contextPath("/app").servletPath("/main")
-                .accept(MediaType.APPLICATION_JSON).build();
-    }
+	@Before
+	public void setup() {
+		mockMvc = standaloneSetup(new AccountController())
+			.defaultRequest(get("/")
+			.contextPath("/app").servletPath("/main")
+			.accept(MediaType.APPLICATION_JSON).build();
+	}
 ----
 
 The above properties will apply to every request performed through the `MockMvc`. If the
@@ -20785,8 +20773,8 @@ asserts that binding/validation failed:
 [subs="verbatim,quotes"]
 ----
 mockMvc.perform(post("/persons"))
-  .andExpect(status().isOk())
-  .andExpect(model().attributeHasErrors("person"));
+	.andExpect(status().isOk())
+	.andExpect(model().attributeHasErrors("person"));
 ----
 
 Many times when writing tests, it's useful to dump the result of the performed request.
@@ -20797,9 +20785,9 @@ This can be done as follows, where `print()` is a static import from
 [subs="verbatim,quotes"]
 ----
 mockMvc.perform(post("/persons"))
-  .andDo(print())
-  .andExpect(status().isOk())
-  .andExpect(model().attributeHasErrors("person"));
+	.andDo(print())
+	.andExpect(status().isOk())
+	.andExpect(model().attributeHasErrors("person"));
 ----
 
 As long as request processing causes an unhandled exception, the `print()` method will
@@ -20823,9 +20811,9 @@ when building the `MockMvc`:
 [subs="verbatim,quotes"]
 ----
 standaloneSetup(new SimpleController())
-    .alwaysExpect(status().isOk())
-    .alwaysExpect(content().contentType("application/json;charset=UTF-8"))
-    .build()
+	.alwaysExpect(status().isOk())
+	.alwaysExpect(content().contentType("application/json;charset=UTF-8"))
+	.build()
 ----
 
 Note that the expectation is __always__ applied and cannot be overridden without
@@ -20839,7 +20827,7 @@ be verified:
 [subs="verbatim,quotes"]
 ----
 mockMvc.perform(get("/people").accept(MediaType.APPLICATION_JSON))
-  .andExpect(jsonPath("$.links[?(@.rel == 'self')].href").value("http://localhost:8080/people"));
+	.andExpect(jsonPath("$.links[?(@.rel == 'self')].href").value("http://localhost:8080/people"));
 ----
 
 When XML response content contains hypermedia links created with
@@ -20851,7 +20839,7 @@ be verified:
 ----
 Map<String, String> ns = Collections.singletonMap("ns", "http://www.w3.org/2005/Atom");
 mockMvc.perform(get("/handle").accept(MediaType.APPLICATION_XML))
-  .andExpect(xpath("/person/ns:link[@rel='self']/@href", ns).string("http://localhost:8080/people"));
+	.andExpect(xpath("/person/ns:link[@rel='self']/@href", ns).string("http://localhost:8080/people"));
 ----
 
 [[spring-mvc-test-server-filters]]
@@ -20887,7 +20875,7 @@ requests and provide "stub" responses:
 ----
 RestTemplate restTemplate = new RestTemplate();
 
-MockRestServiceServer mockServer =  MockRestServiceServer.createServer(restTemplate);
+MockRestServiceServer mockServer = MockRestServiceServer.createServer(restTemplate);
 mockServer.expect(requestTo("/greeting")).andRespond(withSuccess("Hello world", "text/plain"));
 
 // use RestTemplate ...
@@ -20940,22 +20928,22 @@ import static org.junit.Assert.assertEquals;
 **@ContextConfiguration**
 public abstract class AbstractClinicTests **extends AbstractTransactionalJUnit4SpringContextTests** {
 
-    **@Autowired**
-    protected Clinic clinic;
+	**@Autowired**
+	protected Clinic clinic;
 
-    @Test
-    public void getVets() {
-        Collection<Vet> vets = this.clinic.getVets();
-        assertEquals("JDBC query must show the same number of vets",
-            **super.countRowsInTable("VETS")**, vets.size());
-        Vet v1 = EntityUtils.getById(vets, Vet.class, 2);
-        assertEquals("Leary", v1.getLastName());
-        assertEquals(1, v1.getNrOfSpecialties());
-        assertEquals("radiology", (v1.getSpecialties().get(0)).getName());
-        // ...
-    }
+	@Test
+	public void getVets() {
+		Collection<Vet> vets = this.clinic.getVets();
+		assertEquals("JDBC query must show the same number of vets",
+			**super.countRowsInTable("VETS")**, vets.size());
+		Vet v1 = EntityUtils.getById(vets, Vet.class, 2);
+		assertEquals("Leary", v1.getLastName());
+		assertEquals(1, v1.getNrOfSpecialties());
+		assertEquals("radiology", (v1.getSpecialties().get(0)).getName());
+		// ...
+	}
 
-    // ...
+	// ...
 }
 ----
 
@@ -21219,12 +21207,12 @@ strategy__. A transaction strategy is defined by the
 ----
 public interface PlatformTransactionManager {
 
-  TransactionStatus getTransaction(TransactionDefinition definition)
-    throws TransactionException;
+	TransactionStatus getTransaction(
+			TransactionDefinition definition) throws TransactionException;
 
-  void commit(TransactionStatus status) throws TransactionException;
+	void commit(TransactionStatus status) throws TransactionException;
 
-  void rollback(TransactionStatus status) throws TransactionException;
+	void rollback(TransactionStatus status) throws TransactionException;
 }
 ----
 
@@ -21284,17 +21272,17 @@ familiar, as they are common to all transaction APIs:
 ----
 public interface TransactionStatus extends SavepointManager {
 
-    boolean isNewTransaction();
+	boolean isNewTransaction();
 
-    boolean hasSavepoint();
+	boolean hasSavepoint();
 
-    void setRollbackOnly();
+	void setRollbackOnly();
 
-    boolean isRollbackOnly();
+	boolean isRollbackOnly();
 
-    void flush();
+	void flush();
 
-    boolean isCompleted();
+	boolean isCompleted();
 
 }
 ----
@@ -21314,10 +21302,10 @@ You define a JDBC `DataSource`
 [subs="verbatim,quotes"]
 ----
 <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-  <property name="driverClassName" value="${jdbc.driverClassName}" />
-  <property name="url" value="${jdbc.url}" />
-  <property name="username" value="${jdbc.username}" />
-  <property name="password" value="${jdbc.password}" />
+	<property name="driverClassName" value="${jdbc.driverClassName}" />
+	<property name="url" value="${jdbc.url}" />
+	<property name="username" value="${jdbc.username}" />
+	<property name="password" value="${jdbc.password}" />
 </bean>
 ----
 
@@ -21328,7 +21316,7 @@ the `DataSource` definition. It will look like this:
 [subs="verbatim,quotes"]
 ----
 <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-  <property name="dataSource" ref="dataSource"/>
+	<property name="dataSource" ref="dataSource"/>
 </bean>
 ----
 
@@ -21341,19 +21329,19 @@ and JNDI lookup version would look like:
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-     xmlns:jee="http://www.springframework.org/schema/jee"
-     xsi:schemaLocation="
-     http://www.springframework.org/schema/beans
-     http://www.springframework.org/schema/beans/spring-beans.xsd
-     http://www.springframework.org/schema/jee
-     http://www.springframework.org/schema/jee/spring-jee.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/jee
+		http://www.springframework.org/schema/jee/spring-jee.xsd">
 
-  <jee:jndi-lookup id="dataSource" jndi-name="jdbc/jpetstore"/>
+	<jee:jndi-lookup id="dataSource" jndi-name="jdbc/jpetstore"/>
 
-  <bean id="txManager" class="org.springframework.transaction.jta.JtaTransactionManager" />
+	<bean id="txManager" class="org.springframework.transaction.jta.JtaTransactionManager" />
 
-  <!-- other <bean/> definitions here -->
+	<!-- other <bean/> definitions here -->
 
 </beans>
 ----
@@ -21392,21 +21380,21 @@ the `HibernateTransactionManager` needs a reference to the `SessionFactory`.
 [subs="verbatim,quotes"]
 ----
 <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
-  <property name="dataSource" ref="dataSource" />
-  <property name="mappingResources">
-  <list>
-    <value>org/springframework/samples/petclinic/hibernate/petclinic.hbm.xml</value>
-  </list>
-  </property>
-  <property name="hibernateProperties">
-    <value>
-      hibernate.dialect=${hibernate.dialect}
-    </value>
-  </property>
+	<property name="dataSource" ref="dataSource" />
+	<property name="mappingResources">
+		<list>
+			<value>org/springframework/samples/petclinic/hibernate/petclinic.hbm.xml</value>
+		</list>
+	</property>
+	<property name="hibernateProperties">
+		<value>
+			hibernate.dialect=${hibernate.dialect}
+		</value>
+	</property>
 </bean>
 
 <bean id="txManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-  <property name="sessionFactory" ref="sessionFactory" />
+	<property name="sessionFactory" ref="sessionFactory" />
 </bean>
 ----
 
@@ -21653,21 +21641,21 @@ package x.y.service;
 
 public class DefaultFooService implements FooService {
 
-  public Foo getFoo(String fooName) {
-    throw new UnsupportedOperationException();
-  }
+	public Foo getFoo(String fooName) {
+		throw new UnsupportedOperationException();
+	}
 
-  public Foo getFoo(String fooName, String barName) {
-    throw new UnsupportedOperationException();
-  }
+	public Foo getFoo(String fooName, String barName) {
+		throw new UnsupportedOperationException();
+	}
 
-  public void insertFoo(Foo foo) {
-    throw new UnsupportedOperationException();
-  }
+	public void insertFoo(Foo foo) {
+		throw new UnsupportedOperationException();
+	}
 
-  public void updateFoo(Foo foo) {
-    throw new UnsupportedOperationException();
-  }
+	public void updateFoo(Foo foo) {
+		throw new UnsupportedOperationException();
+	}
 
 }
 ----
@@ -21684,52 +21672,52 @@ configuration is explained in detail in the next few paragraphs.
 <!-- from the file 'context.xml' -->
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-     xmlns:aop="http://www.springframework.org/schema/aop"
-     xmlns:tx="http://www.springframework.org/schema/tx"
-     xsi:schemaLocation="
-     http://www.springframework.org/schema/beans
-     http://www.springframework.org/schema/beans/spring-beans.xsd
-     http://www.springframework.org/schema/tx
-     http://www.springframework.org/schema/tx/spring-tx.xsd
-     http://www.springframework.org/schema/aop
-     http://www.springframework.org/schema/aop/spring-aop.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-  <!-- this is the service object that we want to make transactional -->
-  <bean id="fooService" class="x.y.service.DefaultFooService"/>
+	<!-- this is the service object that we want to make transactional -->
+	<bean id="fooService" class="x.y.service.DefaultFooService"/>
 
-  <!-- the transactional advice (what 'happens'; see the <aop:advisor/> bean below) -->
-  <tx:advice id="txAdvice" transaction-manager="txManager">
-  <!-- the transactional semantics... -->
-  <tx:attributes>
-    <!-- all methods starting with 'get' are read-only -->
-    <tx:method name="get*" read-only="true"/>
-    <!-- other methods use the default transaction settings (see below) -->
-    <tx:method name="*"/>
-  </tx:attributes>
-  </tx:advice>
+	<!-- the transactional advice (what 'happens'; see the <aop:advisor/> bean below) -->
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<!-- the transactional semantics... -->
+		<tx:attributes>
+			<!-- all methods starting with 'get' are read-only -->
+			<tx:method name="get*" read-only="true"/>
+			<!-- other methods use the default transaction settings (see below) -->
+			<tx:method name="*"/>
+		</tx:attributes>
+	</tx:advice>
 
-  <!-- ensure that the above transactional advice runs for any execution
-    of an operation defined by the FooService interface -->
-  <aop:config>
-  <aop:pointcut id="fooServiceOperation" expression="execution(* x.y.service.FooService.*(..))"/>
-  <aop:advisor advice-ref="txAdvice" pointcut-ref="fooServiceOperation"/>
-  </aop:config>
+	<!-- ensure that the above transactional advice runs for any execution
+		of an operation defined by the FooService interface -->
+	<aop:config>
+		<aop:pointcut id="fooServiceOperation" expression="execution(* x.y.service.FooService.*(..))"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="fooServiceOperation"/>
+	</aop:config>
 
-  <!-- don't forget the DataSource -->
-  <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-  <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
-  <property name="url" value="jdbc:oracle:thin:@rj-t42:1521:elvis"/>
-  <property name="username" value="scott"/>
-  <property name="password" value="tiger"/>
-  </bean>
+	<!-- don't forget the DataSource -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<property name="url" value="jdbc:oracle:thin:@rj-t42:1521:elvis"/>
+		<property name="username" value="scott"/>
+		<property name="password" value="tiger"/>
+	</bean>
 
-  <!-- similarly, don't forget the PlatformTransactionManager -->
-  <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-  <property name="dataSource" ref="dataSource"/>
-  </bean>
+	<!-- similarly, don't forget the PlatformTransactionManager -->
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
 
-  <!-- other <bean/> definitions here -->
+	<!-- other <bean/> definitions here -->
 
 </beans>
 ----
@@ -21771,8 +21759,8 @@ service layer. For example:
 [subs="verbatim,quotes"]
 ----
 <aop:config>
-  <aop:pointcut id="fooServiceMethods" expression="execution(* x.y.service.*.*(..))"/>
-  <aop:advisor advice-ref="txAdvice" pointcut-ref="fooServiceMethods"/>
+	<aop:pointcut id="fooServiceMethods" expression="execution(* x.y.service.*.*(..))"/>
+	<aop:advisor advice-ref="txAdvice" pointcut-ref="fooServiceMethods"/>
 </aop:config>
 ----
 
@@ -21797,11 +21785,11 @@ program that test drives the above configuration:
 ----
 public final class Boot {
 
-  public static void main(final String[] args) throws Exception {
-    ApplicationContext ctx = new ClassPathXmlApplicationContext("context.xml", Boot.class);
-    FooService fooService = (FooService) ctx.getBean("fooService");
-    fooService.insertFoo (new Foo());
-  }
+	public static void main(final String[] args) throws Exception {
+		ApplicationContext ctx = new ClassPathXmlApplicationContext("context.xml", Boot.class);
+		FooService fooService = (FooService) ctx.getBean("fooService");
+		fooService.insertFoo (new Foo());
+	}
 }
 ----
 
@@ -21813,36 +21801,31 @@ insertFoo(..) method of the DefaultFooService class have been truncated for clar
 [subs="verbatim,quotes"]
 ----
 <!-- the Spring container is starting up... -->
-[AspectJInvocationContextExposingAdvisorAutoProxyCreator] - Creating implicit proxy
-    for bean 'fooService' with 0 common interceptors and 1 specific interceptors
-  <!-- the DefaultFooService is actually proxied -->
+[AspectJInvocationContextExposingAdvisorAutoProxyCreator] - Creating implicit proxy for bean 'fooService' with 0 common interceptors and 1 specific interceptors
+
+<!-- the DefaultFooService is actually proxied -->
 [JdkDynamicAopProxy] - Creating JDK dynamic proxy for [x.y.service.DefaultFooService]
 
-  <!-- ... the insertFoo(..) method is now being invoked on the proxy -->
-
+<!-- ... the insertFoo(..) method is now being invoked on the proxy -->
 [TransactionInterceptor] - Getting transaction for x.y.service.FooService.insertFoo
-  <!-- the transactional advice kicks in here... -->
+
+<!-- the transactional advice kicks in here... -->
 [DataSourceTransactionManager] - Creating new transaction with name [x.y.service.FooService.insertFoo]
-[DataSourceTransactionManager] - Acquired Connection
-    [org.apache.commons.dbcp.PoolableConnection@a53de4] for JDBC transaction
+[DataSourceTransactionManager] - Acquired Connection [org.apache.commons.dbcp.PoolableConnection@a53de4] for JDBC transaction
 
-  <!-- the insertFoo(..) method from DefaultFooService throws an exception... -->
-[RuleBasedTransactionAttribute] - Applying rules to determine whether transaction should
-    rollback on java.lang.UnsupportedOperationException
-[TransactionInterceptor] - Invoking rollback for transaction on x.y.service.FooService.insertFoo
-    due to throwable [java.lang.UnsupportedOperationException]
+<!-- the insertFoo(..) method from DefaultFooService throws an exception... -->
+[RuleBasedTransactionAttribute] - Applying rules to determine whether transaction should rollback on java.lang.UnsupportedOperationException
+[TransactionInterceptor] - Invoking rollback for transaction on x.y.service.FooService.insertFoo due to throwable [java.lang.UnsupportedOperationException]
 
-   <!-- and the transaction is rolled back (by default, RuntimeException instances cause rollback) -->
-[DataSourceTransactionManager] - Rolling back JDBC transaction on Connection
-    [org.apache.commons.dbcp.PoolableConnection@a53de4]
+<!-- and the transaction is rolled back (by default, RuntimeException instances cause rollback) -->
+[DataSourceTransactionManager] - Rolling back JDBC transaction on Connection [org.apache.commons.dbcp.PoolableConnection@a53de4]
 [DataSourceTransactionManager] - Releasing JDBC Connection after transaction
 [DataSourceUtils] - Returning JDBC Connection to DataSource
 
-Exception in thread "main" java.lang.UnsupportedOperationException
-    at x.y.service.DefaultFooService.insertFoo(DefaultFooService.java:14)
-   <!-- AOP infrastructure stack trace elements removed for clarity -->
-    at $Proxy0.insertFoo(Unknown Source)
-    at Boot.main(Boot.java:11)
+Exception in thread "main" java.lang.UnsupportedOperationException at x.y.service.DefaultFooService.insertFoo(DefaultFooService.java:14)
+<!-- AOP infrastructure stack trace elements removed for clarity -->
+at $Proxy0.insertFoo(Unknown Source)
+at Boot.main(Boot.java:11)
 ----
 
 
@@ -21875,10 +21858,10 @@ rollback for a checked, application-specific `Exception` type.
 [subs="verbatim,quotes"]
 ----
 <tx:advice id="txAdvice" transaction-manager="txManager">
-  <tx:attributes>
-  <tx:method name="get*" read-only="true" rollback-for="NoProductInStockException"/>
-  <tx:method name="*"/>
-  </tx:attributes>
+	<tx:attributes>
+	<tx:method name="get*" read-only="true" rollback-for="NoProductInStockException"/>
+	<tx:method name="*"/>
+	</tx:attributes>
 </tx:advice>
 ----
 
@@ -21891,10 +21874,10 @@ unhandled `InstrumentNotFoundException`.
 [subs="verbatim,quotes"]
 ----
 <tx:advice id="txAdvice">
-  <tx:attributes>
-  <tx:method name="updateStock" no-rollback-for="InstrumentNotFoundException"/>
-  <tx:method name="*"/>
-  </tx:attributes>
+	<tx:attributes>
+	<tx:method name="updateStock" no-rollback-for="InstrumentNotFoundException"/>
+	<tx:method name="*"/>
+	</tx:attributes>
 </tx:advice>
 ----
 
@@ -21908,9 +21891,9 @@ rollback of the attendant transaction.
 [subs="verbatim,quotes"]
 ----
 <tx:advice id="txAdvice">
-  <tx:attributes>
-  <tx:method name="*" rollback-for="Throwable" no-rollback-for="InstrumentNotFoundException"/>
-  </tx:attributes>
+	<tx:attributes>
+	<tx:method name="*" rollback-for="Throwable" no-rollback-for="InstrumentNotFoundException"/>
+	</tx:attributes>
 </tx:advice>
 ----
 
@@ -21922,12 +21905,12 @@ transaction infrastructure:
 [subs="verbatim,quotes"]
 ----
 public void resolvePosition() {
-  try {
-    // some business logic...
-  } catch (NoProductInStockException ex) {
-    // trigger rollback programmatically
-    TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-  }
+	try {
+		// some business logic...
+	} catch (NoProductInStockException ex) {
+		// trigger rollback programmatically
+		TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+	}
 }
 ----
 
@@ -21954,42 +21937,42 @@ the default transactional configuration, you would write the following:
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns:aop="http://www.springframework.org/schema/aop"
-  xmlns:tx="http://www.springframework.org/schema/tx"
-  xsi:schemaLocation="
-  http://www.springframework.org/schema/beans
-  http://www.springframework.org/schema/beans/spring-beans.xsd
-  http://www.springframework.org/schema/tx
-  http://www.springframework.org/schema/tx/spring-tx.xsd
-  http://www.springframework.org/schema/aop
-  http://www.springframework.org/schema/aop/spring-aop.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-  <aop:config>
+	<aop:config>
 
-    <aop:pointcut id="serviceOperation"
-          expression="execution(* x.y.service..*Service.*(..))"/>
+		<aop:pointcut id="serviceOperation"
+				expression="execution(* x.y.service..*Service.*(..))"/>
 
-    <aop:advisor pointcut-ref="serviceOperation" advice-ref="txAdvice"/>
+		<aop:advisor pointcut-ref="serviceOperation" advice-ref="txAdvice"/>
 
-  </aop:config>
+	</aop:config>
 
-  <!-- these two beans will be transactional... -->
-  <bean id="fooService" class="x.y.service.DefaultFooService"/>
-  <bean id="barService" class="x.y.service.extras.SimpleBarService"/>
+	<!-- these two beans will be transactional... -->
+	<bean id="fooService" class="x.y.service.DefaultFooService"/>
+	<bean id="barService" class="x.y.service.extras.SimpleBarService"/>
 
-  <!-- ... and these two beans won't -->
-  <bean id="anotherService" class="org.xyz.SomeService"/> <!-- (not in the right package) -->
-  <bean id="barManager" class="x.y.service.SimpleBarManager"/> <!-- (doesn't end in 'Service') -->
+	<!-- ... and these two beans won't -->
+	<bean id="anotherService" class="org.xyz.SomeService"/> <!-- (not in the right package) -->
+	<bean id="barManager" class="x.y.service.SimpleBarManager"/> <!-- (doesn't end in 'Service') -->
 
-  <tx:advice id="txAdvice">
-    <tx:attributes>
-      <tx:method name="get*" read-only="true"/>
-      <tx:method name="*"/>
-    </tx:attributes>
-  </tx:advice>
+	<tx:advice id="txAdvice">
+		<tx:attributes>
+			<tx:method name="get*" read-only="true"/>
+			<tx:method name="*"/>
+		</tx:attributes>
+	</tx:advice>
 
-  <!-- other transaction infrastructure beans such as a PlatformTransactionManager omitted... -->
+	<!-- other transaction infrastructure beans such as a PlatformTransactionManager omitted... -->
 
 </beans>
 ----
@@ -22002,51 +21985,51 @@ transactional settings.
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns:aop="http://www.springframework.org/schema/aop"
-  xmlns:tx="http://www.springframework.org/schema/tx"
-  xsi:schemaLocation="
-  http://www.springframework.org/schema/beans
-  http://www.springframework.org/schema/beans/spring-beans.xsd
-  http://www.springframework.org/schema/tx
-  http://www.springframework.org/schema/tx/spring-tx.xsd
-  http://www.springframework.org/schema/aop
-  http://www.springframework.org/schema/aop/spring-aop.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-  <aop:config>
+	<aop:config>
 
-    <aop:pointcut id="defaultServiceOperation"
-          expression="execution(* x.y.service.*Service.*(..))"/>
+		<aop:pointcut id="defaultServiceOperation"
+				expression="execution(* x.y.service.*Service.*(..))"/>
 
-    <aop:pointcut id="noTxServiceOperation"
-          expression="execution(* x.y.service.ddl.DefaultDdlManager.*(..))"/>
+		<aop:pointcut id="noTxServiceOperation"
+				expression="execution(* x.y.service.ddl.DefaultDdlManager.*(..))"/>
 
-    <aop:advisor pointcut-ref="defaultServiceOperation" advice-ref="defaultTxAdvice"/>
+		<aop:advisor pointcut-ref="defaultServiceOperation" advice-ref="defaultTxAdvice"/>
 
-    <aop:advisor pointcut-ref="noTxServiceOperation" advice-ref="noTxAdvice"/>
+		<aop:advisor pointcut-ref="noTxServiceOperation" advice-ref="noTxAdvice"/>
 
-  </aop:config>
+	</aop:config>
 
-  <!-- this bean will be transactional (see the 'defaultServiceOperation' pointcut) -->
-  <bean id="fooService" class="x.y.service.DefaultFooService"/>
+	<!-- this bean will be transactional (see the 'defaultServiceOperation' pointcut) -->
+	<bean id="fooService" class="x.y.service.DefaultFooService"/>
 
-  <!-- this bean will also be transactional, but with totally different transactional settings -->
-  <bean id="anotherFooService" class="x.y.service.ddl.DefaultDdlManager"/>
+	<!-- this bean will also be transactional, but with totally different transactional settings -->
+	<bean id="anotherFooService" class="x.y.service.ddl.DefaultDdlManager"/>
 
-  <tx:advice id="defaultTxAdvice">
-    <tx:attributes>
-      <tx:method name="get*" read-only="true"/>
-      <tx:method name="*"/>
-    </tx:attributes>
-  </tx:advice>
+	<tx:advice id="defaultTxAdvice">
+		<tx:attributes>
+			<tx:method name="get*" read-only="true"/>
+			<tx:method name="*"/>
+		</tx:attributes>
+	</tx:advice>
 
-  <tx:advice id="noTxAdvice">
-    <tx:attributes>
-      <tx:method name="*" propagation="NEVER"/>
-    </tx:attributes>
-  </tx:advice>
+	<tx:advice id="noTxAdvice">
+		<tx:attributes>
+			<tx:method name="*" propagation="NEVER"/>
+		</tx:attributes>
+	</tx:advice>
 
-  <!-- other transaction infrastructure beans such as a PlatformTransactionManager omitted... -->
+	<!-- other transaction infrastructure beans such as a PlatformTransactionManager omitted... -->
 
 </beans>
 ----
@@ -22054,7 +22037,7 @@ transactional settings.
 
 
 [[transaction-declarative-txadvice-settings]]
-====  <tx:advice/> settings
+==== <tx:advice/> settings
 
 This section summarizes the various transactional settings that can be specified using
 the `<tx:advice/>` tag. The default `<tx:advice/>` settings are:
@@ -22137,13 +22120,13 @@ following class definition:
 **@Transactional**
 public class DefaultFooService implements FooService {
 
-    Foo getFoo(String fooName);
+	Foo getFoo(String fooName);
 
-    Foo getFoo(String fooName, String barName);
+	Foo getFoo(String fooName, String barName);
 
-    void insertFoo(Foo foo);
+	void insertFoo(Foo foo);
 
-    void updateFoo(Foo foo);
+	void updateFoo(Foo foo);
 }
 ----
 
@@ -22156,28 +22139,28 @@ can be made transactional by adding merely__one__ line of XML configuration:
 <!-- from the file 'context.xml' -->
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-     xmlns:aop="http://www.springframework.org/schema/aop"
-     xmlns:tx="http://www.springframework.org/schema/tx"
-     xsi:schemaLocation="
-     http://www.springframework.org/schema/beans
-     http://www.springframework.org/schema/beans/spring-beans.xsd
-     http://www.springframework.org/schema/tx
-     http://www.springframework.org/schema/tx/spring-tx.xsd
-     http://www.springframework.org/schema/aop
-     http://www.springframework.org/schema/aop/spring-aop.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-  <!-- this is the service object that we want to make transactional -->
-  <bean id="fooService" class="x.y.service.DefaultFooService"/>
+	<!-- this is the service object that we want to make transactional -->
+	<bean id="fooService" class="x.y.service.DefaultFooService"/>
 
-  <!-- enable the configuration of transactional behavior based on annotations -->
-  __<tx:annotation-driven transaction-manager="txManager"/>__<!-- a PlatformTransactionManager is still required -->
-  <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-  <!-- (this dependency is defined somewhere else) -->
-  <property name="dataSource" ref="dataSource"/>
-  </bean>
+	<!-- enable the configuration of transactional behavior based on annotations -->
+	__<tx:annotation-driven transaction-manager="txManager"/>__<!-- a PlatformTransactionManager is still required -->
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<!-- (this dependency is defined somewhere else) -->
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
 
-  <!-- other <bean/> definitions here -->
+	<!-- other <bean/> definitions here -->
 
 </beans>
 ----
@@ -22317,21 +22300,21 @@ precedence over the transactional settings defined at the class level.
 @Transactional(readOnly = true)
 public class DefaultFooService implements FooService {
 
-  public Foo getFoo(String fooName) {
-    // do something
-  }
+	public Foo getFoo(String fooName) {
+		// do something
+	}
 
-  // these settings have precedence for this method
-  @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-  public void updateFoo(Foo foo) {
-    // do something
-  }
+	// these settings have precedence for this method
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
+	public void updateFoo(Foo foo) {
+		// do something
+	}
 }
 ----
 
 
 [[transaction-declarative-attransactional-settings]]
-=====  @Transactional settings
+===== @Transactional settings
 
 The `@Transactional` annotation is metadata that specifies that an interface, class, or
 method must have transactional semantics; for example, "__start a brand new read-only
@@ -22413,12 +22396,12 @@ example, using the qualifier notation, the following Java code
 ----
 public class TransactionalService {
 
-    @Transactional("order")
-    public void setSomething(String name) { ... }
+	@Transactional("order")
+	public void setSomething(String name) { ... }
 
-    @Transactional("account")
-    public void doSomething() { ... }
-  }
+	@Transactional("account")
+	public void doSomething() { ... }
+}
 ----
 
 could be combined with the following transaction manager bean declarations in the
@@ -22429,15 +22412,15 @@ application context.
 ----
 <tx:annotation-driven/>
 
-  <bean id="transactionManager1" class="org.springframework.jdbc.DataSourceTransactionManager">
-    ...
-    <qualifier value="order"/>
-  </bean>
+	<bean id="transactionManager1" class="org.springframework.jdbc.DataSourceTransactionManager">
+		...
+		<qualifier value="order"/>
+	</bean>
 
-  <bean id="transactionManager2" class="org.springframework.jdbc.DataSourceTransactionManager">
-    ...
-    <qualifier value="account"/>
-  </bean>
+	<bean id="transactionManager2" class="org.springframework.jdbc.DataSourceTransactionManager">
+		...
+		<qualifier value="account"/>
+	</bean>
 ----
 
 In this case, the two methods on `TransactionalService` will run under separate
@@ -22457,16 +22440,16 @@ annotations
 [subs="verbatim,quotes"]
 ----
 @Target({ElementType.METHOD, ElementType.TYPE})
-  @Retention(RetentionPolicy.RUNTIME)
-  @Transactional("order")
-  public @interface OrderTx {
-  }
+@Retention(RetentionPolicy.RUNTIME)
+@Transactional("order")
+public @interface OrderTx {
+}
 
-  @Target({ElementType.METHOD, ElementType.TYPE})
-  @Retention(RetentionPolicy.RUNTIME)
-  @Transactional("account")
-  public @interface AccountTx {
-  }
+@Target({ElementType.METHOD, ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+@Transactional("account")
+public @interface AccountTx {
+}
 ----
 
 allows us to write the example from the previous section as
@@ -22476,17 +22459,16 @@ allows us to write the example from the previous section as
 ----
 public class TransactionalService {
 
-    @OrderTx
-    public void setSomething(String name) { ... }
+	@OrderTx
+	public void setSomething(String name) { ... }
 
-    @AccountTx
-    public void doSomething() { ... }
-  }
+	@AccountTx
+	public void doSomething() { ... }
+}
 ----
 
 Here we have used the syntax to define the transaction manager qualifier, but could also
-have
-          included propagation behavior, rollback rules, timeouts etc.
+have included propagation behavior, rollback rules, timeouts etc.
 
 
 
@@ -22585,30 +22567,30 @@ import org.springframework.core.Ordered;
 
 public class SimpleProfiler implements Ordered {
 
-  private int order;
+	private int order;
 
-  // allows us to control the ordering of advice
-  public int getOrder() {
-    return this.order;
-  }
+	// allows us to control the ordering of advice
+	public int getOrder() {
+		return this.order;
+	}
 
-  public void setOrder(int order) {
-    this.order = order;
-  }
+	public void setOrder(int order) {
+		this.order = order;
+	}
 
-  // this method *is* the around advice
-  public Object profile(ProceedingJoinPoint call) throws Throwable {
-    Object returnValue;
-    StopWatch clock = new StopWatch(getClass().getName());
-    try {
-      clock.start(call.toShortString());
-      returnValue = call.proceed();
-    } finally {
-      clock.stop();
-      System.out.println(clock.prettyPrint());
-    }
-    return returnValue;
-  }
+	// this method *is* the around advice
+	public Object profile(ProceedingJoinPoint call) throws Throwable {
+		Object returnValue;
+		StopWatch clock = new StopWatch(getClass().getName());
+		try {
+			clock.start(call.toShortString());
+			returnValue = call.proceed();
+		} finally {
+			clock.stop();
+			System.out.println(clock.prettyPrint());
+		}
+		return returnValue;
+	}
 }
 ----
 
@@ -22617,40 +22599,46 @@ public class SimpleProfiler implements Ordered {
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-     xmlns:aop="http://www.springframework.org/schema/aop"
-     xmlns:tx="http://www.springframework.org/schema/tx"
-     xsi:schemaLocation="
-   http://www.springframework.org/schema/beans
-   http://www.springframework.org/schema/beans/spring-beans.xsd
-   http://www.springframework.org/schema/tx
-   http://www.springframework.org/schema/tx/spring-tx.xsd
-   http://www.springframework.org/schema/aop
-   http://www.springframework.org/schema/aop/spring-aop.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-  <bean id="fooService" class="x.y.service.DefaultFooService"/>
+	<bean id="fooService" class="x.y.service.DefaultFooService"/>
 
-  <!-- this is the aspect -->
-  <bean id="profiler" class="x.y.SimpleProfiler">
-    <!-- execute before the transactional advice (hence the lower order number) -->
-    <property name="order" __value="1"__/></bean><tx:annotation-driven transaction-manager="txManager" __order="200"__/><aop:config><!-- this advice will execute around the transactional advice -->
-    <aop:aspect id="profilingAspect" ref="profiler">
-      <aop:pointcut id="serviceMethodWithReturnValue"
-              expression="execution(!void x.y..*Service.*(..))"/>
-      <aop:around method="profile" pointcut-ref="serviceMethodWithReturnValue"/>
-    </aop:aspect>
-  </aop:config>
+	<!-- this is the aspect -->
+	<bean id="profiler" class="x.y.SimpleProfiler">
+		<!-- execute before the transactional advice (hence the lower order number) -->
+		<property name="order" __value="1"__/>
+	</bean>
 
-  <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-    <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
-    <property name="url" value="jdbc:oracle:thin:@rj-t42:1521:elvis"/>
-    <property name="username" value="scott"/>
-    <property name="password" value="tiger"/>
-  </bean>
+	<tx:annotation-driven transaction-manager="txManager" __order="200"__/>
 
-  <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-    <property name="dataSource" ref="dataSource"/>
-  </bean>
+	<aop:config>
+			<!-- this advice will execute around the transactional advice -->
+			<aop:aspect id="profilingAspect" ref="profiler">
+				<aop:pointcut id="serviceMethodWithReturnValue"
+						expression="execution(!void x.y..*Service.*(..))"/>
+				<aop:around method="profile" pointcut-ref="serviceMethodWithReturnValue"/>
+			</aop:aspect>
+	</aop:config>
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<property name="url" value="jdbc:oracle:thin:@rj-t42:1521:elvis"/>
+		<property name="username" value="scott"/>
+		<property name="password" value="tiger"/>
+	</bean>
+
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
 
 </beans>
 ----
@@ -22667,44 +22655,48 @@ declarative approach.
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-     xmlns:aop="http://www.springframework.org/schema/aop"
-     xmlns:tx="http://www.springframework.org/schema/tx"
-     xsi:schemaLocation="
-   http://www.springframework.org/schema/beans
-   http://www.springframework.org/schema/beans/spring-beans.xsd
-   http://www.springframework.org/schema/tx
-   http://www.springframework.org/schema/tx/spring-tx.xsd
-   http://www.springframework.org/schema/aop
-   http://www.springframework.org/schema/aop/spring-aop.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-  <bean id="fooService" class="x.y.service.DefaultFooService"/>
+	<bean id="fooService" class="x.y.service.DefaultFooService"/>
 
-  <!-- the profiling advice -->
-  <bean id="profiler" class="x.y.SimpleProfiler">
-    <!-- execute before the transactional advice (hence the lower order number) -->
-    __<property name="order" value="1__"/></bean><aop:config><aop:pointcut id="entryPointMethod" expression="execution(* x.y..*Service.*(..))"/><!-- will execute after the profiling advice (c.f. the order attribute) -->
-    <aop:advisor
-        advice-ref="txAdvice"
-        pointcut-ref="entryPointMethod"
-        __order="2__"/> <!-- order value is higher than the profiling aspect -->
+	<!-- the profiling advice -->
+	<bean id="profiler" class="x.y.SimpleProfiler">
+		<!-- execute before the transactional advice (hence the lower order number) -->
+		__<property name="order" value="1__"/>
+	</bean>
 
-    <aop:aspect id="profilingAspect" ref="profiler">
-      <aop:pointcut id="serviceMethodWithReturnValue"
-              expression="execution(!void x.y..*Service.*(..))"/>
-      <aop:around method="profile" pointcut-ref="serviceMethodWithReturnValue"/>
-    </aop:aspect>
+	<aop:config>
+		<aop:pointcut id="entryPointMethod" expression="execution(* x.y..*Service.*(..))"/>
+		<!-- will execute after the profiling advice (c.f. the order attribute) -->
 
-  </aop:config>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="entryPointMethod" __order="2__"/>
+		<!-- order value is higher than the profiling aspect -->
 
-  <tx:advice id="txAdvice" transaction-manager="txManager">
-    <tx:attributes>
-      <tx:method name="get*" read-only="true"/>
-      <tx:method name="*"/>
-    </tx:attributes>
-  </tx:advice>
+		<aop:aspect id="profilingAspect" ref="profiler">
+			<aop:pointcut id="serviceMethodWithReturnValue"
+					expression="execution(!void x.y..*Service.*(..))"/>
+			<aop:around method="profile" pointcut-ref="serviceMethodWithReturnValue"/>
+		</aop:aspect>
 
-  <!-- other <bean/> definitions such as a DataSource and a PlatformTransactionManager here -->
+	</aop:config>
+
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="get*" read-only="true"/>
+			<tx:method name="*"/>
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- other <bean/> definitions such as a DataSource and a PlatformTransactionManager here -->
 
 </beans>
 ----
@@ -22817,25 +22809,24 @@ a transaction. You then pass an instance of your custom `TransactionCallback` to
 ----
 public class SimpleService implements Service {
 
-  // single TransactionTemplate shared amongst all methods in this instance
-  private final TransactionTemplate transactionTemplate;
+	// single TransactionTemplate shared amongst all methods in this instance
+	private final TransactionTemplate transactionTemplate;
 
-  // use constructor-injection to supply the PlatformTransactionManager
-  public SimpleService(PlatformTransactionManager transactionManager) {
-    Assert.notNull(transactionManager, "The 'transactionManager' argument must not be null.");
-    this.transactionTemplate = new TransactionTemplate(transactionManager);
-  }
+	// use constructor-injection to supply the PlatformTransactionManager
+	public SimpleService(PlatformTransactionManager transactionManager) {
+		Assert.notNull(transactionManager, "The 'transactionManager' argument must not be null.");
+		this.transactionTemplate = new TransactionTemplate(transactionManager);
+	}
 
-  public Object someServiceMethod() {
-    return transactionTemplate.execute(new TransactionCallback() {
-
-      // the code in this method executes in a transactional context
-      public Object doInTransaction(TransactionStatus status) {
-        updateOperation1();
-        return resultOfUpdateOperation2();
-      }
-    });
-  }
+	public Object someServiceMethod() {
+		return transactionTemplate.execute(new TransactionCallback() {
+			// the code in this method executes in a transactional context
+			public Object doInTransaction(TransactionStatus status) {
+				updateOperation1();
+				return resultOfUpdateOperation2();
+			}
+		});
+	}
 }
 ----
 
@@ -22846,10 +22837,10 @@ with an anonymous class as follows:
 [subs="verbatim,quotes"]
 ----
 transactionTemplate.execute(new **TransactionCallbackWithoutResult**() {
-    protected void doInTransactionWithoutResult(TransactionStatus status) {
-        updateOperation1();
-        updateOperation2();
-    }
+	protected void doInTransactionWithoutResult(TransactionStatus status) {
+		updateOperation1();
+		updateOperation2();
+	}
 });
 ----
 
@@ -22861,14 +22852,14 @@ Code within the callback can roll the transaction back by calling the
 ----
 transactionTemplate.execute(new TransactionCallbackWithoutResult() {
 
-  protected void doInTransactionWithoutResult(TransactionStatus status) {
-    try {
-      updateOperation1();
-      updateOperation2();
-    } catch (SomeBusinessExeption ex) {
-      **status.setRollbackOnly();**
-    }
-  }
+	protected void doInTransactionWithoutResult(TransactionStatus status) {
+		try {
+			updateOperation1();
+			updateOperation2();
+		} catch (SomeBusinessExeption ex) {
+			**status.setRollbackOnly();**
+		}
+	}
 });
 ----
 
@@ -22887,17 +22878,17 @@ a specific `TransactionTemplate:`
 ----
 public class SimpleService implements Service {
 
-  private final TransactionTemplate transactionTemplate;
+	private final TransactionTemplate transactionTemplate;
 
-  public SimpleService(PlatformTransactionManager transactionManager) {
-    Assert.notNull(transactionManager, "The 'transactionManager' argument must not be null.");
-    this.transactionTemplate = new TransactionTemplate(transactionManager);
+	public SimpleService(PlatformTransactionManager transactionManager) {
+		Assert.notNull(transactionManager, "The 'transactionManager' argument must not be null.");
+		this.transactionTemplate = new TransactionTemplate(transactionManager);
 
-    // the transaction settings can be set here explicitly if so desired
-    this.transactionTemplate.setIsolationLevel(TransactionDefinition.ISOLATION_READ_UNCOMMITTED);
-    this.transactionTemplate.setTimeout(30); // 30 seconds
-    // and so forth...
-  }
+		// the transaction settings can be set here explicitly if so desired
+		this.transactionTemplate.setIsolationLevel(TransactionDefinition.ISOLATION_READ_UNCOMMITTED);
+		this.transactionTemplate.setTimeout(30); // 30 seconds
+		// and so forth...
+	}
 }
 ----
 
@@ -22909,9 +22900,9 @@ injected into as many services as are required.
 [subs="verbatim,quotes"]
 ----
 <bean id="sharedTransactionTemplate"
-    class="org.springframework.transaction.support.TransactionTemplate">
-  <property name="isolationLevelName" value="ISOLATION_READ_UNCOMMITTED"/>
-  <property name="timeout" value="30"/>
+		class="org.springframework.transaction.support.TransactionTemplate">
+	<property name="isolationLevelName" value="ISOLATION_READ_UNCOMMITTED"/>
+	<property name="timeout" value="30"/>
 </bean>"
 ----
 
@@ -22943,11 +22934,11 @@ def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
 
 TransactionStatus status = txManager.getTransaction(def);
 try {
-  // execute your business logic here
+	// execute your business logic here
 }
 catch (MyException ex) {
-  txManager.rollback(status);
-  throw ex;
+	txManager.rollback(status);
+	throw ex;
 }
 txManager.commit(status);
 ----
@@ -23127,7 +23118,7 @@ without having to provide XML configuration entries for them.
 ----
 **@Repository**
 public class SomeMovieFinder implements MovieFinder {
-    // ...
+	// ...
 }
 ----
 
@@ -23144,10 +23135,10 @@ annotations. Here is an example for a JPA repository:
 @Repository
 public class JpaMovieFinder implements MovieFinder {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+	@PersistenceContext
+	private EntityManager entityManager;
 
-    // ...
+	// ...
 
 }
 ----
@@ -23160,14 +23151,14 @@ If you are using the classic Hibernate APIs than you can inject the SessionFacto
 @Repository
 public class HibernateMovieFinder implements MovieFinder {
 
-    private SessionFactory sessionFactory;
+	private SessionFactory sessionFactory;
 
-    @Autowired
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
+	@Autowired
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
 
-    // ...
+	// ...
 
 }
 ----
@@ -23183,14 +23174,14 @@ this `DataSource`.
 @Repository
 public class JdbcMovieFinder implements MovieFinder {
 
-    private JdbcTemplate jdbcTemplate;
+	private JdbcTemplate jdbcTemplate;
 
-    @Autowired
-    public void init(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-    }
+	@Autowired
+	public void init(DataSource dataSource) {
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
+	}
 
-    // ...
+	// ...
 
 }
 ----
@@ -23348,7 +23339,7 @@ exceptions to be propagated to the caller. See <<jdbc-SQLExceptionTranslator>>.
 
 
 [[jdbc-JdbcTemplate]]
-====  JdbcTemplate
+==== JdbcTemplate
 
 The `JdbcTemplate` class is the central class in the JDBC core package. It handles the
 creation and release of resources, which helps you avoid common errors such as
@@ -23405,7 +23396,7 @@ A simple query using a bind variable:
 [subs="verbatim,quotes"]
 ----
 int countOfActorsNamedJoe = this.jdbcTemplate.queryForObject(
-        "select count(*) from t_actor where first_name = ?", Integer.class, "Joe");
+		"select count(*) from t_actor where first_name = ?", Integer.class, "Joe");
 ----
 
 Querying for a `String`:
@@ -23414,8 +23405,8 @@ Querying for a `String`:
 [subs="verbatim,quotes"]
 ----
 String lastName = this.jdbcTemplate.queryForObject(
-        "select last_name from t_actor where id = ?",
-        new Object[]{1212L}, String.class);
+		"select last_name from t_actor where id = ?",
+		new Object[]{1212L}, String.class);
 ----
 
 Querying and populating a __single__ domain object:
@@ -23424,16 +23415,16 @@ Querying and populating a __single__ domain object:
 [subs="verbatim,quotes"]
 ----
 Actor actor = this.jdbcTemplate.queryForObject(
-        "select first_name, last_name from t_actor where id = ?",
-        new Object[]{1212L},
-        new RowMapper<Actor>() {
-            public Actor mapRow(ResultSet rs, int rowNum) throws SQLException {
-                Actor actor = new Actor();
-                actor.setFirstName(rs.getString("first_name"));
-                actor.setLastName(rs.getString("last_name"));
-                return actor;
-            }
-        });
+		"select first_name, last_name from t_actor where id = ?",
+		new Object[]{1212L},
+		new RowMapper<Actor>() {
+			public Actor mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Actor actor = new Actor();
+				actor.setFirstName(rs.getString("first_name"));
+				actor.setLastName(rs.getString("last_name"));
+				return actor;
+			}
+		});
 ----
 
 Querying and populating a number of domain objects:
@@ -23442,15 +23433,15 @@ Querying and populating a number of domain objects:
 [subs="verbatim,quotes"]
 ----
 List<Actor> actors = this.jdbcTemplate.query(
-        "select first_name, last_name from t_actor",
-        new RowMapper<Actor>() {
-            public Actor mapRow(ResultSet rs, int rowNum) throws SQLException {
-                Actor actor = new Actor();
-                actor.setFirstName(rs.getString("first_name"));
-                actor.setLastName(rs.getString("last_name"));
-                return actor;
-            }
-        });
+		"select first_name, last_name from t_actor",
+		new RowMapper<Actor>() {
+			public Actor mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Actor actor = new Actor();
+				actor.setFirstName(rs.getString("first_name"));
+				actor.setLastName(rs.getString("last_name"));
+				return actor;
+			}
+		});
 ----
 
 If the last two snippets of code actually existed in the same application, it would make
@@ -23463,17 +23454,17 @@ last code snippet as follows:
 [subs="verbatim,quotes"]
 ----
 public List<Actor> findAllActors() {
-    return this.jdbcTemplate.query( "select first_name, last_name from t_actor", new ActorMapper());
+	return this.jdbcTemplate.query( "select first_name, last_name from t_actor", new ActorMapper());
 }
 
 private static final class ActorMapper implements RowMapper<Actor> {
 
-    public Actor mapRow(ResultSet rs, int rowNum) throws SQLException {
-        Actor actor = new Actor();
-        actor.setFirstName(rs.getString("first_name"));
-        actor.setLastName(rs.getString("last_name"));
-        return actor;
-    }
+	public Actor mapRow(ResultSet rs, int rowNum) throws SQLException {
+		Actor actor = new Actor();
+		actor.setFirstName(rs.getString("first_name"));
+		actor.setLastName(rs.getString("last_name"));
+		return actor;
+	}
 }
 ----
 
@@ -23486,24 +23477,24 @@ Parameter values are usually provided as var args or alternatively as an object 
 [subs="verbatim,quotes"]
 ----
 this.jdbcTemplate.update(
-        "insert into t_actor (first_name, last_name) values (?, ?)",
-        "Leonor", "Watling");
+		"insert into t_actor (first_name, last_name) values (?, ?)",
+		"Leonor", "Watling");
 ----
 
 [source,java]
 [subs="verbatim,quotes"]
 ----
 this.jdbcTemplate.update(
-        "update t_actor set last_name = ? where id = ?",
-        "Banjo", 5276L);
+		"update t_actor set last_name = ? where id = ?",
+		"Banjo", 5276L);
 ----
 
 [source,java]
 [subs="verbatim,quotes"]
 ----
 this.jdbcTemplate.update(
-        "delete from actor where id = ?",
-        Long.valueOf(actorId));
+		"delete from actor where id = ?",
+		Long.valueOf(actorId));
 ----
 
 [[jdbc-JdbcTemplate-examples-other]]
@@ -23525,13 +23516,13 @@ procedure support is <<jdbc-StoredProcedure,covered later>>.
 [subs="verbatim,quotes"]
 ----
 this.jdbcTemplate.update(
-        "call SUPPORT.REFRESH_ACTORS_SUMMARY(?)",
-        Long.valueOf(unionId));
+		"call SUPPORT.REFRESH_ACTORS_SUMMARY(?)",
+		Long.valueOf(unionId));
 ----
 
 
 [[jdbc-JdbcTemplate-idioms]]
-=====  JdbcTemplate best practices
+===== JdbcTemplate best practices
 
 Instances of the `JdbcTemplate` class are __threadsafe once configured__. This is
 important because it means that you can configure a single instance of a `JdbcTemplate`
@@ -23550,13 +23541,13 @@ the setter for the `DataSource`. This leads to DAOs that look in part like the f
 ----
 public class JdbcCorporateEventDao implements CorporateEventDao {
 
-    private JdbcTemplate jdbcTemplate;
+	private JdbcTemplate jdbcTemplate;
 
-    public void setDataSource(DataSource dataSource) {
-        **this.jdbcTemplate = new JdbcTemplate(dataSource);**
-    }
+	public void setDataSource(DataSource dataSource) {
+		**this.jdbcTemplate = new JdbcTemplate(dataSource);**
+	}
 
-    // JDBC-backed implementations of the methods on the CorporateEventDao follow...
+	// JDBC-backed implementations of the methods on the CorporateEventDao follow...
 }
 ----
 
@@ -23567,26 +23558,26 @@ The corresponding configuration might look like this.
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:context="http://www.springframework.org/schema/context"
-    xsi:schemaLocation="
-        http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <bean id="corporateEventDao" class="com.example.JdbcCorporateEventDao">
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
+	<bean id="corporateEventDao" class="com.example.JdbcCorporateEventDao">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
 
-    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-        <property name="driverClassName" value="${jdbc.driverClassName}"/>
-        <property name="url" value="${jdbc.url}"/>
-        <property name="username" value="${jdbc.username}"/>
-        <property name="password" value="${jdbc.password}"/>
-    </bean>
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driverClassName}"/>
+		<property name="url" value="${jdbc.url}"/>
+		<property name="username" value="${jdbc.username}"/>
+		<property name="password" value="${jdbc.password}"/>
+	</bean>
 
-    <context:property-placeholder location="jdbc.properties"/>
+	<context:property-placeholder location="jdbc.properties"/>
 
 </beans>
 ----
@@ -23601,13 +23592,15 @@ method with `@Autowired`.
 ----
 **@Repository**
 public class JdbcCorporateEventDao implements CorporateEventDao {
-    private JdbcTemplate jdbcTemplate;
-    **@Autowired**
-    public void setDataSource(DataSource dataSource) {
-        **this.jdbcTemplate = new JdbcTemplate(dataSource);**
-    }
 
-    // JDBC-backed implementations of the methods on the CorporateEventDao follow...
+	private JdbcTemplate jdbcTemplate;
+
+	**@Autowired**
+	public void setDataSource(DataSource dataSource) {
+		**this.jdbcTemplate = new JdbcTemplate(dataSource);**
+	}
+
+	// JDBC-backed implementations of the methods on the CorporateEventDao follow...
 }
 ----
 
@@ -23618,34 +23611,33 @@ The corresponding XML configuration file would look like the following:
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:context="http://www.springframework.org/schema/context"
-    xsi:schemaLocation="
-        http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!-- Scans within the base package of the application for @Components to configure as beans -->
-    <context:component-scan base-package="org.springframework.docs.test" />
+	<!-- Scans within the base package of the application for @Components to configure as beans -->
+	<context:component-scan base-package="org.springframework.docs.test" />
 
-    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-        <property name="driverClassName" value="${jdbc.driverClassName}"/>
-        <property name="url" value="${jdbc.url}"/>
-        <property name="username" value="${jdbc.username}"/>
-        <property name="password" value="${jdbc.password}"/>
-    </bean>
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driverClassName}"/>
+		<property name="url" value="${jdbc.url}"/>
+		<property name="username" value="${jdbc.username}"/>
+		<property name="password" value="${jdbc.password}"/>
+	</bean>
 
-    <context:property-placeholder location="jdbc.properties"/>
+	<context:property-placeholder location="jdbc.properties"/>
 
 </beans>
 ----
 
-If you are using Spring's
-        `JdbcDaoSupport` class, and your various JDBC-backed DAO classes extend from it,
-then your sub-class inherits a `setDataSource(..)` method from the `JdbcDaoSupport`
-class. You can choose whether to inherit from this class. The `JdbcDaoSupport` class is
-provided as a convenience only.
+If you are using Spring's `JdbcDaoSupport` class, and your various JDBC-backed DAO classes
+extend from it, then your sub-class inherits a `setDataSource(..)` method from the
+`JdbcDaoSupport` class. You can choose whether to inherit from this class. The
+`JdbcDaoSupport` class is provided as a convenience only.
 
 Regardless of which of the above template initialization styles you choose to use (or
 not), it is seldom necessary to create a new instance of a `JdbcTemplate` class each
@@ -23657,7 +23649,7 @@ configured `JdbcTemplates`.
 
 
 [[jdbc-NamedParameterJdbcTemplate]]
-====  NamedParameterJdbcTemplate
+==== NamedParameterJdbcTemplate
 
 The `NamedParameterJdbcTemplate` class adds support for programming JDBC statements
 using named parameters, as opposed to programming JDBC statements using only classic
@@ -23674,16 +23666,16 @@ parameters.
 private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
 public void setDataSource(DataSource dataSource) {
-    this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+	this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 }
 
 public int countOfActorsByFirstName(String firstName) {
 
-    String sql = "select count(*) from T_ACTOR where first_name = :first_name";
+	String sql = "select count(*) from T_ACTOR where first_name = :first_name";
 
-    SqlParameterSource namedParameters = new MapSqlParameterSource("first_name", firstName);
+	SqlParameterSource namedParameters = new MapSqlParameterSource("first_name", firstName);
 
-    return this.namedParameterJdbcTemplate.queryForObject(sql, Integer.class, namedParameters);
+	return this.namedParameterJdbcTemplate.queryForObject(sql, Integer.class, namedParameters);
 }
 ----
 
@@ -23705,23 +23697,23 @@ The following example shows the use of the `Map`-based style.
 private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
 public void setDataSource(DataSource dataSource) {
-    this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+	this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 }
 
 public int countOfActorsByFirstName(String firstName) {
 
-    String sql = "select count(*) from T_ACTOR where first_name = :first_name";
+	String sql = "select count(*) from T_ACTOR where first_name = :first_name";
 
-    Map<String, String> namedParameters = Collections.singletonMap("first_name", firstName);
+	Map<String, String> namedParameters = Collections.singletonMap("first_name", firstName);
 
-    return this.namedParameterJdbcTemplate.queryForObject(sql, Integer.class, namedParameters);
+	return this.namedParameterJdbcTemplate.queryForObject(sql, Integer.class, namedParameters);
 }
 ----
 
 One nice feature related to the `NamedParameterJdbcTemplate` (and existing in the same
 Java package) is the `SqlParameterSource` interface. You have already seen an example of
 an implementation of this interface in one of the previous code snippet (the
-`MapSqlParameterSource` class).  An `SqlParameterSource` is a source of named parameter
+`MapSqlParameterSource` class). An `SqlParameterSource` is a source of named parameter
 values to a `NamedParameterJdbcTemplate`. The `MapSqlParameterSource` class is a very
 simple implementation that is simply an adapter around a `java.util.Map`, where the keys
 are the parameter names and the values are the parameter values.
@@ -23737,23 +23729,23 @@ parameter values.
 ----
 public class Actor {
 
-    private Long id;
-    private String firstName;
-    private String lastName;
+	private Long id;
+	private String firstName;
+	private String lastName;
 
-    public String getFirstName() {
-        return this.firstName;
-    }
+	public String getFirstName() {
+		return this.firstName;
+	}
 
-    public String getLastName() {
-        return this.lastName;
-    }
+	public String getLastName() {
+		return this.lastName;
+	}
 
-    public Long getId() {
-        return this.id;
-    }
+	public Long getId() {
+		return this.id;
+	}
 
-    // setters omitted...
+	// setters omitted...
 
 }
 ----
@@ -23765,18 +23757,17 @@ public class Actor {
 private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
 public void setDataSource(DataSource dataSource) {
-    this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+	this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 }
 
 public int countOfActors(Actor exampleActor) {
 
-    // notice how the named parameters match the properties of the above 'Actor' class
-    String sql =
-        "select count(*) from T_ACTOR where first_name = :firstName and last_name = :lastName";
+	// notice how the named parameters match the properties of the above 'Actor' class
+	String sql = "select count(*) from T_ACTOR where first_name = :firstName and last_name = :lastName";
 
-    SqlParameterSource namedParameters = new BeanPropertySqlParameterSource(exampleActor);
+	SqlParameterSource namedParameters = new BeanPropertySqlParameterSource(exampleActor);
 
-    return this.namedParameterJdbcTemplate.queryForObject(sql, Integer.class, namedParameters);
+	return this.namedParameterJdbcTemplate.queryForObject(sql, Integer.class, namedParameters);
 }
 ----
 
@@ -23792,7 +23783,7 @@ See also <<jdbc-JdbcTemplate-idioms>> for guidelines on using the
 
 
 [[jdbc-SQLExceptionTranslator]]
-====  SQLExceptionTranslator
+==== SQLExceptionTranslator
 
 `SQLExceptionTranslator` is an interface to be implemented by classes that can translate
 between `SQLExceptions` and Spring's own `org.springframework.dao.DataAccessException`,
@@ -23838,12 +23829,12 @@ You can extend `SQLErrorCodeSQLExceptionTranslator:`
 ----
 public class CustomSQLErrorCodesTranslator extends SQLErrorCodeSQLExceptionTranslator {
 
-    protected DataAccessException customTranslate(String task, String sql, SQLException sqlex) {
-        if (sqlex.getErrorCode() == -12345) {
-            return new DeadlockLoserDataAccessException(task, sqlex);
-        }
-        return null;
-    }
+	protected DataAccessException customTranslate(String task, String sql, SQLException sqlex) {
+		if (sqlex.getErrorCode() == -12345) {
+			return new DeadlockLoserDataAccessException(task, sqlex);
+		}
+		return null;
+	}
 }
 ----
 
@@ -23860,22 +23851,23 @@ translator can be used:
 private JdbcTemplate jdbcTemplate;
 
 public void setDataSource(DataSource dataSource) {
-    // create a JdbcTemplate and set data source
-    this.jdbcTemplate = new JdbcTemplate();
-    this.jdbcTemplate.setDataSource(dataSource);
-// create a custom translator and set the DataSource for the default translation lookup
-    CustomSQLErrorCodesTranslator tr = new CustomSQLErrorCodesTranslator();
-    tr.setDataSource(dataSource);
-    this.jdbcTemplate.setExceptionTranslator(tr);
+
+	// create a JdbcTemplate and set data source
+	this.jdbcTemplate = new JdbcTemplate();
+	this.jdbcTemplate.setDataSource(dataSource);
+
+	// create a custom translator and set the DataSource for the default translation lookup
+	CustomSQLErrorCodesTranslator tr = new CustomSQLErrorCodesTranslator();
+	tr.setDataSource(dataSource);
+	this.jdbcTemplate.setExceptionTranslator(tr);
+
 }
 
 public void updateShippingCharge(long orderId, long pct) {
-    // use the prepared JdbcTemplate for this update
-    this.jdbcTemplate.update(
-        "update orders" +
-            " set shipping_charge = shipping_charge * ? / 100" +
-            " where id = ?"
-        pct, orderId);
+	// use the prepared JdbcTemplate for this update
+	this.jdbcTemplate.update("update orders" +
+		" set shipping_charge = shipping_charge * ? / 100" +
+		" where id = ?", pct, orderId);
 }
 ----
 
@@ -23899,15 +23891,15 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 public class ExecuteAStatement {
 
-    private JdbcTemplate jdbcTemplate;
+	private JdbcTemplate jdbcTemplate;
 
-    public void setDataSource(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-    }
+	public void setDataSource(DataSource dataSource) {
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
+	}
 
-    public void doExecute() {
-        this.jdbcTemplate.execute("create table mytable (id integer, name varchar(100))");
-    }
+	public void doExecute() {
+		this.jdbcTemplate.execute("create table mytable (id integer, name varchar(100))");
+	}
 }
 ----
 
@@ -23929,23 +23921,23 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 public class RunAQuery {
 
-    private JdbcTemplate jdbcTemplate;
+	private JdbcTemplate jdbcTemplate;
 
-    public void setDataSource(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-    }
+	public void setDataSource(DataSource dataSource) {
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
+	}
 
-    public int getCount() {
-        return this.jdbcTemplate.queryForObject("select count(*) from mytable", Integer.class);
-    }
+	public int getCount() {
+		return this.jdbcTemplate.queryForObject("select count(*) from mytable", Integer.class);
+	}
 
-    public String getName() {
-        return this.jdbcTemplate.queryForObject("select name from mytable", String.class);
-    }
+	public String getName() {
+		return this.jdbcTemplate.queryForObject("select name from mytable", String.class);
+	}
 
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
+	public void setDataSource(DataSource dataSource) {
+		this.dataSource = dataSource;
+	}
 }
 ----
 
@@ -23961,11 +23953,11 @@ example to retrieve a list of all the rows, it would look like this:
 private JdbcTemplate jdbcTemplate;
 
 public void setDataSource(DataSource dataSource) {
-    this.jdbcTemplate = new JdbcTemplate(dataSource);
+	this.jdbcTemplate = new JdbcTemplate(dataSource);
 }
 
 public List<Map<String, Object>> getList() {
-    return this.jdbcTemplate.queryForList("select * from mytable");
+	return this.jdbcTemplate.queryForList("select * from mytable");
 }
 ----
 
@@ -23995,17 +23987,15 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 public class ExecuteAnUpdate {
 
-    private JdbcTemplate jdbcTemplate;
+	private JdbcTemplate jdbcTemplate;
 
-    public void setDataSource(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-    }
+	public void setDataSource(DataSource dataSource) {
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
+	}
 
-    public void setName(int id, String name) {
-        this.jdbcTemplate.update(
-                "update mytable set name = ? where id = ?",
-                name, id);
-    }
+	public void setName(int id, String name) {
+		this.jdbcTemplate.update("update mytable set name = ? where id = ?", name, id);
+	}
 }
 ----
 
@@ -24030,15 +24020,14 @@ final String name = "Rob";
 
 KeyHolder keyHolder = new GeneratedKeyHolder();
 jdbcTemplate.update(
-    new PreparedStatementCreator() {
-        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-            PreparedStatement ps =
-                connection.prepareStatement(INSERT_SQL, new String[] {"id"});
-            ps.setString(1, name);
-            return ps;
-        }
-    },
-    keyHolder);
+	new PreparedStatementCreator() {
+		public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+			PreparedStatement ps = connection.prepareStatement(INSERT_SQL, new String[] {"id"});
+			ps.setString(1, name);
+			return ps;
+		}
+	},
+	keyHolder);
 
 // keyHolder.getKey() now contains the generated key
 ----
@@ -24052,7 +24041,7 @@ jdbcTemplate.update(
 
 
 [[jdbc-datasource]]
-====  DataSource
+==== DataSource
 
 Spring obtains a connection to the database through a `DataSource`. A `DataSource` is
 part of the JDBC specification and is a generalized connection factory. It allows a
@@ -24099,10 +24088,10 @@ Here is the corresponding XML configuration:
 [subs="verbatim,quotes"]
 ----
 <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-    <property name="driverClassName" value="${jdbc.driverClassName}"/>
-    <property name="url" value="${jdbc.url}"/>
-    <property name="username" value="${jdbc.username}"/>
-    <property name="password" value="${jdbc.password}"/>
+	<property name="driverClassName" value="${jdbc.driverClassName}"/>
+	<property name="url" value="${jdbc.url}"/>
+	<property name="username" value="${jdbc.username}"/>
+	<property name="password" value="${jdbc.password}"/>
 </bean>
 
 <context:property-placeholder location="jdbc.properties"/>
@@ -24117,12 +24106,11 @@ DBCP configuration:
 [source,java]
 [subs="verbatim,quotes"]
 ----
-<bean id="dataSource"
-        class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-    <property name="driverClassName" value="${jdbc.driverClassName}"/>
-    <property name="url" value="${jdbc.url}"/>
-    <property name="username" value="${jdbc.username}"/>
-    <property name="password" value="${jdbc.password}"/>
+<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+	<property name="driverClassName" value="${jdbc.driverClassName}"/>
+	<property name="url" value="${jdbc.url}"/>
+	<property name="username" value="${jdbc.username}"/>
+	<property name="password" value="${jdbc.password}"/>
 </bean>
 
 <context:property-placeholder location="jdbc.properties"/>
@@ -24133,12 +24121,11 @@ C3P0 configuration:
 [source,java]
 [subs="verbatim,quotes"]
 ----
-<bean id="dataSource"
-        class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
-    <property name="driverClass" value="${jdbc.driverClassName}"/>
-    <property name="jdbcUrl" value="${jdbc.url}"/>
-    <property name="user" value="${jdbc.username}"/>
-    <property name="password" value="${jdbc.password}"/>
+<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+	<property name="driverClass" value="${jdbc.driverClassName}"/>
+	<property name="jdbcUrl" value="${jdbc.url}"/>
+	<property name="user" value="${jdbc.username}"/>
+	<property name="password" value="${jdbc.password}"/>
 </bean>
 
 <context:property-placeholder location="jdbc.properties"/>
@@ -24147,7 +24134,7 @@ C3P0 configuration:
 
 
 [[jdbc-DataSourceUtils]]
-====  DataSourceUtils
+==== DataSourceUtils
 
 The `DataSourceUtils` class is a convenient and powerful helper class that provides
 `static` methods to obtain connections from JNDI and close connections if necessary. It
@@ -24156,7 +24143,7 @@ supports thread-bound connections with, for example, `DataSourceTransactionManag
 
 
 [[jdbc-SmartDataSource]]
-====  SmartDataSource
+==== SmartDataSource
 
 The `SmartDataSource` interface should be implemented by classes that can provide a
 connection to a relational database. It extends the `DataSource` interface to allow
@@ -24166,7 +24153,7 @@ operation. This usage is efficient when you know that you will reuse a connectio
 
 
 [[jdbc-AbstractDataSource]]
-====  AbstractDataSource
+==== AbstractDataSource
 
 `AbstractDataSource` is an `abstract` base class for Spring's `DataSource`
 implementations that implements code that is common to all `DataSource` implementations.
@@ -24176,7 +24163,7 @@ implementation.
 
 
 [[jdbc-SingleConnectionDataSource]]
-====  SingleConnectionDataSource
+==== SingleConnectionDataSource
 
 The `SingleConnectionDataSource` class is an implementation of the `SmartDataSource`
 interface that wraps a __single__ `Connection` that is __not__ closed after each use.
@@ -24195,7 +24182,7 @@ excessive creation of physical connections.
 
 
 [[jdbc-DriverManagerDataSource]]
-====  DriverManagerDataSource
+==== DriverManagerDataSource
 
 The `DriverManagerDataSource` class is an implementation of the standard `DataSource`
 interface that configures a plain JDBC driver through bean properties, and returns a new
@@ -24212,7 +24199,7 @@ environment, that it is almost always preferable to use such a connection pool o
 
 
 [[jdbc-TransactionAwareDataSourceProxy]]
-====  TransactionAwareDataSourceProxy
+==== TransactionAwareDataSourceProxy
 
 `TransactionAwareDataSourceProxy` is a proxy for a target `DataSource`, which wraps that
 target `DataSource` to add awareness of Spring-managed transactions. In this respect, it
@@ -24233,7 +24220,7 @@ __(See the `TransactionAwareDataSourceProxy` Javadocs for more details.)__
 
 
 [[jdbc-DataSourceTransactionManager]]
-====  DataSourceTransactionManager
+==== DataSourceTransactionManager
 
 The `DataSourceTransactionManager` class is a `PlatformTransactionManager`
 implementation for single JDBC datasources. It binds a JDBC connection from the
@@ -24306,38 +24293,37 @@ based on entries in a list. The entire list is used as the batch in this example
 [subs="verbatim,quotes"]
 ----
 public class JdbcActorDao implements ActorDao {
-    private JdbcTemplate jdbcTemplate;
+	private JdbcTemplate jdbcTemplate;
 
-    public void setDataSource(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-    }
+	public void setDataSource(DataSource dataSource) {
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
+	}
 
-    public int[] batchUpdate(final List<Actor> actors) {
-        int[] updateCounts = jdbcTemplate.batchUpdate(
-                "update t_actor set first_name = ?, last_name = ? where id = ?",
-                new BatchPreparedStatementSetter() {
-                    public void setValues(PreparedStatement ps, int i) throws SQLException {
-                        ps.setString(1, actors.get(i).getFirstName());
-                        ps.setString(2, actors.get(i).getLastName());
-                        ps.setLong(3, actors.get(i).getId().longValue());
-                    }
+	public int[] batchUpdate(final List<Actor> actors) {
+		int[] updateCounts = jdbcTemplate.batchUpdate("update t_actor set first_name = ?, " +
+				"last_name = ? where id = ?",
+			new BatchPreparedStatementSetter() {
+				public void setValues(PreparedStatement ps, int i) throws SQLException {
+						ps.setString(1, actors.get(i).getFirstName());
+						ps.setString(2, actors.get(i).getLastName());
+						ps.setLong(3, actors.get(i).getId().longValue());
+					}
 
-                    public int getBatchSize() {
-                        return actors.size();
-                    }
-                } );
-        return updateCounts;
-    }
+					public int getBatchSize() {
+						return actors.size();
+					}
+				});
+		return updateCounts;
+	}
 
-    //  ... additional methods
+	//  ... additional methods
 }
 ----
 
-If you are processing a stream of updates or reading from a
-      file, then you might have a preferred batch size, but the last batch
-      might not have that number of entries. In this case you can use the
-      `InterruptibleBatchPreparedStatementSetter` interface, which allows you to
-interrupt a batch once the input source is exhausted. The `isBatchExhausted` method
+If you are processing a stream of updates or reading from a file, then you might have a
+preferred batch size, but the last batch might not have that number of entries. In this
+case you can use the `InterruptibleBatchPreparedStatementSetter` interface, which allows
+you to interrupt a batch once the input source is exhausted. The `isBatchExhausted` method
 allows you to signal the end of the batch.
 
 
@@ -24359,29 +24345,28 @@ This example shows a batch update using named parameters:
 [subs="verbatim,quotes"]
 ----
 public class JdbcActorDao implements ActorDao {
-    private NamedParameterTemplate namedParameterJdbcTemplate;
+	private NamedParameterTemplate namedParameterJdbcTemplate;
 
-    public void setDataSource(DataSource dataSource) {
-        this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
-    }
+	public void setDataSource(DataSource dataSource) {
+		this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+	}
 
-    public int[] batchUpdate(final List<Actor> actors) {
-        SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(actors.toArray());
-        int[] updateCounts = namedParameterJdbcTemplate.batchUpdate(
-            "update t_actor set first_name = :firstName, last_name = :lastName where id = :id",
-            batch);
-        return updateCounts;
-    }
+	public int[] batchUpdate(final List<Actor> actors) {
+		SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(actors.toArray());
+		int[] updateCounts = namedParameterJdbcTemplate.batchUpdate(
+				"update t_actor set first_name = :firstName, last_name = :lastName where id = :id",
+				batch);
+		return updateCounts;
+	}
 
-    //  ... additional methods
+	//  ... additional methods
 }
 ----
 
-For an SQL statement using the classic "?" placeholders, you
-      pass in a list containing an object array with the update values. This
-      object array must have one entry for each placeholder in the SQL
-      statement, and they must be in the same order as they are defined in the
-      SQL statement.
+For an SQL statement using the classic "?" placeholders, you pass in a list containing an
+object array with the update values. This object array must have one entry for each
+placeholder in the SQL statement, and they must be in the same order as they are defined
+in the SQL statement.
 
 The same example using classic JDBC "?" placeholders:
 
@@ -24389,35 +24374,36 @@ The same example using classic JDBC "?" placeholders:
 [subs="verbatim,quotes"]
 ----
 public class JdbcActorDao implements ActorDao {
-    private JdbcTemplate jdbcTemplate;
 
-    public void setDataSource(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-    }
+	private JdbcTemplate jdbcTemplate;
 
-    public int[] batchUpdate(final List<Actor> actors) {
-        List<Object[]> batch = new ArrayList<Object[]>();
-        for (Actor actor : actors) {
-            Object[] values = new Object[] {
-                    actor.getFirstName(),
-                    actor.getLastName(),
-                    actor.getId()};
-            batch.add(values);
-        }
-        int[] updateCounts = jdbcTemplate.batchUpdate(
-                "update t_actor set first_name = ?, last_name = ? where id = ?",
-                batch);
-        return updateCounts;
-    }
+	public void setDataSource(DataSource dataSource) {
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
+	}
 
-    //  ... additional methods
+	public int[] batchUpdate(final List<Actor> actors) {
+		List<Object[]> batch = new ArrayList<Object[]>();
+		for (Actor actor : actors) {
+			Object[] values = new Object[] {
+					actor.getFirstName(),
+					actor.getLastName(),
+					actor.getId()};
+			batch.add(values);
+		}
+		int[] updateCounts = jdbcTemplate.batchUpdate(
+				"update t_actor set first_name = ?, last_name = ? where id = ?",
+				batch);
+		return updateCounts;
+	}
+
+	//  ... additional methods
+
 }
 ----
 
-All of the above batch update methods return an int array
-      containing the number of affected rows for each batch entry. This count
-      is reported by the JDBC driver. If the count is not available, the JDBC
-      driver returns a -2 value.
+All of the above batch update methods return an int array containing the number of
+affected rows for each batch entry. This count is reported by the JDBC driver. If the
+count is not available, the JDBC driver returns a -2 value.
 
 
 
@@ -24438,42 +24424,41 @@ This example shows a batch update using a batch size of 100:
 [subs="verbatim,quotes"]
 ----
 public class JdbcActorDao implements ActorDao {
-    private JdbcTemplate jdbcTemplate;
 
-    public void setDataSource(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-    }
+	private JdbcTemplate jdbcTemplate;
 
-    public int[][] batchUpdate(final Collection<Actor> actors) {
-        int[][] updateCounts = jdbcTemplate.batchUpdate(
-                "update t_actor set first_name = ?, last_name = ? where id = ?",
-                actors,
-                100,
-                new ParameterizedPreparedStatementSetter<Actor>() {
-                    public void setValues(PreparedStatement ps, Actor argument) throws SQLException {
-                        ps.setString(1, argument.getFirstName());
-                        ps.setString(2, argument.getLastName());
-                        ps.setLong(3, argument.getId().longValue());
+	public void setDataSource(DataSource dataSource) {
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
+	}
 
-                     }
-                 } );
-        return updateCounts;
-    }
+	public int[][] batchUpdate(final Collection<Actor> actors) {
+		int[][] updateCounts = jdbcTemplate.batchUpdate(
+				"update t_actor set first_name = ?, last_name = ? where id = ?",
+				actors,
+				100,
+				new ParameterizedPreparedStatementSetter<Actor>() {
+					public void setValues(PreparedStatement ps, Actor argument) throws SQLException {
+						ps.setString(1, argument.getFirstName());
+						ps.setString(2, argument.getLastName());
+						ps.setLong(3, argument.getId().longValue());
+					}
+				});
+		return updateCounts;
+	}
 
-    //  ... additional methods
+	//  ... additional methods
+
 }
 ----
 
-The batch update methods for this call returns an array of
-      int arrays containing an array entry for each batch with an array of the
-      number of affected rows for each update. The top level array's length
-      indicates the number of batches executed and the second level array's
-      length indicates the number of updates in that batch. The number of
-      updates in each batch should be the the batch size provided for all
-      batches except for the last one that might be less, depending on the
-      total number of update objects provided. The update count for each update
-      statement is the one reported by the JDBC driver. If the count is not
-      available, the JDBC driver returns a -2 value.
+The batch update methods for this call returns an array of int arrays containing an array
+entry for each batch with an array of the number of affected rows for each update. The top
+level array's length indicates the number of batches executed and the second level array's
+length indicates the number of updates in that batch. The number of updates in each batch
+should be the the batch size provided for all batches except for the last one that might
+be less, depending on the total number of update objects provided. The update count for
+each update statement is the one reported by the JDBC driver. If the count is not
+available, the JDBC driver returns a -2 value.
 
 
 
