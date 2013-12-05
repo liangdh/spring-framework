@@ -1021,7 +1021,7 @@ public class AppConfig {
 		asFactoryBean.setDataSource(dataSource());
 		// additional config
 		return asFactoryBean.getObject();
-    }
+	}
 
 	@Bean
 	public DataSource dataSource() {
@@ -1030,8 +1030,8 @@ public class AppConfig {
 }
 ----
 
-To get this to work you need to add the following component
-        scanning entry in your minimal application context XML file.
+To get this to work you need to add the following component scanning entry in your minimal
+application context XML file.
 
 [source,xml]
 [subs="verbatim,quotes"]
@@ -9159,7 +9159,7 @@ A `ClassPathXmlApplicationContext` instance composed of the beans defined in the
 [subs="verbatim,quotes"]
 ----
 ApplicationContext ctx = new ClassPathXmlApplicationContext(
-    new String[] {"services.xml", "daos.xml"}, MessengerService.class);
+	new String[] {"services.xml", "daos.xml"}, MessengerService.class);
 ----
 
 Please do consult the Javadocs for the `ClassPathXmlApplicationContext` class for
@@ -9195,9 +9195,9 @@ When the path location contains an Ant-style pattern, for example:
 [subs="verbatim,quotes"]
 ----
 /WEB-INF/*-context.xml
-     com/mycompany/**/applicationContext.xml
-     file:C:/some/path/*-context.xml
-     classpath:com/mycompany/**/applicationContext.xml
+	com/mycompany/**/applicationContext.xml
+	file:C:/some/path/*-context.xml
+	classpath:com/mycompany/**/applicationContext.xml
 ----
 
 ... the resolver follows a more complex but defined procedure to try to resolve the
@@ -9242,7 +9242,7 @@ special `classpath*:` prefix:
 [subs="verbatim,quotes"]
 ----
 ApplicationContext ctx =
-    new ClassPathXmlApplicationContext("classpath*:conf/appContext.xml");
+	new ClassPathXmlApplicationContext("classpath*:conf/appContext.xml");
 ----
 
 This special prefix specifies that all classpath resources that match the given name
@@ -9326,14 +9326,14 @@ In practice, this means the following are equivalent:
 [subs="verbatim,quotes"]
 ----
 ApplicationContext ctx =
-    new FileSystemXmlApplicationContext("conf/context.xml");
+	new FileSystemXmlApplicationContext("conf/context.xml");
 ----
 
 [source,java]
 [subs="verbatim,quotes"]
 ----
 ApplicationContext ctx =
-    new FileSystemXmlApplicationContext("/conf/context.xml");
+	new FileSystemXmlApplicationContext("/conf/context.xml");
 ----
 
 As are the following: (Even though it would make sense for them to be different, as one
@@ -9369,7 +9369,7 @@ ctx.getResource("file:/some/resource/path/myTemplate.txt");
 ----
 // force this FileSystemXmlApplicationContext to load its definition via a UrlResource
 ApplicationContext ctx =
-    new FileSystemXmlApplicationContext("file:/conf/context.xml");
+	new FileSystemXmlApplicationContext("file:/conf/context.xml");
 ----
 
 
@@ -9442,10 +9442,10 @@ Let's consider a small data object:
 ----
 public class Person {
 
-  private String name;
-  private int age;
+	private String name;
+	private int age;
 
-  // the usual getters and setters...
+	// the usual getters and setters...
 }
 ----
 
@@ -9464,22 +9464,22 @@ Implementing a `Validator` is fairly straightforward, especially when you know o
 ----
 public class PersonValidator implements Validator {
 
-    /**
-    * This Validator validates *just* Person instances
-    */
-    public boolean supports(Class clazz) {
-        return Person.class.equals(clazz);
-    }
+	/**
+	 * This Validator validates *just* Person instances
+	 */
+	public boolean supports(Class clazz) {
+		return Person.class.equals(clazz);
+	}
 
-    public void validate(Object obj, Errors e) {
-        ValidationUtils.rejectIfEmpty(e, "name", "name.empty");
-        Person p = (Person) obj;
-        if (p.getAge() < 0) {
-            e.rejectValue("age", "negativevalue");
-        } else if (p.getAge() > 110) {
-            e.rejectValue("age", "too.darn.old");
-        }
-    }
+	public void validate(Object obj, Errors e) {
+		ValidationUtils.rejectIfEmpty(e, "name", "name.empty");
+		Person p = (Person) obj;
+		if (p.getAge() < 0) {
+			e.rejectValue("age", "negativevalue");
+		} else if (p.getAge() > 110) {
+			e.rejectValue("age", "too.darn.old");
+		}
+	}
 }
 ----
 
@@ -9504,38 +9504,38 @@ and use it like so:
 ----
 public class CustomerValidator implements Validator {
 
-    private final Validator addressValidator;
+	private final Validator addressValidator;
 
-    public CustomerValidator(Validator addressValidator) {
-        if (addressValidator == null) {
-            throw new IllegalArgumentException(
-              "The supplied [Validator] is required and must not be null.");
-        }
-        if (!addressValidator.supports(Address.class)) {
-            throw new IllegalArgumentException(
-              "The supplied [Validator] must support the validation of [Address] instances.");
-        }
-        this.addressValidator = addressValidator;
-    }
+	public CustomerValidator(Validator addressValidator) {
+		if (addressValidator == null) {
+			throw new IllegalArgumentException("The supplied [Validator] is " +
+				"required and must not be null.");
+		}
+		if (!addressValidator.supports(Address.class)) {
+			throw new IllegalArgumentException("The supplied [Validator] must " +
+				support the validation of [Address] instances.");
+		}
+		this.addressValidator = addressValidator;
+	}
 
-    /**
-    * This Validator validates Customer instances, and any subclasses of Customer too
-    */
-    public boolean supports(Class clazz) {
-        return Customer.class.isAssignableFrom(clazz);
-    }
+	/**
+	 * This Validator validates Customer instances, and any subclasses of Customer too
+	 */
+	public boolean supports(Class clazz) {
+		return Customer.class.isAssignableFrom(clazz);
+	}
 
-    public void validate(Object target, Errors errors) {
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", "field.required");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "surname", "field.required");
-        Customer customer = (Customer) target;
-        try {
-            errors.pushNestedPath("address");
-            ValidationUtils.invokeValidator(this.addressValidator, customer.getAddress(), errors);
-        } finally {
-            errors.popNestedPath();
-        }
-    }
+	public void validate(Object target, Errors errors) {
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", "field.required");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "surname", "field.required");
+		Customer customer = (Customer) target;
+		try {
+			errors.pushNestedPath("address");
+			ValidationUtils.invokeValidator(this.addressValidator, customer.getAddress(), errors);
+		} finally {
+			errors.popNestedPath();
+		}
+	}
 }
 ----
 
@@ -9647,21 +9647,25 @@ Consider the following two classes:
 [subs="verbatim,quotes"]
 ----
 public class Company {
-    private String name;
-    private Employee managingDirector;
 
-    public String getName() {
-        return this.name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public Employee getManagingDirector() {
-        return this.managingDirector;
-    }
-    public void setManagingDirector(Employee managingDirector) {
-        this.managingDirector = managingDirector;
-    }
+	private String name;
+	private Employee managingDirector;
+
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Employee getManagingDirector() {
+		return this.managingDirector;
+	}
+
+	public void setManagingDirector(Employee managingDirector) {
+		this.managingDirector = managingDirector;
+	}
 }
 ----
 
@@ -9669,21 +9673,26 @@ public class Company {
 [subs="verbatim,quotes"]
 ----
 public class Employee {
-    private String name;
-    private float salary;
 
-    public String getName() {
-        return this.name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public float getSalary() {
-        return salary;
-    }
-    public void setSalary(float salary) {
-        this.salary = salary;
-    }
+	private String name;
+
+	private float salary;
+
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public float getSalary() {
+		return salary;
+	}
+
+	public void setSalary(float salary) {
+		this.salary = salary;
+	}
 }
 ----
 
@@ -9821,10 +9830,10 @@ recognized and used as the `PropertyEditor` for `Foo`-typed properties.
 [subs="verbatim,quotes"]
 ----
 com
-  chank
-    pop
-      Foo
-      FooEditor   // the PropertyEditor for the Foo class
+	chank
+		pop
+			Foo
+			FooEditor   // the PropertyEditor for the Foo class
 ----
 
 Note that you can also use the standard `BeanInfo` JavaBeans mechanism here as well
@@ -9838,10 +9847,10 @@ associated class.
 [subs="verbatim,quotes"]
 ----
 com
-  chank
-    pop
-      Foo
-      FooBeanInfo   // the BeanInfo for the Foo class
+	chank
+		pop
+			Foo
+			FooBeanInfo   // the BeanInfo for the Foo class
 ----
 
 Here is the Java source code for the referenced `FooBeanInfo` class. This would
@@ -9852,20 +9861,20 @@ associate a `CustomNumberEditor` with the `age` property of the `Foo` class.
 ----
 public class FooBeanInfo extends SimpleBeanInfo {
 
-    public PropertyDescriptor[] getPropertyDescriptors() {
-        try {
-            final PropertyEditor numberPE = new CustomNumberEditor(Integer.class, true);
-            PropertyDescriptor ageDescriptor = new PropertyDescriptor("age", Foo.class) {
-                public PropertyEditor createPropertyEditor(Object bean) {
-                    return numberPE;
-                };
-            };
-            return new PropertyDescriptor[] { ageDescriptor };
-        }
-        catch (IntrospectionException ex) {
-            throw new Error(ex.toString());
-        }
-    }
+	public PropertyDescriptor[] getPropertyDescriptors() {
+		try {
+			final PropertyEditor numberPE = new CustomNumberEditor(Integer.class, true);
+			PropertyDescriptor ageDescriptor = new PropertyDescriptor("age", Foo.class) {
+				public PropertyEditor createPropertyEditor(Object bean) {
+					return numberPE;
+				};
+			};
+			return new PropertyDescriptor[] { ageDescriptor };
+		}
+		catch (IntrospectionException ex) {
+			throw new Error(ex.toString());
+		}
+	}
 }
 ----
 
@@ -9914,20 +9923,20 @@ package example;
 
 public class ExoticType {
 
-    private String name;
+	private String name;
 
-    public ExoticType(String name) {
-        this.name = name;
-    }
+	public ExoticType(String name) {
+		this.name = name;
+	}
 }
 
 public class DependsOnExoticType {
 
-    private ExoticType type;
+	private ExoticType type;
 
-    public void setType(ExoticType type) {
-        this.type = type;
-    }
+	public void setType(ExoticType type) {
+		this.type = type;
+	}
 }
 ----
 
@@ -9939,7 +9948,7 @@ string, which a `PropertyEditor` will behind the scenes convert into an actual
 [subs="verbatim,quotes"]
 ----
 <bean id="sample" class="example.DependsOnExoticType">
-    <property name="type" value="aNameForExoticType"/>
+	<property name="type" value="aNameForExoticType"/>
 </bean>
 ----
 
@@ -9953,9 +9962,9 @@ package example;
 
 public class ExoticTypeEditor extends PropertyEditorSupport {
 
-    public void setAsText(String text) {
-        setValue(new ExoticType(text.toUpperCase()));
-    }
+	public void setAsText(String text) {
+		setValue(new ExoticType(text.toUpperCase()));
+	}
 }
 ----
 
@@ -9966,11 +9975,11 @@ Finally, we use `CustomEditorConfigurer` to register the new `PropertyEditor` wi
 [subs="verbatim,quotes"]
 ----
 <bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
-  <property name="customEditors">
-    <map>
-      <entry key="example.ExoticType" value="example.ExoticTypeEditor"/>
-    </map>
-  </property>
+	<property name="customEditors">
+		<map>
+			<entry key="example.ExoticType" value="example.ExoticTypeEditor"/>
+		</map>
+	</property>
 </bean>
 ----
 
@@ -10001,13 +10010,13 @@ package com.foo.editors.spring;
 
 public final class CustomPropertyEditorRegistrar implements PropertyEditorRegistrar {
 
-    public void registerCustomEditors(PropertyEditorRegistry registry) {
+	public void registerCustomEditors(PropertyEditorRegistry registry) {
 
-        // it is expected that new PropertyEditor instances are created
-        registry.registerCustomEditor(ExoticType.class, new ExoticTypeEditor());
+		// it is expected that new PropertyEditor instances are created
+		registry.registerCustomEditor(ExoticType.class, new ExoticTypeEditor());
 
-        // you could register as many custom property editors as are required here...
-    }
+		// you could register as many custom property editors as are required here...
+	}
 }
 ----
 
@@ -10022,15 +10031,15 @@ Next we configure a `CustomEditorConfigurer` and inject an instance of our
 [subs="verbatim,quotes"]
 ----
 <bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
-    <property name="propertyEditorRegistrars">
-        <list>
-            <ref bean="customPropertyEditorRegistrar"/>
-        </list>
-    </property>
+	<property name="propertyEditorRegistrars">
+		<list>
+			<ref bean="customPropertyEditorRegistrar"/>
+		</list>
+	</property>
 </bean>
 
 <bean id="customPropertyEditorRegistrar"
-      class="com.foo.editors.spring.CustomPropertyEditorRegistrar"/>
+	class="com.foo.editors.spring.CustomPropertyEditorRegistrar"/>
 ----
 
 Finally, and in a bit of a departure from the focus of this chapter, for those of you
@@ -10044,18 +10053,18 @@ implementation of an `initBinder(..)` method:
 ----
 public final class RegisterUserController extends SimpleFormController {
 
-    private final PropertyEditorRegistrar customPropertyEditorRegistrar;
+	private final PropertyEditorRegistrar customPropertyEditorRegistrar;
 
-    public RegisterUserController(PropertyEditorRegistrar propertyEditorRegistrar) {
-        this.customPropertyEditorRegistrar = propertyEditorRegistrar;
-    }
+	public RegisterUserController(PropertyEditorRegistrar propertyEditorRegistrar) {
+		this.customPropertyEditorRegistrar = propertyEditorRegistrar;
+	}
 
-    protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder)
-                        throws Exception {
-        **this.customPropertyEditorRegistrar.registerCustomEditors(binder);**
-    }
+	protected void initBinder(HttpServletRequest request,
+			ServletRequestDataBinder binder) throws Exception {
+		**this.customPropertyEditorRegistrar.registerCustomEditors(binder);**
+	}
 
-    // other methods to do with registering a User
+	// other methods to do with registering a User
 }
 ----
 
@@ -10089,7 +10098,7 @@ package org.springframework.core.convert.converter;
 
 public interface Converter<S, T> {
 
-    T convert(S source);
+	T convert(S source);
 
 }
 ----
@@ -10112,9 +10121,9 @@ package org.springframework.core.convert.support;
 
 final class StringToInteger implements Converter<String, Integer> {
 
-    public Integer convert(String source) {
-        return Integer.valueOf(source);
-    }
+	public Integer convert(String source) {
+		return Integer.valueOf(source);
+	}
 
 }
 ----
@@ -10134,7 +10143,7 @@ package org.springframework.core.convert.converter;
 
 public interface ConverterFactory<S, R> {
 
-    <T extends R> Converter<S, T> getConverter(Class<T> targetType);
+	<T extends R> Converter<S, T> getConverter(Class<T> targetType);
 
 }
 ----
@@ -10152,22 +10161,22 @@ package org.springframework.core.convert.support;
 
 final class StringToEnumConverterFactory implements ConverterFactory<String, Enum> {
 
-    public <T extends Enum> Converter<String, T> getConverter(Class<T> targetType) {
-        return new StringToEnumConverter(targetType);
-    }
+	public <T extends Enum> Converter<String, T> getConverter(Class<T> targetType) {
+		return new StringToEnumConverter(targetType);
+	}
 
-    private final class StringToEnumConverter<T extends Enum> implements Converter<String, T> {
+	private final class StringToEnumConverter<T extends Enum> implements Converter<String, T> {
 
-        private Class<T> enumType;
+		private Class<T> enumType;
 
-        public StringToEnumConverter(Class<T> enumType) {
-            this.enumType = enumType;
-        }
+		public StringToEnumConverter(Class<T> enumType) {
+			this.enumType = enumType;
+		}
 
-        public T convert(String source) {
-            return (T) Enum.valueOf(this.enumType, source.trim());
-        }
-    }
+		public T convert(String source) {
+			return (T) Enum.valueOf(this.enumType, source.trim());
+		}
+	}
 }
 ----
 
@@ -10189,9 +10198,9 @@ package org.springframework.core.convert.converter;
 
 public interface GenericConverter {
 
-    public Set<ConvertiblePair> getConvertibleTypes();
+	public Set<ConvertiblePair> getConvertibleTypes();
 
-    Object convert(Object source, TypeDescriptor sourceType, TypeDescriptor targetType);
+	Object convert(Object source, TypeDescriptor sourceType, TypeDescriptor targetType);
 
 }
 ----
@@ -10229,7 +10238,7 @@ define such custom matching criteria:
 ----
 public interface ConditionalGenericConverter extends GenericConverter {
 
-    boolean matches(TypeDescriptor sourceType, TypeDescriptor targetType);
+	boolean matches(TypeDescriptor sourceType, TypeDescriptor targetType);
 
 }
 ----
@@ -10254,13 +10263,13 @@ package org.springframework.core.convert;
 
 public interface ConversionService {
 
-    boolean canConvert(Class<?> sourceType, Class<?> targetType);
+	boolean canConvert(Class<?> sourceType, Class<?> targetType);
 
-    <T> T convert(Object source, Class<T> targetType);
+	<T> T convert(Object source, Class<T> targetType);
 
-    boolean canConvert(TypeDescriptor sourceType, TypeDescriptor targetType);
+	boolean canConvert(TypeDescriptor sourceType, TypeDescriptor targetType);
 
-    Object convert(Object source, TypeDescriptor sourceType, TypeDescriptor targetType);
+	Object convert(Object source, TypeDescriptor sourceType, TypeDescriptor targetType);
 
 }
 ----
@@ -10298,7 +10307,7 @@ with id `conversionService`:
 [subs="verbatim,quotes"]
 ----
 <bean id="conversionService"
-      class="org.springframework.context.support.ConversionServiceFactoryBean"/>
+	class="org.springframework.context.support.ConversionServiceFactoryBean"/>
 ----
 
 A default ConversionService can convert between strings, numbers, enums, collections,
@@ -10310,12 +10319,12 @@ either of the Converter, ConverterFactory, or GenericConverter interfaces.
 [subs="verbatim,quotes"]
 ----
 <bean id="conversionService"
-      class="org.springframework.context.support.ConversionServiceFactoryBean">
-    <property name="converters">
-        <set>
-            <bean class="example.MyCustomConverter"/>
-        </set>
-    </property>
+		class="org.springframework.context.support.ConversionServiceFactoryBean">
+	<property name="converters">
+		<set>
+			<bean class="example.MyCustomConverter"/>
+		</set>
+	</property>
 </bean>
 ----
 
@@ -10339,14 +10348,14 @@ it like you would for any other bean:
 @Service
 public class MyService {
 
-    @Autowired
-    public MyService(ConversionService conversionService) {
-        this.conversionService = conversionService;
-    }
+	@Autowired
+	public MyService(ConversionService conversionService) {
+		this.conversionService = conversionService;
+	}
 
-    public void doIt() {
-        this.conversionService.convert(...)
-    }
+	public void doIt() {
+		this.conversionService.convert(...)
+	}
 }
 ----
 
@@ -10399,7 +10408,7 @@ Where Formatter extends from the Printer and Parser building-block interfaces:
 [subs="verbatim,quotes"]
 ----
 public interface Printer<T> {
-    String print(T fieldValue, Locale locale);
+	String print(T fieldValue, Locale locale);
 }
 ----
 
@@ -10409,7 +10418,7 @@ public interface Printer<T> {
 import java.text.ParseException;
 
 public interface Parser<T> {
-    T parse(String clientValue, Locale locale) throws ParseException;
+	T parse(String clientValue, Locale locale) throws ParseException;
 }
 ----
 
@@ -10437,31 +10446,31 @@ package org.springframework.format.datetime;
 
 public final class DateFormatter implements Formatter<Date> {
 
-    private String pattern;
+	private String pattern;
 
-    public DateFormatter(String pattern) {
-        this.pattern = pattern;
-    }
+	public DateFormatter(String pattern) {
+		this.pattern = pattern;
+	}
 
-    public String print(Date date, Locale locale) {
-        if (date == null) {
-            return "";
-        }
-        return getDateFormat(locale).format(date);
-    }
+	public String print(Date date, Locale locale) {
+		if (date == null) {
+			return "";
+		}
+		return getDateFormat(locale).format(date);
+	}
 
-    public Date parse(String formatted, Locale locale) throws ParseException {
-        if (formatted.length() == 0) {
-            return null;
-        }
-        return getDateFormat(locale).parse(formatted);
-    }
+	public Date parse(String formatted, Locale locale) throws ParseException {
+		if (formatted.length() == 0) {
+			return null;
+		}
+		return getDateFormat(locale).parse(formatted);
+	}
 
-    protected DateFormat getDateFormat(Locale locale) {
-        DateFormat dateFormat = new SimpleDateFormat(this.pattern, locale);
-        dateFormat.setLenient(false);
-        return dateFormat;
-    }
+	protected DateFormat getDateFormat(Locale locale) {
+		DateFormat dateFormat = new SimpleDateFormat(this.pattern, locale);
+		dateFormat.setLenient(false);
+		return dateFormat;
+	}
 
 }
 ----
@@ -10483,11 +10492,11 @@ package org.springframework.format;
 
 public interface AnnotationFormatterFactory<A extends Annotation> {
 
-    Set<Class<?>> getFieldTypes();
+	Set<Class<?>> getFieldTypes();
 
-    Printer<?> getPrinter(A annotation, Class<?> fieldType);
+	Printer<?> getPrinter(A annotation, Class<?> fieldType);
 
-    Parser<?> getParser(A annotation, Class<?> fieldType);
+	Parser<?> getParser(A annotation, Class<?> fieldType);
 
 }
 ----
@@ -10506,37 +10515,37 @@ specified:
 [subs="verbatim,quotes"]
 ----
 public final class NumberFormatAnnotationFormatterFactory
-        implements AnnotationFormatterFactory<NumberFormat> {
+		implements AnnotationFormatterFactory<NumberFormat> {
 
-    public Set<Class<?>> getFieldTypes() {
-        return new HashSet<Class<?>>(asList(new Class<?>[] {
-            Short.class, Integer.class, Long.class, Float.class,
-            Double.class, BigDecimal.class, BigInteger.class }));
-    }
+	public Set<Class<?>> getFieldTypes() {
+		return new HashSet<Class<?>>(asList(new Class<?>[] {
+			Short.class, Integer.class, Long.class, Float.class,
+			Double.class, BigDecimal.class, BigInteger.class }));
+	}
 
-    public Printer<Number> getPrinter(NumberFormat annotation, Class<?> fieldType) {
-        return configureFormatterFrom(annotation, fieldType);
-    }
+	public Printer<Number> getPrinter(NumberFormat annotation, Class<?> fieldType) {
+		return configureFormatterFrom(annotation, fieldType);
+	}
 
-    public Parser<Number> getParser(NumberFormat annotation, Class<?> fieldType) {
-        return configureFormatterFrom(annotation, fieldType);
-    }
+	public Parser<Number> getParser(NumberFormat annotation, Class<?> fieldType) {
+		return configureFormatterFrom(annotation, fieldType);
+	}
 
-    private Formatter<Number> configureFormatterFrom(NumberFormat annotation,
-                                                     Class<?> fieldType) {
-        if (!annotation.pattern().isEmpty()) {
-            return new NumberFormatter(annotation.pattern());
-        } else {
-            Style style = annotation.style();
-            if (style == Style.PERCENT) {
-                return new PercentFormatter();
-            } else if (style == Style.CURRENCY) {
-                return new CurrencyFormatter();
-            } else {
-                return new NumberFormatter();
-            }
-        }
-    }
+	private Formatter<Number> configureFormatterFrom(NumberFormat annotation,
+			Class<?> fieldType) {
+		if (!annotation.pattern().isEmpty()) {
+			return new NumberFormatter(annotation.pattern());
+		} else {
+			Style style = annotation.style();
+			if (style == Style.PERCENT) {
+				return new PercentFormatter();
+			} else if (style == Style.CURRENCY) {
+				return new CurrencyFormatter();
+			} else {
+				return new NumberFormatter();
+			}
+		}
+	}
 }
 ----
 
@@ -10568,8 +10577,8 @@ The example below uses @DateTimeFormat to format a java.util.Date as a ISO Date
 ----
 public class MyModel {
 
-    @DateTimeFormat(iso=ISO.DATE)
-    private Date date;
+	@DateTimeFormat(iso=ISO.DATE)
+	private Date date;
 
 }
 ----
@@ -10594,13 +10603,13 @@ package org.springframework.format;
 
 public interface FormatterRegistry extends ConverterRegistry {
 
-    void addFormatterForFieldType(Class<?> fieldType, Printer<?> printer, Parser<?> parser);
+	void addFormatterForFieldType(Class<?> fieldType, Printer<?> printer, Parser<?> parser);
 
-    void addFormatterForFieldType(Class<?> fieldType, Formatter<?> formatter);
+	void addFormatterForFieldType(Class<?> fieldType, Formatter<?> formatter);
 
-    void addFormatterForFieldType(Formatter<?> formatter);
+	void addFormatterForFieldType(Formatter<?> formatter);
 
-    void addFormatterForAnnotation(AnnotationFormatterFactory<?, ?> factory);
+	void addFormatterForAnnotation(AnnotationFormatterFactory<?, ?> factory);
 
 }
 ----
@@ -10627,7 +10636,7 @@ package org.springframework.format;
 
 public interface FormatterRegistrar {
 
-    void registerFormatters(FormatterRegistry registry);
+	void registerFormatters(FormatterRegistry registry);
 
 }
 ----
@@ -10657,15 +10666,15 @@ MVC config XML:
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:mvc="http://www.springframework.org/schema/mvc"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="
-        http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/mvc
-        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <mvc:annotation-driven/>
+	<mvc:annotation-driven/>
 
 </beans>
 ----
@@ -10684,35 +10693,35 @@ FormatterRegistrars as properties of the FormattingConversionServiceFactoryBean:
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:mvc="http://www.springframework.org/schema/mvc"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="
-        http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/mvc
-        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <mvc:annotation-driven conversion-service="conversionService"/>
+	<mvc:annotation-driven conversion-service="conversionService"/>
 
-    <bean id="conversionService"
-          class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
-        <property name="converters">
-            <set>
-                <bean class="org.example.MyConverter"/>
-            </set>
-        </property>
-        <property name="formatters">
-            <set>
-                <bean class="org.example.MyFormatter"/>
-                <bean class="org.example.MyAnnotationFormatterFactory"/>
-            </set>
-        </property>
-        <property name="formatterRegistrars">
-            <set>
-                <bean class="org.example.MyFormatterRegistrar"/>
-            </set>
-        </property>
-    </bean>
+	<bean id="conversionService"
+			class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+		<property name="converters">
+			<set>
+				<bean class="org.example.MyConverter"/>
+			</set>
+		</property>
+		<property name="formatters">
+			<set>
+				<bean class="org.example.MyFormatter"/>
+				<bean class="org.example.MyAnnotationFormatterFactory"/>
+			</set>
+		</property>
+		<property name="formatterRegistrars">
+			<set>
+				<bean class="org.example.MyFormatterRegistrar"/>
+			</set>
+		</property>
+	</bean>
 
 </beans>
 ----
@@ -10747,22 +10756,22 @@ format. This example does not depend on the Joda Time library:
 @Configuration
 public class AppConfig {
 
-  @Bean
-  public FormattingConversionService conversionService() {
+	@Bean
+	public FormattingConversionService conversionService() {
 
-    // Use the DefaultFormattingConversionService but do not register defaults
-    DefaultFormattingConversionService conversionService = new DefaultFormattingConversionService(false);
+		// Use the DefaultFormattingConversionService but do not register defaults
+		DefaultFormattingConversionService conversionService = new DefaultFormattingConversionService(false);
 
-    // Ensure @NumberFormat is still supported
-    conversionService.addFormatterForFieldAnnotation(new NumberFormatAnnotationFormatterFactory());
+		// Ensure @NumberFormat is still supported
+		conversionService.addFormatterForFieldAnnotation(new NumberFormatAnnotationFormatterFactory());
 
-    // Register date conversion with a specific global format
-    DateFormatterRegistrar registrar = new DateFormatterRegistrar();
-    registrar.setFormatter(new DateFormatter("yyyyMMdd"));
-    registrar.registerFormatters(conversionService);
+		// Register date conversion with a specific global format
+		DateFormatterRegistrar registrar = new DateFormatterRegistrar();
+		registrar.setFormatter(new DateFormatter("yyyyMMdd"));
+		registrar.registerFormatters(conversionService);
 
-    return conversionService;
-  }
+		return conversionService;
+	}
 }
 ----
 
@@ -10775,31 +10784,31 @@ Time:
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="
-        http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd>
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd>
 
-    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
-        <property name="registerDefaultFormatters" value="false" />
-        <property name="formatters">
-        <set>
-            <bean class="org.springframework.format.number.NumberFormatAnnotationFormatterFactory" />
-        </set>
-        </property>
-        <property name="formatterRegistrars">
-        <set>
-          <bean class="org.springframework.format.datetime.joda.JodaTimeFormatterRegistrar">
-              <property name="dateFormatter">
-                  <bean class="org.springframework.format.datetime.joda.DateTimeFormatterFactoryBean">
-                      <property name="pattern" value="yyyyMMdd"/>
-                  </bean>
-              </property>
-          </bean>
-      </set>
-      </property>
-    </bean>
-  </beans>
+	<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+		<property name="registerDefaultFormatters" value="false" />
+		<property name="formatters">
+			<set>
+				<bean class="org.springframework.format.number.NumberFormatAnnotationFormatterFactory" />
+			</set>
+		</property>
+		<property name="formatterRegistrars">
+			<set>
+				<bean class="org.springframework.format.datetime.joda.JodaTimeFormatterRegistrar">
+					<property name="dateFormatter">
+						<bean class="org.springframework.format.datetime.joda.DateTimeFormatterFactoryBean">
+							<property name="pattern" value="yyyyMMdd"/>
+						</bean>
+					</property>
+				</bean>
+			</set>
+		</property>
+	</bean>
+</beans>
 ----
 
 [NOTE]
@@ -10841,8 +10850,8 @@ To illustrate, consider a simple PersonForm model with two properties:
 [subs="verbatim,quotes"]
 ----
 public class PersonForm {
-    private String name;
-    private int age;
+	private String name;
+	private int age;
 }
 ----
 
@@ -10853,12 +10862,12 @@ JSR-303 allows you to define declarative validation constraints against such pro
 ----
 public class PersonForm {
 
-    @NotNull
-    @Size(max=64)
-    private String name;
+	@NotNull
+	@Size(max=64)
+	private String name;
 
-    @Min(0)
-    private int age;
+	@Min(0)
+	private int age;
 
 }
 ----
@@ -10887,7 +10896,7 @@ Use the `LocalValidatorFactoryBean` to configure a default Validator as a Spring
 [subs="verbatim,quotes"]
 ----
 <bean id="validator"
-      class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
+	class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
 ----
 
 The basic configuration above will trigger Bean Validation to initialize using its
@@ -10913,8 +10922,8 @@ import javax.validation.Validator;
 @Service
 public class MyService {
 
-    @Autowired
-    private Validator validator;
+	@Autowired
+	private Validator validator;
 ----
 
 Inject a reference to `org.springframework.validation.Validator` if your bean requires
@@ -10928,8 +10937,8 @@ import org.springframework.validation.Validator;
 @Service
 public class MyService {
 
-    @Autowired
-    private Validator validator;
+	@Autowired
+	private Validator validator;
 
 }
 ----
@@ -10970,10 +10979,10 @@ import javax.validation.ConstraintValidator;
 
 public class MyConstraintValidator implements ConstraintValidator {
 
-    @Autowired;
-    private Foo aDependency;
+	@Autowired;
+	private Foo aDependency;
 
-    ...
+	...
 }
 ----
 
@@ -11041,8 +11050,8 @@ To trigger validation of a @Controller input, simply annotate the input argument
 @Controller
 public class MyController {
 
-    @RequestMapping("/foo", method=RequestMethod.POST)
-    public void processFoo(**@Valid** Foo foo) { /* ... */ }
+	@RequestMapping("/foo", method=RequestMethod.POST)
+	public void processFoo(**@Valid** Foo foo) { /* ... */ }
 ----
 
 Spring MVC will validate a @Valid object after binding so-long as an appropriate
@@ -11068,13 +11077,13 @@ per @Controller class:
 @Controller
 public class MyController {
 
-    @InitBinder
-    protected void initBinder(WebDataBinder binder) {
-        binder.setValidator(new FooValidator());
-    }
+	@InitBinder
+	protected void initBinder(WebDataBinder binder) {
+		binder.setValidator(new FooValidator());
+	}
 
-    @RequestMapping("/foo", method=RequestMethod.POST)
-    public void processFoo(@Valid Foo foo) { ... }
+	@RequestMapping("/foo", method=RequestMethod.POST)
+	public void processFoo(@Valid Foo foo) { ... }
 
 }
 ----
@@ -11088,15 +11097,15 @@ achieved easily by using the Spring MVC namespace:
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:mvc="http://www.springframework.org/schema/mvc"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="
-        http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/mvc
-        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <mvc:annotation-driven validator="globalValidator"/>
+	<mvc:annotation-driven validator="globalValidator"/>
 
 </beans>
 ----
@@ -11110,10 +11119,10 @@ and then add a local validator:
 @Controller
 public class MyController {
 
-    @InitBinder
-    protected void initBinder(WebDataBinder binder) {
-        binder.addValidators(new FooValidator());
-    }
+	@InitBinder
+	protected void initBinder(WebDataBinder binder) {
+		binder.addValidators(new FooValidator());
+	}
 
 }
 ----
@@ -11134,16 +11143,16 @@ The Spring MVC configuration required to enable Bean Validation support is shown
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:mvc="http://www.springframework.org/schema/mvc"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="
-        http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/mvc
-        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <!-- JSR-303/JSR-349 support will be detected on classpath and enabled automatically -->
-    <mvc:annotation-driven/>
+	<!-- JSR-303/JSR-349 support will be detected on classpath and enabled automatically -->
+	<mvc:annotation-driven/>
 
 </beans>
 ----
@@ -11428,7 +11437,7 @@ being placed in it. A simple example:
 [subs="verbatim,quotes"]
 ----
 class Simple {
-    public List<Boolean> booleanList = new ArrayList<Boolean>();
+	public List<Boolean> booleanList = new ArrayList<Boolean>();
 }
 
 Simple simple = new Simple();
@@ -11464,9 +11473,9 @@ A property or constructor-arg value can be set using expressions as shown below
 [subs="verbatim,quotes"]
 ----
 <bean id="numberGuess" class="org.spring.samples.NumberGuess">
-    <property name="randomNumber" value="#{ T(java.lang.Math).random() * 100.0 }"/>
+	<property name="randomNumber" value="#{ T(java.lang.Math).random() * 100.0 }"/>
 
-    <!-- other properties -->
+	<!-- other properties -->
 </bean>
 ----
 
@@ -11478,9 +11487,9 @@ symbol in this context.
 [subs="verbatim,quotes"]
 ----
 <bean id="taxCalculator" class="org.spring.samples.TaxCalculator">
-    <property name="defaultLocale" value="#{ systemProperties['user.region'] }"/>
+	<property name="defaultLocale" value="#{ systemProperties['user.region'] }"/>
 
-    <!-- other properties -->
+	<!-- other properties -->
 </bean>
 ----
 
@@ -11490,15 +11499,15 @@ You can also refer to other bean properties by name, for example.
 [subs="verbatim,quotes"]
 ----
 <bean id="numberGuess" class="org.spring.samples.NumberGuess">
-    <property name="randomNumber" value="#{ T(java.lang.Math).random() * 100.0 }"/>
+	<property name="randomNumber" value="#{ T(java.lang.Math).random() * 100.0 }"/>
 
-    <!-- other properties -->
+	<!-- other properties -->
 </bean>
 
 <bean id="shapeGuess" class="org.spring.samples.ShapeGuess">
-    <property name="initialShapeSeed" value="#{ numberGuess.randomNumber }"/>
+	<property name="initialShapeSeed" value="#{ numberGuess.randomNumber }"/>
 
-    <!-- other properties -->
+	<!-- other properties -->
 </bean>
 ----
 
@@ -11516,18 +11525,16 @@ Here is an example to set the default value of a field variable.
 ----
 public static class FieldValueTestBean
 
-  @Value("#{ systemProperties['user.region'] }")
-  private String defaultLocale;
+	@Value("#{ systemProperties['user.region'] }")
+	private String defaultLocale;
 
-  public void setDefaultLocale(String defaultLocale)
-  {
-    this.defaultLocale = defaultLocale;
-  }
+	public void setDefaultLocale(String defaultLocale) {
+		this.defaultLocale = defaultLocale;
+	}
 
-  public String getDefaultLocale()
-  {
-    return this.defaultLocale;
-  }
+	public String getDefaultLocale() {
+		return this.defaultLocale;
+	}
 
 }
 ----
@@ -11539,18 +11546,16 @@ The equivalent but on a property setter method is shown below.
 ----
 public static class PropertyValueTestBean
 
-  private String defaultLocale;
+	private String defaultLocale;
 
-  @Value("#{ systemProperties['user.region'] }")
-  public void setDefaultLocale(String defaultLocale)
-  {
-    this.defaultLocale = defaultLocale;
-  }
+	@Value("#{ systemProperties['user.region'] }")
+	public void setDefaultLocale(String defaultLocale) {
+		this.defaultLocale = defaultLocale;
+	}
 
-  public String getDefaultLocale()
-  {
-    return this.defaultLocale;
-  }
+	public String getDefaultLocale() {
+		return this.defaultLocale;
+	}
 
 }
 ----
@@ -11562,17 +11567,17 @@ Autowired methods and constructors can also use the `@Value` annotation.
 ----
 public class SimpleMovieLister {
 
-  private MovieFinder movieFinder;
-  private String defaultLocale;
+	private MovieFinder movieFinder;
+	private String defaultLocale;
 
-  @Autowired
-  public void configure(MovieFinder movieFinder,
-                        @Value("#{ systemProperties['user.region'] }") String defaultLocale) {
-      this.movieFinder = movieFinder;
-      this.defaultLocale = defaultLocale;
-  }
+	@Autowired
+	public void configure(MovieFinder movieFinder,
+			@Value("#{ systemProperties['user.region'] }") String defaultLocale) {
+		this.movieFinder = movieFinder;
+		this.defaultLocale = defaultLocale;
+	}
 
-  // ...
+	// ...
 }
 ----
 
@@ -11581,18 +11586,18 @@ public class SimpleMovieLister {
 ----
 public class MovieRecommender {
 
-  private String defaultLocale;
+	private String defaultLocale;
 
-  private CustomerPreferenceDao customerPreferenceDao;
+	private CustomerPreferenceDao customerPreferenceDao;
 
-  @Autowired
-  public MovieRecommender(CustomerPreferenceDao customerPreferenceDao,
-                          @Value("#{systemProperties['user.country']}") String defaultLocale) {
-      this.customerPreferenceDao = customerPreferenceDao;
-      this.defaultLocale = defaultLocale;
-  }
+	@Autowired
+	public MovieRecommender(CustomerPreferenceDao customerPreferenceDao,
+			@Value("#{systemProperties['user.country']}") String defaultLocale) {
+		this.customerPreferenceDao = customerPreferenceDao;
+		this.defaultLocale = defaultLocale;
+	}
 
-  // ...
+	// ...
 }
 ----
 
@@ -11665,19 +11670,20 @@ ExpressionParser parser = new SpelExpressionParser();
 StandardEvaluationContext teslaContext = new StandardEvaluationContext(tesla);
 
 // evaluates to "Induction motor"
-String invention = parser.parseExpression("inventions[3]").getValue(teslaContext,
-                                                                    String.class);
+String invention = parser.parseExpression("inventions[3]").getValue(
+		teslaContext, String.class);
 
 // Members List
 StandardEvaluationContext societyContext = new StandardEvaluationContext(ieee);
 
 // evaluates to "Nikola Tesla"
-String name = parser.parseExpression("Members[0].Name").getValue(societyContext, String.class);
+String name = parser.parseExpression("Members[0].Name").getValue(
+		societyContext, String.class);
 
 // List and Array navigation
 // evaluates to "Wireless communication"
-String invention = parser.parseExpression("Members[0].Inventions[6]").getValue(societyContext,
-                                                                               String.class);
+String invention = parser.parseExpression("Members[0].Inventions[6]").getValue(
+		societyContext, String.class);
 ----
 
 The contents of maps are obtained by specifying the literal key value within the
@@ -11689,17 +11695,16 @@ string literals.
 ----
 // Officer's Dictionary
 
-Inventor pupin = parser.parseExpression("Officers['president']").getValue(societyContext,
-                                                                          Inventor.class);
+Inventor pupin = parser.parseExpression("Officers['president']").getValue(
+		societyContext, Inventor.class);
 
 // evaluates to "Idvor"
-String city =
-    parser.parseExpression("Officers['president'].PlaceOfBirth.City").getValue(societyContext,
-                                                                               String.class);
+String city = parser.parseExpression("Officers['president'].PlaceOfBirth.City").getValue(
+		societyContext, String.class);
 
 // setting values
-parser.parseExpression("Officers['advisors'][0].PlaceOfBirth.Country").setValue(societyContext,
-                                                                                "Croatia");
+parser.parseExpression("Officers['advisors'][0].PlaceOfBirth.Country").setValue(
+		societyContext, "Croatia");
 ----
 
 
@@ -11757,8 +11762,8 @@ on literals. Varargs are also supported.
 String c = parser.parseExpression("'abc'.substring(2, 3)").getValue(String.class);
 
 // evaluates to true
-boolean isMember = parser.parseExpression("isMember('Mihajlo Pupin')").getValue(societyContext,
-                                                                                Boolean.class);
+boolean isMember = parser.parseExpression("isMember('Mihajlo Pupin')").getValue(
+		societyContext, Boolean.class);
 ----
 
 
@@ -11785,22 +11790,23 @@ boolean falseValue = parser.parseExpression("2 < -5.0").getValue(Boolean.class);
 boolean trueValue = parser.parseExpression("'black' < 'block'").getValue(Boolean.class);
 ----
 
-In addition to standard relational operators SpEL supports the
-        'instanceof' and regular expression based 'matches' operator.
+In addition to standard relational operators SpEL supports the 'instanceof' and regular
+expression based 'matches' operator.
 
 [source,java]
 [subs="none"]
 ----
 // evaluates to false
-boolean falseValue = parser.parseExpression("'xyz' instanceof T(int)").getValue(Boolean.class);
+boolean falseValue = parser.parseExpression(
+		"'xyz' instanceof T(int)").getValue(Boolean.class);
 
 // evaluates to true
-boolean trueValue =
-     parser.parseExpression("'5.00' matches '^-?\\d+(\\.\\d{2})?$'").getValue(Boolean.class);
+boolean trueValue = parser.parseExpression(
+		"'5.00' matches '^-?\\d+(\\.\\d{2})?$'").getValue(Boolean.class);
 
 //evaluates to false
-boolean falseValue =
-     parser.parseExpression("'5.0067' matches '^-?\\d+(\\.\\d{2})?$'").getValue(Boolean.class);
+boolean falseValue = parser.parseExpression(
+		"'5.0067' matches '^-?\\d+(\\.\\d{2})?$'").getValue(Boolean.class);
 ----
 
 Each symbolic operator can also be specified as a purely alphabetic equivalent.  This
@@ -11860,8 +11866,8 @@ operators are demonstrated below.
 // Addition
 int two = parser.parseExpression("1 + 1").getValue(Integer.class); // 2
 
-String testString =
-   parser.parseExpression("'test' + ' ' + 'string'").getValue(String.class);  // 'test string'
+String testString = parser.parseExpression(
+		"'test' + ' ' + 'string'").getValue(String.class);  // 'test string'
 
 // Subtraction
 int four =  parser.parseExpression("1 - -3").getValue(Integer.class); // 4
@@ -11904,8 +11910,8 @@ parser.parseExpression("Name").setValue(inventorContext, "Alexander Seovic2");
 
 // alternatively
 
-String aleks = parser.parseExpression("Name = 'Alexandar Seovic'").getValue(inventorContext,
-                                                                            String.class);
+String aleks = parser.parseExpression(
+		"Name = 'Alexandar Seovic'").getValue(inventorContext, String.class);
 ----
 
 
@@ -11926,9 +11932,9 @@ Class dateClass = parser.parseExpression("T(java.util.Date)").getValue(Class.cla
 
 Class stringClass = parser.parseExpression("T(String)").getValue(Class.class);
 
-boolean trueValue =
-   parser.parseExpression("T(java.math.RoundingMode).CEILING < T(java.math.RoundingMode).FLOOR")
-  .getValue(Boolean.class);
+boolean trueValue = parser.parseExpression(
+		"T(java.math.RoundingMode).CEILING < T(java.math.RoundingMode).FLOOR")
+		.getValue(Boolean.class);
 ----
 
 
@@ -11942,15 +11948,14 @@ used).
 [source,java]
 [subs="verbatim,quotes"]
 ----
-Inventor einstein =
-  p.parseExpression("new org.spring.samples.spel.inventor.Inventor('Albert Einstein',
-                                                                   'German')")
-                                                                   .getValue(Inventor.class);
+Inventor einstein = p.parseExpression(
+		"new org.spring.samples.spel.inventor.Inventor('Albert Einstein', 'German')")
+		.getValue(Inventor.class);
 
 //create new inventor instance within add method of List
-p.parseExpression("Members.add(new org.spring.samples.spel.inventor.Inventor('Albert Einstein',
-                                                                   'German'))")
-                                                                   .getValue(societyContext);
+p.parseExpression(
+		"Members.add(new org.spring.samples.spel.inventor.Inventor(
+			'Albert Einstein', 'German'))").getValue(societyContext);
 ----
 
 
@@ -11994,8 +11999,8 @@ context.setVariable("primes",primes);
 
 // all prime numbers > 10 from the list (using selection ?{...})
 // evaluates to [11, 13, 17]
-List<Integer> primesGreaterThanTen =
-             (List<Integer>) parser.parseExpression("#primes.?[#this>10]").getValue(context);
+List<Integer> primesGreaterThanTen = (List<Integer>) parser.parseExpression(
+		"#primes.?[#this>10]").getValue(context);
 ----
 
 
@@ -12020,13 +12025,13 @@ utility method to reverse a string is shown below.
 ----
 public abstract class StringUtils {
 
-  public static String reverseString(String input) {
-    StringBuilder backwards = new StringBuilder();
-    for (int i = 0; i < input.length(); i++)
-      backwards.append(input.charAt(input.length() - 1 - i));
-    }
-    return backwards.toString();
-  }
+	public static String reverseString(String input) {
+		StringBuilder backwards = new StringBuilder();
+		for (int i = 0; i < input.length(); i++)
+			backwards.append(input.charAt(input.length() - 1 - i));
+		}
+		return backwards.toString();
+	}
 }
 ----
 
@@ -12040,11 +12045,10 @@ ExpressionParser parser = new SpelExpressionParser();
 StandardEvaluationContext context = new StandardEvaluationContext();
 
 context.registerFunction("reverseString",
-                         StringUtils.class.getDeclaredMethod("reverseString",
-                                                             new Class[] { String.class }));
+	StringUtils.class.getDeclaredMethod("reverseString", new Class[] { String.class }));
 
-String helloWorldReversed =
-          parser.parseExpression("#reverseString('hello')").getValue(context, String.class);
+String helloWorldReversed = parser.parseExpression(
+	"#reverseString('hello')").getValue(context, String.class);
 ----
 
 
@@ -12075,8 +12079,8 @@ the expression. A minimal example is:
 [source,java]
 [subs="verbatim,quotes"]
 ----
-String falseString =
-             parser.parseExpression("false ? 'trueExp' : 'falseExp'").getValue(String.class);
+String falseString = parser.parseExpression(
+		"false ? 'trueExp' : 'falseExp'").getValue(String.class);
 ----
 
 In this case, the boolean false results in returning the string value 'falseExp'. A more
@@ -12089,10 +12093,10 @@ parser.parseExpression("Name").setValue(societyContext, "IEEE");
 societyContext.setVariable("queryName", "Nikola Tesla");
 
 expression = "isMember(#queryName)? #queryName + ' is a member of the ' " +
-             "+ Name + ' Society' : #queryName + ' is not a member of the ' + Name + ' Society'";
+		"+ Name + ' Society' : #queryName + ' is not a member of the ' + Name + ' Society'";
 
-String queryResultString =
-                    parser.parseExpression(expression).getValue(societyContext, String.class);
+String queryResultString = parser.parseExpression(expression)
+		.getValue(societyContext, String.class);
 // queryResultString = "Nikola Tesla is a member of the IEEE Society"
 ----
 
@@ -12262,9 +12266,9 @@ define, a common choice is to use `#{ }` as the delimiters. For example,
 [source,java]
 [subs="verbatim,quotes"]
 ----
-String randomPhrase =
-   parser.parseExpression("random number is #{T(java.lang.Math).random()}",
-                          new TemplateParserContext()).getValue(String.class);
+String randomPhrase = parser.parseExpression(
+		"random number is #{T(java.lang.Math).random()}",
+		new TemplateParserContext()).getValue(String.class);
 
 // evaluates to "random number is 0.7038186818312008"
 ----
@@ -12281,17 +12285,17 @@ The definition of `TemplateParserContext` is shown below.
 ----
 public class TemplateParserContext implements ParserContext {
 
-  public String getExpressionPrefix() {
-    return "#{";
-  }
+	public String getExpressionPrefix() {
+		return "#{";
+	}
 
-  public String getExpressionSuffix() {
-    return "}";
-  }
+	public String getExpressionSuffix() {
+		return "}";
+	}
 
-  public boolean isTemplate() {
-    return true;
-  }
+	public boolean isTemplate() {
+		return true;
+	}
 }
 ----
 
@@ -12312,58 +12316,67 @@ import java.util.GregorianCalendar;
 
 public class Inventor {
 
-  private String name;
-  private String nationality;
-  private String[] inventions;
-  private Date birthdate;
-  private PlaceOfBirth placeOfBirth;
+	private String name;
+	private String nationality;
+	private String[] inventions;
+	private Date birthdate;
+	private PlaceOfBirth placeOfBirth;
 
-  public Inventor(String name, String nationality)
-  {
-    GregorianCalendar c= new GregorianCalendar();
-    this.name = name;
-    this.nationality = nationality;
-    this.birthdate = c.getTime();
-  }
-  public Inventor(String name, Date birthdate, String nationality) {
-    this.name = name;
-    this.nationality = nationality;
-    this.birthdate = birthdate;
-  }
+	public Inventor(String name, String nationality) {
+		GregorianCalendar c= new GregorianCalendar();
+		this.name = name;
+		this.nationality = nationality;
+		this.birthdate = c.getTime();
+	}
 
-  public Inventor() {
-  }
+	public Inventor(String name, Date birthdate, String nationality) {
+		this.name = name;
+		this.nationality = nationality;
+		this.birthdate = birthdate;
+	}
 
-  public String getName() {
-    return name;
-  }
-  public void setName(String name) {
-    this.name = name;
-  }
-  public String getNationality() {
-    return nationality;
-  }
-  public void setNationality(String nationality) {
-    this.nationality = nationality;
-  }
-  public Date getBirthdate() {
-    return birthdate;
-  }
-  public void setBirthdate(Date birthdate) {
-    this.birthdate = birthdate;
-  }
-  public PlaceOfBirth getPlaceOfBirth() {
-    return placeOfBirth;
-  }
-  public void setPlaceOfBirth(PlaceOfBirth placeOfBirth) {
-    this.placeOfBirth = placeOfBirth;
-  }
-  public void setInventions(String[] inventions) {
-    this.inventions = inventions;
-  }
-  public String[] getInventions() {
-    return inventions;
-  }
+	public Inventor() {
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getNationality() {
+		return nationality;
+	}
+
+	public void setNationality(String nationality) {
+		this.nationality = nationality;
+	}
+
+	public Date getBirthdate() {
+		return birthdate;
+	}
+
+	public void setBirthdate(Date birthdate) {
+		this.birthdate = birthdate;
+	}
+
+	public PlaceOfBirth getPlaceOfBirth() {
+		return placeOfBirth;
+	}
+
+	public void setPlaceOfBirth(PlaceOfBirth placeOfBirth) {
+		this.placeOfBirth = placeOfBirth;
+	}
+
+	public void setInventions(String[] inventions) {
+		this.inventions = inventions;
+	}
+
+	public String[] getInventions() {
+		return inventions;
+	}
 }
 ----
 
@@ -12376,30 +12389,33 @@ package org.spring.samples.spel.inventor;
 
 public class PlaceOfBirth {
 
-    private String city;
-    private String country;
+	private String city;
+	private String country;
 
-    public PlaceOfBirth(String city) {
-        this.city=city;
-    }
-    public PlaceOfBirth(String city, String country)
-    {
-        this(city);
-        this.country = country;
-    }
+	public PlaceOfBirth(String city) {
+		this.city=city;
+	}
 
-    public String getCity() {
-        return city;
-    }
-    public void setCity(String s) {
-        this.city = s;
-    }
-    public String getCountry() {
-        return country;
-    }
-    public void setCountry(String country) {
-        this.country = country;
-    }
+	public PlaceOfBirth(String city, String country) {
+		this(city);
+		this.country = country;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String s) {
+		this.city = s;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
 
 }
 ----
@@ -12415,42 +12431,38 @@ import java.util.*;
 
 public class Society {
 
-    private String name;
+	private String name;
 
-    public static String Advisors = "advisors";
-    public static String President = "president";
+	public static String Advisors = "advisors";
+	public static String President = "president";
 
-    private List<Inventor> members = new ArrayList<Inventor>();
-    private Map officers = new HashMap();
+	private List<Inventor> members = new ArrayList<Inventor>();
+	private Map officers = new HashMap();
 
-    public List getMembers() {
-        return members;
-    }
+	public List getMembers() {
+		return members;
+	}
 
-    public Map getOfficers() {
-        return officers;
-    }
+	public Map getOfficers() {
+		return officers;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public boolean isMember(String name)
-    {
-        boolean found = false;
-        for (Inventor inventor : members) {
-            if (inventor.getName().equals(name))
-            {
-                found = true;
-                break;
-            }
-        }
-        return found;
-    }
+	public boolean isMember(String name) {
+		for (Inventor inventor : members) {
+			if (inventor.getName().equals(name)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 }
 ----
@@ -12751,7 +12763,7 @@ the `@Aspect` annotation:
 [subs="verbatim,quotes"]
 ----
 <bean id="myAspect" class="org.xyz.NotVeryUsefulAspect">
-   <!-- configure properties of aspect here as normal -->
+	<!-- configure properties of aspect here as normal -->
 </bean>
 ----
 
@@ -12933,13 +12945,13 @@ execution represents any public method in the trading module).
 [subs="verbatim,quotes"]
 ----
 @Pointcut("execution(public * *(..))")
-    private void anyPublicOperation() {}
+	private void anyPublicOperation() {}
 
-    @Pointcut("within(com.xyz.someapp.trading..*)")
-    private void inTrading() {}
+	@Pointcut("within(com.xyz.someapp.trading..*)")
+	private void inTrading() {}
 
-    @Pointcut("anyPublicOperation() && inTrading()")
-    private void tradingOperation() {}
+	@Pointcut("anyPublicOperation() && inTrading()")
+	private void tradingOperation() {}
 ----
 
 It is a best practice to build more complex pointcut expressions out of smaller named
@@ -12967,54 +12979,54 @@ import org.aspectj.lang.annotation.Pointcut;
 @Aspect
 public class SystemArchitecture {
 
-  /**
-   * A join point is in the web layer if the method is defined
-   * in a type in the com.xyz.someapp.web package or any sub-package
-   * under that.
-   */
-  @Pointcut("within(com.xyz.someapp.web..*)")
-  public void inWebLayer() {}
+	/**
+	 * A join point is in the web layer if the method is defined
+	 * in a type in the com.xyz.someapp.web package or any sub-package
+	 * under that.
+	 */
+	@Pointcut("within(com.xyz.someapp.web..*)")
+	public void inWebLayer() {}
 
-  /**
-   * A join point is in the service layer if the method is defined
-   * in a type in the com.xyz.someapp.service package or any sub-package
-   * under that.
-   */
-  @Pointcut("within(com.xyz.someapp.service..*)")
-  public void inServiceLayer() {}
+	/**
+	 * A join point is in the service layer if the method is defined
+	 * in a type in the com.xyz.someapp.service package or any sub-package
+	 * under that.
+	 */
+	@Pointcut("within(com.xyz.someapp.service..*)")
+	public void inServiceLayer() {}
 
-  /**
-   * A join point is in the data access layer if the method is defined
-   * in a type in the com.xyz.someapp.dao package or any sub-package
-   * under that.
-   */
-  @Pointcut("within(com.xyz.someapp.dao..*)")
-  public void inDataAccessLayer() {}
+	/**
+	 * A join point is in the data access layer if the method is defined
+	 * in a type in the com.xyz.someapp.dao package or any sub-package
+	 * under that.
+	 */
+	@Pointcut("within(com.xyz.someapp.dao..*)")
+	public void inDataAccessLayer() {}
 
-  /**
-   * A business service is the execution of any method defined on a service
-   * interface. This definition assumes that interfaces are placed in the
-   * "service" package, and that implementation types are in sub-packages.
-   *
-   * If you group service interfaces by functional area (for example,
-   * in packages com.xyz.someapp.abc.service and com.xyz.def.service) then
-   * the pointcut expression "execution(* com.xyz.someapp..service.*.*(..))"
-   * could be used instead.
-   *
-   * Alternatively, you can write the expression using the 'bean'
-   * PCD, like so "bean(*Service)". (This assumes that you have
-   * named your Spring service beans in a consistent fashion.)
-   */
-  @Pointcut("execution(* com.xyz.someapp.service.*.*(..))")
-  public void businessService() {}
+	/**
+	 * A business service is the execution of any method defined on a service
+	 * interface. This definition assumes that interfaces are placed in the
+	 * "service" package, and that implementation types are in sub-packages.
+	 *
+	 * If you group service interfaces by functional area (for example,
+	 * in packages com.xyz.someapp.abc.service and com.xyz.def.service) then
+	 * the pointcut expression "execution(* com.xyz.someapp..service.*.*(..))"
+	 * could be used instead.
+	 *
+	 * Alternatively, you can write the expression using the 'bean'
+	 * PCD, like so "bean(*Service)". (This assumes that you have
+	 * named your Spring service beans in a consistent fashion.)
+	 */
+	@Pointcut("execution(* com.xyz.someapp.service.*.*(..))")
+	public void businessService() {}
 
-  /**
-   * A data access operation is the execution of any method defined on a
-   * dao interface. This definition assumes that interfaces are placed in the
-   * "dao" package, and that implementation types are in sub-packages.
-   */
-  @Pointcut("execution(* com.xyz.someapp.dao.*.*(..))")
-  public void dataAccessOperation() {}
+	/**
+	 * A data access operation is the execution of any method defined on a
+	 * dao interface. This definition assumes that interfaces are placed in the
+	 * "dao" package, and that implementation types are in sub-packages.
+	 */
+	@Pointcut("execution(* com.xyz.someapp.dao.*.*(..))")
+	public void dataAccessOperation() {}
 
 }
 ----
@@ -13027,15 +13039,15 @@ write:
 [subs="verbatim,quotes"]
 ----
 <aop:config>
-  <aop:advisor
-      pointcut="com.xyz.someapp.SystemArchitecture.businessService()"
-      advice-ref="tx-advice"/>
+	<aop:advisor
+		pointcut="com.xyz.someapp.SystemArchitecture.businessService()"
+		advice-ref="tx-advice"/>
 </aop:config>
 
 <tx:advice id="tx-advice">
-  <tx:attributes>
-    <tx:method name="*" propagation="REQUIRED"/>
-  </tx:attributes>
+	<tx:attributes>
+		<tx:method name="*" propagation="REQUIRED"/>
+	</tx:attributes>
 </tx:advice>
 ----
 
@@ -13052,7 +13064,7 @@ The format of an execution expression is:
 [subs="verbatim,quotes"]
 ----
 execution(modifiers-pattern? ret-type-pattern declaring-type-pattern? name-pattern(param-pattern)
-          throws-pattern?)
+			throws-pattern?)
 ----
 
 All parts except the returning type pattern (ret-type-pattern in the snippet above),
@@ -13314,10 +13326,10 @@ import org.aspectj.lang.annotation.Before;
 @Aspect
 public class BeforeExample {
 
-  @Before("com.xyz.myapp.SystemArchitecture.dataAccessOperation()")
-  public void doAccessCheck() {
-    // ...
-  }
+	@Before("com.xyz.myapp.SystemArchitecture.dataAccessOperation()")
+	public void doAccessCheck() {
+		// ...
+	}
 
 }
 ----
@@ -13333,10 +13345,10 @@ import org.aspectj.lang.annotation.Before;
 @Aspect
 public class BeforeExample {
 
-  @Before("execution(* com.xyz.myapp.dao.*.*(..))")
-  public void doAccessCheck() {
-    // ...
-  }
+	@Before("execution(* com.xyz.myapp.dao.*.*(..))")
+	public void doAccessCheck() {
+		// ...
+	}
 
 }
 ----
@@ -13356,10 +13368,10 @@ import org.aspectj.lang.annotation.AfterReturning;
 @Aspect
 public class AfterReturningExample {
 
-  @AfterReturning("com.xyz.myapp.SystemArchitecture.dataAccessOperation()")
-  public void doAccessCheck() {
-    // ...
-  }
+	@AfterReturning("com.xyz.myapp.SystemArchitecture.dataAccessOperation()")
+	public void doAccessCheck() {
+		// ...
+	}
 
 }
 ----
@@ -13383,12 +13395,12 @@ import org.aspectj.lang.annotation.AfterReturning;
 @Aspect
 public class AfterReturningExample {
 
-  @AfterReturning(
-    pointcut="com.xyz.myapp.SystemArchitecture.dataAccessOperation()",
-    returning="retVal")
-  public void doAccessCheck(Object retVal) {
-    // ...
-  }
+	@AfterReturning(
+		pointcut="com.xyz.myapp.SystemArchitecture.dataAccessOperation()",
+		returning="retVal")
+	public void doAccessCheck(Object retVal) {
+		// ...
+	}
 
 }
 ----
@@ -13417,10 +13429,10 @@ import org.aspectj.lang.annotation.AfterThrowing;
 @Aspect
 public class AfterThrowingExample {
 
-  @AfterThrowing("com.xyz.myapp.SystemArchitecture.dataAccessOperation()")
-  public void doRecoveryActions() {
-    // ...
-  }
+	@AfterThrowing("com.xyz.myapp.SystemArchitecture.dataAccessOperation()")
+	public void doRecoveryActions() {
+		// ...
+	}
 
 }
 ----
@@ -13439,12 +13451,12 @@ import org.aspectj.lang.annotation.AfterThrowing;
 @Aspect
 public class AfterThrowingExample {
 
-  @AfterThrowing(
-    pointcut="com.xyz.myapp.SystemArchitecture.dataAccessOperation()",
-    throwing="ex")
-  public void doRecoveryActions(DataAccessException ex) {
-    // ...
-  }
+	@AfterThrowing(
+		pointcut="com.xyz.myapp.SystemArchitecture.dataAccessOperation()",
+		throwing="ex")
+	public void doRecoveryActions(DataAccessException ex) {
+		// ...
+	}
 
 }
 ----
