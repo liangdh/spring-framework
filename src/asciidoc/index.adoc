@@ -1520,14 +1520,6 @@ supports a required flag.
 
 
 
-[[new-in-3.2-webmvc-mapped-interceptor-exclude-patterns]]
-=== Excluded patterns in mapped interceptors
-Mapped interceptors now support URL patterns to be excluded. The MVC namespace and the
-MVC JavaConfig both expose these options.
-
-
-
-
 [[new-in-3.2-meta-annotations]]
 === Using meta-annotations for injection points and for bean definition methods
 As of 3.2, Spring allows for `@Autowired` and `@Value` to be used as meta-annotations,
@@ -29401,15 +29393,13 @@ default `HttpMessageConverters`:
 
 For more information on these converters, see <<rest-message-conversion,Message
 Converters>>. Also note that if using the MVC namespace or the MVC Java config, a wider
-range of message converters are registered by default. See <<mvc-config-enable,Enabling
-the MVC Java Config or the MVC XML Namespace>> for more information.
+range of message converters are registered by default. See <<mvc-config-enable>> for more information.
 
 If you intend to read and write XML, you will need to configure the
 `MarshallingHttpMessageConverter` with a specific `Marshaller` and an `Unmarshaller`
 implementation from the `org.springframework.oxm` package. The example below shows how
 to do that directly in your configuration but if your application is configured through
-the MVC namespace or the MVC Java config see <<mvc-config-enable,Enabling the MVC Java
-Config or the MVC XML Namespace>> instead.
+the MVC namespace or the MVC Java config see <<mvc-config-enable>> instead.
 
 [source,xml]
 [subs="verbatim,quotes"]
@@ -29447,7 +29437,7 @@ sends a `400` error back to the client.
 
 [NOTE]
 ====
-Also see <<mvc-config-enable,Enabling the MVC Java Config or the MVC XML Namespace>> for
+Also see <<mvc-config-enable>> for
 information on configuring message converters and a validator through the MVC namespace
 or the MVC Java config.
 ====
@@ -30375,8 +30365,7 @@ extend the `HandlerInterceptor` interface.
 In the example above, the configured interceptor will apply to all requests handled with
 annotated controller methods. If you want to narrow down the URL paths to which an
 interceptor applies, you can use the MVC namespace or the MVC Java config, or declare
-bean instances of type `MappedInterceptor` to do that. See <<mvc-config-enable,Enabling
-the MVC Java Config or the MVC XML Namespace>>.
+bean instances of type `MappedInterceptor` to do that. See <<mvc-config-enable>>.
 ====
 
 
