@@ -45,9 +45,9 @@ implementation.
 ----
 <beans>
 
-  <bean id="myProductDao" class="product.ProductDaoImpl">
-    <property name="sessionFactory" ref="mySessionFactory"/>
-  </bean>
+	<bean id="myProductDao" class="product.ProductDaoImpl">
+		<property name="sessionFactory" ref="mySessionFactory"/>
+	</bean>
 
 </beans>
 ----
@@ -57,15 +57,15 @@ implementation.
 ----
 public class ProductDaoImpl implements ProductDao {
 
-    private HibernateTemplate hibernateTemplate;
+	private HibernateTemplate hibernateTemplate;
 
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.hibernateTemplate = new HibernateTemplate(sessionFactory);
-    }
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.hibernateTemplate = new HibernateTemplate(sessionFactory);
+	}
 
-    public Collection loadProductsByCategory(String category) throws DataAccessException {
-        return this.hibernateTemplate.find("from test.Product product where product.category=?", category);
-    }
+	public Collection loadProductsByCategory(String category) throws DataAccessException {
+		return this.hibernateTemplate.find("from test.Product product where product.category=?", category);
+	}
 }
 ----
 
@@ -80,23 +80,23 @@ approach like so.
 ----
 public class ProductDaoImpl implements ProductDao {
 
-    private HibernateTemplate hibernateTemplate;
+	private HibernateTemplate hibernateTemplate;
 
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.hibernateTemplate = new HibernateTemplate(sessionFactory);
-    }
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.hibernateTemplate = new HibernateTemplate(sessionFactory);
+	}
 
-    public Collection loadProductsByCategory(final String category) throws DataAccessException {
-        return this.hibernateTemplate.execute(new HibernateCallback() {
+	public Collection loadProductsByCategory(final String category) throws DataAccessException {
+		return this.hibernateTemplate.execute(new HibernateCallback() {
+			public Object doInHibernate(Session session) {
+				Criteria criteria = session.createCriteria(Product.class);
+				criteria.add(Expression.eq("category", category));
+				criteria.setMaxResults(6);
+				return criteria.list();
+			}
+		};
+	}
 
-            public Object doInHibernate(Session session) {
-                Criteria criteria = session.createCriteria(Product.class);
-                criteria.add(Expression.eq("category", category));
-                criteria.setMaxResults(6);
-                return criteria.list();
-            }
-        };
-    }
 }
 ----
 
@@ -117,10 +117,11 @@ typical requirements:
 ----
 public class ProductDaoImpl extends HibernateDaoSupport implements ProductDao {
 
-    public Collection loadProductsByCategory(String category) throws DataAccessException {
-        return this.getHibernateTemplate().find(
-            "from test.Product product where product.category=?", category);
-    }
+	public Collection loadProductsByCategory(String category) throws DataAccessException {
+		return this.getHibernateTemplate().find(
+			"from test.Product product where product.category=?", category);
+	}
+
 }
 ----
 
@@ -143,21 +144,21 @@ transaction).
 ----
 public class HibernateProductDao extends HibernateDaoSupport implements ProductDao {
 
-    public Collection loadProductsByCategory(String category) throws DataAccessException, MyException {
-        Session session = getSession(false);
-        try {
-            Query query = session.createQuery("from test.Product product where product.category=?");
-            query.setString(0, category);
-            List result = query.list();
-            if (result == null) {
-                throw new MyException("No search results.");
-            }
-            return result;
-        }
-        catch (HibernateException ex) {
-            throw convertHibernateAccessException(ex);
-        }
-    }
+	public Collection loadProductsByCategory(String category) throws DataAccessException, MyException {
+		Session session = getSession(false);
+		try {
+			Query query = session.createQuery("from test.Product product where product.category=?");
+			query.setString(0, category);
+			List result = query.list();
+			if (result == null) {
+				throw new MyException("No search results.");
+			}
+			return result;
+		}
+		catch (HibernateException ex) {
+			throw convertHibernateAccessException(ex);
+		}
+	}
 }
 ----
 
@@ -177,7 +178,7 @@ For the currently recommended usage patterns for JDO see <<orm-jdo>>
 
 
 [[orm-jdo-template]]
-=====  JdoTemplate and `JdoDaoSupport`
+===== JdoTemplate and `JdoDaoSupport`
 
 Each JDO-based DAO will then receive the `PersistenceManagerFactory` through dependency
 injection. Such a DAO could be coded against plain JDO API, working with the given
@@ -189,9 +190,9 @@ injection. Such a DAO could be coded against plain JDO API, working with the giv
 ----
 <beans>
 
-  <bean id="myProductDao" class="product.ProductDaoImpl">
-    <property name="persistenceManagerFactory" ref="myPmf"/>
-  </bean>
+	<bean id="myProductDao" class="product.ProductDaoImpl">
+		<property name="persistenceManagerFactory" ref="myPmf"/>
+	</bean>
 
 </beans>
 ----
@@ -201,23 +202,24 @@ injection. Such a DAO could be coded against plain JDO API, working with the giv
 ----
 public class ProductDaoImpl implements ProductDao {
 
-    private JdoTemplate jdoTemplate;
+	private JdoTemplate jdoTemplate;
 
-    public void setPersistenceManagerFactory(PersistenceManagerFactory pmf) {
-        this.jdoTemplate = new JdoTemplate(pmf);
-    }
+	public void setPersistenceManagerFactory(PersistenceManagerFactory pmf) {
+		this.jdoTemplate = new JdoTemplate(pmf);
+	}
 
-    public Collection loadProductsByCategory(final String category) throws DataAccessException {
-        return (Collection) this.jdoTemplate.execute(new JdoCallback() {
-            public Object doInJdo(PersistenceManager pm) throws JDOException {
-                Query query = pm.newQuery(Product.class, "category = pCategory");
-                query.declareParameters("String pCategory");
-                List result = query.execute(category);
-                // do some further stuff with the result list
-                return result;
-            }
-        });
-    }
+	public Collection loadProductsByCategory(final String category) throws DataAccessException {
+		return (Collection) this.jdoTemplate.execute(new JdoCallback() {
+			public Object doInJdo(PersistenceManager pm) throws JDOException {
+				Query query = pm.newQuery(Product.class, "category = pCategory");
+				query.declareParameters("String pCategory");
+				List result = query.execute(category);
+				// do some further stuff with the result list
+				return result;
+			}
+		});
+	}
+
 }
 ----
 
@@ -238,10 +240,11 @@ DAO implementations for typical requirements:
 ----
 public class ProductDaoImpl extends JdoDaoSupport implements ProductDao {
 
-    public Collection loadProductsByCategory(String category) throws DataAccessException {
-        return getJdoTemplate().find(
-            Product.class, "category = pCategory", "String category", new Object[] {category});
-    }
+	public Collection loadProductsByCategory(String category) throws DataAccessException {
+		return getJdoTemplate().find(Product.class,
+				"category = pCategory", "String category", new Object[] {category});
+	}
+
 }
 ----
 
@@ -260,7 +263,7 @@ For the currently recommended usage patterns for JPA see <<orm-jpa>>
 
 
 [[orm-jpa-template]]
-=====  JpaTemplate and `JpaDaoSupport`
+===== JpaTemplate and `JpaDaoSupport`
 
 Each JPA-based DAO will then receive a `EntityManagerFactory` via dependency injection.
 Such a DAO can be coded against plain JPA and work with the given `EntityManagerFactory`
@@ -271,9 +274,9 @@ or through Spring's `JpaTemplate`:
 ----
 <beans>
 
-  <bean id="myProductDao" class="product.ProductDaoImpl">
-    <property name="entityManagerFactory" ref="myEmf"/>
-  </bean>
+	<bean id="myProductDao" class="product.ProductDaoImpl">
+		<property name="entityManagerFactory" ref="myEmf"/>
+	</bean>
 
 </beans>
 ----
@@ -283,23 +286,24 @@ or through Spring's `JpaTemplate`:
 ----
 public class JpaProductDao implements ProductDao {
 
-    private JpaTemplate jpaTemplate;
+	private JpaTemplate jpaTemplate;
 
-    public void setEntityManagerFactory(EntityManagerFactory emf) {
-        this.jpaTemplate = new JpaTemplate(emf);
-    }
+	public void setEntityManagerFactory(EntityManagerFactory emf) {
+		this.jpaTemplate = new JpaTemplate(emf);
+	}
 
-    public Collection loadProductsByCategory(final String category) throws DataAccessException {
-        return (Collection) this.jpaTemplate.execute(new JpaCallback() {
-            public Object doInJpa(EntityManager em) throws PersistenceException {
-                Query query = em.createQuery("from Product as p where p.category = :category");
-                query.setParameter("category", category);
-                List result = query.getResultList();
-                // do some further processing with the result list
-                return result;
-            }
-        });
-    }
+	public Collection loadProductsByCategory(final String category) throws DataAccessException {
+		return (Collection) this.jpaTemplate.execute(new JpaCallback() {
+			public Object doInJpa(EntityManager em) throws PersistenceException {
+				Query query = em.createQuery("from Product as p where p.category = :category");
+				query.setParameter("category", category);
+				List result = query.getResultList();
+				// do some further processing with the result list
+				return result;
+			}
+		});
+	}
+
 }
 ----
 
@@ -320,11 +324,12 @@ Furthermore, Spring provides a convenient `JpaDaoSupport` base class that provid
 ----
 public class ProductDaoImpl extends JpaDaoSupport implements ProductDao {
 
-    public Collection loadProductsByCategory(String category) throws DataAccessException {
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("category", category);
-        return getJpaTemplate().findByNamedParams("from Product as p where p.category = :category", params);
-    }
+	public Collection loadProductsByCategory(String category) throws DataAccessException {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("category", category);
+		return getJpaTemplate().findByNamedParams("from Product as p where p.category = :category", params);
+	}
+
 }
 ----
 
@@ -460,9 +465,9 @@ target advices to particular classes and methods. The complete interface is show
 ----
 public interface Pointcut {
 
-    ClassFilter getClassFilter();
+	ClassFilter getClassFilter();
 
-    MethodMatcher getMethodMatcher();
+	MethodMatcher getMethodMatcher();
 
 }
 ----
@@ -480,7 +485,8 @@ matched:
 ----
 public interface ClassFilter {
 
-    boolean matches(Class clazz);
+	boolean matches(Class clazz);
+
 }
 ----
 
@@ -492,11 +498,12 @@ shown below:
 ----
 public interface MethodMatcher {
 
-    boolean matches(Method m, Class targetClass);
+	boolean matches(Method m, Class targetClass);
 
-    boolean isRuntime();
+	boolean isRuntime();
 
-    boolean matches(Method m, Class targetClass, Object[] args);
+	boolean matches(Method m, Class targetClass, Object[] args);
+
 }
 ----
 
@@ -580,13 +587,13 @@ The usage is shown below:
 [subs="verbatim,quotes"]
 ----
 <bean id="settersAndAbsquatulatePointcut"
-    class="org.springframework.aop.support.Perl5RegexpMethodPointcut">
-    <property name="patterns">
-        <list>
-            <value>.*set.*</value>
-            <value>.*absquatulate</value>
-        </list>
-    </property>
+		class="org.springframework.aop.support.Perl5RegexpMethodPointcut">
+	<property name="patterns">
+		<list>
+			<value>.*set.*</value>
+			<value>.*absquatulate</value>
+		</list>
+	</property>
 </bean>
 ----
 
@@ -600,16 +607,16 @@ pointcut and advice, as shown below:
 [subs="verbatim,quotes"]
 ----
 <bean id="settersAndAbsquatulateAdvisor"
-    class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
-    <property name="advice">
-        <ref bean="beanNameOfAopAllianceInterceptor"/>
-    </property>
-    <property name="patterns">
-        <list>
-            <value>.*set.*</value>
-            <value>.*absquatulate</value>
-        </list>
-    </property>
+		class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+	<property name="advice">
+		<ref bean="beanNameOfAopAllianceInterceptor"/>
+	</property>
+	<property name="patterns">
+		<list>
+			<value>.*set.*</value>
+			<value>.*absquatulate</value>
+		</list>
+	</property>
 </bean>
 ----
 
@@ -660,9 +667,10 @@ abstract method (although it's possible to override other methods to customize b
 ----
 class TestStaticPointcut extends StaticMethodMatcherPointcut {
 
-    public boolean matches(Method m, Class targetClass) {
-        // return true if custom criteria match
-    }
+	public boolean matches(Method m, Class targetClass) {
+		// return true if custom criteria match
+	}
+
 }
 ----
 
@@ -730,7 +738,8 @@ following interface:
 ----
 public interface MethodInterceptor extends Interceptor {
 
-    Object invoke(MethodInvocation invocation) throws Throwable;
+	Object invoke(MethodInvocation invocation) throws Throwable;
+
 }
 ----
 
@@ -746,12 +755,13 @@ A simple `MethodInterceptor` implementation looks as follows:
 ----
 public class DebugInterceptor implements MethodInterceptor {
 
-    public Object invoke(MethodInvocation invocation) throws Throwable {
-        System.out.println("Before: invocation=[" + invocation + "]");
-        Object rval = invocation.proceed();
-        System.out.println("Invocation returned");
-        return rval;
-    }
+	public Object invoke(MethodInvocation invocation) throws Throwable {
+		System.out.println("Before: invocation=[" + invocation + "]");
+		Object rval = invocation.proceed();
+		System.out.println("Invocation returned");
+		return rval;
+	}
+
 }
 ----
 
@@ -791,7 +801,8 @@ unlikely that Spring will ever implement it).
 ----
 public interface MethodBeforeAdvice extends BeforeAdvice {
 
-    void before(Method m, Object[] args, Object target) throws Throwable;
+	void before(Method m, Object[] args, Object target) throws Throwable;
+
 }
 ----
 
@@ -809,15 +820,15 @@ An example of a before advice in Spring, which counts all method invocations:
 ----
 public class CountingBeforeAdvice implements MethodBeforeAdvice {
 
-    private int count;
+	private int count;
 
-    public void before(Method m, Object[] args, Object target) throws Throwable {
-        ++count;
-    }
+	public void before(Method m, Object[] args, Object target) throws Throwable {
+		++count;
+	}
 
-    public int getCount() {
-        return count;
-    }
+	public int getCount() {
+		return count;
+	}
 }
 ----
 
@@ -853,9 +864,10 @@ The advice below is invoked if a `RemoteException` is thrown (including subclass
 ----
 public class RemoteThrowsAdvice implements ThrowsAdvice {
 
-    public void afterThrowing(RemoteException ex) throws Throwable {
-        // Do something with remote exception
-    }
+	public void afterThrowing(RemoteException ex) throws Throwable {
+		// Do something with remote exception
+	}
+
 }
 ----
 
@@ -868,9 +880,10 @@ arguments and target object:
 ----
 public class ServletThrowsAdviceWithArguments implements ThrowsAdvice {
 
-    public void afterThrowing(Method m, Object[] args, Object target, ServletException ex) {
-        // Do something with all arguments
-    }
+	public void afterThrowing(Method m, Object[] args, Object target, ServletException ex) {
+		// Do something with all arguments
+	}
+
 }
 ----
 
@@ -883,13 +896,13 @@ methods can be combined in a single class.
 ----
 public static class CombinedThrowsAdvice implements ThrowsAdvice {
 
-    public void afterThrowing(RemoteException ex) throws Throwable {
-        // Do something with remote exception
-    }
+	public void afterThrowing(RemoteException ex) throws Throwable {
+		// Do something with remote exception
+	}
 
-    public void afterThrowing(Method m, Object[] args, Object target, ServletException ex) {
-        // Do something with all arguments
-    }
+	public void afterThrowing(Method m, Object[] args, Object target, ServletException ex) {
+		// Do something with all arguments
+	}
 }
 ----
 
@@ -918,8 +931,9 @@ __org.springframework.aop.AfterReturningAdvice__ interface, shown below:
 ----
 public interface AfterReturningAdvice extends Advice {
 
-    void afterReturning(Object returnValue, Method m, Object[] args, Object target)
-            throws Throwable;
+	void afterReturning(Object returnValue, Method m, Object[] args,
+			Object target) throws Throwable;
+
 }
 ----
 
@@ -934,16 +948,17 @@ not thrown exceptions:
 ----
 public class CountingAfterReturningAdvice implements AfterReturningAdvice {
 
-    private int count;
+	private int count;
 
-    public void afterReturning(Object returnValue, Method m, Object[] args, Object target)
-            throws Throwable {
-        ++count;
-    }
+	public void afterReturning(Object returnValue, Method m, Object[] args,
+			Object target) throws Throwable {
+		++count;
+	}
 
-    public int getCount() {
-        return count;
-    }
+	public int getCount() {
+		return count;
+	}
+
 }
 ----
 
@@ -969,7 +984,8 @@ implementing the following interface:
 ----
 public interface IntroductionInterceptor extends MethodInterceptor {
 
-    boolean implementsInterface(Class intf);
+	boolean implementsInterface(Class intf);
+
 }
 ----
 
@@ -987,14 +1003,16 @@ rather than method, level. You can only use introduction advice with the
 ----
 public interface IntroductionAdvisor extends Advisor, IntroductionInfo {
 
-    ClassFilter getClassFilter();
+	ClassFilter getClassFilter();
 
-    void validateInterfaces() throws IllegalArgumentException;
+	void validateInterfaces() throws IllegalArgumentException;
+
 }
 
 public interface IntroductionInfo {
 
-    Class[] getInterfaces();
+	Class[] getInterfaces();
+
 }
 ----
 
@@ -1013,9 +1031,13 @@ introduce the following interface to one or more objects:
 [subs="verbatim,quotes"]
 ----
 public interface Lockable {
-    void lock();
-    void unlock();
-    boolean locked();
+
+	void lock();
+
+	void unlock();
+
+	boolean locked();
+
 }
 ----
 
@@ -1055,28 +1077,28 @@ to that held in the target object.
 [source,java]
 [subs="verbatim,quotes"]
 ----
-public class LockMixin extends DelegatingIntroductionInterceptor
-    implements Lockable {
+public class LockMixin extends DelegatingIntroductionInterceptor implements Lockable {
 
-    private boolean locked;
+	private boolean locked;
 
-    public void lock() {
-        this.locked = true;
-    }
+	public void lock() {
+		this.locked = true;
+	}
 
-    public void unlock() {
-        this.locked = false;
-    }
+	public void unlock() {
+		this.locked = false;
+	}
 
-    public boolean locked() {
-        return this.locked;
-    }
+	public boolean locked() {
+		return this.locked;
+	}
 
-    public Object invoke(MethodInvocation invocation) throws Throwable {
-        if (locked() && invocation.getMethod().getName().indexOf("set") == 0)
-            throw new LockedException();
-        return super.invoke(invocation);
-    }
+	public Object invoke(MethodInvocation invocation) throws Throwable {
+		if (locked() && invocation.getMethod().getName().indexOf("set") == 0) {
+			throw new LockedException();
+		}
+		return super.invoke(invocation);
+	}
 
 }
 ----
@@ -1098,9 +1120,10 @@ configuration relevant for a `LockMixin`, so we simply create it using `new`.
 ----
 public class LockMixinAdvisor extends DefaultIntroductionAdvisor {
 
-    public LockMixinAdvisor() {
-        super(new LockMixin(), Lockable.class);
-    }
+	public LockMixinAdvisor() {
+		super(new LockMixin(), Lockable.class);
+	}
+
 }
 ----
 
@@ -1297,28 +1320,26 @@ Let's look at a simple example of `ProxyFactoryBean` in action. This example inv
 [subs="verbatim,quotes"]
 ----
 <bean id="personTarget" class="com.mycompany.PersonImpl">
-    <property name="name"><value>Tony</value></property>
-    <property name="age"><value>51</value></property>
+	<property name="name"><value>Tony</value></property>
+	<property name="age"><value>51</value></property>
 </bean>
 
 <bean id="myAdvisor" class="com.mycompany.MyAdvisor">
-    <property name="someProperty"><value>Custom string property value</value></property>
+	<property name="someProperty"><value>Custom string property value</value></property>
 </bean>
 
 <bean id="debugInterceptor" class="org.springframework.aop.interceptor.DebugInterceptor">
 </bean>
 
-<bean id="person"
-    class="org.springframework.aop.framework.ProxyFactoryBean">
-    <property name="proxyInterfaces"><value>com.mycompany.Person</value></property>
-
-    <property name="target"><ref bean="personTarget"/></property>
-    <property name="interceptorNames">
-        <list>
-            <value>myAdvisor</value>
-            <value>debugInterceptor</value>
-        </list>
-    </property>
+<bean id="person" class="org.springframework.aop.framework.ProxyFactoryBean">
+	<property name="proxyInterfaces"><value>com.mycompany.Person</value></property>
+	<property name="target"><ref bean="personTarget"/></property>
+	<property name="interceptorNames">
+		<list>
+			<value>myAdvisor</value>
+			<value>debugInterceptor</value>
+		</list>
+	</property>
 </bean>
 ----
 
@@ -1351,7 +1372,7 @@ with an ordinary Java object:
 [subs="verbatim,quotes"]
 ----
 <bean id="personUser" class="com.mycompany.PersonUser">
-  <property name="person"><ref bean="person" /></property>
+	<property name="person"><ref bean="person" /></property>
 </bean>
 ----
 
@@ -1368,26 +1389,26 @@ advice is included only for completeness:
 [subs="verbatim,quotes"]
 ----
 <bean id="myAdvisor" class="com.mycompany.MyAdvisor">
-  <property name="someProperty"><value>Custom string property value</value></property>
+	<property name="someProperty"><value>Custom string property value</value></property>
 </bean>
 
 <bean id="debugInterceptor" class="org.springframework.aop.interceptor.DebugInterceptor"/>
 
 <bean id="person" class="org.springframework.aop.framework.ProxyFactoryBean">
-  <property name="proxyInterfaces"><value>com.mycompany.Person</value></property>
-  <!-- Use inner bean, not local reference to target -->
-  <property name="target">
-    <bean class="com.mycompany.PersonImpl">
-      <property name="name"><value>Tony</value></property>
-      <property name="age"><value>51</value></property>
-    </bean>
-  </property>
-  <property name="interceptorNames">
-    <list>
-      <value>myAdvisor</value>
-      <value>debugInterceptor</value>
-    </list>
-  </property>
+	<property name="proxyInterfaces"><value>com.mycompany.Person</value></property>
+	<!-- Use inner bean, not local reference to target -->
+	<property name="target">
+		<bean class="com.mycompany.PersonImpl">
+			<property name="name"><value>Tony</value></property>
+			<property name="age"><value>51</value></property>
+		</bean>
+	</property>
+	<property name="interceptorNames">
+		<list>
+			<value>myAdvisor</value>
+			<value>debugInterceptor</value>
+		</list>
+	</property>
 </bean>
 ----
 
@@ -1445,12 +1466,12 @@ if you need to add a standard set of 'global' advisors:
 [subs="verbatim,quotes"]
 ----
 <bean id="proxy" class="org.springframework.aop.framework.ProxyFactoryBean">
-  <property name="target" ref="service"/>
-  <property name="interceptorNames">
-    <list>
-      <value>global*</value>
-    </list>
-  </property>
+	<property name="target" ref="service"/>
+	<property name="interceptorNames">
+		<list>
+			<value>global*</value>
+		</list>
+	</property>
 </bean>
 
 <bean id="global_debug" class="org.springframework.aop.interceptor.DebugInterceptor"/>
@@ -1472,13 +1493,13 @@ First a parent, __template__, bean definition is created for the proxy:
 [subs="verbatim,quotes"]
 ----
 <bean id="txProxyTemplate" abstract="true"
-        class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
-  <property name="transactionManager" ref="transactionManager"/>
-  <property name="transactionAttributes">
-    <props>
-      <prop key="*">PROPAGATION_REQUIRED</prop>
-    </props>
-  </property>
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+	<property name="transactionManager" ref="transactionManager"/>
+	<property name="transactionAttributes">
+		<props>
+			<prop key="*">PROPAGATION_REQUIRED</prop>
+		</props>
+	</property>
 </bean>
 ----
 
@@ -1490,10 +1511,10 @@ proxy as an inner bean definition, since the target will never be used on its ow
 [subs="verbatim,quotes"]
 ----
 <bean id="myService" parent="txProxyTemplate">
-  <property name="target">
-    <bean class="org.springframework.samples.MyServiceImpl">
-    </bean>
-  </property>
+	<property name="target">
+		<bean class="org.springframework.samples.MyServiceImpl">
+		</bean>
+	</property>
 </bean>
 ----
 
@@ -1504,18 +1525,18 @@ this case, the transaction propagation settings:
 [subs="verbatim,quotes"]
 ----
 <bean id="mySpecialService" parent="txProxyTemplate">
-  <property name="target">
-    <bean class="org.springframework.samples.MySpecialServiceImpl">
-    </bean>
-  </property>
-  <property name="transactionAttributes">
-    <props>
-      <prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
-      <prop key="find*">PROPAGATION_REQUIRED,readOnly</prop>
-      <prop key="load*">PROPAGATION_REQUIRED,readOnly</prop>
-      <prop key="store*">PROPAGATION_REQUIRED</prop>
-    </props>
-  </property>
+	<property name="target">
+		<bean class="org.springframework.samples.MySpecialServiceImpl">
+		</bean>
+	</property>
+	<property name="transactionAttributes">
+		<props>
+			<prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+			<prop key="find*">PROPAGATION_REQUIRED,readOnly</prop>
+			<prop key="load*">PROPAGATION_REQUIRED,readOnly</prop>
+			<prop key="store*">PROPAGATION_REQUIRED</prop>
+		</props>
+	</property>
 </bean>
 ----
 
@@ -1588,8 +1609,7 @@ Advisor[] getAdvisors();
 
 void addAdvice(Advice advice) throws AopConfigException;
 
-void addAdvice(int pos, Advice advice)
-        throws AopConfigException;
+void addAdvice(int pos, Advice advice) throws AopConfigException;
 
 void addAdvisor(Advisor advisor) throws AopConfigException;
 
@@ -1642,8 +1662,7 @@ advised.addAdvice(new DebugInterceptor());
 // Add selective advice using a pointcut
 advised.addAdvisor(new DefaultPointcutAdvisor(mySpecialPointcut, myAdvice));
 
-assertEquals("Added two advisors",
-     oldAdvisorCount + 2, advised.getAdvisors().length);
+assertEquals("Added two advisors", oldAdvisorCount + 2, advised.getAdvisors().length);
 ----
 
 [NOTE]
@@ -1704,12 +1723,12 @@ AOP proxies for beans with names matching literal values or wildcards.
 [subs="verbatim,quotes"]
 ----
 <bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
-  <property name="beanNames"><value>jdk*,onlyJdk</value></property>
-  <property name="interceptorNames">
-    <list>
-      <value>myInterceptor</value>
-    </list>
-  </property>
+	<property name="beanNames"><value>jdk*,onlyJdk</value></property>
+	<property name="interceptorNames">
+		<list>
+			<value>myInterceptor</value>
+		</list>
+	</property>
 </bean>
 ----
 
@@ -1765,13 +1784,13 @@ bean" idiom shown earlier also offers this benefit.)
 <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>
 
 <bean class="org.springframework.transaction.interceptor.TransactionAttributeSourceAdvisor">
-  <property name="transactionInterceptor" ref="transactionInterceptor"/>
+	<property name="transactionInterceptor" ref="transactionInterceptor"/>
 </bean>
 
 <bean id="customAdvisor" class="com.mycompany.MyAdvisor"/>
 
 <bean id="businessObject1" class="com.mycompany.BusinessObject1">
-  <!-- Properties omitted -->
+	<!-- Properties omitted -->
 </bean>
 
 <bean id="businessObject2" class="com.mycompany.BusinessObject2"/>
@@ -1828,17 +1847,17 @@ this is generic, and can be used outside the JPetStore:
 <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>
 
 <bean class="org.springframework.transaction.interceptor.TransactionAttributeSourceAdvisor">
-  <property name="transactionInterceptor" ref="transactionInterceptor"/>
+	<property name="transactionInterceptor" ref="transactionInterceptor"/>
 </bean>
 
 <bean id="transactionInterceptor"
-    class="org.springframework.transaction.interceptor.TransactionInterceptor">
-  <property name="transactionManager" ref="transactionManager"/>
-  <property name="transactionAttributeSource">
-    <bean class="org.springframework.transaction.interceptor.AttributesTransactionAttributeSource">
-      <property name="attributes" ref="attributes"/>
-    </bean>
-  </property>
+		class="org.springframework.transaction.interceptor.TransactionInterceptor">
+	<property name="transactionManager" ref="transactionManager"/>
+	<property name="transactionAttributeSource">
+		<bean class="org.springframework.transaction.interceptor.AttributesTransactionAttributeSource">
+			<property name="attributes" ref="attributes"/>
+		</bean>
+	</property>
 </bean>
 
 <bean id="attributes" class="org.springframework.metadata.commons.CommonsAttributes"/>
@@ -1867,15 +1886,15 @@ proxies for beans containing that annotation:
 <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>
 
 <bean class="org.springframework.transaction.interceptor.TransactionAttributeSourceAdvisor">
-  <property name="transactionInterceptor" ref="transactionInterceptor"/>
+	<property name="transactionInterceptor" ref="transactionInterceptor"/>
 </bean>
 
 <bean id="transactionInterceptor"
-    class="org.springframework.transaction.interceptor.TransactionInterceptor">
-  <property name="transactionManager" ref="transactionManager"/>
-  <property name="transactionAttributeSource">
-    <bean class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource"/>
-  </property>
+		class="org.springframework.transaction.interceptor.TransactionInterceptor">
+	<property name="transactionManager" ref="transactionManager"/>
+	<property name="transactionAttributeSource">
+		<bean class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource"/>
+	</property>
 </bean>
 ----
 
@@ -1888,7 +1907,7 @@ this example, or Hibernate, JDO or JDBC):
 [subs="verbatim,quotes"]
 ----
 <bean id="transactionManager"
-    class="org.springframework.transaction.jta.JtaTransactionManager"/>
+		class="org.springframework.transaction.jta.JtaTransactionManager"/>
 ----
 
 [TIP]
@@ -1920,12 +1939,12 @@ using JavaBean properties:
 [subs="verbatim,quotes"]
 ----
 <bean id="lockMixin" class="org.springframework.aop.LockMixin"
-    scope="prototype"/>
+		scope="prototype"/>
 
 <bean id="lockableAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor"
-    scope="prototype">
-  <property name="pointcut" ref="myAttributeAwarePointcut"/>
-  <property name="advice" ref="lockMixin"/>
+		scope="prototype">
+	<property name="pointcut" ref="myAttributeAwarePointcut"/>
+	<property name="advice" ref="lockMixin"/>
 </bean>
 
 <bean id="anyBean" class="anyclass" ...
@@ -1980,8 +1999,7 @@ You can change the target via the `swap()` method on HotSwappableTargetSource as
 [source,java]
 [subs="verbatim,quotes"]
 ----
-HotSwappableTargetSource swapper =
-    (HotSwappableTargetSource) beanFactory.getBean("swapper");
+HotSwappableTargetSource swapper = (HotSwappableTargetSource) beanFactory.getBean("swapper");
 Object oldTarget = swapper.swap(newTarget);
 ----
 
@@ -1993,11 +2011,11 @@ The XML definitions required look as follows:
 <bean id="initialTarget" class="mycompany.OldTarget"/>
 
 <bean id="swapper" class="org.springframework.aop.target.HotSwappableTargetSource">
-  <constructor-arg ref="initialTarget"/>
+	<constructor-arg ref="initialTarget"/>
 </bean>
 
 <bean id="swappable" class="org.springframework.aop.framework.ProxyFactoryBean">
-  <property name="targetSource" ref="swapper"/>
+	<property name="targetSource" ref="swapper"/>
 </bean>
 ----
 
@@ -2032,19 +2050,18 @@ Sample configuration is shown below:
 [source,xml]
 [subs="verbatim,quotes"]
 ----
-<bean id="businessObjectTarget" class="com.mycompany.MyBusinessObject"
-    scope="prototype">
-  ... properties omitted
+<bean id="businessObjectTarget" class="com.mycompany.MyBusinessObject" scope="prototype">
+	... properties omitted
 </bean>
 
 <bean id="poolTargetSource" class="org.springframework.aop.target.CommonsPoolTargetSource">
-  <property name="targetBeanName" value="businessObjectTarget"/>
-  <property name="maxSize" value="25"/>
+	<property name="targetBeanName" value="businessObjectTarget"/>
+	<property name="maxSize" value="25"/>
 </bean>
 
 <bean id="businessObject" class="org.springframework.aop.framework.ProxyFactoryBean">
-  <property name="targetSource" ref="poolTargetSource"/>
-  <property name="interceptorNames" value="myInterceptor"/>
+	<property name="targetSource" ref="poolTargetSource"/>
+	<property name="interceptorNames" value="myInterceptor"/>
 </bean>
 ----
 
@@ -2068,8 +2085,8 @@ need to define an advisor like this:
 [subs="verbatim,quotes"]
 ----
 <bean id="poolConfigAdvisor" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
-  <property name="targetObject" ref="poolTargetSource"/>
-  <property name="targetMethod" value="getPoolingConfigMixin"/>
+	<property name="targetObject" ref="poolTargetSource"/>
+	<property name="targetMethod" value="getPoolingConfigMixin"/>
 </bean>
 ----
 
@@ -2114,7 +2131,7 @@ To do this, you could modify the `poolTargetSource` definition shown above as fo
 [subs="verbatim,quotes"]
 ----
 <bean id="prototypeTargetSource" class="org.springframework.aop.target.PrototypeTargetSource">
-  <property name="targetBeanName" ref="businessObjectTarget"/>
+	<property name="targetBeanName" ref="businessObjectTarget"/>
 </bean>
 ----
 
@@ -2125,7 +2142,7 @@ source, the target bean must be a prototype bean definition.
 
 
 [[classic-aop-ts-threadlocal]]
-====  ThreadLocal target sources
+==== ThreadLocal target sources
 
 `ThreadLocal` target sources are useful if you need an object to be created for each
 incoming request (per thread that is). The concept of a `ThreadLocal` provide a JDK-wide
@@ -2137,7 +2154,7 @@ of target source:
 [subs="verbatim,quotes"]
 ----
 <bean id="threadlocalTargetSource" class="org.springframework.aop.target.ThreadLocalTargetSource">
-  <property name="targetBeanName" value="businessObjectTarget"/>
+	<property name="targetBeanName" value="businessObjectTarget"/>
 </bean>
 ----
 
@@ -2158,7 +2175,7 @@ ThreadLocals without other proper handling code.
 
 
 [[classic-aop-extensibility]]
-=== Defining new  Advice types
+=== Defining new Advice types
 
 Spring AOP is designed to be extensible. While the interception implementation strategy
 is presently used internally, it is possible to support arbitrary advice types in
@@ -2254,7 +2271,7 @@ following change.
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
-    "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+		"http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 
 <beans>
 
@@ -2270,11 +2287,11 @@ The equivalent file in the XML Schema-style would be...
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="
-http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-<!-- bean definitions here -->
+	<!-- bean definitions here -->
 
 </beans>
 ----
@@ -2315,17 +2332,17 @@ correct schema so that the tags in the `util` namespace are available to you.
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       __xmlns:util="http://www.springframework.org/schema/util"__ xsi:schemaLocation="
-http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-__http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"__> <!-- bean definitions here -->
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	__xmlns:util="http://www.springframework.org/schema/util"__ xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		__http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"__> <!-- bean definitions here -->
 
 </beans>
 ----
 
 
 [[xsd-config-body-schemas-util-constant]]
-=====  <util:constant/>
+===== <util:constant/>
 
 Before...
 
@@ -2333,10 +2350,10 @@ Before...
 [subs="verbatim,quotes"]
 ----
 <bean id="..." class="...">
-  <property name="isolation">
-    <bean id="java.sql.Connection.TRANSACTION_SERIALIZABLE"
-    class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean" />
-  </property>
+	<property name="isolation">
+		<bean id="java.sql.Connection.TRANSACTION_SERIALIZABLE"
+				class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean" />
+	</property>
 </bean>
 ----
 
@@ -2353,9 +2370,9 @@ developer's intent (__'inject this constant value'__), and it just reads better.
 [subs="verbatim,quotes"]
 ----
 <bean id="..." class="...">
-  <property name="isolation">
-    <util:constant static-field="java.sql.Connection.TRANSACTION_SERIALIZABLE"/>
-  </property>
+	<property name="isolation">
+		<util:constant static-field="java.sql.Connection.TRANSACTION_SERIALIZABLE"/>
+	</property>
 </bean>
 ----
 
@@ -2374,8 +2391,8 @@ property:
 [subs="verbatim,quotes"]
 ----
 <bean id="myField"
-        class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
-  <property name="staticField" value="java.sql.Connection.TRANSACTION_SERIALIZABLE"/>
+		class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+	<property name="staticField" value="java.sql.Connection.TRANSACTION_SERIALIZABLE"/>
 </bean>
 ----
 
@@ -2386,7 +2403,7 @@ name:
 [subs="verbatim,quotes"]
 ----
 <bean id="java.sql.Connection.TRANSACTION_SERIALIZABLE"
-    class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean"/>
+		class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean"/>
 ----
 
 This does mean that there is no longer any choice in what the bean id is (so any other
@@ -2398,10 +2415,10 @@ to be specified for the bean reference:
 [subs="verbatim,quotes"]
 ----
 <bean id="..." class="...">
-  <property name="isolation">
-    <bean id="java.sql.Connection.TRANSACTION_SERIALIZABLE"
-          class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean" />
-  </property>
+	<property name="isolation">
+		<bean id="java.sql.Connection.TRANSACTION_SERIALIZABLE"
+				class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean" />
+	</property>
 </bean>
 ----
 
@@ -2423,8 +2440,8 @@ package javax.persistence;
 
 public enum PersistenceContextType {
 
-    TRANSACTION,
-    EXTENDED
+	TRANSACTION,
+	EXTENDED
 
 }
 ----
@@ -2438,11 +2455,12 @@ package example;
 
 public class Client {
 
-    private PersistenceContextType persistenceContextType;
+	private PersistenceContextType persistenceContextType;
 
-    public void setPersistenceContextType(PersistenceContextType type) {
-        this.persistenceContextType = type;
-    }
+	public void setPersistenceContextType(PersistenceContextType type) {
+		this.persistenceContextType = type;
+	}
+
 }
 ----
 
@@ -2452,7 +2470,7 @@ public class Client {
 [subs="verbatim,quotes"]
 ----
 <bean class="example.Client">
-    <property name="persistenceContextType" value="TRANSACTION" />
+	<property name="persistenceContextType" value="TRANSACTION" />
 </bean>
 ----
 
@@ -2462,7 +2480,7 @@ class.
 
 
 [[xsd-config-body-schemas-util-property-path]]
-=====  <util:property-path/>
+===== <util:property-path/>
 
 Before...
 
@@ -2471,12 +2489,12 @@ Before...
 ----
 <!-- target bean to be referenced by name -->
 <bean id="testBean" class="org.springframework.beans.TestBean" scope="prototype">
-  <property name="age" value="10"/>
-  <property name="spouse">
-    <bean class="org.springframework.beans.TestBean">
-      <property name="age" value="11"/>
-    </bean>
-  </property>
+	<property name="age" value="10"/>
+	<property name="spouse">
+		<bean class="org.springframework.beans.TestBean">
+			<property name="age" value="11"/>
+		</bean>
+	</property>
 </bean>
 
 <!-- will result in 10, which is the value of property 'age' of bean 'testBean' -->
@@ -2494,12 +2512,12 @@ After...
 ----
 <!-- target bean to be referenced by name -->
 <bean id="testBean" class="org.springframework.beans.TestBean" scope="prototype">
-  <property name="age" value="10"/>
-  <property name="spouse">
-    <bean class="org.springframework.beans.TestBean">
-      <property name="age" value="11"/>
-    </bean>
-  </property>
+	<property name="age" value="10"/>
+	<property name="spouse">
+		<bean class="org.springframework.beans.TestBean">
+			<property name="age" value="11"/>
+		</bean>
+	</property>
 </bean>
 
 <!-- will result in 10, which is the value of property 'age' of bean 'testBean' -->
@@ -2510,7 +2528,7 @@ The value of the `'path'` attribute of the `<property-path/>` tag follows the fo
 `'beanName.beanProperty'`.
 
 [[xsd-config-body-schemas-util-property-path-dependency]]
-====== Using  <util:property-path/> to set a bean property or constructor-argument
+====== Using <util:property-path/> to set a bean property or constructor-argument
 
 `PropertyPathFactoryBean` is a `FactoryBean` that evaluates a property path on a given
 target object. The target object can be specified directly or via a bean name. This
@@ -2524,19 +2542,19 @@ Here's an example where a path is used against another bean, by name:
 ----
 // target bean to be referenced by name
 <bean id="person" class="org.springframework.beans.TestBean" scope="prototype">
-  <property name="age" value="10"/>
-  <property name="spouse">
-    <bean class="org.springframework.beans.TestBean">
-      <property name="age" value="11"/>
-    </bean>
-  </property>
+	<property name="age" value="10"/>
+	<property name="spouse">
+		<bean class="org.springframework.beans.TestBean">
+			<property name="age" value="11"/>
+		</bean>
+	</property>
 </bean>
 
 // will result in 11, which is the value of property 'spouse.age' of bean 'person'
 <bean id="theAge"
-    class="org.springframework.beans.factory.config.PropertyPathFactoryBean">
-  <property name="targetBeanName" value="person"/>
-  <property name="propertyPath" value="spouse.age"/>
+		class="org.springframework.beans.factory.config.PropertyPathFactoryBean">
+	<property name="targetBeanName" value="person"/>
+	<property name="propertyPath" value="spouse.age"/>
 </bean>
 ----
 
@@ -2547,13 +2565,13 @@ In this example, a path is evaluated against an inner bean:
 ----
 <!-- will result in 12, which is the value of property 'age' of the inner bean -->
 <bean id="theAge"
-    class="org.springframework.beans.factory.config.PropertyPathFactoryBean">
-  <property name="targetObject">
-    <bean class="org.springframework.beans.TestBean">
-      <property name="age" value="12"/>
-    </bean>
-  </property>
-  <property name="propertyPath" value="age"/>
+		class="org.springframework.beans.factory.config.PropertyPathFactoryBean">
+	<property name="targetObject">
+		<bean class="org.springframework.beans.TestBean">
+			<property name="age" value="12"/>
+		</bean>
+	</property>
+	<property name="propertyPath" value="age"/>
 </bean>
 ----
 
@@ -2564,7 +2582,7 @@ There is also a shortcut form, where the bean name is the property path.
 ----
 <!-- will result in 10, which is the value of property 'age' of bean 'person' -->
 <bean id="person.age"
-    class="org.springframework.beans.factory.config.PropertyPathFactoryBean"/>
+		class="org.springframework.beans.factory.config.PropertyPathFactoryBean"/>
 ----
 
 This form does mean that there is no choice in the name of the bean. Any reference to it
@@ -2575,10 +2593,10 @@ bean, there is no need to refer to it at all:
 [subs="verbatim,quotes"]
 ----
 <bean id="..." class="...">
-  <property name="age">
-    <bean id="person.age"
-        class="org.springframework.beans.factory.config.PropertyPathFactoryBean"/>
-  </property>
+	<property name="age">
+		<bean id="person.age"
+				class="org.springframework.beans.factory.config.PropertyPathFactoryBean"/>
+	</property>
 </bean>
 ----
 
@@ -2588,7 +2606,7 @@ this feature.
 
 
 [[xsd-config-body-schemas-util-properties]]
-=====  <util:properties/>
+===== <util:properties/>
 
 Before...
 
@@ -2597,7 +2615,7 @@ Before...
 ----
 <!-- creates a java.util.Properties instance with values loaded from the supplied location -->
 <bean id="jdbcConfiguration" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-  <property name="location" value="classpath:com/foo/jdbc-production.properties"/>
+	<property name="location" value="classpath:com/foo/jdbc-production.properties"/>
 </bean>
 ----
 
@@ -2616,7 +2634,7 @@ After...
 
 
 [[xsd-config-body-schemas-util-list]]
-=====  <util:list/>
+===== <util:list/>
 
 Before...
 
@@ -2625,14 +2643,14 @@ Before...
 ----
 <!-- creates a java.util.List instance with values loaded from the supplied 'sourceList' -->
 <bean id="emails" class="org.springframework.beans.factory.config.ListFactoryBean">
-  <property name="sourceList">
-      <list>
-        <value>pechorin@hero.org</value>
-        <value>raskolnikov@slums.org</value>
-        <value>stavrogin@gov.org</value>
-        <value>porfiry@gov.org</value>
-      </list>
-  </property>
+	<property name="sourceList">
+		<list>
+			<value>pechorin@hero.org</value>
+			<value>raskolnikov@slums.org</value>
+			<value>stavrogin@gov.org</value>
+			<value>porfiry@gov.org</value>
+		</list>
+	</property>
 </bean>
 ----
 
@@ -2647,10 +2665,10 @@ After...
 ----
 <!-- creates a java.util.List instance with the supplied values -->
 <util:list id="emails">
-    <value>pechorin@hero.org</value>
-    <value>raskolnikov@slums.org</value>
-    <value>stavrogin@gov.org</value>
-    <value>porfiry@gov.org</value>
+	<value>pechorin@hero.org</value>
+	<value>raskolnikov@slums.org</value>
+	<value>stavrogin@gov.org</value>
+	<value>porfiry@gov.org</value>
 </util:list>
 ----
 
@@ -2663,10 +2681,10 @@ following configuration:
 [subs="verbatim,quotes"]
 ----
 <util:list id="emails" list-class="java.util.LinkedList">
-    <value>jackshaftoe@vagabond.org</value>
-    <value>eliza@thinkingmanscrumpet.org</value>
-    <value>vanhoek@pirate.org</value>
-    <value>d'Arcachon@nemesis.org</value>
+	<value>jackshaftoe@vagabond.org</value>
+	<value>eliza@thinkingmanscrumpet.org</value>
+	<value>vanhoek@pirate.org</value>
+	<value>d'Arcachon@nemesis.org</value>
 </util:list>
 ----
 
@@ -2675,7 +2693,7 @@ the container.
 
 
 [[xsd-config-body-schemas-util-map]]
-=====  <util:map/>
+===== <util:map/>
 
 Before...
 
@@ -2684,14 +2702,14 @@ Before...
 ----
 <!-- creates a java.util.Map instance with values loaded from the supplied 'sourceMap' -->
 <bean id="emails" class="org.springframework.beans.factory.config.MapFactoryBean">
-  <property name="sourceMap">
-      <map>
-        <entry key="pechorin" value="pechorin@hero.org"/>
-        <entry key="raskolnikov" value="raskolnikov@slums.org"/>
-        <entry key="stavrogin" value="stavrogin@gov.org"/>
-        <entry key="porfiry" value="porfiry@gov.org"/>
-      </map>
-  </property>
+	<property name="sourceMap">
+		<map>
+			<entry key="pechorin" value="pechorin@hero.org"/>
+			<entry key="raskolnikov" value="raskolnikov@slums.org"/>
+			<entry key="stavrogin" value="stavrogin@gov.org"/>
+			<entry key="porfiry" value="porfiry@gov.org"/>
+		</map>
+	</property>
 </bean>
 ----
 
@@ -2706,10 +2724,10 @@ After...
 ----
 <!-- creates a java.util.Map instance with the supplied key-value pairs -->
 <util:map id="emails">
-    <entry key="pechorin" value="pechorin@hero.org"/>
-    <entry key="raskolnikov" value="raskolnikov@slums.org"/>
-    <entry key="stavrogin" value="stavrogin@gov.org"/>
-    <entry key="porfiry" value="porfiry@gov.org"/>
+	<entry key="pechorin" value="pechorin@hero.org"/>
+	<entry key="raskolnikov" value="raskolnikov@slums.org"/>
+	<entry key="stavrogin" value="stavrogin@gov.org"/>
+	<entry key="porfiry" value="porfiry@gov.org"/>
 </util:map>
 ----
 
@@ -2722,10 +2740,10 @@ following configuration:
 [subs="verbatim,quotes"]
 ----
 <util:map id="emails" map-class="java.util.TreeMap">
-    <entry key="pechorin" value="pechorin@hero.org"/>
-    <entry key="raskolnikov" value="raskolnikov@slums.org"/>
-    <entry key="stavrogin" value="stavrogin@gov.org"/>
-    <entry key="porfiry" value="porfiry@gov.org"/>
+	<entry key="pechorin" value="pechorin@hero.org"/>
+	<entry key="raskolnikov" value="raskolnikov@slums.org"/>
+	<entry key="stavrogin" value="stavrogin@gov.org"/>
+	<entry key="porfiry" value="porfiry@gov.org"/>
 </util:map>
 ----
 
@@ -2734,7 +2752,7 @@ container.
 
 
 [[xsd-config-body-schemas-util-set]]
-=====  <util:set/>
+===== <util:set/>
 
 Before...
 
@@ -2743,14 +2761,14 @@ Before...
 ----
 <!-- creates a java.util.Set instance with values loaded from the supplied 'sourceSet' -->
 <bean id="emails" class="org.springframework.beans.factory.config.SetFactoryBean">
-  <property name="sourceSet">
-      <set>
-        <value>pechorin@hero.org</value>
-        <value>raskolnikov@slums.org</value>
-        <value>stavrogin@gov.org</value>
-        <value>porfiry@gov.org</value>
-      </set>
-  </property>
+	<property name="sourceSet">
+		<set>
+			<value>pechorin@hero.org</value>
+			<value>raskolnikov@slums.org</value>
+			<value>stavrogin@gov.org</value>
+			<value>porfiry@gov.org</value>
+		</set>
+	</property>
 </bean>
 ----
 
@@ -2765,10 +2783,10 @@ After...
 ----
 <!-- creates a java.util.Set instance with the supplied values -->
 <util:set id="emails">
-    <value>pechorin@hero.org</value>
-    <value>raskolnikov@slums.org</value>
-    <value>stavrogin@gov.org</value>
-    <value>porfiry@gov.org</value>
+	<value>pechorin@hero.org</value>
+	<value>raskolnikov@slums.org</value>
+	<value>stavrogin@gov.org</value>
+	<value>porfiry@gov.org</value>
 </util:set>
 ----
 
@@ -2781,10 +2799,10 @@ following configuration:
 [subs="verbatim,quotes"]
 ----
 <util:set id="emails" set-class="java.util.TreeSet">
-    <value>pechorin@hero.org</value>
-    <value>raskolnikov@slums.org</value>
-    <value>stavrogin@gov.org</value>
-    <value>porfiry@gov.org</value>
+	<value>pechorin@hero.org</value>
+	<value>raskolnikov@slums.org</value>
+	<value>stavrogin@gov.org</value>
+	<value>porfiry@gov.org</value>
 </util:set>
 ----
 
@@ -2808,17 +2826,17 @@ correct schema so that the tags in the `jee` namespace are available to you.
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       __xmlns:jee="http://www.springframework.org/schema/jee"__ xsi:schemaLocation="
-http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-__http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd"__> <!-- bean definitions here -->
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	__xmlns:jee="http://www.springframework.org/schema/jee"__ xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		__http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd"__> <!-- bean definitions here -->
 
 </beans>
 ----
 
 
 [[xsd-config-body-schemas-jee-jndi-lookup]]
-=====  <jee:jndi-lookup/> (simple)
+===== <jee:jndi-lookup/> (simple)
 
 Before...
 
@@ -2826,11 +2844,11 @@ Before...
 [subs="verbatim,quotes"]
 ----
 <bean id="**dataSource**" class="org.springframework.jndi.JndiObjectFactoryBean">
-    <property name="jndiName" value="jdbc/MyDataSource"/>
+	<property name="jndiName" value="jdbc/MyDataSource"/>
 </bean>
 <bean id="userDao" class="com.foo.JdbcUserDao">
-    <!-- Spring will do the cast automatically (as usual) -->
-    <property name="dataSource" ref="**dataSource**"/>
+	<!-- Spring will do the cast automatically (as usual) -->
+	<property name="dataSource" ref="**dataSource**"/>
 </bean>
 ----
 
@@ -2842,14 +2860,14 @@ After...
 <jee:jndi-lookup id="**dataSource**" jndi-name="jdbc/MyDataSource"/>
 
 <bean id="userDao" class="com.foo.JdbcUserDao">
-    <!-- Spring will do the cast automatically (as usual) -->
-    <property name="dataSource" ref="**dataSource**"/>
+	<!-- Spring will do the cast automatically (as usual) -->
+	<property name="dataSource" ref="**dataSource**"/>
 </bean>
 ----
 
 
 [[xsd-config-body-schemas-jee-jndi-lookup-environment-single]]
-=====  <jee:jndi-lookup/> (with single JNDI environment setting)
+===== <jee:jndi-lookup/> (with single JNDI environment setting)
 
 Before...
 
@@ -2857,12 +2875,12 @@ Before...
 [subs="verbatim,quotes"]
 ----
 <bean id="simple" class="org.springframework.jndi.JndiObjectFactoryBean">
-    <property name="jndiName" value="jdbc/MyDataSource"/>
-    <property name="jndiEnvironment">
-        <props>
-            <prop key="foo">bar</prop>
-        </props>
-    </property>
+	<property name="jndiName" value="jdbc/MyDataSource"/>
+	<property name="jndiEnvironment">
+		<props>
+			<prop key="foo">bar</prop>
+		</props>
+	</property>
 </bean>
 ----
 
@@ -2872,13 +2890,13 @@ After...
 [subs="verbatim,quotes"]
 ----
 <jee:jndi-lookup id="simple" jndi-name="jdbc/MyDataSource">
-    <jee:environment>foo=bar</jee:environment>
+	<jee:environment>foo=bar</jee:environment>
 </jee:jndi-lookup>
 ----
 
 
 [[xsd-config-body-schemas-jee-jndi-lookup-evironment-multiple]]
-=====  <jee:jndi-lookup/> (with multiple JNDI environment settings)
+===== <jee:jndi-lookup/> (with multiple JNDI environment settings)
 
 Before...
 
@@ -2886,13 +2904,13 @@ Before...
 [subs="verbatim,quotes"]
 ----
 <bean id="simple" class="org.springframework.jndi.JndiObjectFactoryBean">
-    <property name="jndiName" value="jdbc/MyDataSource"/>
-    <property name="jndiEnvironment">
-        <props>
-            <prop key="foo">bar</prop>
-            <prop key="ping">pong</prop>
-        </props>
-    </property>
+	<property name="jndiName" value="jdbc/MyDataSource"/>
+	<property name="jndiEnvironment">
+		<props>
+			<prop key="foo">bar</prop>
+			<prop key="ping">pong</prop>
+		</props>
+	</property>
 </bean>
 ----
 
@@ -2902,17 +2920,17 @@ After...
 [subs="verbatim,quotes"]
 ----
 <jee:jndi-lookup id="simple" jndi-name="jdbc/MyDataSource">
-    <!-- newline-separated, key-value pairs for the environment (standard Properties format) -->
-    <jee:environment>
-        foo=bar
-        ping=pong
-    </jee:environment>
+	<!-- newline-separated, key-value pairs for the environment (standard Properties format) -->
+	<jee:environment>
+		foo=bar
+		ping=pong
+	</jee:environment>
 </jee:jndi-lookup>
 ----
 
 
 [[xsd-config-body-schemas-jee-jndi-lookup-complex]]
-=====  <jee:jndi-lookup/> (complex)
+===== <jee:jndi-lookup/> (complex)
 
 Before...
 
@@ -2920,12 +2938,12 @@ Before...
 [subs="verbatim,quotes"]
 ----
 <bean id="simple" class="org.springframework.jndi.JndiObjectFactoryBean">
-    <property name="jndiName" value="jdbc/MyDataSource"/>
-    <property name="cache" value="true"/>
-    <property name="resourceRef" value="true"/>
-    <property name="lookupOnStartup" value="false"/>
-    <property name="expectedType" value="com.myapp.DefaultFoo"/>
-    <property name="proxyInterface" value="com.myapp.Foo"/>
+	<property name="jndiName" value="jdbc/MyDataSource"/>
+	<property name="cache" value="true"/>
+	<property name="resourceRef" value="true"/>
+	<property name="lookupOnStartup" value="false"/>
+	<property name="expectedType" value="com.myapp.DefaultFoo"/>
+	<property name="proxyInterface" value="com.myapp.Foo"/>
 </bean>
 ----
 
@@ -2935,17 +2953,17 @@ After...
 [subs="verbatim,quotes"]
 ----
 <jee:jndi-lookup id="simple"
-             jndi-name="jdbc/MyDataSource"
-             cache="true"
-             resource-ref="true"
-             lookup-on-startup="false"
-             expected-type="com.myapp.DefaultFoo"
-             proxy-interface="com.myapp.Foo"/>
+		jndi-name="jdbc/MyDataSource"
+		cache="true"
+		resource-ref="true"
+		lookup-on-startup="false"
+		expected-type="com.myapp.DefaultFoo"
+		proxy-interface="com.myapp.Foo"/>
 ----
 
 
 [[xsd-config-body-schemas-jee-local-slsb]]
-=====  <jee:local-slsb/> (simple)
+===== <jee:local-slsb/> (simple)
 
 The `<jee:local-slsb/>` tag configures a reference to an EJB Stateless SessionBean.
 
@@ -2955,9 +2973,9 @@ Before...
 [subs="verbatim,quotes"]
 ----
 <bean id="simple"
-      class="org.springframework.ejb.access.LocalStatelessSessionProxyFactoryBean">
-  <property name="jndiName" value="ejb/RentalServiceBean"/>
-  <property name="businessInterface" value="com.foo.service.RentalService"/>
+		class="org.springframework.ejb.access.LocalStatelessSessionProxyFactoryBean">
+	<property name="jndiName" value="ejb/RentalServiceBean"/>
+	<property name="businessInterface" value="com.foo.service.RentalService"/>
 </bean>
 ----
 
@@ -2967,23 +2985,23 @@ After...
 [subs="verbatim,quotes"]
 ----
 <jee:local-slsb id="simpleSlsb" jndi-name="ejb/RentalServiceBean"
-    business-interface="com.foo.service.RentalService"/>
+		business-interface="com.foo.service.RentalService"/>
 ----
 
 
 [[xsd-config-body-schemas-jee-local-slsb-complex]]
-=====  <jee:local-slsb/> (complex)
+===== <jee:local-slsb/> (complex)
 
 [source,xml]
 [subs="verbatim,quotes"]
 ----
 <bean id="complexLocalEjb"
-      class="org.springframework.ejb.access.LocalStatelessSessionProxyFactoryBean">
-  <property name="jndiName" value="ejb/RentalServiceBean"/>
-  <property name="businessInterface" value="com.foo.service.RentalService"/>
-  <property name="cacheHome" value="true"/>
-  <property name="lookupHomeOnStartup" value="true"/>
-  <property name="resourceRef" value="true"/>
+		class="org.springframework.ejb.access.LocalStatelessSessionProxyFactoryBean">
+	<property name="jndiName" value="ejb/RentalServiceBean"/>
+	<property name="businessInterface" value="com.foo.service.RentalService"/>
+	<property name="cacheHome" value="true"/>
+	<property name="lookupHomeOnStartup" value="true"/>
+	<property name="resourceRef" value="true"/>
 </bean>
 ----
 
@@ -2993,16 +3011,16 @@ After...
 [subs="verbatim,quotes"]
 ----
 <jee:local-slsb id="complexLocalEjb"
-    jndi-name="ejb/RentalServiceBean"
-    business-interface="com.foo.service.RentalService"
-    cache-home="true"
-    lookup-home-on-startup="true"
-    resource-ref="true">
+		jndi-name="ejb/RentalServiceBean"
+		business-interface="com.foo.service.RentalService"
+		cache-home="true"
+		lookup-home-on-startup="true"
+		resource-ref="true">
 ----
 
 
 [[xsd-config-body-schemas-jee-remote-slsb]]
-=====  <jee:remote-slsb/>
+===== <jee:remote-slsb/>
 
 The `<jee:remote-slsb/>` tag configures a reference to a `remote` EJB Stateless
 SessionBean.
@@ -3013,14 +3031,14 @@ Before...
 [subs="verbatim,quotes"]
 ----
 <bean id="complexRemoteEjb"
-      class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
-  <property name="jndiName" value="ejb/MyRemoteBean"/>
-  <property name="businessInterface" value="com.foo.service.RentalService"/>
-  <property name="cacheHome" value="true"/>
-  <property name="lookupHomeOnStartup" value="true"/>
-  <property name="resourceRef" value="true"/>
-  <property name="homeInterface" value="com.foo.service.RentalService"/>
-  <property name="refreshHomeOnConnectFailure" value="true"/>
+		class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+	<property name="jndiName" value="ejb/MyRemoteBean"/>
+	<property name="businessInterface" value="com.foo.service.RentalService"/>
+	<property name="cacheHome" value="true"/>
+	<property name="lookupHomeOnStartup" value="true"/>
+	<property name="resourceRef" value="true"/>
+	<property name="homeInterface" value="com.foo.service.RentalService"/>
+	<property name="refreshHomeOnConnectFailure" value="true"/>
 </bean>
 ----
 
@@ -3030,13 +3048,13 @@ After...
 [subs="verbatim,quotes"]
 ----
 <jee:remote-slsb id="complexRemoteEjb"
-    jndi-name="ejb/MyRemoteBean"
-    business-interface="com.foo.service.RentalService"
-    cache-home="true"
-    lookup-home-on-startup="true"
-    resource-ref="true"
-    home-interface="com.foo.service.RentalService"
-    refresh-home-on-connect-failure="true">
+		jndi-name="ejb/MyRemoteBean"
+		business-interface="com.foo.service.RentalService"
+		cache-home="true"
+		lookup-home-on-startup="true"
+		resource-ref="true"
+		home-interface="com.foo.service.RentalService"
+		refresh-home-on-connect-failure="true">
 ----
 
 
@@ -3061,10 +3079,10 @@ are available to you.
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       __xmlns:lang="http://www.springframework.org/schema/lang"__ xsi:schemaLocation="
-http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-__http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd"__> <!-- bean definitions here -->
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	__xmlns:lang="http://www.springframework.org/schema/lang"__ xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		__http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd"__> <!-- bean definitions here -->
 
 </beans>
 ----
@@ -3089,10 +3107,10 @@ are available to you.
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       __xmlns:jms="http://www.springframework.org/schema/jms"__ xsi:schemaLocation="
-http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-__http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms.xsd"__> <!-- bean definitions here -->
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	__xmlns:jms="http://www.springframework.org/schema/jms"__ xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		__http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms.xsd"__> <!-- bean definitions here -->
 
 </beans>
 ----
@@ -3126,12 +3144,12 @@ are available to you.
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:aop="http://www.springframework.org/schema/aop"
-       __xmlns:tx="http://www.springframework.org/schema/tx"__ xsi:schemaLocation="
-http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-__http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd__
-http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"> <!-- bean definitions here -->
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:aop="http://www.springframework.org/schema/aop"
+		__xmlns:tx="http://www.springframework.org/schema/tx"__ xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		__http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd__
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"> <!-- bean definitions here -->
 
 </beans>
 ----
@@ -3163,10 +3181,10 @@ are available to you.
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       __xmlns:aop="http://www.springframework.org/schema/aop"__ xsi:schemaLocation="
-http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-__http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"__> <!-- bean definitions here -->
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	__xmlns:aop="http://www.springframework.org/schema/aop"__ xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		__http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"__> <!-- bean definitions here -->
 
 </beans>
 ----
@@ -3187,10 +3205,10 @@ available to you.
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       __xmlns:context="http://www.springframework.org/schema/context"__ xsi:schemaLocation="
-http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-__http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"__> <!-- bean definitions here -->
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	__xmlns:context="http://www.springframework.org/schema/context"__ xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		__http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"__> <!-- bean definitions here -->
 
 </beans>
 ----
@@ -3202,7 +3220,7 @@ The `context` schema was only introduced in Spring 2.5.
 
 
 [[xsd-config-body-schemas-context-pphc]]
-=====  <property-placeholder/>
+===== <property-placeholder/>
 
 This element activates the replacement of `${...}` placeholders, resolved against the
 specified properties file (as a <<resources,Spring resource location>>). This element is
@@ -3212,7 +3230,7 @@ a convenience mechanism that sets up a<<beans-factory-placeholderconfigurer,
 
 
 [[xsd-config-body-schemas-context-ac]]
-=====  <annotation-config/>
+===== <annotation-config/>
 
 Activates the Spring infrastructure for various annotations to be detected in bean
 classes: Spring's <<beans-required-annotation, `@Required`>> and
@@ -3230,25 +3248,25 @@ This element does __not__ activate processing of Spring's
 
 
 [[xsd-config-body-schemas-context-component-scan]]
-=====  <component-scan/>
+===== <component-scan/>
 
 This element is detailed in <<beans-annotation-config>>.
 
 
 [[xsd-config-body-schemas-context-ltw]]
-=====  <load-time-weaver/>
+===== <load-time-weaver/>
 
 This element is detailed in <<aop-aj-ltw>>.
 
 
 [[xsd-config-body-schemas-context-sc]]
-=====  <spring-configured/>
+===== <spring-configured/>
 
 This element is detailed in <<aop-atconfigurable>>.
 
 
 [[xsd-config-body-schemas-context-mbe]]
-=====  <mbean-export/>
+===== <mbean-export/>
 
 This element is detailed in <<jmx-context-mbeanexport>>.
 
@@ -3287,10 +3305,10 @@ correct schema so that the tags in the `jdbc` namespace are available to you.
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       __xmlns:jdbc="http://www.springframework.org/schema/jdbc"__ xsi:schemaLocation="
-http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-__http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd"__> <!-- bean definitions here -->
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	__xmlns:jdbc="http://www.springframework.org/schema/jdbc"__ xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		__http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd"__> <!-- bean definitions here -->
 
 </beans>
 ----
@@ -3313,10 +3331,10 @@ the correct schema so that the tags in the `cache` namespace are available to yo
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       __xmlns:jdbc="http://www.springframework.org/schema/cache"__ xsi:schemaLocation="
-http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-__http://www.springframework.org/schema/cache http://www.springframework.org/schema/jdbc/spring-cache.xsd"__> <!-- bean definitions here -->
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	__xmlns:jdbc="http://www.springframework.org/schema/cache"__ xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		__http://www.springframework.org/schema/cache http://www.springframework.org/schema/jdbc/spring-cache.xsd"__> <!-- bean definitions here -->
 
 </beans>
 ----
@@ -3347,12 +3365,16 @@ as-is).
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="
-http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="foo" class="x.y.Foo">
-        __<meta key="cacheName" value="foo"/>__ <property name="name" value="Rick"/> </bean> </beans>
+	<bean id="foo" class="x.y.Foo">
+		__<meta key="cacheName" value="foo"/>__
+		<property name="name" value="Rick"/>
+	</bean>
+
+</beans>
 ----
 
 In the case of the above example, you would assume that there is some logic that will
@@ -3401,8 +3423,8 @@ we will be able to define bean definitions of type `SimpleDateFormat` like this:
 [subs="verbatim,quotes"]
 ----
 <myns:dateformat id="dateFormat"
-    pattern="yyyy-MM-dd HH:mm"
-    lenient="true"/>
+	pattern="yyyy-MM-dd HH:mm"
+	lenient="true"/>
 ----
 
 __(Don't worry about the fact that this example is very simple; much more detailed
@@ -3425,24 +3447,24 @@ to configure `SimpleDateFormat` objects.
 
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns="http://www.mycompany.com/schema/myns"
-    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-    xmlns:beans="http://www.springframework.org/schema/beans"
-    targetNamespace="http://www.mycompany.com/schema/myns"
-    elementFormDefault="qualified"
-    attributeFormDefault="unqualified">
+		xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+		xmlns:beans="http://www.springframework.org/schema/beans"
+		targetNamespace="http://www.mycompany.com/schema/myns"
+		elementFormDefault="qualified"
+		attributeFormDefault="unqualified">
 
-   <xsd:import namespace="http://www.springframework.org/schema/beans"/>
+	<xsd:import namespace="http://www.springframework.org/schema/beans"/>
 
-   <xsd:element name="dateformat">
-     <xsd:complexType>
-       <xsd:complexContent>
-         <xsd:extension base="beans:identifiedType">
-           <xsd:attribute name="lenient" type="xsd:boolean"/>
-           <xsd:attribute name="pattern" type="xsd:string" use="required"/>
-         </xsd:extension>
-       </xsd:complexContent>
-     </xsd:complexType>
-   </xsd:element>
+	<xsd:element name="dateformat">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="beans:identifiedType">
+					<xsd:attribute name="lenient" type="xsd:boolean"/>
+					<xsd:attribute name="pattern" type="xsd:string" use="required"/>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
 </xsd:schema>
 ----
 
@@ -3458,8 +3480,8 @@ XML application context file using the `<myns:dateformat/>` element.
 [subs="verbatim,quotes"]
 ----
 <myns:dateformat id="dateFormat"
-    pattern="yyyy-MM-dd HH:mm"
-    lenient="true"/>
+	pattern="yyyy-MM-dd HH:mm"
+	lenient="true"/>
 ----
 
 Note that after we've created the infrastructure classes, the above snippet of XML will
@@ -3471,8 +3493,8 @@ creating a bean in the container, identified by the name `'dateFormat'` of type
 [subs="verbatim,quotes"]
 ----
 <bean id="dateFormat" class="java.text.SimpleDateFormat">
-    <constructor-arg value="yyyy-HH-dd HH:mm"/>
-    <property name="lenient" value="true"/>
+	<constructor-arg value="yyyy-HH-dd HH:mm"/>
+	<property name="lenient" value="true"/>
 </bean>
 ----
 
@@ -3488,7 +3510,7 @@ defined in the enumeration.
 
 
 [[extensible-xml-namespacehandler]]
-=== Coding a  NamespaceHandler
+=== Coding a NamespaceHandler
 
 In addition to the schema, we need a `NamespaceHandler` that will parse all elements of
 this specific namespace Spring encounters while parsing configuration files. The
@@ -3526,9 +3548,10 @@ import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
 
 public class MyNamespaceHandler extends NamespaceHandlerSupport {
 
-    public void init() {
-      **registerBeanDefinitionParser("dateformat", new SimpleDateFormatBeanDefinitionParser());**
-    }
+	public void init() {
+		**registerBeanDefinitionParser("dateformat", new SimpleDateFormatBeanDefinitionParser());**
+	}
+
 }
 ----
 
@@ -3566,18 +3589,24 @@ import org.w3c.dom.Element;
 
 import java.text.SimpleDateFormat;
 
-public class SimpleDateFormatBeanDefinitionParser extends AbstractSingleBeanDefinitionParser {  // <1>
-protected Class getBeanClass(Element element) { return SimpleDateFormat.class;  // <2>
-} protected void doParse(Element element, BeanDefinitionBuilder bean) { // this will never be null since the schema explicitly requires that a value be supplied
-      String pattern = element.getAttribute("pattern");
-      bean.addConstructorArg(pattern);
+public class SimpleDateFormatBeanDefinitionParser extends AbstractSingleBeanDefinitionParser { // <1>
 
-      // this however is an optional property
-      String lenient = element.getAttribute("lenient");
-      if (StringUtils.hasText(lenient)) {
-         bean.addPropertyValue("lenient", Boolean.valueOf(lenient));
-      }
-   }
+	protected Class getBeanClass(Element element) {
+		return SimpleDateFormat.class; // <2>
+	}
+
+	protected void doParse(Element element, BeanDefinitionBuilder bean) {
+		// this will never be null since the schema explicitly requires that a value be supplied
+		String pattern = element.getAttribute("pattern");
+		bean.addConstructorArg(pattern);
+
+		// this however is an optional property
+		String lenient = element.getAttribute("lenient");
+		if (StringUtils.hasText(lenient)) {
+			bean.addPropertyValue("lenient", Boolean.valueOf(lenient));
+		}
+	}
+
 }
 ----
 
@@ -3607,7 +3636,7 @@ these special properties files, the formats of which are detailed below.
 
 
 [[extensible-xml-registration-spring-handlers]]
-====  'META-INF/spring.handlers'
+==== 'META-INF/spring.handlers'
 
 The properties file called `'spring.handlers'` contains a mapping of XML Schema URIs to
 namespace handler classes. So for our example, we need to write the following:
@@ -3628,7 +3657,7 @@ attribute as specified in your custom XSD schema.
 
 
 [[extensible-xml-registration-spring-schemas]]
-====  'META-INF/spring.schemas'
+==== 'META-INF/spring.schemas'
 
 The properties file called `'spring.schemas'` contains a mapping of XML Schema locations
 (referred to along with the schema declaration in XML files that use the schema as part
@@ -3662,21 +3691,21 @@ in a Spring XML configuration file.
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:myns="http://www.mycompany.com/schema/myns"
-      xsi:schemaLocation="
-http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-http://www.mycompany.com/schema/myns http://www.mycompany.com/schema/myns/myns.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:myns="http://www.mycompany.com/schema/myns"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.mycompany.com/schema/myns http://www.mycompany.com/schema/myns/myns.xsd">
 
-   <!-- as a top-level bean -->
-   <myns:dateformat id="defaultDateFormat" pattern="yyyy-MM-dd HH:mm" lenient="true"/>
+	<!-- as a top-level bean -->
+	<myns:dateformat id="defaultDateFormat" pattern="yyyy-MM-dd HH:mm" lenient="true"/>
 
-   <bean id="jobDetailTemplate" abstract="true">
-      <property name="dateFormat">
-         <!-- as an inner bean -->
-         <myns:dateformat pattern="HH:mm MM-dd-yyyy"/>
-      </property>
-   </bean>
+	<bean id="jobDetailTemplate" abstract="true">
+		<property name="dateFormat">
+			<!-- as an inner bean -->
+			<myns:dateformat pattern="HH:mm MM-dd-yyyy"/>
+		</property>
+	</bean>
 
 </beans>
 ----
@@ -3700,19 +3729,19 @@ to satisfy a target of the following configuration:
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:foo="http://www.foo.com/schema/component"
-      xsi:schemaLocation="
-http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-http://www.foo.com/schema/component http://www.foo.com/schema/component/component.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:foo="http://www.foo.com/schema/component"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.foo.com/schema/component http://www.foo.com/schema/component/component.xsd">
 
-   <foo:component id="bionic-family" name="Bionic-1">
-      <foo:component name="Mother-1">
-        <foo:component name="Karate-1"/>
-        <foo:component name="Sport-1"/>
-      </foo:component>
-      <foo:component name="Rock-1"/>
-   </foo:component>
+	<foo:component id="bionic-family" name="Bionic-1">
+		<foo:component name="Mother-1">
+			<foo:component name="Karate-1"/>
+			<foo:component name="Sport-1"/>
+		</foo:component>
+		<foo:component name="Rock-1"/>
+	</foo:component>
 
 </beans>
 ----
@@ -3733,25 +3762,26 @@ import java.util.List;
 
 public class Component {
 
-   private String name;
-   private List<Component> components = new ArrayList<Component> ();
+	private String name;
+	private List<Component> components = new ArrayList<Component> ();
 
-   // mmm, there is no setter method for the 'components'
-   public void addComponent(Component component) {
-      this.components.add(component);
-   }
+	// mmm, there is no setter method for the 'components'
+	public void addComponent(Component component) {
+		this.components.add(component);
+	}
 
-   public List<Component> getComponents() {
-      return components;
-   }
+	public List<Component> getComponents() {
+		return components;
+	}
 
-   public String getName() {
-      return name;
-   }
+	public String getName() {
+		return name;
+	}
 
-   public void setName(String name) {
-      this.name = name;
-   }
+	public void setName(String name) {
+		this.name = name;
+	}
+
 }
 ----
 
@@ -3769,33 +3799,34 @@ import java.util.List;
 
 public class ComponentFactoryBean implements FactoryBean<Component> {
 
-   private Component parent;
-   private List<Component> children;
+	private Component parent;
+	private List<Component> children;
 
-   public void setParent(Component parent) {
-      this.parent = parent;
-   }
+	public void setParent(Component parent) {
+		this.parent = parent;
+	}
 
-   public void setChildren(List<Component> children) {
-      this.children = children;
-   }
+	public void setChildren(List<Component> children) {
+		this.children = children;
+	}
 
-   public Component getObject() throws Exception {
-      if (this.children != null && this.children.size() > 0) {
-         for (Component child : children) {
-            this.parent.addComponent(child);
-         }
-      }
-      return this.parent;
-   }
+	public Component getObject() throws Exception {
+		if (this.children != null && this.children.size() > 0) {
+			for (Component child : children) {
+				this.parent.addComponent(child);
+			}
+		}
+		return this.parent;
+	}
 
-   public Class<Component> getObjectType() {
-      return Component.class;
-   }
+	public Class<Component> getObjectType() {
+		return Component.class;
+	}
 
-   public boolean isSingleton() {
-      return true;
-   }
+	public boolean isSingleton() {
+		return true;
+	}
+
 }
 ----
 
@@ -3811,20 +3842,20 @@ custom tag.
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 <xsd:schema xmlns="http://www.foo.com/schema/component"
-         xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-         targetNamespace="http://www.foo.com/schema/component"
-         elementFormDefault="qualified"
-         attributeFormDefault="unqualified">
+		xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+		targetNamespace="http://www.foo.com/schema/component"
+		elementFormDefault="qualified"
+		attributeFormDefault="unqualified">
 
-   <xsd:element name="component">
-      <xsd:complexType>
-         <xsd:choice minOccurs="0" maxOccurs="unbounded">
-            <xsd:element ref="component"/>
-         </xsd:choice>
-         <xsd:attribute name="id" type="xsd:ID"/>
-         <xsd:attribute name="name" use="required" type="xsd:string"/>
-      </xsd:complexType>
-   </xsd:element>
+	<xsd:element name="component">
+		<xsd:complexType>
+			<xsd:choice minOccurs="0" maxOccurs="unbounded">
+				<xsd:element ref="component"/>
+			</xsd:choice>
+			<xsd:attribute name="id" type="xsd:ID"/>
+			<xsd:attribute name="name" use="required" type="xsd:string"/>
+		</xsd:complexType>
+	</xsd:element>
 
 </xsd:schema>
 ----
@@ -3840,9 +3871,10 @@ import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
 
 public class ComponentNamespaceHandler extends NamespaceHandlerSupport {
 
-   public void init() {
-      registerBeanDefinitionParser("component", new ComponentBeanDefinitionParser());
-   }
+	public void init() {
+		registerBeanDefinitionParser("component", new ComponentBeanDefinitionParser());
+	}
+
 }
 ----
 
@@ -3867,37 +3899,36 @@ import java.util.List;
 
 public class ComponentBeanDefinitionParser extends AbstractBeanDefinitionParser {
 
-   protected AbstractBeanDefinition parseInternal(Element element, ParserContext parserContext) {
-      return parseComponentElement(element);
-   }
+	protected AbstractBeanDefinition parseInternal(Element element, ParserContext parserContext) {
+		return parseComponentElement(element);
+	}
 
-   private static AbstractBeanDefinition parseComponentElement(Element element) {
-      BeanDefinitionBuilder factory = BeanDefinitionBuilder.rootBeanDefinition(ComponentFactoryBean.class);
-      factory.addPropertyValue("parent", parseComponent(element));
+	private static AbstractBeanDefinition parseComponentElement(Element element) {
+		BeanDefinitionBuilder factory = BeanDefinitionBuilder.rootBeanDefinition(ComponentFactoryBean.class);
+		factory.addPropertyValue("parent", parseComponent(element));
 
-      List<Element> childElements = DomUtils.getChildElementsByTagName(element, "component");
-      if (childElements != null && childElements.size() > 0) {
-         parseChildComponents(childElements, factory);
-      }
+		List<Element> childElements = DomUtils.getChildElementsByTagName(element, "component");
+		if (childElements != null && childElements.size() > 0) {
+			parseChildComponents(childElements, factory);
+		}
 
-      return factory.getBeanDefinition();
-   }
+		return factory.getBeanDefinition();
+	}
 
-   private static BeanDefinition parseComponent(Element element) {
-      BeanDefinitionBuilder component = BeanDefinitionBuilder.rootBeanDefinition(Component.class);
-      component.addPropertyValue("name", element.getAttribute("name"));
-      return component.getBeanDefinition();
-   }
+	private static BeanDefinition parseComponent(Element element) {
+		BeanDefinitionBuilder component = BeanDefinitionBuilder.rootBeanDefinition(Component.class);
+		component.addPropertyValue("name", element.getAttribute("name"));
+		return component.getBeanDefinition();
+	}
 
-   private static void parseChildComponents(List<Element> childElements, BeanDefinitionBuilder factory) {
-      ManagedList<BeanDefinition> children = new ManagedList<BeanDefinition>(childElements.size());
+	private static void parseChildComponents(List<Element> childElements, BeanDefinitionBuilder factory) {
+		ManagedList<BeanDefinition> children = new ManagedList<BeanDefinition>(childElements.size());
+		for (Element element : childElements) {
+			children.add(parseComponentElement(element));
+		}
+		factory.addPropertyValue("children", children);
+	}
 
-      for (Element element : childElements) {
-         children.add(parseComponentElement(element));
-      }
-
-      factory.addPropertyValue("children", children);
-   }
 }
 ----
 
@@ -3936,8 +3967,8 @@ JCache instance is eagerly started within the surrounding cluster:
 [subs="verbatim,quotes"]
 ----
 <bean id="checkingAccountService" class="com.foo.DefaultCheckingAccountService"
-      jcache:cache-name="checking.account">
-   <!-- other dependencies here... -->
+		jcache:cache-name="checking.account">
+	<!-- other dependencies here... -->
 </bean>
 ----
 
@@ -3954,15 +3985,16 @@ package com.foo;
 
 public class JCacheInitializer {
 
-   private String name;
+	private String name;
 
-   public JCacheInitializer(String name) {
-      this.name = name;
-   }
+	public JCacheInitializer(String name) {
+		this.name = name;
+	}
 
-   public void initialize() {
-      // lots of JCache API calls to initialize the named cache...
-   }
+	public void initialize() {
+		// lots of JCache API calls to initialize the named cache...
+	}
+
 }
 ----
 
@@ -3975,11 +4007,11 @@ custom attribute (quite easy in this case).
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 <xsd:schema xmlns="http://www.foo.com/schema/jcache"
-            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-            targetNamespace="http://www.foo.com/schema/jcache"
-            elementFormDefault="qualified">
+		xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+		targetNamespace="http://www.foo.com/schema/jcache"
+		elementFormDefault="qualified">
 
-   <xsd:attribute name="cache-name" type="xsd:string"/>
+	<xsd:attribute name="cache-name" type="xsd:string"/>
 
 </xsd:schema>
 ----
@@ -3995,10 +4027,11 @@ import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
 
 public class JCacheNamespaceHandler extends NamespaceHandlerSupport {
 
-   public void init() {
-      super.registerBeanDefinitionDecoratorForAttribute("cache-name",
-            new JCacheInitializingBeanDefinitionDecorator());
-   }
+	public void init() {
+		super.registerBeanDefinitionDecoratorForAttribute("cache-name",
+			new JCacheInitializingBeanDefinitionDecorator());
+	}
+
 }
 ----
 
@@ -4024,38 +4057,40 @@ import java.util.List;
 
 public class JCacheInitializingBeanDefinitionDecorator implements BeanDefinitionDecorator {
 
-   private static final String[] EMPTY_STRING_ARRAY = new String[0];
+	private static final String[] EMPTY_STRING_ARRAY = new String[0];
 
-   public BeanDefinitionHolder decorate(
-         Node source, BeanDefinitionHolder holder, ParserContext ctx) {
-      String initializerBeanName = registerJCacheInitializer(source, ctx);
-      createDependencyOnJCacheInitializer(holder, initializerBeanName);
-      return holder;
-   }
+	public BeanDefinitionHolder decorate(Node source, BeanDefinitionHolder holder,
+			ParserContext ctx) {
+		String initializerBeanName = registerJCacheInitializer(source, ctx);
+		createDependencyOnJCacheInitializer(holder, initializerBeanName);
+		return holder;
+	}
 
-   private void createDependencyOnJCacheInitializer(BeanDefinitionHolder holder, String initializerBeanName) {
-      AbstractBeanDefinition definition = ((AbstractBeanDefinition) holder.getBeanDefinition());
-      String[] dependsOn = definition.getDependsOn();
-      if (dependsOn == null) {
-         dependsOn = new String[]{initializerBeanName};
-      } else {
-         List dependencies = new ArrayList(Arrays.asList(dependsOn));
-         dependencies.add(initializerBeanName);
-         dependsOn = (String[]) dependencies.toArray(EMPTY_STRING_ARRAY);
-      }
-      definition.setDependsOn(dependsOn);
-   }
+	private void createDependencyOnJCacheInitializer(BeanDefinitionHolder holder,
+			String initializerBeanName) {
+		AbstractBeanDefinition definition = ((AbstractBeanDefinition) holder.getBeanDefinition());
+		String[] dependsOn = definition.getDependsOn();
+		if (dependsOn == null) {
+			dependsOn = new String[]{initializerBeanName};
+		} else {
+			List dependencies = new ArrayList(Arrays.asList(dependsOn));
+			dependencies.add(initializerBeanName);
+			dependsOn = (String[]) dependencies.toArray(EMPTY_STRING_ARRAY);
+		}
+		definition.setDependsOn(dependsOn);
+	}
 
-   private String registerJCacheInitializer(Node source, ParserContext ctx) {
-      String cacheName = ((Attr) source).getValue();
-      String beanName = cacheName + "-initializer";
-      if (!ctx.getRegistry().containsBeanDefinition(beanName)) {
-         BeanDefinitionBuilder initializer = BeanDefinitionBuilder.rootBeanDefinition(JCacheInitializer.class);
-         initializer.addConstructorArg(cacheName);
-         ctx.getRegistry().registerBeanDefinition(beanName, initializer.getBeanDefinition());
-      }
-      return beanName;
-   }
+	private String registerJCacheInitializer(Node source, ParserContext ctx) {
+		String cacheName = ((Attr) source).getValue();
+		String beanName = cacheName + "-initializer";
+		if (!ctx.getRegistry().containsBeanDefinition(beanName)) {
+			BeanDefinitionBuilder initializer = BeanDefinitionBuilder.rootBeanDefinition(JCacheInitializer.class);
+			initializer.addConstructorArg(cacheName);
+			ctx.getRegistry().registerBeanDefinition(beanName, initializer.getBeanDefinition());
+		}
+		return beanName;
+	}
+
 }
 ----
 
@@ -4465,13 +4500,13 @@ escaping. Modeled after the JSTL c:url tag with backwards compatibility in mind.
 | true
 | true
 | The URL to build. This value can include template {placeholders} that are replaced
-  with the URL encoded value of the named parameter.  Parameters must be defined using
+  with the URL encoded value of the named parameter. Parameters must be defined using
   the param tag inside the body of this tag.
 
 | context
 | false
 | true
-| Specifies a remote application context path.  The default is the current application
+| Specifies a remote application context path. The default is the current application
   context path.
 
 | var
@@ -4483,8 +4518,8 @@ escaping. Modeled after the JSTL c:url tag with backwards compatibility in mind.
 | scope
 | false
 | true
-| The scope for the var.  'application', 'session', 'request' and 'page' scopes are
-  supported.  Defaults to page scope.  This attribute has no effect unless the var
+| The scope for the var. 'application', 'session', 'request' and 'page' scopes are
+  supported. Defaults to page scope. This attribute has no effect unless the var
   attribute is also defined.
 
 | htmlEscape
@@ -4528,8 +4563,8 @@ variable.
 | scope
 | false
 | true
-| The scope for the var.  'application', 'session', 'request' and 'page' scopes are
-  supported.  Defaults to page scope.  This attribute has no effect unless the var
+| The scope for the var. 'application', 'session', 'request' and 'page' scopes are
+  supported. Defaults to page scope. This attribute has no effect unless the var
   attribute is also defined.
 
 | htmlEscape
@@ -4788,7 +4823,7 @@ Renders multiple HTML 'input' tags with type 'checkbox'.
 | false
 | true
 | Specifies the HTML element that is used to enclose each 'input' tag with type
-  'checkbox'.  Defaults to 'span'.
+  'checkbox'. Defaults to 'span'.
 
 | htmlEscape
 | false
@@ -6140,7 +6175,7 @@ Renders multiple HTML 'input' tags with type 'radio'.
 | false
 | true
 | Specifies the HTML element that is used to enclose each 'input' tag with type 'radio'.
-   Defaults to 'span'.
+  Defaults to 'span'.
 
 | htmlEscape
 | false

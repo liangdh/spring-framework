@@ -4893,19 +4893,19 @@ dependency type:
 
 | `ApplicationContextAware`
 | Declaring `ApplicationContext`
-a| <<beans-factory-aware>>
+| <<beans-factory-aware>>
 
 | `ApplicationEventPublisherAware`
 | Event publisher of the enclosing `ApplicationContext`
-a| <<context-introduction>>
+| <<context-introduction>>
 
 | `BeanClassLoaderAware`
 | Class loader used to load the bean classes.
-a| <<beans-factory-class>>
+| <<beans-factory-class>>
 
 | `BeanFactoryAware`
 | Declaring `BeanFactory`
-a| <<beans-factory-aware>>
+| <<beans-factory-aware>>
 
 | `BeanNameAware`
 | Name of the declaring bean
@@ -22337,11 +22337,11 @@ annotation are summarized in the following table:
 |===
 | Property| Type| Description
 
-a| <<tx-multiple-tx-mgrs-with-attransactional,value>>
+| <<tx-multiple-tx-mgrs-with-attransactional,value>>
 | String
 |  Optional qualifier specifying the transaction manager to be used.
 
-a| <<tx-propagation,propagation>>
+| <<tx-propagation,propagation>>
 | enum: `Propagation`
 | Optional propagation setting.
 
