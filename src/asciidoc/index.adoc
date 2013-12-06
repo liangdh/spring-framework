@@ -2526,7 +2526,7 @@ argument indexes:
 
 [NOTE]
 ====
-Due to the XML grammar, the index notation requires the presence of the leading _____ as
+Due to the XML grammar, the index notation requires the presence of the leading `_` as
 XML attribute names cannot start with a number (even though some IDE allow it).
 ====
 
@@ -2717,7 +2717,7 @@ two bean definitions.
 Consider the limitations and disadvantages of autowiring:
 
 * Explicit dependencies in `property` and `constructor-arg` settings always override
-  autowiring. You cannot autowire so-called__simple__ properties such as primitives,
+  autowiring. You cannot autowire so-called __simple__ properties such as primitives,
   `Strings`, and `Classes` (and arrays of such simple properties). This limitation is
   by-design.
 * Autowiring is less exact than explicit wiring. Although, as noted in the above table,
@@ -2754,7 +2754,7 @@ makes that specific bean definition unavailable to the autowiring infrastructure
 You can also limit autowire candidates based on pattern-matching against bean names. The
 top-level `<beans/>` element accepts one or more patterns within its
 `default-autowire-candidates` attribute. For example, to limit autowire candidate status
-to any bean whose name ends with__Repository,__ provide a value of *Repository. To
+to any bean whose name ends with __Repository,__ provide a value of *Repository. To
 provide multiple patterns, define them in a comma-separated list. An explicit value of
 `true` or `false` for a bean definitions `autowire-candidate` attribute always takes
 precedence, and for such beans, the pattern matching rules do not apply.
@@ -3072,7 +3072,7 @@ instance being returned by the Spring container.
 To put it another way, when you define a bean definition and it is scoped as a
 singleton, the Spring IoC container creates __exactly one__ instance of the object
 defined by that bean definition. This single instance is stored in a cache of such
-singleton beans, and__all subsequent requests and references__ for that named bean
+singleton beans, and __all subsequent requests and references__ for that named bean
 return the cached object.
 
 image::images/singleton.png[]
@@ -3082,7 +3082,7 @@ the Gang of Four (GoF) patterns book. The GoF Singleton hard-codes the scope of 
 object such that one __and only one__ instance of a particular class is created __per
 ClassLoader__. The scope of the Spring singleton is best described as __per container
 and per bean__. This means that if you define one bean for a particular class in a
-single Spring container, then the Spring container creates one__and only one__ instance
+single Spring container, then the Spring container creates one __and only one__ instance
 of the class defined by that bean definition. __The singleton scope is the default scope
 in Spring__. To define a bean as a singleton in XML, you would write, for example:
 
@@ -3124,8 +3124,8 @@ The following example defines a bean as a prototype in XML:
 In contrast to the other scopes, Spring does not manage the complete lifecycle of a
 prototype bean: the container instantiates, configures, and otherwise assembles a
 prototype object, and hands it to the client, with no further record of that prototype
-instance. Thus, although__initialization__ lifecycle callback methods are called on all
-objects regardless of scope, in the case of prototypes, configured__destruction__
+instance. Thus, although__ initialization__ lifecycle callback methods are called on all
+objects regardless of scope, in the case of prototypes, configured __destruction__
 lifecycle callbacks are __not__ called. The client code must clean up prototype-scoped
 objects and release expensive resources that the prototype bean(s) are holding. To get
 the Spring container to release resources held by prototype-scoped beans, try using a
@@ -4444,7 +4444,7 @@ The next extension point that we will look at is the
 this interface are similar to those of the `BeanPostProcessor`, with one major
 difference: `BeanFactoryPostProcessor` s operate on the __bean configuration metadata__;
 that is, the Spring IoC container allows `BeanFactoryPostProcessors` to read the
-configuration metadata and potentially change it__before__ the container instantiates
+configuration metadata and potentially change it __before__ the container instantiates
 any beans other than `BeanFactoryPostProcessors`.
 
 You can configure multiple `BeanFactoryPostProcessors`, and you can control the order in
@@ -4939,7 +4939,7 @@ corresponding bean names:
 
 By default, the autowiring fails whenever __zero__ candidate beans are available; the
 default behavior is to treat annotated methods, constructors, and fields as
-indicating__required__ dependencies. This behavior can be changed as demonstrated below.
+indicating __required__ dependencies. This behavior can be changed as demonstrated below.
 
 [source,java,indent=0]
 [subs="verbatim,quotes"]
@@ -5785,7 +5785,7 @@ counterparts inside a Spring `@Configuration` class. The difference is that `@Co
 classes are not enhanced with CGLIB to intercept the invocation of methods and fields.
 CGLIB proxying is the means by which invoking methods or fields within `@Configuration`
 classes `@Bean` methods create bean metadata references to collaborating objects.
-Methods are__not__ invoked with normal Java semantics. In contrast, calling a method or
+Methods are __not__ invoked with normal Java semantics. In contrast, calling a method or
 field within a `@Component` classes `@Bean` method __has__ standard Java semantics.
 
 
@@ -7511,7 +7511,7 @@ following standard events:
 
 | `RequestHandledEvent`
 | A web-specific event telling all beans that an HTTP request has been serviced. This
-  event is published__after__ the request is complete. This event is only applicable to
+  event is published __after__ the request is complete. This event is only applicable to
   web applications using Spring's `DispatcherServlet`.
 |===
 
@@ -7802,7 +7802,7 @@ Because the `ApplicationContext` includes all functionality of the `BeanFactory`
 generally recommended over the `BeanFactory`, except for a few situations such as in an
 `Applet` where memory consumption might be critical and a few extra kilobytes might make
 a difference. However, for most typical enterprise applications and systems, the
-`ApplicationContext` is what you will want to use. Spring 2.0 and later makes__heavy__
+`ApplicationContext` is what you will want to use. Spring 2.0 and later makes __heavy__
 use of the <<beans-factory-extension-bpp, `BeanPostProcessor` extension point>> (to
 effect proxying and so on). If you use only a plain `BeanFactory`, a fair amount of
 support such as transactions and AOP will not take effect, at least not without some
@@ -11740,7 +11740,7 @@ however, it would be even more confusing if Spring used its own terminology.
   represents a method execution.
 * __Advice__: action taken by an aspect at a particular join point. Different types of
   advice include "around," "before" and "after" advice. (Advice types are discussed
-  below.) Many AOP frameworks, including Spring, model an advice as an__interceptor__,
+  below.) Many AOP frameworks, including Spring, model an advice as an __interceptor__,
   maintaining a chain of interceptors __around__ the join point.
 * __Pointcut__: a predicate that matches join points. Advice is associated with a
   pointcut expression and runs at any join point matched by the pointcut (for example,
@@ -11753,8 +11753,8 @@ however, it would be even more confusing if Spring used its own terminology.
   `IsModified` interface, to simplify caching. (An introduction is known as an
   inter-type declaration in the AspectJ community.)
 * __Target object__: object being advised by one or more aspects. Also referred to as
-  the__advised__ object. Since Spring AOP is implemented using runtime proxies, this
-  object will always be a__proxied__ object.
+  the __advised__ object. Since Spring AOP is implemented using runtime proxies, this
+  object will always be a __proxied__ object.
 * __AOP proxy__: an object created by the AOP framework in order to implement the aspect
   contracts (advise method executions and so on). In the Spring Framework, an AOP proxy
   will be a JDK dynamic proxy or a CGLIB proxy.
@@ -12006,7 +12006,7 @@ Spring's component scanner).
 [NOTE]
 ====
 In Spring AOP, it is __not__ possible to have aspects themselves be the target of advice
-from other aspects. The__@Aspect__ annotation on a class marks it as an aspect, and
+from other aspects. The __@Aspect__ annotation on a class marks it as an aspect, and
 hence excludes it from auto-proxying.
 ====
 
@@ -12907,7 +12907,7 @@ following strategies to determine parameter names:
 * If the parameter names have been specified by the user explicitly, then the specified
   parameter names are used: both the advice and the pointcut annotations have
   an optional "argNames" attribute which can be used to specify the argument names of
-  the annotated method - these argument names__are__ available at runtime. For example:
+  the annotated method - these argument names __are__ available at runtime. For example:
 
 [source,java,indent=0]
 [subs="verbatim,quotes"]
@@ -15498,7 +15498,7 @@ values of metadata attributes: typically, source-level metadata.
 [[aop-api-pointcuts-dynamic]]
 ===== Dynamic pointcuts
 Dynamic pointcuts are costlier to evaluate than static pointcuts. They take into account
-method__arguments__, as well as static information. This means that they must be
+method __arguments__, as well as static information. This means that they must be
 evaluated with every method invocation; the result cannot be cached, as arguments will
 vary.
 
@@ -16262,7 +16262,7 @@ advice is included only for completeness:
 
 This has the advantage that there's only one object of type `Person`: useful if we want
 to prevent users of the application context from obtaining a reference to the un-advised
-object, or need to avoid any ambiguity with Spring IoC__autowiring__. There's also
+object, or need to avoid any ambiguity with Spring IoC __autowiring__. There's also
 arguably an advantage in that the ProxyFactoryBean definition is self-contained.
 However, there are times when being able to obtain the un-advised target from the
 factory might actually be an __advantage__: for example, in certain test scenarios.
@@ -16393,7 +16393,7 @@ __abstract__ by using the __abstract__ attribute, as described
 instantiated. Application contexts (but not simple bean factories) will by default
 pre-instantiate all singletons. It is therefore important (at least for singleton beans)
 that if you have a (parent) bean definition which you intend to use only as a template,
-and this definition specifies a class, you must make sure to set the__abstract__
+and this definition specifies a class, you must make sure to set the __abstract__
 attribute to __true__, otherwise the application context will actually try to
 pre-instantiate it.
 
@@ -17582,7 +17582,7 @@ for examples and further details.
 Indicates that the underlying Spring `ApplicationContext` has been __dirtied__ during
 the execution of a test (i.e., modified or corrupted in some manner -- for example, by
 changing the state of a singleton bean) and should be closed, regardless of whether the
-test passed. When an application context is marked__dirty__, it is removed from the
+test passed. When an application context is marked __dirty__, it is removed from the
 testing framework's cache and closed. As a consequence, the underlying Spring container
 will be rebuilt for any subsequent test that requires a context with the same
 configuration metadata.
@@ -17652,7 +17652,7 @@ mode set to `AFTER_EACH_TEST_METHOD.`
 
 If `@DirtiesContext` is used in a test whose context is configured as part of a context
 hierarchy via `@ContextHierarchy`, the `hierarchyMode` flag can be used to control how
-the context cache is cleared. By default an__exhaustive__ algorithm will be used that
+the context cache is cleared. By default an __exhaustive__ algorithm will be used that
 clears the context cache including not only the current level but also all other context
 hierarchies that share an ancestor context common to the current test; all
 `ApplicationContext` s that reside in a sub-hierarchy of the common ancestor context
@@ -18369,12 +18369,12 @@ of __extending__ the resource locations, annotated classes, or context initializ
 
 If `@ContextConfiguration`'s `inheritLocations` or `inheritInitializers` attribute is
 set to `false`, the resource locations or annotated classes and the context
-initializers, respectively, for the test class__shadow__ and effectively replace the
+initializers, respectively, for the test class __shadow__ and effectively replace the
 configuration defined by superclasses.
 
 In the following example that uses XML resource locations, the `ApplicationContext` for
 `ExtendedTest` will be loaded from __"base-config.xml"__ __and__
-__"extended-config.xml"__, in that order. Beans defined in__"extended-config.xml"__ may
+__"extended-config.xml"__, in that order. Beans defined in __"extended-config.xml"__ may
 therefore __override__ (i.e., replace) those defined in __"base-config.xml"__.
 
 [source,java,indent=0]
@@ -18748,7 +18748,7 @@ created and supplied to your test's WAC. By default the base resource path for y
 `MockServletContext` will be set to __"src/main/webapp"__. This is interpreted as a path
 relative to the root of your JVM (i.e., normally the path to your project). If you're
 familiar with the directory structure of a web application in a Maven project, you'll
-know that__"src/main/webapp"__ is the default location for the root of your WAR. If you
+know that __"src/main/webapp"__ is the default location for the root of your WAR. If you
 need to override this default, simply provide an alternate path to the
 `@WebAppConfiguration` annotation (e.g., `@WebAppConfiguration("src/test/webapp")`). If
 you wish to reference a base resource path from the classpath instead of the file
@@ -18785,10 +18785,10 @@ a `WebApplicationContext`.
 The above example demonstrates the TestContext framework's support for __convention over
 configuration__. If you annotate a test class with `@WebAppConfiguration` without
 specifying a resource base path, the resource path will effectively default
-to__"file:src/main/webapp"__. Similarly, if you declare `@ContextConfiguration` without
+to __"file:src/main/webapp"__. Similarly, if you declare `@ContextConfiguration` without
 specifying resource `locations`, annotated `classes`, or context `initializers`, Spring
 will attempt to detect the presence of your configuration using conventions
-(i.e.,__"WacTests-context.xml"__ in the same package as the `WacTests` class or static
+(i.e., __"WacTests-context.xml"__ in the same package as the `WacTests` class or static
 nested `@Configuration` classes).
 
 .Default resource semantics
@@ -19109,7 +19109,7 @@ cleared. For further details consult the discussion of `@DirtiesContext` in
 [[testcontext-fixture-di]]
 ===== Dependency injection of test fixtures
 When you use the `DependencyInjectionTestExecutionListener` -- which is configured by
-default -- the dependencies of your test instances are__injected__ from beans in the
+default -- the dependencies of your test instances are __injected__ from beans in the
 application context that you configured with `@ContextConfiguration`. You may use setter
 injection, field injection, or both, depending on which annotations you choose and
 whether you place them on setter methods or fields. For consistency with the annotation
@@ -19757,7 +19757,7 @@ request and those will be discussed later.
 ====== Static Imports
 The fluent API in the example above requires a few static imports such as
 `MockMvcRequestBuilders.*`, `MockMvcResultMatchers.*`, and `MockMvcBuilders.*`. An easy
-way to find these classes is to search for types matching__"MockMvc*"__. If using
+way to find these classes is to search for types matching __"MockMvc*"__. If using
 Eclipse, be sure to add them as "favorite static members" in the Eclipse preferences
 under__Java -> Editor -> Content Assist -> Favorites__. That will allow use of content
 assist after typing the first character of the static method name. Other IDEs (e.g.
@@ -20361,7 +20361,7 @@ to the programming model.
 ==== Spring Framework's consistent programming model
 
 Spring resolves the disadvantages of global and local transactions. It enables
-application developers to use a__consistent__ programming model __in any environment__.
+application developers to use a __consistent__ programming model __in any environment__.
 You write your code once, and it can benefit from different transaction management
 strategies in different environments. The Spring Framework provides both declarative and
 programmatic transaction management. Most users prefer declarative transaction
@@ -21337,7 +21337,7 @@ following class definition:
 ----
 
 When the above POJO is defined as a bean in a Spring IoC container, the bean instance
-can be made transactional by adding merely__one__ line of XML configuration:
+can be made transactional by adding merely __one__ line of XML configuration:
 
 [source,xml,indent=0]
 [subs="verbatim,quotes"]
@@ -21416,7 +21416,7 @@ proxies. The fact that Java annotations are __not inherited from interfaces__ me
 if you are using class-based proxies ( `proxy-target-class="true"`) or the weaving-based
 aspect ( `mode="aspectj"`), then the transaction settings are not recognized by the
 proxying and weaving infrastructure, and the object will not be wrapped in a
-transactional proxy, which would be decidedly__bad__.
+transactional proxy, which would be decidedly __bad__.
 ====
 
 [NOTE]
@@ -22231,7 +22231,7 @@ per-transaction isolation levels, and proper resuming of transactions in all cas
 Use the __correct__ `PlatformTransactionManager` implementation based on your choice of
 transactional technologies and requirements. Used properly, the Spring Framework merely
 provides a straightforward and portable abstraction. If you are using global
-transactions, you__must__ use the
+transactions, you __must__ use the
 `org.springframework.transaction.jta.JtaTransactionManager` class (or an
 <<transaction-application-server-integration,application server-specific subclass>> of
 it) for all your transactional operations. Otherwise the transaction infrastructure
@@ -25802,7 +25802,7 @@ When Hibernate is not configured with any awareness of the JTA
 
 * The JTA transaction commits.
 * Spring's `JtaTransactionManager` is synchronized to the JTA transaction, so it is
-  called back through an__afterCompletion__ callback by the JTA transaction manager.
+  called back through an __afterCompletion__ callback by the JTA transaction manager.
 * Among other activities, this synchronization can trigger a callback by Spring to
   Hibernate, through Hibernate's `afterTransactionCompletion` callback (used to clear
   the Hibernate cache), followed by an explicit `close()` call on the Hibernate Session,
@@ -25823,7 +25823,7 @@ following events occur when a JTA transaction commits:
   needs to be closed at all, Spring will close it now.
 * The JTA transaction commits.
 * Hibernate is synchronized to the JTA transaction, so the transaction is called back
-  through an__afterCompletion__ callback by the JTA transaction manager, and can
+  through an __afterCompletion__ callback by the JTA transaction manager, and can
   properly clear its cache.
 
 
@@ -27449,7 +27449,7 @@ Spring's web module includes many unique web support features:
 * __Adaptability, non-intrusiveness, and flexibility.__ Define any controller method
   signature you need, possibly using one of the parameter annotations (such as
   @RequestParam, @RequestHeader, @PathVariable, and more) for a given scenario.
-* __Reusable business code__,__ no need for duplication__. Use existing business objects
+* __Reusable business code, no need for duplication__. Use existing business objects
   as command or form objects instead of mirroring them to extend a particular framework
   base class.
 * __Customizable binding and validation__. Type mismatches as application-level
@@ -27787,7 +27787,7 @@ Portlet facilities.
 
 Available in the https://github.com/spring-projects/[spring-projects Org on Github],
 a number of web applications leverage the annotation support described in this section
-including__MvcShowcase__, __MvcAjax__, __MvcBasic__, __PetClinic__, __PetCare__,
+including __MvcShowcase__, __MvcAjax__, __MvcBasic__, __PetClinic__, __PetCare__,
 and others.
 ====
 
@@ -27819,7 +27819,7 @@ environment.
 ==== Defining a controller with @Controller
 
 The `@Controller` annotation indicates that a particular class serves the role of
-a__controller__. Spring does not require you to extend any controller base class or
+a __controller__. Spring does not require you to extend any controller base class or
 reference the Servlet API. However, you can still reference Servlet-specific features if
 you need to.
 
@@ -27833,7 +27833,7 @@ allows for autodetection, aligned with Spring general support for detecting comp
 classes in the classpath and auto-registering bean definitions for them.
 
 To enable autodetection of such annotated controllers, you add component scanning to
-your configuration. Use the__spring-context__ schema as shown in the following XML
+your configuration. Use the __spring-context__ schema as shown in the following XML
 snippet:
 
 [source,xml,indent=0]
@@ -28248,7 +28248,7 @@ default it is set to `false`.
 [[mvc-ann-requestmapping-consumes]]
 ===== Consumable Media Types
 You can narrow the primary mapping by specifying a list of consumable media types. The
-request will be matched only if the__Content-Type__ request header matches the specified
+request will be matched only if the __Content-Type__ request header matches the specified
 media type. For example:
 
 [source,java,indent=0]
@@ -28276,9 +28276,9 @@ rather than extend type-level consumable types.
 [[mvc-ann-requestmapping-produces]]
 ===== Producible Media Types
 You can narrow the primary mapping by specifying a list of producible media types. The
-request will be matched only if the__Accept__ request header matches one of these
+request will be matched only if the __Accept__ request header matches one of these
 values. Furthermore, use of the __produces__ condition ensures the actual content type
-used to generate the response respects the media types specified in the__produces__
+used to generate the response respects the media types specified in the __produces__
 condition. For example:
 
 [source,java,indent=0]
@@ -30758,7 +30758,7 @@ or in a JSP:
 For a lot of projects, sticking to established conventions and having reasonable
 defaults is just what they (the projects) need, and Spring Web MVC now has explicit
 support for __convention over configuration__. What this means is that if you establish
-a set of naming conventions and suchlike, you can__substantially__ cut down on the
+a set of naming conventions and suchlike, you can __substantially__ cut down on the
 amount of configuration that is required to set up handler mappings, view resolvers,
 `ModelAndView` instances, etc. This is a great boon with regards to rapid prototyping,
 and can also lend a degree of (always good-to-have) consistency across a codebase should
@@ -32130,7 +32130,7 @@ HTML snippet of some checkboxes:
 ----
 
 What you might not expect to see is the additional hidden field after each checkbox.
-When a checkbox in an HTML page is__not__ checked, its value will not be sent to the
+When a checkbox in an HTML page is __not__ checked, its value will not be sent to the
 server as part of the HTTP request parameters once the form is submitted, so we need a
 workaround for this quirk in HTML in order for Spring form data binding to work. The
 `checkbox` tag follows the existing Spring convention of including a hidden parameter
@@ -32763,7 +32763,7 @@ Specify `SimpleSpringPreparerFactory` to autowire ViewPreparer instances based o
 specified preparer classes, applying Spring's container callbacks as well as applying
 configured Spring BeanPostProcessors. If Spring's context-wide annotation-config has
 been activated, annotations in ViewPreparer classes will be automatically detected and
-applied. Note that this expects preparer__classes__ in the Tiles definition files, just
+applied. Note that this expects preparer __classes__ in the Tiles definition files, just
 like the default `PreparerFactory` does.
 
 Specify `SpringBeanPreparerFactory` to operate on specified preparer __names__ instead
@@ -34235,7 +34235,7 @@ themselves, please do consult <<web-integration-resources>> at the end of this c
 [[web-integration-common]]
 === Common configuration
 Before diving into the integration specifics of each supported web framework, let us
-first take a look at the Spring configuration that is__not__ specific to any one web
+first take a look at the Spring configuration that is __not__ specific to any one web
 framework. (This section is equally applicable to Spring's own web framework, Spring
 MVC.)
 
@@ -34442,7 +34442,7 @@ __faces-context.xml__ file:
 [[jsf-facescontextutils]]
 ==== FacesContextUtils
 A custom `VariableResolver` works well when mapping one's properties to beans
-in__faces-config.xml__, but at times one may need to grab a bean explicitly. The
+in __faces-config.xml__, but at times one may need to grab a bean explicitly. The
 {javadoc-baseurl}/org/springframework/web/jsf/FacesContextUtils.html[`FacesContextUtils`]
 class makes this easy. It is similar to `WebApplicationContextUtils`, except that it
 takes a `FacesContext` parameter rather than a `ServletContext` parameter.
@@ -34484,7 +34484,7 @@ To integrate your Struts 1.x application with Spring, you have two options:
 * Configure Spring to manage your Actions as beans, using the `ContextLoaderPlugin`, and
   set their dependencies in a Spring context file.
 * Subclass Spring's `ActionSupport` classes and grab your Spring-managed beans
-  explicitly using a__getWebApplicationContext()__ method.
+  explicitly using a __getWebApplicationContext()__ method.
 
 
 
@@ -34495,7 +34495,7 @@ The
 is a Struts 1.1+ plug-in that loads a Spring context file for the Struts
 `ActionServlet`. This context refers to the root `WebApplicationContext` (loaded by the
 `ContextLoaderListener`) as its parent. The default name of the context file is the name
-of the mapped servlet, plus__-servlet.xml__. If `ActionServlet` is defined in web.xml as
+of the mapped servlet, plus __-servlet.xml__. If `ActionServlet` is defined in web.xml as
 `<servlet-name>action</servlet-name>`, the default is __/WEB-INF/action-servlet.xml__.
 
 To configure this plug-in, add the following XML to the plug-ins section near the bottom
@@ -34616,7 +34616,7 @@ The bean definition in __action-servlet.xml__ remains the same, whether you use 
 If you define your `Action` in a context file, the full feature set of Spring's bean
 container will be available for it: dependency injection as well as the option to
 instantiate a new `Action` instance for each request. To activate the latter,
-add__scope="prototype"__ to your Action's bean definition.
+add __scope="prototype"__ to your Action's bean definition.
 
 [source,xml,indent=0]
 [subs="verbatim,quotes"]
@@ -34637,7 +34637,7 @@ extend Spring's `Action` classes for Struts. For example, instead of subclassing
 class.
 
 The `ActionSupport` class provides additional convenience methods,
-like__getWebApplicationContext()__. Below is an example of how you might use this in an
+like __getWebApplicationContext()__. Below is an example of how you might use this in an
 Action:
 
 [source,java,indent=0]
@@ -37601,7 +37601,7 @@ Offering a proxy with all interfaces implemented by the target usually does not 
 in the local case. But when exporting a remote service, you should expose a specific
 service interface, with specific operations intended for remote usage. Besides internal
 callback interfaces, the target might implement multiple business interfaces, with just
-one of them intended for remote exposure. For these reasons, we__require__ such a
+one of them intended for remote exposure. For these reasons, we __require__ such a
 service interface to be specified.
 
 This is a trade-off between configuration convenience and the risk of accidental
@@ -38847,7 +38847,7 @@ messaging support: in a nutshell, it allows you to expose almost __any__ class a
 Consider the following interface definition. Notice that although the interface extends
 neither the `MessageListener` nor `SessionAwareMessageListener` interfaces, it can still
 be used as a MDP via the use of the `MessageListenerAdapter` class. Notice also how the
-various message handling methods are strongly typed according to the__contents__ of the
+various message handling methods are strongly typed according to the __contents__ of the
 various `Message` types that they can receive and handle.
 
 [source,java,indent=0]
@@ -40342,7 +40342,7 @@ By default `ConnectorServerFactoryBean` creates a `JMXConnectorServer` bound to
 local `MBeanServer` to clients through the JMXMP protocol on localhost, port 9875. Note
 that the JMXMP protocol is marked as optional by the JSR 160 specification: currently,
 the main open-source JMX implementation, MX4J, and the one provided with J2SE 5.0
-do__not__ support JMXMP.
+do __not__ support JMXMP.
 
 To specify another URL and register the `JMXConnectorServer` itself with the
 `MBeanServer` use the `serviceUrl` and `ObjectName` properties respectively:
@@ -43627,7 +43627,7 @@ dynamic-language-backed `Messenger` implementation will be __'I Can Do The Frug'
 
 It is important to understand that changes to a script will __not__ trigger a refresh if
 the changes occur within the window of the `'refresh-check-delay'` value. It is equally
-important to understand that changes to the script are__not__ actually 'picked up' until
+important to understand that changes to the script are __not__ actually 'picked up' until
 a method is called on the dynamic-language-backed bean. It is only when a method is
 called on a dynamic-language-backed bean that it checks to see if its underlying script
 source has changed. Any exceptions relating to refreshing the script (such as
@@ -44164,7 +44164,7 @@ editing one or more dynamic language source files and seeing those changes being
 immediately reflected in the state of a running application.
 
 Remember that in the lightweight architectural model espoused by projects such as
-Spring, you are typically aiming to have a really__thin__ presentation layer, with all
+Spring, you are typically aiming to have a really __thin__ presentation layer, with all
 the meaty business logic of an application being contained in the domain and service
 layer classes. Developing Spring MVC controllers as dynamic-language-backed beans allows
 you to change presentation layer logic by simply editing and saving text files; any
@@ -44816,7 +44816,7 @@ The fact that Java annotations are __not inherited from interfaces__ means that 
 are using class-based proxies ( `proxy-target-class="true"`) or the weaving-based aspect
 ( `mode="aspectj"`), then the caching settings are not recognized by the proxying and
 weaving infrastructure, and the object will not be wrapped in a caching proxy, which
-would be decidedly__bad__.
+would be decidedly __bad__.
 ====
 
 [NOTE]
