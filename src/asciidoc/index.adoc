@@ -1160,28 +1160,6 @@ fully-qualified class names are given. See also <<migration-3.1>>
 
 
 
-
-[[new-in-3.1-bean-definition-profiles]]
-=== Bean Definition Profiles
-* http://blog.springsource.com/2011/02/11/spring-framework-3-1-m1-released/[XML
-  profiles] (SpringSource Team Blog)
-* http://blog.springsource.com/2011/02/14/spring-3-1-m1-introducing-profile/[Introducing
-  @Profile] (SpringSource Team Blog)
-* See org.springframework.context.annotation.Configuration Javadoc
-* See org.springframework.context.annotation.Profile Javadoc
-
-
-
-
-[[new-in-3.1-environment-abstraction]]
-=== Environment Abstraction
-* http://blog.springsource.com/2011/02/11/spring-framework-3-1-m1-released/[Environment
-  Abstraction] (SpringSource Team Blog)
-* See org.springframework.core.env.Environment Javadoc
-
-
-
-
 [[new-in-3.1-property-source-abstraction]]
 === PropertySource Abstraction
 * http://blog.springsource.com/2011/02/15/spring-3-1-m1-unified-property-management/[Unified
@@ -7984,7 +7962,22 @@ bare minimum.
 	}
 ----
 
+[[beans-definition-profiles]]
+=== Bean definition profiles and environment abstraction
 
+Bean definition profiles is a mechanism in the core container that allows for registration
+of different beans in different environments. This feature can help with many use cases,
+including:
+
+* working against an in-memory datasource in development vs looking up that same
+datasource from JNDI when in QA or production
+* registering monitoring infrastructure only when deploying an application into a
+performance environment
+* registering customized implementations of beans for customer A vs. customer B deployments
+
+Find out more about https://spring.io/blog/2011/02/11/spring-framework-3-1-m1-released/[Environment,
+XML Profiles] and the
+https://spring.io/blog/2011/02/14/spring-3-1-m1-introducing-profile/[@Profile annotation].
 
 
 [[context-load-time-weaver]]
