@@ -33131,14 +33131,14 @@ appropriate based on the bound value.
 [subs="verbatim,quotes"]
 ----
 <tr>
-      <td>Country:</td>
-      <td>
-          <form:select path="country">
-              <form:option value="-" label="--Please Select"/>
-              <form:options items="${countryList}" itemValue="code" itemLabel="name"/>
-          </form:select>
-      </td>
-  </tr>
+	<td>Country:</td>
+	<td>
+		<form:select path="country">
+			<form:option value="-" label="--Please Select"/>
+			<form:options items="${countryList}" itemValue="code" itemLabel="name"/>
+		</form:select>
+	</td>
+</tr>
 ----
 
 If the `User` lived in the UK, the HTML source of the 'Country' row would look like:
@@ -33147,16 +33147,16 @@ If the `User` lived in the UK, the HTML source of the 'Country' row would look l
 [subs="verbatim,quotes"]
 ----
 <tr>
-      <td>Country:</td>
-      <td>
-          <select name="country">
-              <option value="-">--Please Select</option>
-              <option value="AT">Austria</option>
-              <option value="UK" selected="selected">United Kingdom</option>
-              <option value="US">United States</option>
-          </select>
-      </td>
-  </tr>
+	<td>Country:</td>
+	<td>
+		<select name="country">
+			<option value="-">--Please Select</option>
+			<option value="AT">Austria</option>
+			<option value="UK" selected="selected">United Kingdom</option>
+			<option value="US">United States</option>
+		</select>
+	</td>
+</tr>
 ----
 
 As the example shows, the combined usage of an `option` tag with the `options` tag
@@ -33182,10 +33182,10 @@ This tag renders an HTML 'textarea'.
 [subs="verbatim,quotes"]
 ----
 <tr>
-      <td>Notes:</td>
-      <td><form:textarea path="notes" rows="3" cols="20" /></td>
-      <td><form:errors path="notes" /></td>
-  </tr>
+	<td>Notes:</td>
+	<td><form:textarea path="notes" rows="3" cols="20" /></td>
+	<td><form:errors path="notes" /></td>
+</tr>
 ----
 
 
@@ -33228,15 +33228,15 @@ called `UserValidator`.
 ----
 public class UserValidator implements Validator {
 
-      public boolean supports(Class candidate) {
-          return User.class.isAssignableFrom(candidate);
-      }
+	public boolean supports(Class candidate) {
+		return User.class.isAssignableFrom(candidate);
+	}
 
-      public void validate(Object obj, Errors errors) {
-          ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", "required", "Field is required.");
-          ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "required", "Field is required.");
-      }
-  }
+	public void validate(Object obj, Errors errors) {
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", "required", "Field is required.");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "required", "Field is required.");
+	}
+}
 ----
 
 The `form.jsp` would look like:
@@ -33245,27 +33245,27 @@ The `form.jsp` would look like:
 [subs="verbatim,quotes"]
 ----
 <form:form>
-      <table>
-          <tr>
-              <td>First Name:</td>
-              <td><form:input path="firstName" /></td>
-              <%-- Show errors for firstName field --%>
-              <td><form:errors path="firstName" /></td>
-          </tr>
+	<table>
+		<tr>
+			<td>First Name:</td>
+			<td><form:input path="firstName" /></td>
+			<%-- Show errors for firstName field --%>
+			<td><form:errors path="firstName" /></td>
+		</tr>
 
-          <tr>
-              <td>Last Name:</td>
-              <td><form:input path="lastName" /></td>
-              <%-- Show errors for lastName field --%>
-              <td><form:errors path="lastName"  /></td>
-          </tr>
-          <tr>
-              <td colspan="3">
-                  <input type="submit" value="Save Changes" />
-              </td>
-          </tr>
-      </table>
-  </form:form>
+		<tr>
+			<td>Last Name:</td>
+			<td><form:input path="lastName" /></td>
+			<%-- Show errors for lastName field --%>
+			<td><form:errors path="lastName"  /></td>
+		</tr>
+		<tr>
+			<td colspan="3">
+				<input type="submit" value="Save Changes" />
+			</td>
+		</tr>
+	</table>
+</form:form>
 ----
 
 If we submit a form with empty values in the `firstName` and `lastName` fields, this is
@@ -33275,27 +33275,27 @@ what the HTML would look like:
 [subs="verbatim,quotes"]
 ----
 <form method="POST">
-      <table>
-          <tr>
-              <td>First Name:</td>
-              <td><input name="firstName" type="text" value=""/></td>
-              <%-- Associated errors to firstName field displayed --%>
-              <td><span name="firstName.errors">Field is required.</span></td>
-          </tr>
+	<table>
+		<tr>
+			<td>First Name:</td>
+			<td><input name="firstName" type="text" value=""/></td>
+			<%-- Associated errors to firstName field displayed --%>
+			<td><span name="firstName.errors">Field is required.</span></td>
+		</tr>
 
-          <tr>
-              <td>Last Name:</td>
-              <td><input name="lastName" type="text" value=""/></td>
-              <%-- Associated errors to lastName field displayed --%>
-              <td><span name="lastName.errors">Field is required.</span></td>
-          </tr>
-          <tr>
-              <td colspan="3">
-                  <input type="submit" value="Save Changes" />
-              </td>
-          </tr>
-      </table>
-  </form>
+		<tr>
+			<td>Last Name:</td>
+			<td><input name="lastName" type="text" value=""/></td>
+			<%-- Associated errors to lastName field displayed --%>
+			<td><span name="lastName.errors">Field is required.</span></td>
+		</tr>
+		<tr>
+			<td colspan="3">
+				<input type="submit" value="Save Changes" />
+			</td>
+		</tr>
+	</table>
+</form>
 ----
 
 What if we want to display the entire list of errors for a given page? The example below
@@ -33312,25 +33312,25 @@ field-specific errors next to the fields:
 [subs="verbatim,quotes"]
 ----
 <form:form>
-      <form:errors path="*" cssClass="errorBox" />
-      <table>
-          <tr>
-              <td>First Name:</td>
-              <td><form:input path="firstName" /></td>
-              <td><form:errors path="firstName" /></td>
-          </tr>
-          <tr>
-              <td>Last Name:</td>
-              <td><form:input path="lastName" /></td>
-              <td><form:errors path="lastName"  /></td>
-          </tr>
-          <tr>
-              <td colspan="3">
-                  <input type="submit" value="Save Changes" />
-              </td>
-          </tr>
-      </table>
-  </form:form>
+	<form:errors path="*" cssClass="errorBox" />
+	<table>
+		<tr>
+			<td>First Name:</td>
+			<td><form:input path="firstName" /></td>
+			<td><form:errors path="firstName" /></td>
+		</tr>
+		<tr>
+			<td>Last Name:</td>
+			<td><form:input path="lastName" /></td>
+			<td><form:errors path="lastName"  /></td>
+		</tr>
+		<tr>
+			<td colspan="3">
+				<input type="submit" value="Save Changes" />
+			</td>
+		</tr>
+	</table>
+</form:form>
 ----
 
 The HTML would look like:
@@ -33339,25 +33339,25 @@ The HTML would look like:
 [subs="verbatim,quotes"]
 ----
 <form method="POST">
-      <span name="*.errors" class="errorBox">Field is required.<br/>Field is required.</span>
-      <table>
-          <tr>
-              <td>First Name:</td>
-              <td><input name="firstName" type="text" value=""/></td>
-              <td><span name="firstName.errors">Field is required.</span></td>
-          </tr>
+	<span name="*.errors" class="errorBox">Field is required.<br/>Field is required.</span>
+	<table>
+		<tr>
+			<td>First Name:</td>
+			<td><input name="firstName" type="text" value=""/></td>
+			<td><span name="firstName.errors">Field is required.</span></td>
+		</tr>
 
-          <tr>
-              <td>Last Name:</td>
-              <td><input name="lastName" type="text" value=""/></td>
-              <td><span name="lastName.errors">Field is required.</span></td>
-          </tr>
-          <tr>
-              <td colspan="3">
-                  <input type="submit" value="Save Changes" />
-              </td>
-          </tr>
-  </form>
+		<tr>
+			<td>Last Name:</td>
+			<td><input name="lastName" type="text" value=""/></td>
+			<td><span name="lastName.errors">Field is required.</span></td>
+		</tr>
+		<tr>
+			<td colspan="3">
+				<input type="submit" value="Save Changes" />
+			</td>
+		</tr>
+</form>
 ----
 
 
@@ -33386,7 +33386,7 @@ sample
 [subs="verbatim,quotes"]
 ----
 <form:form method="delete">
-      <p class="submit"><input type="submit" value="Delete Pet"/></p>
+	<p class="submit"><input type="submit" value="Delete Pet"/></p>
 </form:form>
 ----
 
@@ -33398,13 +33398,13 @@ web.xml:
 [subs="verbatim,quotes"]
 ----
 <filter>
-    <filter-name>httpMethodFilter</filter-name>
-    <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+	<filter-name>httpMethodFilter</filter-name>
+	<filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
 </filter>
 
 <filter-mapping>
-    <filter-name>httpMethodFilter</filter-name>
-    <servlet-name>petclinic</servlet-name>
+	<filter-name>httpMethodFilter</filter-name>
+	<servlet-name>petclinic</servlet-name>
 </filter-mapping>
 ----
 
@@ -33415,8 +33415,8 @@ The corresponding @Controller method is shown below:
 ----
 @RequestMapping(method = RequestMethod.DELETE)
 public String deletePet(@PathVariable int ownerId, @PathVariable int petId) {
-  this.clinic.deletePet(petId);
-  return "redirect:/owners/" + ownerId;
+	this.clinic.deletePet(petId);
+	return "redirect:/owners/" + ownerId;
 }
 ----
 
@@ -33471,15 +33471,15 @@ look at the following piece of example ApplicationContext configuration:
 [subs="verbatim,quotes"]
 ----
 <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
-  <property name="definitions">
-    <list>
-      <value>/WEB-INF/defs/general.xml</value>
-      <value>/WEB-INF/defs/widgets.xml</value>
-      <value>/WEB-INF/defs/administrator.xml</value>
-      <value>/WEB-INF/defs/customer.xml</value>
-      <value>/WEB-INF/defs/templates.xml</value>
-    </list>
-  </property>
+	<property name="definitions">
+		<list>
+			<value>/WEB-INF/defs/general.xml</value>
+			<value>/WEB-INF/defs/widgets.xml</value>
+			<value>/WEB-INF/defs/administrator.xml</value>
+			<value>/WEB-INF/defs/customer.xml</value>
+			<value>/WEB-INF/defs/templates.xml</value>
+		</list>
+	</property>
 </bean>
 ----
 
@@ -33493,7 +33493,7 @@ possibilities, the `UrlBasedViewResolver` and the `ResourceBundleViewResolver`.
 
 
 [[view-tiles-url]]
-=====  UrlBasedViewResolver
+===== UrlBasedViewResolver
 
 The `UrlBasedViewResolver` instantiates the given `viewClass` for each view it has to
 resolve.
@@ -33502,13 +33502,13 @@ resolve.
 [subs="verbatim,quotes"]
 ----
 <bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-  <property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView"/>
+	<property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView"/>
 </bean>
 ----
 
 
 [[view-tiles-resource]]
-=====  ResourceBundleViewResolver
+===== ResourceBundleViewResolver
 
 The `ResourceBundleViewResolver` has to be provided with a property file containing
 viewnames and viewclasses the resolver can use:
@@ -33517,7 +33517,7 @@ viewnames and viewclasses the resolver can use:
 [subs="verbatim,quotes"]
 ----
 <bean id="viewResolver" class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
-  <property name="basename" value="views"/>
+	<property name="basename" value="views"/>
 </bean>
 ----
 
@@ -33545,7 +33545,7 @@ support.
 
 
 [[view-tiles-preparer]]
-=====  SimpleSpringPreparerFactory and SpringBeanPreparerFactory
+===== SimpleSpringPreparerFactory and SpringBeanPreparerFactory
 
 As an advanced feature, Spring also supports two special Tiles 2 `PreparerFactory`
 implementations. Check out the Tiles documentation for details on how to use
@@ -33569,19 +33569,19 @@ per preparer name (as used in your Tiles definitions).
 [subs="verbatim,quotes"]
 ----
 <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
-  <property name="definitions">
-    <list>
-      <value>/WEB-INF/defs/general.xml</value>
-      <value>/WEB-INF/defs/widgets.xml</value>
-      <value>/WEB-INF/defs/administrator.xml</value>
-      <value>/WEB-INF/defs/customer.xml</value>
-      <value>/WEB-INF/defs/templates.xml</value>
-    </list>
-  </property>
+	<property name="definitions">
+		<list>
+			<value>/WEB-INF/defs/general.xml</value>
+			<value>/WEB-INF/defs/widgets.xml</value>
+			<value>/WEB-INF/defs/administrator.xml</value>
+			<value>/WEB-INF/defs/customer.xml</value>
+			<value>/WEB-INF/defs/templates.xml</value>
+		</list>
+	</property>
 
-  <!-- resolving preparer names as Spring bean definition names -->
-  <property name="preparerFactoryClass"
-       value="org.springframework.web.servlet.view.tiles2.SpringBeanPreparerFactory"/>
+	<!-- resolving preparer names as Spring bean definition names -->
+	<property name="preparerFactoryClass"
+			value="org.springframework.web.servlet.view.tiles2.SpringBeanPreparerFactory"/>
 
 </bean>
 ----
@@ -33621,24 +33621,22 @@ definition to your `'*-servlet.xml'` as shown below:
 [subs="verbatim,quotes"]
 ----
 <!--
-  This bean sets up the Velocity environment for us based on a root path for templates.
-  Optionally, a properties file can be specified for more control over the Velocity
-  environment, but the defaults are pretty sane for file based template loading.
+This bean sets up the Velocity environment for us based on a root path for templates.
+Optionally, a properties file can be specified for more control over the Velocity
+environment, but the defaults are pretty sane for file based template loading.
 -->
 <bean id="velocityConfig" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
-  <property name="resourceLoaderPath" value="/WEB-INF/velocity/"/>
+	<property name="resourceLoaderPath" value="/WEB-INF/velocity/"/>
 </bean>
 
 <!--
-
-  View resolvers can also be configured with ResourceBundles or XML files. If you need
-  different view resolving based on Locale, you have to use the resource bundle resolver.
-
+View resolvers can also be configured with ResourceBundles or XML files. If you need
+different view resolving based on Locale, you have to use the resource bundle resolver.
 -->
 <bean id="viewResolver" class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
-  <property name="cache" value="true"/>
-  <property name="prefix" value=""/>
-  <property name="suffix" value=".vm"/>
+	<property name="cache" value="true"/>
+	<property name="prefix" value=""/>
+	<property name="suffix" value=".vm"/>
 </bean>
 ----
 
@@ -33647,19 +33645,17 @@ definition to your `'*-servlet.xml'` as shown below:
 ----
 <!-- freemarker config -->
 <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
-  <property name="templateLoaderPath" value="/WEB-INF/freemarker/"/>
+	<property name="templateLoaderPath" value="/WEB-INF/freemarker/"/>
 </bean>
 
 <!--
-
-  View resolvers can also be configured with ResourceBundles or XML files. If you need
-  different view resolving based on Locale, you have to use the resource bundle resolver.
-
+View resolvers can also be configured with ResourceBundles or XML files. If you need
+different view resolving based on Locale, you have to use the resource bundle resolver.
 -->
 <bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
-  <property name="cache" value="true"/>
-  <property name="prefix" value=""/>
-  <property name="suffix" value=".ftl"/>
+	<property name="cache" value="true"/>
+	<property name="prefix" value=""/>
+	<property name="suffix" value=".ftl"/>
 </bean>
 ----
 
@@ -33702,7 +33698,7 @@ advanced configurations, if you need this file, specify its location on the
 [subs="verbatim,quotes"]
 ----
 <bean id="velocityConfig" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
-  <property name="configLocation" value="/WEB-INF/velocity.properties"/>
+	<property name="configLocation" value="/WEB-INF/velocity.properties"/>
 </bean>
 ----
 
@@ -33714,16 +33710,16 @@ inline properties.
 [subs="verbatim,quotes"]
 ----
 <bean id="velocityConfig" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
-  <property name="velocityProperties">
-    <props>
-      <prop key="resource.loader">file</prop>
-      <prop key="file.resource.loader.class">
-        org.apache.velocity.runtime.resource.loader.FileResourceLoader
-      </prop>
-      <prop key="file.resource.loader.path">${webapp.root}/WEB-INF/velocity</prop>
-      <prop key="file.resource.loader.cache">false</prop>
-    </props>
-  </property>
+	<property name="velocityProperties">
+		<props>
+			<prop key="resource.loader">file</prop>
+			<prop key="file.resource.loader.class">
+				org.apache.velocity.runtime.resource.loader.FileResourceLoader
+			</prop>
+			<prop key="file.resource.loader.path">${webapp.root}/WEB-INF/velocity</prop>
+			<prop key="file.resource.loader.cache">false</prop>
+		</props>
+	</property>
 </bean>
 ----
 
@@ -33745,12 +33741,12 @@ the `FreeMarkerConfigurer` bean. The `freemarkerSettings` property requires a
 [subs="verbatim,quotes"]
 ----
 <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
-  <property name="templateLoaderPath" value="/WEB-INF/freemarker/"/>
-  <property name="freemarkerVariables">
-    <map>
-      <entry key="xml_escape" value-ref="fmXmlEscape"/>
-    </map>
-  </property>
+	<property name="templateLoaderPath" value="/WEB-INF/freemarker/"/>
+	<property name="freemarkerVariables">
+		<map>
+			<entry key="xml_escape" value-ref="fmXmlEscape"/>
+		</map>
+	</property>
 </bean>
 
 <bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape"/>
@@ -33800,42 +33796,42 @@ configured earlier;
 ----
 <!-- velocity macros are automatically available -->
 <html>
-...
-<form action="" method="POST">
-  Name:
-  #springBind( "command.name" )
-  <input type="text"
-    name="${status.expression}"
-    value="$!status.value" /><br>
-  #foreach($error in $status.errorMessages) <b>$error</b> <br> #end
-  <br>
-  ...
-  <input type="submit" value="submit"/>
-</form>
-...
+	...
+	<form action="" method="POST">
+		Name:
+		#springBind( "command.name" )
+		<input type="text"
+			name="${status.expression}"
+			value="$!status.value" /><br>
+		#foreach($error in $status.errorMessages) <b>$error</b> <br> #end
+		<br>
+		...
+		<input type="submit" value="submit"/>
+	</form>
+	...
 </html>
 ----
 
 [source,xml]
 [subs="verbatim,quotes"]
 ----
-<!-- freemarker macros have to be imported into a namespace.  We strongly
+<!-- freemarker macros have to be imported into a namespace. We strongly
 recommend sticking to 'spring' -->
 <#import "/spring.ftl" as spring />
 <html>
-...
-<form action="" method="POST">
-  Name:
-  <@spring.bind "command.name" />
-  <input type="text"
-    name="${spring.status.expression}"
-    value="${spring.status.value?default("")}" /><br>
-  <#list spring.status.errorMessages as error> <b>${error}</b> <br> </#list>
-  <br>
-  ...
-  <input type="submit" value="submit"/>
-</form>
-...
+	...
+	<form action="" method="POST">
+		Name:
+		<@spring.bind "command.name" />
+		<input type="text"
+			name="${spring.status.expression}"
+			value="${spring.status.value?default("")}" /><br>
+		<#list spring.status.errorMessages as error> <b>${error}</b> <br> </#list>
+		<br>
+		...
+		<input type="submit" value="submit"/>
+	</form>
+	...
 </html>
 ----
 
@@ -33963,9 +33959,9 @@ differences exist between the two languages, they are explained in the notes.
 ----
 <!-- the Name field example from above using form macros in VTL -->
 ...
-    Name:
-    #springFormInput("command.name" "")<br>
-    #springShowErrors("<br>" "")<br>
+Name:
+#springFormInput("command.name" "")<br>
+#springShowErrors("<br>" "")<br>
 ----
 
 The formInput macro takes the path parameter (command.name) and an additional attributes
@@ -33997,10 +33993,9 @@ The generated HTML looks like this:
 [subs="verbatim,quotes"]
 ----
 Name:
-  <input type="text" name="name" value=""
->
+<input type="text" name="name" value="">
 <br>
-  <b>required</b>
+	<b>required</b>
 <br>
 <br>
 ----
@@ -34032,8 +34027,8 @@ model under the name 'cityMap'.
 [subs="verbatim,quotes"]
 ----
 ...
-  Town:
-  <@spring.formRadioButtons "command.address.town", cityMap, "" /><br><br>
+Town:
+<@spring.formRadioButtons "command.address.town", cityMap, "" /><br><br>
 ----
 
 This renders a line of radio buttons, one for each value in `cityMap` using the
@@ -34047,18 +34042,9 @@ and a default value in the form backing object, the HTML would be
 [subs="verbatim,quotes"]
 ----
 Town:
-<input type="radio" name="address.town" value="London"
-
->
-London
-<input type="radio" name="address.town" value="Paris"
-  checked="checked"
->
-Paris
-<input type="radio" name="address.town" value="New York"
-
->
-New York
+<input type="radio" name="address.town" value="London">London</input>
+<input type="radio" name="address.town" value="Paris" checked="checked">Paris</input>
+<input type="radio" name="address.town" value="New York">New York</input>
 ----
 
 If your application expects to handle cities by internal codes for example, the map of
@@ -34068,14 +34054,14 @@ codes would be created with suitable keys like the example below.
 [subs="verbatim,quotes"]
 ----
 protected Map referenceData(HttpServletRequest request) throws Exception {
-  Map cityMap = new LinkedHashMap();
-  cityMap.put("LDN", "London");
-  cityMap.put("PRS", "Paris");
-  cityMap.put("NYC", "New York");
+	Map cityMap = new LinkedHashMap();
+	cityMap.put("LDN", "London");
+	cityMap.put("PRS", "Paris");
+	cityMap.put("NYC", "New York");
 
-  Map m = new HashMap();
-  m.put("cityMap", cityMap);
-  return m;
+	Map m = new HashMap();
+	m.put("cityMap", cityMap);
+	return m;
 }
 ----
 
@@ -34086,18 +34072,9 @@ user still sees the more user friendly city names.
 [subs="verbatim,quotes"]
 ----
 Town:
-<input type="radio" name="address.town" value="LDN"
-
->
-London
-<input type="radio" name="address.town" value="PRS"
-  checked="checked"
->
-Paris
-<input type="radio" name="address.town" value="NYC"
-
->
-New York
+<input type="radio" name="address.town" value="LDN">London</input>
+<input type="radio" name="address.town" value="PRS" checked="checked">Paris</input>
+<input type="radio" name="address.town" value="NYC">New York</input>
 ----
 
 
@@ -34187,19 +34164,18 @@ handler method being defined like so...
 [source,java]
 [subs="verbatim,quotes"]
 ----
-protected ModelAndView handleRequestInternal(
-    HttpServletRequest request,
-    HttpServletResponse response) throws Exception {
+protected ModelAndView handleRequestInternal(HttpServletRequest request,
+		HttpServletResponse response) throws Exception {
 
-    Map map = new HashMap();
-    List wordList = new ArrayList();
+	Map map = new HashMap();
+	List wordList = new ArrayList();
 
-    wordList.add("hello");
-    wordList.add("world");
+	wordList.add("hello");
+	wordList.add("world");
 
-    map.put("wordList", wordList);
+	map.put("wordList", wordList);
 
-    return new ModelAndView("home", map);
+	return new ModelAndView("home", map);
 }
 ----
 
@@ -34233,22 +34209,22 @@ package xslt;
 
 public class HomePage extends AbstractXsltView {
 
-    protected Source createXsltSource(Map model, String rootName, HttpServletRequest
-        request, HttpServletResponse response) throws Exception {
+	protected Source createXsltSource(Map model, String rootName,
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
-        Element root = document.createElement(rootName);
+		Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+		Element root = document.createElement(rootName);
 
-        List words = (List) model.get("wordList");
-        for (Iterator it = words.iterator(); it.hasNext();) {
-            String nextWord = (String) it.next();
-            Element wordNode = document.createElement("word");
-            Text textNode = document.createTextNode(nextWord);
-            wordNode.appendChild(textNode);
-            root.appendChild(wordNode);
-        }
-        return new DOMSource(root);
-    }
+		List words = (List) model.get("wordList");
+		for (Iterator it = words.iterator(); it.hasNext();) {
+			String nextWord = (String) it.next();
+			Element wordNode = document.createElement("word");
+			Text textNode = document.createTextNode(nextWord);
+			wordNode.appendChild(textNode);
+			root.appendChild(wordNode);
+		}
+		return new DOMSource(root);
+	}
 
 }
 ----
@@ -34296,21 +34272,21 @@ the war file in the `'WEB-INF/xsl'` directory.
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-    <xsl:output method="html" omit-xml-declaration="yes"/>
+	<xsl:output method="html" omit-xml-declaration="yes"/>
 
-    <xsl:template match="/">
-        <html>
-            <head><title>Hello!</title></head>
-            <body>
-                <h1>My First Words</h1>
-                <xsl:apply-templates/>
-            </body>
-        </html>
-    </xsl:template>
+	<xsl:template match="/">
+		<html>
+			<head><title>Hello!</title></head>
+			<body>
+				<h1>My First Words</h1>
+				<xsl:apply-templates/>
+			</body>
+		</html>
+	</xsl:template>
 
-    <xsl:template match="word">
-        <xsl:value-of select="."/><br/>
-    </xsl:template>
+	<xsl:template match="word">
+		<xsl:value-of select="."/><br/>
+	</xsl:template>
 
 </xsl:stylesheet>
 ----
@@ -34435,34 +34411,30 @@ package excel;
 
 public class HomePage extends AbstractExcelView {
 
-    protected void buildExcelDocument(
-        Map model,
-        HSSFWorkbook wb,
-        HttpServletRequest req,
-        HttpServletResponse resp)
-        throws Exception {
+	protected void buildExcelDocument(Map model, HSSFWorkbook wb, HttpServletRequest req,
+			HttpServletResponse resp) throws Exception {
 
-        HSSFSheet sheet;
-        HSSFRow sheetRow;
-        HSSFCell cell;
+		HSSFSheet sheet;
+		HSSFRow sheetRow;
+		HSSFCell cell;
 
-        // Go to the first sheet
-        // getSheetAt: only if wb is created from an existing document
-        // sheet = wb.getSheetAt(0);
-        sheet = wb.createSheet("Spring");
-        sheet.setDefaultColumnWidth((short) 12);
+		// Go to the first sheet
+		// getSheetAt: only if wb is created from an existing document
+		// sheet = wb.getSheetAt(0);
+		sheet = wb.createSheet("Spring");
+		sheet.setDefaultColumnWidth((short) 12);
 
-        // write a text at A1
-        cell = getCell(sheet, 0, 0);
-        setText(cell, "Spring-Excel test");
+		// write a text at A1
+		cell = getCell(sheet, 0, 0);
+		setText(cell, "Spring-Excel test");
 
-        List words = (List) model.get("wordList");
-        for (int i=0; i < words.size(); i++) {
-            cell = getCell(sheet, 2+i, 0);
-            setText(cell, (String) words.get(i));
+		List words = (List) model.get("wordList");
+		for (int i=0; i < words.size(); i++) {
+			cell = getCell(sheet, 2+i, 0);
+			setText(cell, (String) words.get(i));
+		}
+	}
 
-        }
-    }
 }
 ----
 
@@ -34477,21 +34449,18 @@ package excel;
 
 public class HomePage extends AbstractJExcelView {
 
-    protected void buildExcelDocument(Map model,
-        WritableWorkbook wb,
-        HttpServletRequest request,
-        HttpServletResponse response)
-    throws Exception {
+	protected void buildExcelDocument(Map model, WritableWorkbook wb,
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        WritableSheet sheet = wb.createSheet("Spring", 0);
+		WritableSheet sheet = wb.createSheet("Spring", 0);
 
-        sheet.addCell(new Label(0, 0, "Spring-Excel test"));
+		sheet.addCell(new Label(0, 0, "Spring-Excel test"));
 
-        List words = (List) model.get("wordList");
-        for (int i = 0; i < words.size(); i++) {
-            sheet.addCell(new Label(2+i, 0, (String) words.get(i)));
-        }
-    }
+		List words = (List) model.get("wordList");
+		for (int i = 0; i < words.size(); i++) {
+			sheet.addCell(new Label(2+i, 0, (String) words.get(i)));
+		}
+	}
 }
 ----
 
@@ -34520,20 +34489,14 @@ package pdf;
 
 public class PDFPage extends AbstractPdfView {
 
-    protected void buildPdfDocument(
-        Map model,
-        Document doc,
-        PdfWriter writer,
-        HttpServletRequest req,
-        HttpServletResponse resp)
-        throws Exception {
+	protected void buildPdfDocument(Map model, Document doc, PdfWriter writer,
+		HttpServletRequest req, HttpServletResponse resp) throws Exception {
+		List words = (List) model.get("wordList");
+		for (int i=0; i<words.size(); i++) {
+			doc.add( new Paragraph((String) words.get(i)));
+		}
+	}
 
-        List words = (List) model.get("wordList");
-
-        for (int i=0; i<words.size(); i++)
-            doc.add( new Paragraph((String) words.get(i)));
-
-    }
 }
 ----
 
@@ -34587,7 +34550,7 @@ classes and files in a properties file.
 [subs="verbatim,quotes"]
 ----
 <bean id="viewResolver" class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
-    <property name="basename" value="views"/>
+	<property name="basename" value="views"/>
 </bean>
 ----
 
@@ -34656,7 +34619,7 @@ application.
 
 
 [[view-jasper-reports-configuration-multiformat-view]]
-===== Using  JasperReportsMultiFormatView
+===== Using JasperReportsMultiFormatView
 
 The `JasperReportsMultiFormatView` allows for the report format to be specified at
 runtime. The actual rendering of the report is delegated to one of the other
@@ -34675,13 +34638,14 @@ key as the key and the mapping key as the value, for example:
 public ModelAndView handleSimpleReportMulti(HttpServletRequest request,
 HttpServletResponse response) throws Exception {
 
-  String uri = request.getRequestURI();
-  String format = uri.substring(uri.lastIndexOf(".") + 1);
+	String uri = request.getRequestURI();
+	String format = uri.substring(uri.lastIndexOf(".") + 1);
 
-  Map model = getModel();
-  model.put("format", format);
+	Map model = getModel();
+	model.put("format", format);
 
-  return new ModelAndView("simpleReportMulti", model);
+	return new ModelAndView("simpleReportMulti", model);
+
 }
 ----
 
@@ -34735,10 +34699,10 @@ and treat it as the report datasource. For example, you may populate your model 
 [subs="verbatim,quotes"]
 ----
 private Map getModel() {
-  Map model = new HashMap();
-  Collection beanData = getBeanData();
-  model.put("myBeanData", beanData);
-  return model;
+	Map model = new HashMap();
+	Collection beanData = getBeanData();
+	model.put("myBeanData", beanData);
+	return model;
 }
 ----
 
@@ -34751,12 +34715,12 @@ class. In both cases Spring will wrap instances of `Collection` in a
 [subs="verbatim,quotes"]
 ----
 private Map getModel() {
-  Map model = new HashMap();
-  Collection beanData = getBeanData();
-  Collection someData = getSomeData();
-  model.put("myBeanData", beanData);
-  model.put("someData", someData);
-  return model;
+	Map model = new HashMap();
+	Collection beanData = getBeanData();
+	Collection someData = getSomeData();
+	model.put("myBeanData", beanData);
+	model.put("someData", someData);
+	return model;
 }
 ----
 
@@ -34807,14 +34771,14 @@ Then, you define your sub-report to use this sub-report parameter:
 [subs="verbatim,quotes"]
 ----
 <subreport>
-    <reportElement isPrintRepeatedValues="false" x="5" y="25" width="325"
-        height="20" isRemoveLineWhenBlank="true" backcolor="#ffcc99"/>
-    <subreportParameter name="City">
-        <subreportParameterExpression><![CDATA[$F{city}]]></subreportParameterExpression>
-    </subreportParameter>
-    <dataSourceExpression><![CDATA[$P{SubReportData}]]></dataSourceExpression>
-    <subreportExpression class="net.sf.jasperreports.engine.JasperReport">
-                  <![CDATA[$P{ProductsSubReport}]]></subreportExpression>
+	<reportElement isPrintRepeatedValues="false" x="5" y="25" width="325"
+		height="20" isRemoveLineWhenBlank="true" backcolor="#ffcc99"/>
+	<subreportParameter name="City">
+		<subreportParameterExpression><![CDATA[$F{city}]]></subreportParameterExpression>
+	</subreportParameter>
+	<dataSourceExpression><![CDATA[$P{SubReportData}]]></dataSourceExpression>
+	<subreportExpression class="net.sf.jasperreports.engine.JasperReport">
+		<![CDATA[$P{ProductsSubReport}]]></subreportExpression>
 </subreport>
 ----
 
@@ -34828,9 +34792,9 @@ load a report file and pass it into the JasperReports engine as a sub-report usi
 [subs="verbatim,quotes"]
 ----
 <property name="subReportUrls">
-    <map>
-        <entry key="ProductsSubReport" value="/WEB-INF/reports/subReportChild.jrxml"/>
-    </map>
+	<map>
+		<entry key="ProductsSubReport" value="/WEB-INF/reports/subReportChild.jrxml"/>
+	</map>
 </property>
 ----
 
@@ -34874,17 +34838,17 @@ value you want to assign to the parameter. An example of this is shown below:
 [subs="verbatim,quotes"]
 ----
 <bean id="htmlReport" class="org.springframework.web.servlet.view.jasperreports.JasperReportsHtmlView">
-  <property name="url" value="/WEB-INF/reports/simpleReport.jrxml"/>
-  <property name="exporterParameters">
-    <map>
-      <entry key="net.sf.jasperreports.engine.export.JRHtmlExporterParameter.HTML_FOOTER">
-        <value>Footer by Spring!
-          &lt;/td&gt;&lt;td width="50%"&gt;&amp;nbsp; &lt;/td&gt;&lt;/tr&gt;
-          &lt;/table&gt;&lt;/body&gt;&lt;/html&gt;
-        </value>
-      </entry>
-    </map>
-  </property>
+	<property name="url" value="/WEB-INF/reports/simpleReport.jrxml"/>
+	<property name="exporterParameters">
+		<map>
+			<entry key="net.sf.jasperreports.engine.export.JRHtmlExporterParameter.HTML_FOOTER">
+				<value>Footer by Spring!
+					&lt;/td&gt;&lt;td width="50%"&gt;&amp;nbsp; &lt;/td&gt;&lt;/tr&gt;
+					&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;
+				</value>
+			</entry>
+		</map>
+	</property>
 </bean>
 ----
 
@@ -34899,7 +34863,7 @@ which will output a footer in the resulting HTML.
 === Feed Views
 Both `AbstractAtomFeedView` and `AbstractRssFeedView` inherit from the base class
 `AbstractFeedView` and are used to provide Atom and RSS Feed views respectfully. They
-are based on java.net's  https://rome.dev.java.net[ROME] project and are located in the
+are based on java.net's https://rome.dev.java.net[ROME] project and are located in the
 package `org.springframework.web.servlet.view.feed`.
 
 `AbstractAtomFeedView` requires you to implement the `buildFeedEntries()` method and
@@ -34911,19 +34875,18 @@ empty), as shown below.
 ----
 public class SampleContentAtomView extends AbstractAtomFeedView {
 
-  @Override
-  protected void buildFeedMetadata(Map<String, Object> model, Feed feed,
-      HttpServletRequest request) {
-    // implementation omitted
-  }
+	@Override
+	protected void buildFeedMetadata(Map<String, Object> model,
+			Feed feed, HttpServletRequest request) {
+		// implementation omitted
+	}
 
-  @Override
-  protected List<Entry> buildFeedEntries(Map<String, Object> model,
-      HttpServletRequest request, HttpServletResponse response)
-      throws Exception {
+	@Override
+	protected List<Entry> buildFeedEntries(Map<String, Object> model,
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
+		// implementation omitted
+	}
 
-    // implementation omitted
-  }
 }
 ----
 
@@ -34934,18 +34897,17 @@ Similar requirements apply for implementing `AbstractRssFeedView`, as shown belo
 ----
 public class SampleContentAtomView extends AbstractRssFeedView {
 
-  @Override
-  protected void buildFeedMetadata(Map<String, Object> model, Channel feed,
-                                   HttpServletRequest request) {
-    // implementation omitted
-  }
+	@Override
+	protected void buildFeedMetadata(Map<String, Object> model,
+			Channel feed, HttpServletRequest request) {
+		// implementation omitted
+	}
 
-  @Override
-  protected List<Item> buildFeedItems(Map<String, Object> model,
-      HttpServletRequest request, HttpServletResponse response)
-      throws Exception {
-    // implementation omitted
-  }
+	@Override
+	protected List<Item> buildFeedItems(Map<String, Object> model,
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
+		// implementation omitted
+	}
 
 }
 ----
@@ -34983,7 +34945,7 @@ content as JSON. By default, the entire contents of the model map (with the exce
 framework-specific classes) will be encoded as JSON. For cases where the contents of the
 map need to be filtered, users may specify a specific set of model attributes to encode
 via the `RenderedAttributes` property. The `extractValueFromSingleKeyModel` property may
-also be  used to have the value in single-key models extracted and serialized directly
+also be used to have the value in single-key models extracted and serialized directly
 rather than as a map of model attributes.
 
 JSON mapping can be customized as needed through the use of Jackson's provided
@@ -35093,7 +35055,7 @@ Find below the <listener/> configuration:
 [subs="verbatim,quotes"]
 ----
 <listener>
-  <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 </listener>
 ----
 
@@ -35103,8 +35065,8 @@ Find below the <context-param/> configuration:
 [subs="verbatim,quotes"]
 ----
 <context-param>
-  <param-name>contextConfigLocation</param-name>
-  <param-value>/WEB-INF/applicationContext*.xml</param-value>
+	<param-name>contextConfigLocation</param-name>
+	<param-value>/WEB-INF/applicationContext*.xml</param-value>
 </context-param>
 ----
 
@@ -35185,15 +35147,15 @@ example:
 [subs="verbatim,quotes"]
 ----
 <faces-config>
-  <application>
-    <variable-resolver>org.springframework.web.jsf.DelegatingVariableResolver</variable-resolver>
-    <locale-config>
-      <default-locale>en</default-locale>
-      <supported-locale>en</supported-locale>
-      <supported-locale>es</supported-locale>
-    </locale-config>
-    <message-bundle>messages</message-bundle>
-  </application>
+	<application>
+		<variable-resolver>org.springframework.web.jsf.DelegatingVariableResolver</variable-resolver>
+		<locale-config>
+			<default-locale>en</default-locale>
+			<supported-locale>en</supported-locale>
+			<supported-locale>es</supported-locale>
+		</locale-config>
+		<message-bundle>messages</message-bundle>
+	</application>
 </faces-config>
 ----
 
@@ -35209,13 +35171,13 @@ Managed beans are defined in one's `faces-config.xml` file. Find below an exampl
 [subs="verbatim,quotes"]
 ----
 <managed-bean>
-  <managed-bean-name>userList</managed-bean-name>
-  <managed-bean-class>com.whatever.jsf.UserList</managed-bean-class>
-  <managed-bean-scope>request</managed-bean-scope>
-  <managed-property>
-    <property-name>userManager</property-name>
-    <value>#{userManager}</value>
-  </managed-property>
+	<managed-bean-name>userList</managed-bean-name>
+	<managed-bean-class>com.whatever.jsf.UserList</managed-bean-class>
+	<managed-bean-scope>request</managed-bean-scope>
+	<managed-property>
+		<property-name>userManager</property-name>
+		<value>#{userManager}</value>
+	</managed-property>
 </managed-bean>
 ----
 
@@ -35236,10 +35198,10 @@ __faces-context.xml__ file:
 [subs="verbatim,quotes"]
 ----
 <faces-config>
-  <application>
-    <variable-resolver>org.springframework.web.jsf.SpringBeanVariableResolver</variable-resolver>
-    ...
-  </application>
+	<application>
+		<variable-resolver>org.springframework.web.jsf.SpringBeanVariableResolver</variable-resolver>
+		...
+	</application>
 </faces-config>
 ----
 
@@ -35260,10 +35222,10 @@ __faces-context.xml__ file:
 [subs="verbatim,quotes"]
 ----
 <faces-config>
-  <application>
-    <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
-    ...
-  </application>
+	<application>
+		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+		...
+	</application>
 </faces-config>
 ----
 
@@ -35344,8 +35306,8 @@ The location of the context configuration files can be customized using the '
 [subs="verbatim,quotes"]
 ----
 <plug-in className="org.springframework.web.struts.ContextLoaderPlugIn">
-  <set-property property="contextConfigLocation"
-      value="/WEB-INF/action-servlet.xml,/WEB-INF/applicationContext.xml"/>
+	<set-property property="contextConfigLocation"
+			value="/WEB-INF/action-servlet.xml,/WEB-INF/applicationContext.xml"/>
 </plug-in>
 ----
 
@@ -35394,8 +35356,8 @@ in your __struts-config.xml__ file, override the "processorClass" property in th
 [subs="verbatim,quotes"]
 ----
 <controller>
-  <set-property property="processorClass"
-      value="org.springframework.web.struts.DelegatingRequestProcessor"/>
+	<set-property property="processorClass"
+			value="org.springframework.web.struts.DelegatingRequestProcessor"/>
 </controller>
 ----
 
@@ -35434,9 +35396,9 @@ as the type in your action-mapping.
 [subs="verbatim,quotes"]
 ----
 <action path="/user" type="org.springframework.web.struts.DelegatingActionProxy"
-    name="userForm" scope="request" validate="false" parameter="method">
-  <forward name="list" path="/userList.jsp"/>
-  <forward name="edit" path="/userForm.jsp"/>
+		name="userForm" scope="request" validate="false" parameter="method">
+	<forward name="list" path="/userList.jsp"/>
+	<forward name="edit" path="/userForm.jsp"/>
 </action>
 ----
 
@@ -35452,7 +35414,7 @@ add__scope="prototype"__ to your Action's bean definition.
 [subs="verbatim,quotes"]
 ----
 <bean name="/user" scope="prototype" autowire="byName"
-    class="org.example.web.UserAction"/>
+		class="org.example.web.UserAction"/>
 ----
 
 
@@ -35475,18 +35437,16 @@ Action:
 ----
 public class UserAction extends DispatchActionSupport {
 
-    public ActionForward execute(ActionMapping mapping,
-                                 ActionForm form,
-                                 HttpServletRequest request,
-                                 HttpServletResponse response) throws Exception {
-        if (log.isDebugEnabled()) {
-            log.debug("entering 'delete' method...");
-        }
-        WebApplicationContext ctx = getWebApplicationContext();
-        UserManager mgr = (UserManager) ctx.getBean("userManager");
-        // talk to manager for business logic
-        return mapping.findForward("success");
-    }
+	public ActionForward execute(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
+		if (log.isDebugEnabled()) {
+			log.debug("entering 'delete' method...");
+		}
+		WebApplicationContext ctx = getWebApplicationContext();
+		UserManager mgr = (UserManager) ctx.getBean("userManager");
+		// talk to manager for business logic
+		return mapping.findForward("success");
+	}
 }
 ----
 
@@ -35595,47 +35555,51 @@ format):
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       **xmlns:jee="http://www.springframework.org/schema/jee"**
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd **http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd**">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	**xmlns:jee="http://www.springframework.org/schema/jee"**
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		**http://www.springframework.org/schema/jee
+		http://www.springframework.org/schema/jee/spring-jee.xsd**">
 
-    <!-- the DataSource -->
-    <jee:jndi-lookup id="dataSource" jndi-name="java:DefaultDS"/>
-    <bean id="hibSessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
-    <bean id="transactionManager" class="org.springframework.transaction.jta.JtaTransactionManager"/>
-    <bean id="mapper" class="com.whatever.dataaccess.mapper.hibernate.MapperImpl">
-        <property name="sessionFactory" ref="hibSessionFactory"/>
-    </bean>
+	<!-- the DataSource -->
+	<jee:jndi-lookup id="dataSource" jndi-name="java:DefaultDS"/>
+	<bean id="hibSessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	<bean id="transactionManager" class="org.springframework.transaction.jta.JtaTransactionManager"/>
+	<bean id="mapper" class="com.whatever.dataaccess.mapper.hibernate.MapperImpl">
+		<property name="sessionFactory" ref="hibSessionFactory"/>
+	</bean>
 
-    <!-- (transactional) AuthenticationService -->
-    <bean id="authenticationService" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
-        <property name="transactionManager" ref="transactionManager"/>
-        <property name="target">
-            <bean class="com.whatever.services.service.user.AuthenticationServiceImpl">
-                <property name="mapper" ref="mapper"/>
-            </bean>
-        </property>
-        <property name="proxyInterfacesOnly" value="true"/>
-        <property name="transactionAttributes">
-            <value> *=PROPAGATION_REQUIRED </value>
-        </property>
-    </bean>
+	<!-- (transactional) AuthenticationService -->
+	<bean id="authenticationService" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager"/>
+		<property name="target">
+			<bean class="com.whatever.services.service.user.AuthenticationServiceImpl">
+				<property name="mapper" ref="mapper"/>
+			</bean>
+		</property>
+		<property name="proxyInterfacesOnly" value="true"/>
+		<property name="transactionAttributes">
+			<value> *=PROPAGATION_REQUIRED </value>
+		</property>
+	</bean>
 
-    <!-- (transactional) UserService -->
-    <bean id="userService" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
-        <property name="transactionManager" ref="transactionManager"/>
-        <property name="target">
-            <bean class="com.whatever.services.service.user.UserServiceImpl">
-                <property name="mapper" ref="mapper"/>
-            </bean>
-        </property>
-        <property name="proxyInterfacesOnly" value="true"/>
-        <property name="transactionAttributes">
-            <value> *=PROPAGATION_REQUIRED </value>
-        </property>
-    </bean>
+	<!-- (transactional) UserService -->
+	<bean id="userService" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager"/>
+		<property name="target">
+			<bean class="com.whatever.services.service.user.UserServiceImpl">
+				<property name="mapper" ref="mapper"/>
+			</bean>
+		</property>
+		<property name="proxyInterfacesOnly" value="true"/>
+		<property name="transactionAttributes">
+			<value> *=PROPAGATION_REQUIRED </value>
+		</property>
+	</bean>
 </beans>
 ----
 
@@ -35656,7 +35620,7 @@ be with code such as:
 [subs="verbatim,quotes"]
 ----
 WebApplicationContext appContext = WebApplicationContextUtils.getApplicationContext(
-    getRequestCycle().getRequestContext().getServlet().getServletContext());
+		getRequestCycle().getRequestContext().getServlet().getServletContext());
 UserService userService = (UserService) appContext.getBean("userService");
 // ... some code which uses UserService
 ----
@@ -35698,24 +35662,24 @@ package com.whatever.web.xportal;
 
 public class MyEngine extends org.apache.tapestry.engine.BaseEngine {
 
-    public static final String APPLICATION_CONTEXT_KEY = "appContext";
+	public static final String APPLICATION_CONTEXT_KEY = "appContext";
 
-    /**
-     * @see org.apache.tapestry.engine.AbstractEngine#setupForRequest(org.apache.tapestry.request.RequestContext)
-     */
-    protected void setupForRequest(RequestContext context) {
-        super.setupForRequest(context);
+	/**
+	 * @see org.apache.tapestry.engine.AbstractEngine#setupForRequest(org.apache.tapestry.request.RequestContext)
+	 */
+	protected void setupForRequest(RequestContext context) {
 
-        // insert ApplicationContext in global, if not there
-        Map global = (Map) getGlobal();
-        ApplicationContext ac = (ApplicationContext) global.get(APPLICATION_CONTEXT_KEY);
-        if (ac == null) {
-            ac = WebApplicationContextUtils.getWebApplicationContext(
-                context.getServlet().getServletContext()
-            );
-            global.put(APPLICATION_CONTEXT_KEY, ac);
-        }
-    }
+		super.setupForRequest(context);
+
+		// insert ApplicationContext in global, if not there
+		Map global = (Map) getGlobal();
+		ApplicationContext ac = (ApplicationContext) global.get(APPLICATION_CONTEXT_KEY);
+		if (ac == null) {
+			ac = WebApplicationContextUtils.getWebApplicationContext(
+					context.getServlet().getServletContext());
+			global.put(APPLICATION_CONTEXT_KEY, ac);
+		}
+	}
 }
 ----
 
@@ -35730,11 +35694,11 @@ entry in the Tapestry application definition file. For example:
 file: xportal.application:
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE application PUBLIC
-    "-//Apache Software Foundation//Tapestry Specification 3.0//EN"
-    "http://jakarta.apache.org/tapestry/dtd/Tapestry_3_0.dtd">
+	"-//Apache Software Foundation//Tapestry Specification 3.0//EN"
+	"http://jakarta.apache.org/tapestry/dtd/Tapestry_3_0.dtd">
 <application
-    name="Whatever xPortal"
-    engine-class="com.whatever.web.xportal.MyEngine">
+	name="Whatever xPortal"
+	engine-class="com.whatever.web.xportal.MyEngine">
 </application>
 ----
 
@@ -35749,10 +35713,10 @@ property-specification elements to grab the beans we need out of the
 [subs="verbatim,quotes"]
 ----
 <property-specification name="userService" type="com.whatever.services.service.user.UserService">
-    global.appContext.getBean("userService")
+	global.appContext.getBean("userService")
 </property-specification>
 <property-specification name="authenticationService" type="com.whatever.services.service.user.AuthenticationService">
-    global.appContext.getBean("authenticationService")
+	global.appContext.getBean("authenticationService")
 </property-specification>
 ----
 
@@ -35765,43 +35729,41 @@ like this:
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 **<!DOCTYPE page-specification PUBLIC
-    "-//Apache Software Foundation//Tapestry Specification 3.0//EN"
-    "http://jakarta.apache.org/tapestry/dtd/Tapestry_3_0.dtd">**
+	"-//Apache Software Foundation//Tapestry Specification 3.0//EN"
+	"http://jakarta.apache.org/tapestry/dtd/Tapestry_3_0.dtd">**
 
 <page-specification class="com.whatever.web.xportal.pages.Login">
 
-    <property-specification name="username" type="java.lang.String"/>
-    <property-specification name="password" type="java.lang.String"/>
-    <property-specification name="error" type="java.lang.String"/>
-    <property-specification name="callback" type="org.apache.tapestry.callback.ICallback" persistent="yes"/>
-    <property-specification name="userService"
-                            type="com.whatever.services.service.user.UserService">
-        global.appContext.getBean("userService")
-    </property-specification>
-    <property-specification name="authenticationService"
-                            type="com.whatever.services.service.user.AuthenticationService">
-        global.appContext.getBean("authenticationService")
-    </property-specification>
+	<property-specification name="username" type="java.lang.String"/>
+	<property-specification name="password" type="java.lang.String"/>
+	<property-specification name="error" type="java.lang.String"/>
+	<property-specification name="callback" type="org.apache.tapestry.callback.ICallback" persistent="yes"/>
+	<property-specification name="userService" type="com.whatever.services.service.user.UserService">
+		global.appContext.getBean("userService")
+	</property-specification>
+	<property-specification name="authenticationService" type="com.whatever.services.service.user.AuthenticationService">
+		global.appContext.getBean("authenticationService")
+	</property-specification>
 
-    <bean name="delegate" class="com.whatever.web.xportal.PortalValidationDelegate"/>
+	<bean name="delegate" class="com.whatever.web.xportal.PortalValidationDelegate"/>
 
-    <bean name="validator" class="org.apache.tapestry.valid.StringValidator" lifecycle="page">
-        <set-property name="required" expression="true"/>
-        <set-property name="clientScriptingEnabled" expression="true"/>
-    </bean>
+	<bean name="validator" class="org.apache.tapestry.valid.StringValidator" lifecycle="page">
+		<set-property name="required" expression="true"/>
+		<set-property name="clientScriptingEnabled" expression="true"/>
+	</bean>
 
-    <component id="inputUsername" type="ValidField">
-        <static-binding name="displayName" value="Username"/>
-        <binding name="value" expression="username"/>
-        <binding name="validator" expression="beans.validator"/>
-    </component>
+	<component id="inputUsername" type="ValidField">
+		<static-binding name="displayName" value="Username"/>
+		<binding name="value" expression="username"/>
+		<binding name="validator" expression="beans.validator"/>
+	</component>
 
-    <component id="inputPassword" type="ValidField">
-        <binding name="value" expression="password"/>
-       <binding name="validator" expression="beans.validator"/>
-       <static-binding name="displayName" value="Password"/>
-       <binding name="hidden" expression="true"/>
-    </component>
+	<component id="inputPassword" type="ValidField">
+		<binding name="value" expression="password"/>
+		<binding name="validator" expression="beans.validator"/>
+		<static-binding name="displayName" value="Password"/>
+		<binding name="hidden" expression="true"/>
+	</component>
 
 </page-specification>
 ----
@@ -35830,115 +35792,115 @@ might look like this:
 package com.whatever.web.xportal.pages;
 
 /**
- *  Allows the user to login, by providing username and password.
- *  After successfully logging in, a cookie is placed on the client browser
- *  that provides the default username for future logins (the cookie
- *  persists for a week).
+ * Allows the user to login, by providing username and password.
+ * After successfully logging in, a cookie is placed on the client browser
+ * that provides the default username for future logins (the cookie
+ * persists for a week).
  */
 public abstract class Login extends BasePage implements ErrorProperty, PageRenderListener {
 
-    /** the key under which the authenticated user object is stored in the visit as */
-    public static final String USER_KEY = "user";
+	/** the key under which the authenticated user object is stored in the visit as */
+	public static final String USER_KEY = "user";
 
-    /** The name of the cookie that identifies a user **/
-    private static final String COOKIE_NAME = Login.class.getName() + ".username";
-    private final static int ONE_WEEK = 7 * 24 * 60 * 60;
+	/** The name of the cookie that identifies a user **/
+	private static final String COOKIE_NAME = Login.class.getName() + ".username";
+	private final static int ONE_WEEK = 7 * 24 * 60 * 60;
 
-    public abstract String getUsername();
-    public abstract void setUsername(String username);
+	public abstract String getUsername();
+	public abstract void setUsername(String username);
 
-    public abstract String getPassword();
-    public abstract void setPassword(String password);
+	public abstract String getPassword();
+	public abstract void setPassword(String password);
 
-    public abstract ICallback getCallback();
-    public abstract void setCallback(ICallback value);
+	public abstract ICallback getCallback();
+	public abstract void setCallback(ICallback value);
 
-    public abstract UserService getUserService();
-    public abstract AuthenticationService getAuthenticationService();
+	public abstract UserService getUserService();
+	public abstract AuthenticationService getAuthenticationService();
 
-    protected IValidationDelegate getValidationDelegate() {
-        return (IValidationDelegate) getBeans().getBean("delegate");
-    }
+	protected IValidationDelegate getValidationDelegate() {
+		return (IValidationDelegate) getBeans().getBean("delegate");
+	}
 
-    protected void setErrorField(String componentId, String message) {
-        IFormComponent field = (IFormComponent) getComponent(componentId);
-        IValidationDelegate delegate = getValidationDelegate();
-        delegate.setFormComponent(field);
-        delegate.record(new ValidatorException(message));
-    }
+	protected void setErrorField(String componentId, String message) {
+		IFormComponent field = (IFormComponent) getComponent(componentId);
+		IValidationDelegate delegate = getValidationDelegate();
+		delegate.setFormComponent(field);
+		delegate.record(new ValidatorException(message));
+	}
 
-    /**
-     *  Attempts to login.
-     * <p>
-     *  If the user name is not known, or the password is invalid, then an error
-     *  message is displayed.
-     **/
-    public void attemptLogin(IRequestCycle cycle) {
+	/**
+	 *  Attempts to login.
+	 * <p>
+	 *  If the user name is not known, or the password is invalid, then an error
+	 *  message is displayed.
+	 */
+	public void attemptLogin(IRequestCycle cycle) {
 
-        String password = getPassword();
+		String password = getPassword();
 
-        // Do a little extra work to clear out the password.
-        setPassword(null);
-        IValidationDelegate delegate = getValidationDelegate();
+		// Do a little extra work to clear out the password.
+		setPassword(null);
+		IValidationDelegate delegate = getValidationDelegate();
 
-        delegate.setFormComponent((IFormComponent) getComponent("inputPassword"));
-        delegate.recordFieldInputValue(null);
+		delegate.setFormComponent((IFormComponent) getComponent("inputPassword"));
+		delegate.recordFieldInputValue(null);
 
-        // An error, from a validation field, may already have occurred.
-        if (delegate.getHasErrors()) {
-            return;
-        }
+		// An error, from a validation field, may already have occurred.
+		if (delegate.getHasErrors()) {
+			return;
+		}
 
-        try {
-            User user = getAuthenticationService().login(getUsername(), getPassword());
-           loginUser(user, cycle);
-        }
-        catch (FailedLoginException ex) {
-            this.setError("Login failed: " + ex.getMessage());
-            return;
-        }
-    }
+		try {
+			User user = getAuthenticationService().login(getUsername(), getPassword());
+			loginUser(user, cycle);
+		}
+		catch (FailedLoginException ex) {
+			this.setError("Login failed: " + ex.getMessage());
+			return;
+		}
+	}
 
-    /**
-     *  Sets up the {@link User} as the logged in user, creates
-     *  a cookie for their username (for subsequent logins),
-     *  and redirects to the appropriate page, or
-     *  a specified page).
-     **/
+	/**
+	 * Sets up the {@link User} as the logged in user, creates
+	 * a cookie for their username (for subsequent logins),
+	 * and redirects to the appropriate page, or
+	 * a specified page).
+	 */
     public void loginUser(User user, IRequestCycle cycle) {
 
-        String username = user.getUsername();
+		String username = user.getUsername();
 
-        // Get the visit object; this will likely force the
-        // creation of the visit object and an HttpSession
-        Map visit = (Map) getVisit();
-        visit.put(USER_KEY, user);
+		// Get the visit object; this will likely force the
+		// creation of the visit object and an HttpSession
+		Map visit = (Map) getVisit();
+		visit.put(USER_KEY, user);
 
-        // After logging in, go to the MyLibrary page, unless otherwise specified
-        ICallback callback = getCallback();
+		// After logging in, go to the MyLibrary page, unless otherwise specified
+		ICallback callback = getCallback();
 
-        if (callback == null) {
-            cycle.activate("Home");
-        }
-        else {
-            callback.performCallback(cycle);
-        }
+		if (callback == null) {
+			cycle.activate("Home");
+		}
+		else {
+			callback.performCallback(cycle);
+		}
 
-        IEngine engine = getEngine();
-        Cookie cookie = new Cookie(COOKIE_NAME, username);
-        cookie.setPath(engine.getServletPath());
-        cookie.setMaxAge(ONE_WEEK);
+		IEngine engine = getEngine();
+		Cookie cookie = new Cookie(COOKIE_NAME, username);
+		cookie.setPath(engine.getServletPath());
+		cookie.setMaxAge(ONE_WEEK);
 
-        // Record the user's username in a cookie
-        cycle.getRequestContext().addCookie(cookie);
-        engine.forgetPage(getPageName());
-    }
+		// Record the user's username in a cookie
+		cycle.getRequestContext().addCookie(cookie);
+		engine.forgetPage(getPageName());
+	}
 
-    public void pageBeginRender(PageEvent event) {
-        if (getUsername() == null) {
-            setUsername(getRequestCycle().getRequestContext().getCookieValue(COOKIE_NAME));
-        }
-    }
+	public void pageBeginRender(PageEvent event) {
+		if (getUsername() == null) {
+			setUsername(getRequestCycle().getRequestContext().getCookieValue(COOKIE_NAME));
+		}
+	}
 }
 ----
 
@@ -35966,11 +35928,11 @@ package com.whatever.web.xportal.pages;
 
 public abstract class Login extends BasePage implements ErrorProperty, PageRenderListener {
 
-    @InjectObject("spring:userService")
-    public abstract UserService getUserService();
+	@InjectObject("spring:userService")
+	public abstract UserService getUserService();
 
-    @InjectObject("spring:authenticationService")
-    public abstract AuthenticationService getAuthenticationService();
+	@InjectObject("spring:authenticationService")
+	public abstract AuthenticationService getAuthenticationService();
 
 }
 ----
@@ -35984,23 +35946,21 @@ Spring container stored in the `ServletContext` as a HiveMind service; for examp
 <?xml version="1.0"?>
 <module id="com.javaforge.tapestry.spring" version="0.1.1">
 
-    <service-point id="SpringApplicationInitializer"
-        interface="org.apache.tapestry.services.ApplicationInitializer"
-        visibility="private">
-        <invoke-factory>
-            <construct class="com.javaforge.tapestry.spring.SpringApplicationInitializer">
-                <set-object property="beanFactoryHolder"
-                    value="service:hivemind.lib.DefaultSpringBeanFactoryHolder" />
-            </construct>
-        </invoke-factory>
-    </service-point>
+	<service-point id="SpringApplicationInitializer"
+			interface="org.apache.tapestry.services.ApplicationInitializer"
+			visibility="private">
+		<invoke-factory>
+			<construct class="com.javaforge.tapestry.spring.SpringApplicationInitializer">
+				<set-object property="beanFactoryHolder"
+						value="service:hivemind.lib.DefaultSpringBeanFactoryHolder" />
+			</construct>
+		</invoke-factory>
+	</service-point>
 
-    <!-- Hook the Spring setup into the overall application initialization. -->
-    <contribution
-        configuration-id="tapestry.init.ApplicationInitializers">
-        <command id="spring-context"
-            object="service:SpringApplicationInitializer" />
-    </contribution>
+	<!-- Hook the Spring setup into the overall application initialization. -->
+	<contribution configuration-id="tapestry.init.ApplicationInitializers">
+		<command id="spring-context" object="service:SpringApplicationInitializer" />
+	</contribution>
 
 </module>
 ----
@@ -36178,15 +36138,15 @@ your web application:
 [subs="verbatim,quotes"]
 ----
 <portlet>
-    <portlet-name>sample</portlet-name>
-    <portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
-    <supports>
-        <mime-type>text/html</mime-type>
-        <portlet-mode>view</portlet-mode>
-    </supports>
-    <portlet-info>
-        <title>Sample Portlet</title>
-    </portlet-info>
+	<portlet-name>sample</portlet-name>
+	<portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
+	<supports>
+		<mime-type>text/html</mime-type>
+		<portlet-mode>view</portlet-mode>
+	</supports>
+	<portlet-info>
+		<title>Sample Portlet</title>
+	</portlet-info>
 </portlet>
 ----
 
@@ -36311,13 +36271,13 @@ In order for `DispatcherPortlet` rendering to work, you must declare an instance
 [subs="verbatim,quotes"]
 ----
 <servlet>
-    <servlet-name>ViewRendererServlet</servlet-name>
-    <servlet-class>org.springframework.web.servlet.ViewRendererServlet</servlet-class>
+	<servlet-name>ViewRendererServlet</servlet-name>
+	<servlet-class>org.springframework.web.servlet.ViewRendererServlet</servlet-class>
 </servlet>
 
 <servlet-mapping>
-    <servlet-name>ViewRendererServlet</servlet-name>
-    <url-pattern>/WEB-INF/servlet/view</url-pattern>
+	<servlet-name>ViewRendererServlet</servlet-name>
+	<url-pattern>/WEB-INF/servlet/view</url-pattern>
 </servlet-mapping>
 ----
 
@@ -36351,18 +36311,19 @@ The basis for the Portlet MVC controller architecture is the
 ----
 public interface Controller {
 
-    /**
-     * Process the render request and return a ModelAndView object which the
-     * DispatcherPortlet will render.
-     */
-    ModelAndView handleRenderRequest(RenderRequest request, RenderResponse response)
-        throws Exception;
+	/**
+	 * Process the render request and return a ModelAndView object which the
+	 * DispatcherPortlet will render.
+	 */
+	ModelAndView handleRenderRequest(RenderRequest request,
+			RenderResponse response) throws Exception;
 
-    /**
-     * Process the action request. There is nothing to return.
-     */
-    void handleActionRequest(ActionRequest request, ActionResponse response)
-        throws Exception;
+	/**
+	 * Process the action request. There is nothing to return.
+	 */
+	void handleActionRequest(ActionRequest request,
+			ActionResponse response) throws Exception;
+
 }
 ----
 
@@ -36446,15 +36407,20 @@ import org.springframework.web.portlet.ModelAndView;
 
 public class SampleController extends AbstractController {
 
-    public ModelAndView handleRenderRequestInternal(RenderRequest request, RenderResponse response) {
-        ModelAndView mav = new ModelAndView("foo");
-        mav.addObject("message", "Hello World!");
-        return mav;
-    }
-}
+	public ModelAndView handleRenderRequestInternal(RenderRequest request, RenderResponse response) {
+		ModelAndView mav = new ModelAndView("foo");
+		mav.addObject("message", "Hello World!");
+		return mav;
+	}
 
+}
+----
+
+[source,xml]
+[subs="verbatim,quotes"]
+----
 <bean id="sampleController" class="samples.SampleController">
-    <property name="cacheSeconds" value="120"/>
+	<property name="cacheSeconds" value="120"/>
 </bean>
 ----
 
@@ -36521,7 +36487,7 @@ you start using them.
 
 
 [[portlet-controller-wrapping]]
-====  PortletWrappingController
+==== PortletWrappingController
 
 Instead of developing new controllers, it is possible to use existing portlets and map
 requests to them from a `DispatcherPortlet`. Using the `PortletWrappingController`, you
@@ -36531,11 +36497,11 @@ can instantiate an existing `Portlet` as a `Controller` as follows:
 [subs="verbatim,quotes"]
 ----
 <bean id="myPortlet" class="org.springframework.web.portlet.mvc.PortletWrappingController">
-    <property name="portletClass" value="sample.MyPortlet"/>
-    <property name="portletName" value="my-portlet"/>
-    <property name="initParameters">
-        <value>config=/WEB-INF/my-portlet-config.xml</value>
-    </property>
+	<property name="portletClass" value="sample.MyPortlet"/>
+	<property name="portletName" value="my-portlet"/>
+	<property name="initParameters">
+		<value>config=/WEB-INF/my-portlet-config.xml</value>
+	</property>
 </bean>
 ----
 
@@ -36600,7 +36566,7 @@ properties:
 
 
 [[portlet-handlermapping-portletmode]]
-====  PortletModeHandlerMapping
+==== PortletModeHandlerMapping
 
 This is a simple handler mapping that maps incoming requests based on the current mode
 of the portlet (e.g. 'view', 'edit', 'help'). An example:
@@ -36609,20 +36575,20 @@ of the portlet (e.g. 'view', 'edit', 'help'). An example:
 [subs="verbatim,quotes"]
 ----
 <bean class="org.springframework.web.portlet.handler.PortletModeHandlerMapping">
-    <property name="portletModeMap">
-        <map>
-            <entry key="view" value-ref="viewHandler"/>
-            <entry key="edit" value-ref="editHandler"/>
-            <entry key="help" value-ref="helpHandler"/>
-        </map>
-    </property>
+	<property name="portletModeMap">
+		<map>
+			<entry key="view" value-ref="viewHandler"/>
+			<entry key="edit" value-ref="editHandler"/>
+			<entry key="help" value-ref="helpHandler"/>
+		</map>
+	</property>
 </bean>
 ----
 
 
 
 [[portlet-handlermapping-parameter]]
-====  ParameterHandlerMapping
+==== ParameterHandlerMapping
 
 If we need to navigate around to multiple controllers without changing portlet mode, the
 simplest way to do this is with a request parameter that is used as the key to control
@@ -36638,20 +36604,20 @@ The bean configuration for this mapping will look something like this:
 [subs="verbatim,quotes"]
 ----
 <bean class="org.springframework.web.portlet.handler.ParameterHandlerMapping">
-    <property name="parameterMap">
-        <map>
-            <entry key="add" value-ref="addItemHandler"/>
-            <entry key="edit" value-ref="editItemHandler"/>
-            <entry key="delete" value-ref="deleteItemHandler"/>
-        </map>
-    </property>
+	<property name="parameterMap">
+		<map>
+			<entry key="add" value-ref="addItemHandler"/>
+			<entry key="edit" value-ref="editItemHandler"/>
+			<entry key="delete" value-ref="deleteItemHandler"/>
+		</map>
+	</property>
 </bean>
 ----
 
 
 
 [[portlet-handlermapping-portletmodeparameter]]
-====  PortletModeParameterHandlerMapping
+==== PortletModeParameterHandlerMapping
 
 The most powerful built-in handler mapping, `PortletModeParameterHandlerMapping`
 combines the capabilities of the two previous ones to allow different navigation within
@@ -36671,23 +36637,23 @@ The bean configuration for this mapping will look something like this:
 [subs="verbatim,quotes"]
 ----
 <bean class="org.springframework.web.portlet.handler.PortletModeParameterHandlerMapping">
-    <property name="portletModeParameterMap">
-        <map>
-            <entry key="view"> <!-- 'view' portlet mode -->
-                <map>
-                    <entry key="add" value-ref="addItemHandler"/>
-                    <entry key="edit" value-ref="editItemHandler"/>
-                    <entry key="delete" value-ref="deleteItemHandler"/>
-                </map>
-            </entry>
-            <entry key="edit"> <!-- 'edit' portlet mode -->
-                <map>
-                    <entry key="prefs" value-ref="prefsHandler"/>
-                    <entry key="resetPrefs" value-ref="resetPrefsHandler"/>
-                </map>
-            </entry>
-        </map>
-    </property>
+	<property name="portletModeParameterMap">
+		<map>
+			<entry key="view"> <!-- 'view' portlet mode -->
+				<map>
+					<entry key="add" value-ref="addItemHandler"/>
+					<entry key="edit" value-ref="editItemHandler"/>
+					<entry key="delete" value-ref="deleteItemHandler"/>
+				</map>
+			</entry>
+			<entry key="edit"> <!-- 'edit' portlet mode -->
+				<map>
+					<entry key="prefs" value-ref="prefsHandler"/>
+					<entry key="resetPrefs" value-ref="resetPrefsHandler"/>
+				</map>
+			</entry>
+		</map>
+	</property>
 </bean>
 ----
 
@@ -36697,7 +36663,7 @@ provide defaults for each mode and an overall default as well.
 
 
 [[portlet-handlermapping-interceptor]]
-==== Adding  HandlerInterceptors
+==== Adding HandlerInterceptors
 
 Spring's handler mapping mechanism has a notion of handler interceptors, which can be
 extremely useful when you want to apply specific functionality to certain requests, for
@@ -36727,7 +36693,7 @@ check what kind of request it is before processing it.
 
 
 [[portlet-handlermapping-interceptoradapter]]
-====  HandlerInterceptorAdapter
+==== HandlerInterceptorAdapter
 
 As with the servlet package, the portlet package has a concrete implementation of
 `HandlerInterceptor` called `HandlerInterceptorAdapter`. This class has empty versions
@@ -36737,7 +36703,7 @@ methods when that is all you need.
 
 
 [[portlet-handlermapping-parameterinterceptor]]
-====  ParameterMappingInterceptor
+==== ParameterMappingInterceptor
 
 The portlet package also has a concrete interceptor named `ParameterMappingInterceptor`
 that is meant to be used directly with `ParameterHandlerMapping` and
@@ -36763,7 +36729,7 @@ from Spring Web MVC. This includes not only the various `View` implementations
 themselves, but also the `ViewResolver` implementations. For more information, refer to
 <<view>> and <<mvc-viewresolver>> respectively.
 
-A few items on using the existing `View` and `ViewResolver` implementations  are worth
+A few items on using the existing `View` and `ViewResolver` implementations are worth
 mentioning:
 
 * Most portals expect the result of rendering a portlet to be an HTML fragment. So,
@@ -36823,10 +36789,9 @@ The following example shows how to use the `CommonsPortletMultipartResolver`:
 [subs="verbatim,quotes"]
 ----
 <bean id="portletMultipartResolver"
-        class="org.springframework.web.portlet.multipart.CommonsPortletMultipartResolver">
-
-    <!-- one of the properties available; the maximum file size in bytes -->
-    <property name="maxUploadSize" value="100000"/>
+		class="org.springframework.web.portlet.multipart.CommonsPortletMultipartResolver">
+	<!-- one of the properties available; the maximum file size in bytes -->
+	<property name="maxUploadSize" value="100000"/>
 </bean>
 ----
 
@@ -36860,8 +36825,8 @@ object). To actually let the user upload a file, we have to create a (JSP/HTML) 
 ----
 <h1>Please upload a file</h1>
 <form method="post" action="<portlet:actionURL/>" enctype="multipart/form-data">
-    <input type="file" name="file"/>
-    <input type="submit"/>
+	<input type="file" name="file"/>
+	<input type="submit"/>
 </form>
 ----
 
@@ -36885,20 +36850,20 @@ controller that will process the bean, and the controller itself.
 [subs="verbatim,quotes"]
 ----
 <bean id="portletMultipartResolver"
-        class="org.springframework.web.portlet.multipart.CommonsPortletMultipartResolver"/>
+		class="org.springframework.web.portlet.multipart.CommonsPortletMultipartResolver"/>
 
 <bean class="org.springframework.web.portlet.handler.PortletModeHandlerMapping">
-    <property name="portletModeMap">
-        <map>
-            <entry key="view" value-ref="fileUploadController"/>
-        </map>
-    </property>
+	<property name="portletModeMap">
+		<map>
+			<entry key="view" value-ref="fileUploadController"/>
+		</map>
+	</property>
 </bean>
 
 <bean id="fileUploadController" class="examples.FileUploadController">
-    <property name="commandClass" value="examples.FileUploadBean"/>
-    <property name="formView" value="fileuploadform"/>
-    <property name="successView" value="confirmation"/>
+	<property name="commandClass" value="examples.FileUploadBean"/>
+	<property name="formView" value="fileuploadform"/>
+	<property name="successView" value="confirmation"/>
 </bean>
 ----
 
@@ -36909,41 +36874,43 @@ After that, create the controller and the actual class to hold the file property
 ----
 public class FileUploadController extends SimpleFormController {
 
-    public void onSubmitAction(ActionRequest request, ActionResponse response,
-            Object command, BindException errors) throws Exception {
+	public void onSubmitAction(ActionRequest request, ActionResponse response,
+			Object command, BindException errors) throws Exception {
 
-        // cast the bean
-        FileUploadBean bean = (FileUploadBean) command;
+		// cast the bean
+		FileUploadBean bean = (FileUploadBean) command;
 
-        // let's see if there's content there
-        byte[] file = bean.getFile();
-        if (file == null) {
-            // hmm, that's strange, the user did not upload anything
-        }
+		// let's see if there's content there
+		byte[] file = bean.getFile();
+		if (file == null) {
+			// hmm, that's strange, the user did not upload anything
+		}
 
-        // do something with the file here
-    }
+		// do something with the file here
+	}
 
-    protected void initBinder(
-            PortletRequest request, PortletRequestDataBinder binder) throws Exception {
-        // to actually be able to convert Multipart instance to byte[]
-        // we have to register a custom editor
-        binder.registerCustomEditor(byte[].class, new ByteArrayMultipartFileEditor());
-        // now Spring knows how to handle multipart object and convert
-    }
+	protected void initBinder(PortletRequest request,
+			PortletRequestDataBinder binder) throws Exception {
+		// to actually be able to convert Multipart instance to byte[]
+		// we have to register a custom editor
+		binder.registerCustomEditor(byte[].class, new ByteArrayMultipartFileEditor());
+		// now Spring knows how to handle multipart object and convert
+	}
+
 }
 
 public class FileUploadBean {
 
-    private byte[] file;
+	private byte[] file;
 
-    public void setFile(byte[] file) {
-        this.file = file;
-    }
+	public void setFile(byte[] file) {
+		this.file = file;
+	}
 
-    public byte[] getFile() {
-        return file;
-    }
+	public byte[] getFile() {
+		return file;
+	}
+
 }
 ----
 
@@ -36962,43 +36929,42 @@ form backing object might look like this:
 ----
 public class FileUploadController extends SimpleFormController {
 
-    public void onSubmitAction(ActionRequest request, ActionResponse response,
-            Object command, BindException errors) throws Exception {
+	public void onSubmitAction(ActionRequest request, ActionResponse response,
+			Object command, BindException errors) throws Exception {
 
-        // cast the bean
-        FileUploadBean bean = (FileUploadBean) command;
+		// cast the bean
+		FileUploadBean bean = (FileUploadBean) command;
 
-        // let's see if there's content there
-        String file = bean.getFile();
-        if (file == null) {
-            // hmm, that's strange, the user did not upload anything
-        }
+		// let's see if there's content there
+		String file = bean.getFile();
+		if (file == null) {
+			// hmm, that's strange, the user did not upload anything
+		}
 
-        // do something with the file here
-    }
+		// do something with the file here
+	}
 
-    protected void initBinder(
-        PortletRequest request, PortletRequestDataBinder binder) throws Exception {
+	protected void initBinder(PortletRequest request,
+			PortletRequestDataBinder binder) throws Exception {
 
-        // to actually be able to convert Multipart instance to a String
-        // we have to register a custom editor
-        binder.registerCustomEditor(String.class,
-            new StringMultipartFileEditor());
-        // now Spring knows how to handle multipart objects and convert
-    }
+		// to actually be able to convert Multipart instance to a String
+		// we have to register a custom editor
+		binder.registerCustomEditor(String.class, new StringMultipartFileEditor());
+		// now Spring knows how to handle multipart objects and convert
+	}
 }
 
 public class FileUploadBean {
 
-    private String file;
+	private String file;
 
-    public void setFile(String file) {
-        this.file = file;
-    }
+	public void setFile(String file) {
+		this.file = file;
+	}
 
-    public String getFile() {
-        return file;
-    }
+	public String getFile() {
+		return file;
+	}
 }
 ----
 
@@ -37014,33 +36980,34 @@ register any custom property editor because there is no type conversion to be pe
 ----
 public class FileUploadController extends SimpleFormController {
 
-    public void onSubmitAction(ActionRequest request, ActionResponse response,
-            Object command, BindException errors) throws Exception {
+	public void onSubmitAction(ActionRequest request, ActionResponse response,
+			Object command, BindException errors) throws Exception {
 
-        // cast the bean
-        FileUploadBean bean = (FileUploadBean) command;
+		// cast the bean
+		FileUploadBean bean = (FileUploadBean) command;
 
-        // let's see if there's content there
-        MultipartFile file = bean.getFile();
-        if (file == null) {
-            // hmm, that's strange, the user did not upload anything
-        }
+		// let's see if there's content there
+		MultipartFile file = bean.getFile();
+		if (file == null) {
+			// hmm, that's strange, the user did not upload anything
+		}
 
-        // do something with the file here
-    }
+		// do something with the file here
+	}
 }
 
 public class FileUploadBean {
 
-    private MultipartFile file;
+	private MultipartFile file;
 
-    public void setFile(MultipartFile file) {
-        this.file = file;
-    }
+	public void setFile(MultipartFile file) {
+		this.file = file;
+	}
 
-    public MultipartFile getFile() {
-        return file;
-    }
+	public MultipartFile getFile() {
+		return file;
+	}
+
 }
 ----
 
@@ -37090,15 +37057,15 @@ need to make sure that a corresponding custom `DefaultAnnotationHandlerMapping` 
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean class="org.springframework.web.portlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>
+	<bean class="org.springframework.web.portlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>
 
-    <bean class="org.springframework.web.portlet.mvc.annotation.AnnotationMethodHandlerAdapter"/>
+	<bean class="org.springframework.web.portlet.mvc.annotation.AnnotationMethodHandlerAdapter"/>
 
-    // ... (controller bean definitions) ...
+	// ... (controller bean definitions) ...
 
 </beans>
 ----
@@ -37110,7 +37077,7 @@ specifying a custom `WebBindingInitializer` (see below).
 
 
 [[portlet-ann-controller]]
-==== Defining a controller with  @Controller
+==== Defining a controller with @Controller
 
 The `@Controller` annotation indicates that a particular class serves the role of a
 __controller__. There is no need to extend any controller base class or reference the
@@ -37135,18 +37102,18 @@ schema as shown in the following XML snippet:
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:p="http://www.springframework.org/schema/p"
-    xmlns:context="http://www.springframework.org/schema/context"
-    xsi:schemaLocation="
-        http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <context:component-scan base-package="org.springframework.samples.petportal.portlet"/>
+	<context:component-scan base-package="org.springframework.samples.petportal.portlet"/>
 
-    // ...
+	// ...
 
 </beans>
 ----
@@ -37154,7 +37121,7 @@ schema as shown in the following XML snippet:
 
 
 [[portlet-ann-requestmapping]]
-==== Mapping requests with  @RequestMapping
+==== Mapping requests with @RequestMapping
 
 The `@RequestMapping` annotation is used to map portlet modes like 'VIEW'/'EDIT' onto an
 entire class or a particular handler method. Typically the type-level annotation maps a
@@ -37185,47 +37152,49 @@ using this annotation:
 @RequestMapping("EDIT")
 @SessionAttributes("site")
 public class PetSitesEditController {
-    private Properties petSites;
 
-    public void setPetSites(Properties petSites) {
-        this.petSites = petSites;
-    }
+	private Properties petSites;
 
-    @ModelAttribute("petSites")
-    public Properties getPetSites() {
-        return this.petSites;
-    }
+	public void setPetSites(Properties petSites) {
+		this.petSites = petSites;
+	}
 
-    @RequestMapping // default (action=list)
-    public String showPetSites() {
-        return "petSitesEdit";
-    }
+	@ModelAttribute("petSites")
+	public Properties getPetSites() {
+		return this.petSites;
+	}
 
-    @RequestMapping(params = "action=add") // render phase
-    public String showSiteForm(Model model) {
-        // Used for the initial form as well as for redisplaying with errors.
-        if (!model.containsAttribute("site")) {
-            model.addAttribute("site", new PetSite());
-        }
+	@RequestMapping // default (action=list)
+	public String showPetSites() {
+		return "petSitesEdit";
+	}
 
-        return "petSitesAdd";
-    }
+	@RequestMapping(params = "action=add") // render phase
+	public String showSiteForm(Model model) {
+		// Used for the initial form as well as for redisplaying with errors.
+		if (!model.containsAttribute("site")) {
+			model.addAttribute("site", new PetSite());
+		}
 
-    @RequestMapping(params = "action=add") // action phase
-    public void populateSite( @ModelAttribute("site") PetSite petSite, BindingResult result, SessionStatus status, ActionResponse response) {
-        new PetSiteValidator().validate(petSite, result);
-        if (!result.hasErrors()) {
-            this.petSites.put(petSite.getName(), petSite.getUrl());
-            status.setComplete();
-            response.setRenderParameter("action", "list");
-        }
-    }
+		return "petSitesAdd";
+	}
 
-    @RequestMapping(params = "action=delete")
-    public void removeSite(@RequestParam("site") String site, ActionResponse response) {
-        this.petSites.remove(site);
-        response.setRenderParameter("action", "list");
-    }
+	@RequestMapping(params = "action=add") // action phase
+	public void populateSite(@ModelAttribute("site") PetSite petSite,
+			BindingResult result, SessionStatus status, ActionResponse response) {
+		new PetSiteValidator().validate(petSite, result);
+		if (!result.hasErrors()) {
+			this.petSites.put(petSite.getName(), petSite.getUrl());
+			status.setComplete();
+			response.setRenderParameter("action", "list");
+		}
+	}
+
+	@RequestMapping(params = "action=delete")
+	public void removeSite(@RequestParam("site") String site, ActionResponse response) {
+		this.petSites.remove(site);
+		response.setRenderParameter("action", "list");
+	}
 }
 ----
 
@@ -37303,7 +37272,7 @@ The following return types are supported for handler methods:
 
 
 [[portlet-ann-requestparam]]
-==== Binding request parameters to method parameters with  @RequestParam
+==== Binding request parameters to method parameters with @RequestParam
 
 The `@RequestParam` annotation is used to bind request parameters to a method parameter
 in your controller.
@@ -37318,13 +37287,15 @@ The following code snippet from the PetPortal sample application shows the usage
 @SessionAttributes("site")
 public class PetSitesEditController {
 
-    // ...
+	// ...
 
-    public void removeSite(@RequestParam("site") String site, ActionResponse response) {
-        this.petSites.remove(site);
-        response.setRenderParameter("action", "list");
-    }
-    // ...
+	public void removeSite(@RequestParam("site") String site, ActionResponse response) {
+		this.petSites.remove(site);
+		response.setRenderParameter("action", "list");
+	}
+
+	// ...
+
 }
 ----
 
@@ -37335,7 +37306,7 @@ parameter is optional by setting `@RequestParam`'s `required` attribute to `fals
 
 
 [[portlet-ann-modelattrib]]
-==== Providing a link to data from the model with  @ModelAttribute
+==== Providing a link to data from the model with @ModelAttribute
 
 `@ModelAttribute` has two usage scenarios in controllers. When placed on a method
 parameter, `@ModelAttribute` is used to map a model attribute to the specific, annotated
@@ -37364,29 +37335,29 @@ The following code snippet shows these two usages of this annotation:
 @SessionAttributes("site")
 public class PetSitesEditController {
 
-    // ...
+	// ...
 
-    @ModelAttribute("petSites")
-    public Properties getPetSites() {
-        return this.petSites;
-    }
+	@ModelAttribute("petSites")
+	public Properties getPetSites() {
+		return this.petSites;
+	}
 
-    @RequestMapping(params = "action=add")  // action phase
-    public void populateSite( @ModelAttribute("site") PetSite petSite, BindingResult result, SessionStatus status, ActionResponse response) {
-        new PetSiteValidator().validate(petSite, result);
-        if (!result.hasErrors()) {
-            this.petSites.put(petSite.getName(), petSite.getUrl());
-            status.setComplete();
-            response.setRenderParameter("action", "list");
-        }
-    }
+	@RequestMapping(params = "action=add")  // action phase
+	public void populateSite( @ModelAttribute("site") PetSite petSite, BindingResult result, SessionStatus status, ActionResponse response) {
+		new PetSiteValidator().validate(petSite, result);
+		if (!result.hasErrors()) {
+			this.petSites.put(petSite.getName(), petSite.getUrl());
+			status.setComplete();
+			response.setRenderParameter("action", "list");
+		}
+	}
 }
 ----
 
 
 
 [[portlet-ann-sessionattrib]]
-==== Specifying attributes to store in a Session with  @SessionAttributes
+==== Specifying attributes to store in a Session with @SessionAttributes
 
 The type-level `@SessionAttributes` annotation declares session attributes used by a
 specific handler. This will typically list the names of model attributes or types of
@@ -37402,14 +37373,14 @@ The following code snippet shows the usage of this annotation:
 @RequestMapping("EDIT")
 @SessionAttributes("site")
 public class PetSitesEditController {
-    // ...
+	// ...
 }
 ----
 
 
 
 [[portlet-ann-webdatabinder]]
-==== Customizing  WebDataBinder initialization
+==== Customizing WebDataBinder initialization
 
 To customize request parameter binding with PropertyEditors, etc. via Spring's
 `WebDataBinder`, you can either use `@InitBinder`-annotated methods within your
@@ -37418,7 +37389,7 @@ controller or externalize your configuration by providing a custom
 
 
 [[portlet-ann-initbinder]]
-===== Customizing data binding with  @InitBinder
+===== Customizing data binding with @InitBinder
 
 Annotating controller methods with `@InitBinder` allows you to configure web data
 binding directly within your controller class. `@InitBinder` identifies methods which
@@ -37440,20 +37411,21 @@ The following example demonstrates the use of `@InitBinder` for configuring a
 @Controller
 public class MyFormController {
 
-    @InitBinder
-    public void initBinder(WebDataBinder binder) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        dateFormat.setLenient(false);
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
-    }
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		dateFormat.setLenient(false);
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
+	}
 
-    // ...
+	// ...
+
 }
 ----
 
 
 [[portlet-ann-webbindinginitializer]]
-===== Configuring a custom  WebBindingInitializer
+===== Configuring a custom WebBindingInitializer
 
 To externalize data binding initialization, you can provide a custom implementation of
 the `WebBindingInitializer` interface, which you then enable by supplying a custom bean
@@ -37564,15 +37536,16 @@ model and corresponding services:
 ----
 public class Account implements Serializable{
 
-    private String name;
+	private String name;
 
-    public String getName(){
-        return name;
-    }
+	public String getName(){
+		return name;
+	}
 
-    public void setName(String name) {
-      this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
+
 }
 ----
 
@@ -37581,9 +37554,10 @@ public class Account implements Serializable{
 ----
 public interface AccountService {
 
-    public void insertAccount(Account account);
+	public void insertAccount(Account account);
 
-    public List<Account> getAccounts(String name);
+	public List<Account> getAccounts(String name);
+
 }
 ----
 
@@ -37592,9 +37566,10 @@ public interface AccountService {
 ----
 public interface RemoteAccountService extends Remote {
 
-    public void insertAccount(Account account) throws RemoteException;
+	public void insertAccount(Account account) throws RemoteException;
 
-    public List<Account> getAccounts(String name) throws RemoteException;
+	public List<Account> getAccounts(String name) throws RemoteException;
+
 }
 ----
 
@@ -37604,13 +37579,14 @@ public interface RemoteAccountService extends Remote {
 // the implementation doing nothing at the moment
 public class AccountServiceImpl implements AccountService {
 
-    public void insertAccount(Account acc) {
-        // do something...
-    }
+	public void insertAccount(Account acc) {
+		// do something...
+	}
 
-    public List<Account> getAccounts(String name) {
-        // do something...
-    }
+	public List<Account> getAccounts(String name) {
+		// do something...
+	}
+
 }
 ----
 
@@ -37646,7 +37622,7 @@ Of course, we first have to set up our service in the Spring container:
 [subs="verbatim,quotes"]
 ----
 <bean id="accountService" class="example.AccountServiceImpl">
-    <!-- any additional properties, maybe a DAO? -->
+	<!-- any additional properties, maybe a DAO? -->
 </bean>
 ----
 
@@ -37656,12 +37632,12 @@ Next we'll have to expose our service using the `RmiServiceExporter`:
 [subs="verbatim,quotes"]
 ----
 <bean class="org.springframework.remoting.rmi.RmiServiceExporter">
-    <!-- does not necessarily have to be the same name as the bean to be exported -->
-    <property name="serviceName" value="AccountService"/>
-    <property name="service" ref="accountService"/>
-    <property name="serviceInterface" value="example.AccountService"/>
-    <!-- defaults to 1099 -->
-    <property name="registryPort" value="1199"/>
+	<!-- does not necessarily have to be the same name as the bean to be exported -->
+	<property name="serviceName" value="AccountService"/>
+	<property name="service" ref="accountService"/>
+	<property name="serviceInterface" value="example.AccountService"/>
+	<!-- defaults to 1099 -->
+	<property name="registryPort" value="1199"/>
 </bean>
 ----
 
@@ -37688,13 +37664,13 @@ Our client is a simple object using the `AccountService` to manage accounts:
 ----
 public class SimpleObject {
 
-    private AccountService accountService;
+	private AccountService accountService;
 
-    public void setAccountService(AccountService accountService) {
-        this.accountService = accountService;
-    }
+	public void setAccountService(AccountService accountService) {
+		this.accountService = accountService;
+	}
 
-    // additional methods using the accountService
+	// additional methods using the accountService
 
 }
 ----
@@ -37706,12 +37682,12 @@ containing the simple object and the service linking configuration bits:
 [subs="verbatim,quotes"]
 ----
 <bean class="example.SimpleObject">
-    <property name="accountService" ref="accountService"/>
+	<property name="accountService" ref="accountService"/>
 </bean>
 
 <bean id="accountService" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
-    <property name="serviceUrl" value="rmi://HOST:1199/AccountService"/>
-    <property name="serviceInterface" value="example.AccountService"/>
+	<property name="serviceUrl" value="rmi://HOST:1199/AccountService"/>
+	<property name="serviceInterface" value="example.AccountService"/>
 </bean>
 ----
 
@@ -37741,14 +37717,14 @@ your application (this is an excerpt from `'web.xml'`):
 [subs="verbatim,quotes"]
 ----
 <servlet>
-    <servlet-name>remoting</servlet-name>
-    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-    <load-on-startup>1</load-on-startup>
+	<servlet-name>remoting</servlet-name>
+	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+	<load-on-startup>1</load-on-startup>
 </servlet>
 
 <servlet-mapping>
-    <servlet-name>remoting</servlet-name>
-    <url-pattern>/remoting/*</url-pattern>
+	<servlet-name>remoting</servlet-name>
+	<url-pattern>/remoting/*</url-pattern>
 </servlet-mapping>
 ----
 
@@ -37775,12 +37751,12 @@ In the newly created application context called `remoting-servlet.xml`, we'll cr
 [subs="verbatim,quotes"]
 ----
 <bean id="accountService" class="example.AccountServiceImpl">
-    <!-- any additional properties, maybe a DAO? -->
+	<!-- any additional properties, maybe a DAO? -->
 </bean>
 
 <bean name="/AccountService" class="org.springframework.remoting.caucho.HessianServiceExporter">
-    <property name="service" ref="accountService"/>
-    <property name="serviceInterface" value="example.AccountService"/>
+	<property name="service" ref="accountService"/>
+	<property name="serviceInterface" value="example.AccountService"/>
 </bean>
 ----
 
@@ -37797,8 +37773,8 @@ in `'WEB-INF/applicationContext.xml'`):
 [subs="verbatim,quotes"]
 ----
 <bean name="accountExporter" class="org.springframework.remoting.caucho.HessianServiceExporter">
-    <property name="service" ref="accountService"/>
-    <property name="serviceInterface" value="example.AccountService"/>
+	<property name="service" ref="accountService"/>
+	<property name="serviceInterface" value="example.AccountService"/>
 </bean>
 ----
 
@@ -37811,13 +37787,13 @@ the target exporter.
 [subs="verbatim,quotes"]
 ----
 <servlet>
-    <servlet-name>accountExporter</servlet-name>
-    <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
+	<servlet-name>accountExporter</servlet-name>
+	<servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
 </servlet>
 
 <servlet-mapping>
-    <servlet-name>accountExporter</servlet-name>
-    <url-pattern>/remoting/AccountService</url-pattern>
+	<servlet-name>accountExporter</servlet-name>
+	<url-pattern>/remoting/AccountService</url-pattern>
 </servlet-mapping>
 ----
 
@@ -37834,12 +37810,12 @@ the `AccountService` to manage accounts:
 [subs="verbatim,quotes"]
 ----
 <bean class="example.SimpleObject">
-    <property name="accountService" ref="accountService"/>
+	<property name="accountService" ref="accountService"/>
 </bean>
 
 <bean id="accountService" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
-    <property name="serviceUrl" value="http://remotehost:8080/remoting/AccountService"/>
-    <property name="serviceInterface" value="example.AccountService"/>
+	<property name="serviceUrl" value="http://remotehost:8080/remoting/AccountService"/>
+	<property name="serviceInterface" value="example.AccountService"/>
 </bean>
 ----
 
@@ -37866,12 +37842,12 @@ credentials defined at the `Hessian/BurlapProxyFactoryBean` level (similar to a 
 [subs="verbatim,quotes"]
 ----
 <bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping">
-    <property name="interceptors" ref="authorizationInterceptor"/>
+	<property name="interceptors" ref="authorizationInterceptor"/>
 </bean>
 
 <bean id="authorizationInterceptor"
-      class="org.springframework.web.servlet.handler.UserRoleAuthorizationInterceptor">
-    <property name="authorizedRoles" value="administrator,operator"/>
+		class="org.springframework.web.servlet.handler.UserRoleAuthorizationInterceptor">
+	<property name="authorizedRoles" value="administrator,operator"/>
 </bean>
 ----
 
@@ -37921,8 +37897,8 @@ dispatcher's application context:
 [subs="verbatim,quotes"]
 ----
 <bean name="/AccountService" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
-    <property name="service" ref="accountService"/>
-    <property name="serviceInterface" value="example.AccountService"/>
+	<property name="service" ref="accountService"/>
+	<property name="serviceInterface" value="example.AccountService"/>
 </bean>
 ----
 
@@ -37936,8 +37912,8 @@ Alternatively, create an `HttpInvokerServiceExporter` in your root application c
 [subs="verbatim,quotes"]
 ----
 <bean name="accountExporter" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
-    <property name="service" ref="accountService"/>
-    <property name="serviceInterface" value="example.AccountService"/>
+	<property name="service" ref="accountService"/>
+	<property name="serviceInterface" value="example.AccountService"/>
 </bean>
 ----
 
@@ -37948,13 +37924,13 @@ servlet name matching the bean name of the target exporter:
 [subs="verbatim,quotes"]
 ----
 <servlet>
-    <servlet-name>accountExporter</servlet-name>
-    <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
+	<servlet-name>accountExporter</servlet-name>
+	<servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
 </servlet>
 
 <servlet-mapping>
-    <servlet-name>accountExporter</servlet-name>
-    <url-pattern>/remoting/AccountService</url-pattern>
+	<servlet-name>accountExporter</servlet-name>
+	<url-pattern>/remoting/AccountService</url-pattern>
 </servlet-mapping>
 ----
 
@@ -37967,19 +37943,19 @@ shown in this example:
 [subs="verbatim,quotes"]
 ----
 <bean name="accountExporter"
-    class="org.springframework.remoting.httpinvoker.SimpleHttpInvokerServiceExporter">
-    <property name="service" ref="accountService"/>
-    <property name="serviceInterface" value="example.AccountService"/>
+		class="org.springframework.remoting.httpinvoker.SimpleHttpInvokerServiceExporter">
+	<property name="service" ref="accountService"/>
+	<property name="serviceInterface" value="example.AccountService"/>
 </bean>
 
 <bean id="httpServer"
-        class="org.springframework.remoting.support.SimpleHttpServerFactoryBean">
-    <property name="contexts">
-        <util:map>
-            <entry key="/remoting/AccountService" value-ref="accountExporter"/>
-        </util:map>
-    </property>
-    <property name="port" value="8080" />
+		class="org.springframework.remoting.support.SimpleHttpServerFactoryBean">
+	<property name="contexts">
+		<util:map>
+			<entry key="/remoting/AccountService" value-ref="accountExporter"/>
+		</util:map>
+	</property>
+	<property name="port" value="8080" />
 </bean>
 ----
 
@@ -37995,8 +37971,8 @@ to HTTP POST requests to the URL pointing to the exported service.
 [subs="verbatim,quotes"]
 ----
 <bean id="httpInvokerProxy" class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
-    <property name="serviceUrl" value="http://remotehost:8080/remoting/AccountService"/>
-    <property name="serviceInterface" value="example.AccountService"/>
+	<property name="serviceUrl" value="http://remotehost:8080/remoting/AccountService"/>
+	<property name="serviceInterface" value="example.AccountService"/>
 </bean>
 ----
 
@@ -38008,7 +37984,7 @@ As mentioned before, you can choose what HTTP client you want to use. By default
 [subs="verbatim,quotes"]
 ----
 <property name="httpInvokerRequestExecutor">
-    <bean class="org.springframework.remoting.httpinvoker.CommonsHttpInvokerRequestExecutor"/>
+	<bean class="org.springframework.remoting.httpinvoker.CommonsHttpInvokerRequestExecutor"/>
 </property>
 ----
 
@@ -38061,18 +38037,19 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 @WebService(serviceName="AccountService")
 public class AccountServiceEndpoint extends SpringBeanAutowiringSupport {
 
-    @Autowired
-    private AccountService biz;
+	@Autowired
+	private AccountService biz;
 
-    @WebMethod
-    public void insertAccount(Account acc) {
-       biz.insertAccount(acc);
-    }
+	@WebMethod
+	public void insertAccount(Account acc) {
+		biz.insertAccount(acc);
+	}
 
-    @WebMethod
-    public Account[] getAccounts(String name) {
-       return biz.getAccounts(name);
-    }
+	@WebMethod
+	public Account[] getAccounts(String name) {
+		return biz.getAccounts(name);
+	}
+
 }
 ----
 
@@ -38101,11 +38078,11 @@ annotation-driven injection through `@Autowired` will work as well.
 [subs="verbatim,quotes"]
 ----
 <bean class="org.springframework.remoting.jaxws.SimpleJaxWsServiceExporter">
-    <property name="baseAddress" value="http://localhost:8080/"/>
+	<property name="baseAddress" value="http://localhost:8080/"/>
 </bean>
 
 <bean id="accountServiceEndpoint" class="example.AccountServiceEndpoint">
-    ...
+	...
 </bean>
 
 ...
@@ -38122,18 +38099,19 @@ and Spring's `@Autowired` configuration annotation still being honored:
 @WebService(serviceName="AccountService")
 public class AccountServiceEndpoint {
 
-    @Autowired
-    private AccountService biz;
+	@Autowired
+	private AccountService biz;
 
-    @WebMethod
-    public void insertAccount(Account acc) {
-       biz.insertAccount(acc);
-    }
+	@WebMethod
+	public void insertAccount(Account acc) {
+		biz.insertAccount(acc);
+	}
 
-    @WebMethod
-    public List<Account> getAccounts(String name) {
-       return biz.getAccounts(name);
-    }
+	@WebMethod
+	public List<Account> getAccounts(String name) {
+		return biz.getAccounts(name);
+	}
+
 }
 ----
 
@@ -38173,11 +38151,11 @@ example we use the latter to create a proxy for the `AccountService` endpoint (a
 [subs="verbatim,quotes"]
 ----
 <bean id="accountWebService" class="org.springframework.remoting.jaxws.JaxWsPortProxyFactoryBean">
-    <property name="serviceInterface" value="example.AccountService"/>
-    <property name="wsdlDocumentUrl" value="http://localhost:8888/AccountServiceEndpoint?WSDL"/>
-    <property name="namespaceUri" value="http://example/"/>
-    <property name="serviceName" value="AccountService"/>
-    <property name="portName" value="AccountServiceEndpointPort"/>
+	<property name="serviceInterface" value="example.AccountService"/>
+	<property name="wsdlDocumentUrl" value="http://localhost:8888/AccountServiceEndpoint?WSDL"/>
+	<property name="namespaceUri" value="http://example/"/>
+	<property name="serviceName" value="AccountService"/>
+	<property name="portName" value="AccountServiceEndpointPort"/>
 </bean>
 ----
 
@@ -38194,8 +38172,8 @@ expose it as `AccountService` interface. We can wire this up in Spring:
 [subs="verbatim,quotes"]
 ----
 <bean id="client" class="example.AccountClientImpl">
-    ...
-    <property name="service" ref="accountWebService"/>
+	...
+	<property name="service" ref="accountWebService"/>
 </bean>
 ----
 
@@ -38206,15 +38184,15 @@ From the client code we can access the web service just as if it was a normal cl
 ----
 public class AccountClientImpl {
 
-    private AccountService service;
+	private AccountService service;
 
-    public void setService(AccountService service) {
-        this.service = service;
-    }
+	public void setService(AccountService service) {
+		this.service = service;
+	}
 
-    public void foo() {
-        service.insertAccount(...);
-    }
+	public void foo() {
+		service.insertAccount(...);
+	}
 }
 ----
 
@@ -38246,7 +38224,8 @@ package com.foo;
 
 public interface CheckingAccountService {
 
-    public void cancelAccount(Long accountId);
+	public void cancelAccount(Long accountId);
+
 }
 ----
 
@@ -38259,9 +38238,10 @@ package com.foo;
 
 public class SimpleCheckingAccountService implements CheckingAccountService {
 
-    public void cancelAccount(Long accountId) {
-        System.out.println("Cancelling account [" + accountId + "]");
-    }
+	public void cancelAccount(Long accountId) {
+		System.out.println("Cancelling account [" + accountId + "]");
+	}
+
 }
 ----
 
@@ -38273,17 +38253,17 @@ the client and server.
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
-        <property name="brokerURL" value="tcp://ep-t43:61616"/>
-    </bean>
+	<bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+		<property name="brokerURL" value="tcp://ep-t43:61616"/>
+	</bean>
 
-    <bean id="queue" class="org.apache.activemq.command.ActiveMQQueue">
-        <constructor-arg value="mmm"/>
-    </bean>
+	<bean id="queue" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="mmm"/>
+	</bean>
 
 </beans>
 ----
@@ -38300,24 +38280,24 @@ On the server, you just need to expose the service object using the
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.springframework.org/schema/beans
-         http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="checkingAccountService"
-          class="org.springframework.jms.remoting.JmsInvokerServiceExporter">
-        <property name="serviceInterface" value="com.foo.CheckingAccountService"/>
-        <property name="service">
-            <bean class="com.foo.SimpleCheckingAccountService"/>
-        </property>
-   </bean>
+	<bean id="checkingAccountService"
+			class="org.springframework.jms.remoting.JmsInvokerServiceExporter">
+		<property name="serviceInterface" value="com.foo.CheckingAccountService"/>
+		<property name="service">
+			<bean class="com.foo.SimpleCheckingAccountService"/>
+		</property>
+	</bean>
 
-   <bean class="org.springframework.jms.listener.SimpleMessageListenerContainer">
-       <property name="connectionFactory" ref="connectionFactory"/>
-       <property name="destination" ref="queue"/>
-       <property name="concurrentConsumers" value="3"/>
-       <property name="messageListener" ref="checkingAccountService"/>
-   </bean>
+	<bean class="org.springframework.jms.listener.SimpleMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory"/>
+		<property name="destination" ref="queue"/>
+		<property name="concurrentConsumers" value="3"/>
+		<property name="messageListener" ref="checkingAccountService"/>
+	</bean>
 
 </beans>
 ----
@@ -38331,9 +38311,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Server {
 
-    public static void main(String[] args) throws Exception {
-        new ClassPathXmlApplicationContext(new String[]{"com/foo/server.xml", "com/foo/jms.xml"});
-    }
+	public static void main(String[] args) throws Exception {
+		new ClassPathXmlApplicationContext(new String[]{"com/foo/server.xml", "com/foo/jms.xml"});
+	}
+
 }
 ----
 
@@ -38351,16 +38332,16 @@ proxy will take care of forwarding the call to the server-side object via JMS.
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="checkingAccountService"
-          class="org.springframework.jms.remoting.JmsInvokerProxyFactoryBean">
-        <property name="serviceInterface" value="com.foo.CheckingAccountService"/>
-        <property name="connectionFactory" ref="connectionFactory"/>
-        <property name="queue" ref="queue"/>
-    </bean>
+	<bean id="checkingAccountService"
+			class="org.springframework.jms.remoting.JmsInvokerProxyFactoryBean">
+		<property name="serviceInterface" value="com.foo.CheckingAccountService"/>
+		<property name="connectionFactory" ref="connectionFactory"/>
+		<property name="queue" ref="queue"/>
+	</bean>
 
 </beans>
 ----
@@ -38375,12 +38356,13 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Client {
 
-    public static void main(String[] args) throws Exception {
-        ApplicationContext ctx = new ClassPathXmlApplicationContext(
-                new String[] {"com/foo/client.xml", "com/foo/jms.xml"});
-        CheckingAccountService service = (CheckingAccountService) ctx.getBean("checkingAccountService");
-        service.cancelAccount(new Long(10));
-    }
+	public static void main(String[] args) throws Exception {
+		ApplicationContext ctx = new ClassPathXmlApplicationContext(
+				new String[] {"com/foo/client.xml", "com/foo/jms.xml"});
+		CheckingAccountService service = (CheckingAccountService) ctx.getBean("checkingAccountService");
+		service.cancelAccount(new Long(10));
+	}
+
 }
 ----
 
@@ -38495,10 +38477,10 @@ post.setRequestEntity(new StringRequestEntity(request));
 httpClient.executeMethod(post);
 
 if (HttpStatus.SC_CREATED == post.getStatusCode()) {
-  Header location = post.getRequestHeader("Location");
-  if (location != null) {
-    System.out.println("Created new booking at :" + location.getValue());
-  }
+	Header location = post.getRequestHeader("Location");
+	if (location != null) {
+		System.out.println("Created new booking at :" + location.getValue());
+	}
 }
 ----
 
@@ -38576,8 +38558,8 @@ length argument or a `Map<String,String>`. For example,
 [source,java]
 [subs="verbatim,quotes"]
 ----
-String result = restTemplate.getForObject("http://example.com/hotels/{hotel}/bookings/{booking}",
-                                          String.class,"42", "21");
+String result = restTemplate.getForObject(
+		"http://example.com/hotels/{hotel}/bookings/{booking}", String.class,"42", "21");
 ----
 
 using variable length arguments and
@@ -38586,8 +38568,8 @@ using variable length arguments and
 [subs="verbatim,quotes"]
 ----
 Map<String, String> vars = Collections.singletonMap("hotel", "42");
-String result =
-  restTemplate.getForObject("http://example.com/hotels/{hotel}/rooms/{hotel}", String.class, vars);
+String result = restTemplate.getForObject(
+		"http://example.com/hotels/{hotel}/rooms/{hotel}", String.class, vars);
 ----
 
 using a `Map<String,String>`.
@@ -38651,8 +38633,7 @@ method is invoked.
 [subs="verbatim,quotes"]
 ----
 public <T> T execute(String url, HttpMethod method, RequestCallback requestCallback,
-                     ResponseExtractor<T> responseExtractor,
-                     String... urlVariables)
+		ResponseExtractor<T> responseExtractor, String... urlVariables)
 
 // also has an overload with urlVariables as a Map<String, String>.
 ----
@@ -38702,10 +38683,10 @@ support for URI templates. For example you can start with a URL String:
 [source,java]
 [subs="verbatim,quotes"]
 ----
-UriComponents uriComponents =
-        UriComponentsBuilder.fromUriString("http://example.com/hotels/{hotel}/bookings/{booking}").build()
-            .expand("42", "21")
-            .encode();
+UriComponents uriComponents = UriComponentsBuilder.fromUriString(
+		"http://example.com/hotels/{hotel}/bookings/{booking}").build()
+		.expand("42", "21")
+		.encode();
 
 URI uri = uriComponents.toUri();
 ----
@@ -38715,11 +38696,10 @@ Or specify each URI component individually:
 [source,java]
 [subs="verbatim,quotes"]
 ----
-UriComponents uriComponents =
-        UriComponentsBuilder.newInstance()
-            .scheme("http").host("example.com").path("/hotels/{hotel}/bookings/{booking}").build()
-            .expand("42", "21")
-            .encode();
+UriComponents uriComponents = UriComponentsBuilder.newInstance()
+		.scheme("http").host("example.com").path("/hotels/{hotel}/bookings/{booking}").build()
+		.expand("42", "21")
+		.encode();
 
 URI uri = uriComponents.toUri();
 ----
@@ -38741,8 +38721,9 @@ HttpHeaders requestHeaders = new HttpHeaders();
 requestHeaders.set("MyRequestHeader", "MyValue");
 HttpEntity<?> requestEntity = new HttpEntity(requestHeaders);
 
-HttpEntity<String> response = template.exchange("http://example.com/hotels/{hotel}",
-  HttpMethod.GET, requestEntity, String.class, "42");
+HttpEntity<String> response = template.exchange(
+		"http://example.com/hotels/{hotel}",
+		HttpMethod.GET, requestEntity, String.class, "42");
 
 String responseHeader = response.getHeaders().getFirst("MyResponseHeader");
 String body = response.getBody();
@@ -38766,24 +38747,22 @@ a better feel for its functionality
 ----
 public interface HttpMessageConverter<T> {
 
-      // Indicate whether the given class and media type can be read by this converter.
-      boolean canRead(Class<?> clazz, MediaType mediaType);
+	// Indicate whether the given class and media type can be read by this converter.
+	boolean canRead(Class<?> clazz, MediaType mediaType);
 
-      // Indicate whether the given class and media type can be written by this converter.
-      boolean canWrite(Class<?> clazz, MediaType mediaType);
+	// Indicate whether the given class and media type can be written by this converter.
+	boolean canWrite(Class<?> clazz, MediaType mediaType);
 
-      // Return the list of MediaType objects supported by this converter.
-      List<MediaType> getSupportedMediaTypes();
+	// Return the list of MediaType objects supported by this converter.
+	List<MediaType> getSupportedMediaTypes();
 
-      // Read an object of the given type from the given input message, and returns it.
-      T read(Class<T> clazz, HttpInputMessage inputMessage) throws IOException,
-                                                                   HttpMessageNotReadableException;
+	// Read an object of the given type from the given input message, and returns it.
+	T read(Class<T> clazz, HttpInputMessage inputMessage) throws IOException, HttpMessageNotReadableException;
 
-      // Write an given object to the given output message.
-      void write(T t, HttpOutputMessage outputMessage) throws IOException,
-                                                              HttpMessageNotWritableException;
+	// Write an given object to the given output message.
+	void write(T t, HttpOutputMessage outputMessage) throws IOException, HttpMessageNotWritableException;
 
-    }
+}
 ----
 
 Concrete implementations for the main media (mime) types are provided in the framework
@@ -38899,13 +38878,13 @@ To avoid repeated low-level code, many EJB applications use the Service Locator 
 Business Delegate patterns. These are better than spraying JNDI lookups throughout
 client code, but their usual implementations have significant disadvantages. For example:
 
-*  Typically code using EJBs depends on Service Locator or Business Delegate singletons,
+* Typically code using EJBs depends on Service Locator or Business Delegate singletons,
   making it hard to test.
-*  In the case of the Service Locator pattern used without a Business Delegate,
+* In the case of the Service Locator pattern used without a Business Delegate,
   application code still ends up having to invoke the create() method on an EJB home,
   and deal with the resulting exceptions. Thus it remains tied to the EJB API and the
   complexity of the EJB programming model.
-*  Implementing the Business Delegate pattern typically results in significant code
+* Implementing the Business Delegate pattern typically results in significant code
   duplication, where we have to write numerous methods that simply call the same method
   on the EJB.
 
@@ -38927,7 +38906,7 @@ business methods interface `MyComponent`.
 [subs="verbatim,quotes"]
 ----
 public interface MyComponent {
-    ...
+	...
 }
 ----
 
@@ -38937,7 +38916,7 @@ class is automatic. Another reason is that it later makes it much easier for us 
 switch to a POJO (plain old Java object) implementation of the service if it makes sense
 to do so. Of course we'll also need to implement the local home interface and provide an
 implementation class that implements `SessionBean` and the `MyComponent` business
-methods interface. Now the only Java coding we'll  need to do to hook up our web tier
+methods interface. Now the only Java coding we'll need to do to hook up our web tier
 controller to the EJB implementation is to expose a setter method of type `MyComponent`
 on the controller. This will save the reference as an instance variable in the
 controller:
@@ -38948,7 +38927,7 @@ controller:
 private MyComponent myComponent;
 
 public void setMyComponent(MyComponent myComponent) {
-    this.myComponent = myComponent;
+	this.myComponent = myComponent;
 }
 ----
 
@@ -38962,13 +38941,13 @@ which will be the EJB proxy object. The configuration of the proxy, and setting 
 [subs="verbatim,quotes"]
 ----
 <bean id="myComponent"
-      class="org.springframework.ejb.access.LocalStatelessSessionProxyFactoryBean">
-  <property name="jndiName" value="ejb/myBean"/>
-  <property name="businessInterface" value="com.mycom.MyComponent"/>
+		class="org.springframework.ejb.access.LocalStatelessSessionProxyFactoryBean">
+	<property name="jndiName" value="ejb/myBean"/>
+	<property name="businessInterface" value="com.mycom.MyComponent"/>
 </bean>
 
 <bean id="myController" class="com.mycom.myController">
-  <property name="myComponent" ref="myComponent"/>
+	<property name="myComponent" ref="myComponent"/>
 </bean>
 ----
 
@@ -38989,10 +38968,10 @@ the `<jee:local-slsb>` configuration element in Spring's "jee" namespace:
 [subs="verbatim,quotes"]
 ----
 <jee:local-slsb id="myComponent" jndi-name="ejb/myBean"
-      business-interface="com.mycom.MyComponent"/>
+		business-interface="com.mycom.MyComponent"/>
 
 <bean id="myController" class="com.mycom.myController">
-  <property name="myComponent" ref="myComponent"/>
+	<property name="myComponent" ref="myComponent"/>
 </bean>
 ----
 
@@ -39090,15 +39069,17 @@ class, or through an `interceptor-binding` XML element in the EJB deployment des
 @Interceptors(SpringBeanAutowiringInterceptor.class)
 public class MyFacadeEJB implements MyFacadeLocal {
 
-    // automatically injected with a matching Spring bean
-    @Autowired
-    private MyComponent myComp;
+	// automatically injected with a matching Spring bean
+	@Autowired
+	private MyComponent myComp;
 
-    // for business method, delegate to POJO service impl.
-    public String myFacadeMethod(...) {
-        return myComp.myMethod(...);
-    }
-    ...
+	// for business method, delegate to POJO service impl.
+	public String myFacadeMethod(...) {
+		return myComp.myMethod(...);
+	}
+
+	...
+
 }
 ----
 
@@ -39173,7 +39154,7 @@ resource into Spring's transaction management mechanisms.
 
 
 [[jms-jmstemplate]]
-====  JmsTemplate
+==== JmsTemplate
 
 The `JmsTemplate` class is the central class in the JMS core package. It simplifies the
 use of JMS since it handles the creation and release of resources when sending or
@@ -39397,7 +39378,7 @@ transactional JMS `Session`.
 
 
 [[jms-sending]]
-=== Sending a  Message
+=== Sending a Message
 
 The `JmsTemplate` contains many convenience methods to send a message. There are send
 methods that specify the destination using a `javax.jms.Destination` object and those
@@ -39419,24 +39400,24 @@ import org.springframework.jms.core.JmsTemplate;
 
 public class JmsQueueSender {
 
-    private JmsTemplate jmsTemplate;
-    private Queue queue;
+	private JmsTemplate jmsTemplate;
+	private Queue queue;
 
-    public void setConnectionFactory(ConnectionFactory cf) {
-        this.jmsTemplate = new JmsTemplate(cf);
-    }
+	public void setConnectionFactory(ConnectionFactory cf) {
+		this.jmsTemplate = new JmsTemplate(cf);
+	}
 
-    public void setQueue(Queue queue) {
-        this.queue = queue;
-    }
+	public void setQueue(Queue queue) {
+		this.queue = queue;
+	}
 
-    public void simpleSend() {
-        this.jmsTemplate.send(this.queue, new MessageCreator() {
-            public Message createMessage(Session session) throws JMSException {
-              return session.createTextMessage("hello queue world");
-            }
-        });
-    }
+	public void simpleSend() {
+		this.jmsTemplate.send(this.queue, new MessageCreator() {
+			public Message createMessage(Session session) throws JMSException {
+				return session.createTextMessage("hello queue world");
+			}
+		});
+	}
 }
 ----
 
@@ -39486,16 +39467,16 @@ example below demonstrates how to modify a message header and a property after a
 [subs="verbatim,quotes"]
 ----
 public void sendWithConversion() {
-    Map map = new HashMap();
-    map.put("Name", "Mark");
-    map.put("Age", new Integer(47));
-    jmsTemplate.convertAndSend("testQueue", map, new MessagePostProcessor() {
-        public Message postProcessMessage(Message message) throws JMSException {
-            message.setIntProperty("AccountID", 1234);
-            message.setJMSCorrelationID("123-00001");
-            return message;
-        }
-    });
+	Map map = new HashMap();
+	map.put("Name", "Mark");
+	map.put("Age", new Integer(47));
+	jmsTemplate.convertAndSend("testQueue", map, new MessagePostProcessor() {
+		public Message postProcessMessage(Message message) throws JMSException {
+			message.setIntProperty("AccountID", 1234);
+			message.setJMSCorrelationID("123-00001");
+			return message;
+		}
+	});
 }
 ----
 
@@ -39505,17 +39486,17 @@ This results in a message of the form:
 [subs="verbatim,quotes"]
 ----
 MapMessage={
-    Header={
-        ... standard headers ...
-        CorrelationID={123-00001}
-    }
-    Properties={
-        AccountID={Integer:1234}
-    }
-    Fields={
-        Name={String:Mark}
-        Age={Integer:47}
-    }
+	Header={
+		... standard headers ...
+		CorrelationID={123-00001}
+	}
+	Properties={
+		AccountID={Integer:1234}
+	}
+	Fields={
+		Name={String:Mark}
+		Age={Integer:47}
+	}
 }
 ----
 
@@ -39570,19 +39551,20 @@ import javax.jms.TextMessage;
 
 public class ExampleListener implements MessageListener {
 
-    public void onMessage(Message message) {
-        if (message instanceof TextMessage) {
-            try {
-                System.out.println(((TextMessage) message).getText());
-            }
-            catch (JMSException ex) {
-                throw new RuntimeException(ex);
-            }
-        }
-        else {
-            throw new IllegalArgumentException("Message must be of type TextMessage");
-        }
-    }
+	public void onMessage(Message message) {
+		if (message instanceof TextMessage) {
+			try {
+				System.out.println(((TextMessage) message).getText());
+			}
+			catch (JMSException ex) {
+				throw new RuntimeException(ex);
+			}
+		}
+		else {
+			throw new IllegalArgumentException("Message must be of type TextMessage");
+		}
+	}
+
 }
 ----
 
@@ -39600,9 +39582,9 @@ containers that ships with Spring (in this case the `DefaultMessageListenerConta
 
 <!-- and this is the message listener container -->
 <bean id="jmsContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
-    <property name="connectionFactory" ref="connectionFactory"/>
-    <property name="destination" ref="destination"/>
-    **<property name="messageListener" ref="messageListener" />**
+	<property name="connectionFactory" ref="connectionFactory"/>
+	<property name="destination" ref="destination"/>
+	**<property name="messageListener" ref="messageListener" />**
 </bean>
 ----
 
@@ -39625,7 +39607,8 @@ package org.springframework.jms.listener;
 
 public interface SessionAwareMessageListener {
 
-    void onMessage(Message message, Session session) throws JMSException;
+	void onMessage(Message message, Session session) throws JMSException;
+
 }
 ----
 
@@ -39664,13 +39647,14 @@ various `Message` types that they can receive and handle.
 ----
 public interface MessageDelegate {
 
-    void handleMessage(String message);
+	void handleMessage(String message);
 
-    void handleMessage(Map message);
+	void handleMessage(Map message);
 
-    void handleMessage(byte[] message);
+	void handleMessage(byte[] message);
 
-    void handleMessage(Serializable message);
+	void handleMessage(Serializable message);
+
 }
 ----
 
@@ -39678,7 +39662,7 @@ public interface MessageDelegate {
 [subs="verbatim,quotes"]
 ----
 public class DefaultMessageDelegate implements MessageDelegate {
-    // implementation elided for clarity...
+	// implementation elided for clarity...
 }
 ----
 
@@ -39691,16 +39675,16 @@ POJO that we will make into an MDP via the following configuration.
 ----
 <!-- this is the Message Driven POJO (MDP) -->
 **<bean id="messageListener" class="org.springframework.jms.listener.adapter.MessageListenerAdapter">
-    <constructor-arg>
-        <bean class="jmsexample.DefaultMessageDelegate"/>
-    </constructor-arg>
+	<constructor-arg>
+		<bean class="jmsexample.DefaultMessageDelegate"/>
+	</constructor-arg>
 </bean>**
 
 <!-- and this is the message listener container... -->
 <bean id="jmsContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
-    <property name="connectionFactory" ref="connectionFactory"/>
-    <property name="destination" ref="destination"/>
-    **<property name="messageListener" ref="messageListener" />**
+	<property name="connectionFactory" ref="connectionFactory"/>
+	<property name="destination" ref="destination"/>
+	**<property name="messageListener" ref="messageListener" />**
 </bean>
 ----
 
@@ -39716,7 +39700,8 @@ also how the `'receive(..)'` method is strongly typed to receive and respond onl
 ----
 public interface TextMessageDelegate {
 
-    void receive(TextMessage message);
+	void receive(TextMessage message);
+
 }
 ----
 
@@ -39724,7 +39709,7 @@ public interface TextMessageDelegate {
 [subs="verbatim,quotes"]
 ----
 public class DefaultTextMessageDelegate implements TextMessageDelegate {
-    // implementation elided for clarity...
+	// implementation elided for clarity...
 }
 ----
 
@@ -39734,14 +39719,14 @@ The configuration of the attendant `MessageListenerAdapter` would look like this
 [subs="verbatim,quotes"]
 ----
 <bean id="messageListener" class="org.springframework.jms.listener.adapter.MessageListenerAdapter">
-    <constructor-arg>
-        <bean class="jmsexample.DefaultTextMessageDelegate"/>
-    </constructor-arg>
-    <property name="defaultListenerMethod" value="receive"/>
-    <!-- we don't want automatic message context extraction -->
-    <property name="messageConverter">
-        <null/>
-    </property>
+	<constructor-arg>
+		<bean class="jmsexample.DefaultTextMessageDelegate"/>
+	</constructor-arg>
+	<property name="defaultListenerMethod" value="receive"/>
+	<!-- we don't want automatic message context extraction -->
+	<property name="messageConverter">
+		<null/>
+	</property>
 </bean>
 ----
 
@@ -39756,8 +39741,9 @@ non-void value. Consider the interface and class:
 ----
 public interface ResponsiveTextMessageDelegate {
 
-    // notice the return type...
-    String receive(TextMessage message);
+	// notice the return type...
+	String receive(TextMessage message);
+
 }
 ----
 
@@ -39765,7 +39751,7 @@ public interface ResponsiveTextMessageDelegate {
 [subs="verbatim,quotes"]
 ----
 public class DefaultResponsiveTextMessageDelegate implements ResponsiveTextMessageDelegate {
-    // implementation elided for clarity...
+	// implementation elided for clarity...
 }
 ----
 
@@ -39799,10 +39785,10 @@ has committed but message processing failed to commit.
 [subs="verbatim,quotes"]
 ----
 <bean id="jmsContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
-    <property name="connectionFactory" ref="connectionFactory"/>
-    <property name="destination" ref="destination"/>
-    <property name="messageListener" ref="messageListener"/>
-    **<property name="sessionTransacted" value="true"/>**
+	<property name="connectionFactory" ref="connectionFactory"/>
+	<property name="destination" ref="destination"/>
+	<property name="messageListener" ref="messageListener"/>
+	**<property name="sessionTransacted" value="true"/>**
 </bean>
 ----
 
@@ -39831,10 +39817,10 @@ take care of the rest.
 [subs="verbatim,quotes"]
 ----
 <bean id="jmsContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
-    <property name="connectionFactory" ref="connectionFactory"/>
-    <property name="destination" ref="destination"/>
-    <property name="messageListener" ref="messageListener"/>
-    **<property name="transactionManager" ref="transactionManager"/>**
+	<property name="connectionFactory" ref="connectionFactory"/>
+	<property name="destination" ref="destination"/>
+	<property name="messageListener" ref="messageListener"/>
+	**<property name="transactionManager" ref="transactionManager"/>**
 </bean>
 ----
 
@@ -39853,13 +39839,13 @@ Spring's generic `JmsActivationSpecConfig` as shown in the following example.
 [subs="verbatim,quotes"]
 ----
 <bean class="org.springframework.jms.listener.endpoint.JmsMessageEndpointManager">
-    <property name="resourceAdapter" ref="resourceAdapter"/>
-    <property name="activationSpecConfig">
-        <bean class="org.springframework.jms.listener.endpoint.JmsActivationSpecConfig">
-            <property name="destinationName" value="myQueue"/>
-        </bean>
-    </property>
-    <property name="messageListener" ref="myMessageListener"/>
+	<property name="resourceAdapter" ref="resourceAdapter"/>
+	<property name="activationSpecConfig">
+		<bean class="org.springframework.jms.listener.endpoint.JmsActivationSpecConfig">
+			<property name="destinationName" value="myQueue"/>
+		</bean>
+	</property>
+	<property name="messageListener" ref="myMessageListener"/>
 </bean>
 ----
 
@@ -39871,14 +39857,14 @@ Alternatively, you may set up a `JmsMessageEndpointManager` with a given
 [subs="verbatim,quotes"]
 ----
 <bean class="org.springframework.jms.listener.endpoint.JmsMessageEndpointManager">
-    <property name="resourceAdapter" ref="resourceAdapter"/>
-    <property name="activationSpec">
-        <bean class="org.apache.activemq.ra.ActiveMQActivationSpec">
-            <property name="destination" value="myQueue"/>
-            <property name="destinationType" value="javax.jms.Queue"/>
-        </bean>
-    </property>
-    <property name="messageListener" ref="myMessageListener"/>
+	<property name="resourceAdapter" ref="resourceAdapter"/>
+	<property name="activationSpec">
+		<bean class="org.apache.activemq.ra.ActiveMQActivationSpec">
+			<property name="destination" value="myQueue"/>
+			<property name="destinationType" value="javax.jms.Queue"/>
+		</bean>
+	</property>
+	<property name="messageListener" ref="myMessageListener"/>
 </bean>
 ----
 
@@ -39889,14 +39875,14 @@ configured locally as depicted in the following example.
 [subs="verbatim,quotes"]
 ----
 <bean id="resourceAdapter" class="org.springframework.jca.support.ResourceAdapterFactoryBean">
-    <property name="resourceAdapter">
-        <bean class="org.apache.activemq.ra.ActiveMQResourceAdapter">
-            <property name="serverUrl" value="tcp://localhost:61616"/>
-        </bean>
-    </property>
-    <property name="workManager">
-        <bean class="org.springframework.jca.work.SimpleTaskWorkManager"/>
-    </property>
+	<property name="resourceAdapter">
+		<bean class="org.apache.activemq.ra.ActiveMQResourceAdapter">
+			<property name="serverUrl" value="tcp://localhost:61616"/>
+		</bean>
+	</property>
+	<property name="workManager">
+		<bean class="org.springframework.jca.work.SimpleTaskWorkManager"/>
+	</property>
 </bean>
 ----
 
@@ -39943,11 +39929,13 @@ namespace elements you will need to reference the JMS schema:
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       **xmlns:jms="http://www.springframework.org/schema/jms"**
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd **http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms.xsd**">
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		**xmlns:jms="http://www.springframework.org/schema/jms"**
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+			**http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms.xsd**">
 
-       <!-- <bean/> definitions here -->
+       <!-- bean definitions here -->
 
 </beans>
 ----
@@ -39961,9 +39949,9 @@ elements. Here is an example of a basic configuration for two listeners.
 ----
 <jms:listener-container>
 
-    <jms:listener destination="queue.orders" ref="orderService" method="placeOrder"/>
+	<jms:listener destination="queue.orders" ref="orderService" method="placeOrder"/>
 
-    <jms:listener destination="queue.confirmations" ref="confirmationLogger" method="log"/>
+	<jms:listener destination="queue.confirmations" ref="confirmationLogger" method="log"/>
 
 </jms:listener-container>
 ----
@@ -40019,14 +40007,14 @@ still benefiting from the convenience of the namespace.
 [subs="verbatim,quotes"]
 ----
 <jms:listener-container connection-factory="myConnectionFactory"
-                        task-executor="myTaskExecutor"
-                        destination-resolver="myDestinationResolver"
-                        transaction-manager="myTransactionManager"
-                        concurrency="10">
+		task-executor="myTaskExecutor"
+		destination-resolver="myDestinationResolver"
+		transaction-manager="myTransactionManager"
+		concurrency="10">
 
-    <jms:listener destination="queue.orders" ref="orderService" method="placeOrder"/>
+	<jms:listener destination="queue.orders" ref="orderService" method="placeOrder"/>
 
-    <jms:listener destination="queue.confirmations" ref="confirmationLogger" method="log"/>
+	<jms:listener destination="queue.confirmations" ref="confirmationLogger" method="log"/>
 
 </jms:listener-container>
 ----
@@ -40127,11 +40115,11 @@ Configuring a JCA-based listener container with the "jms" schema support is very
 [subs="verbatim,quotes"]
 ----
 <jms:jca-listener-container resource-adapter="myResourceAdapter"
-                            destination-resolver="myDestinationResolver"
-                            transaction-manager="myTransactionManager"
-                            concurrency="10">
+		destination-resolver="myDestinationResolver"
+		transaction-manager="myTransactionManager"
+		concurrency="10">
 
-    <jms:listener destination="queue.orders" ref="myMessageListener"/>
+	<jms:listener destination="queue.orders" ref="myMessageListener"/>
 
 </jms:jca-listener-container>
 ----
@@ -40241,33 +40229,33 @@ package org.springframework.jmx;
 
 public class JmxTestBean implements IJmxTestBean {
 
-    private String name;
-    private int age;
-    private boolean isSuperman;
+	private String name;
+	private int age;
+	private boolean isSuperman;
 
-    public int getAge() {
-        return age;
-    }
+	public int getAge() {
+		return age;
+	}
 
-    public void setAge(int age) {
-        this.age = age;
-    }
+	public void setAge(int age) {
+		this.age = age;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public int add(int x, int y) {
-        return x + y;
-    }
+	public int add(int x, int y) {
+		return x + y;
+	}
 
-    public void dontExposeMe() {
-        throw new RuntimeException();
-    }
+	public void dontExposeMe() {
+		throw new RuntimeException();
+	}
 }
 ----
 
@@ -40279,18 +40267,18 @@ configuration file and pass in the bean as shown below:
 [subs="verbatim,quotes"]
 ----
 <beans>
-  <!-- this bean must not be lazily initialized if the exporting is to happen -->
-  <bean id="exporter" class="org.springframework.jmx.export.MBeanExporter" lazy-init="false">
-    <property name="beans">
-      <map>
-        <entry key="bean:name=testBean1" value-ref="testBean"/>
-      </map>
-    </property>
-  </bean>
-  <bean id="testBean" class="org.springframework.jmx.JmxTestBean">
-    <property name="name" value="TEST"/>
-    <property name="age" value="100"/>
-  </bean>
+	<!-- this bean must not be lazily initialized if the exporting is to happen -->
+	<bean id="exporter" class="org.springframework.jmx.export.MBeanExporter" lazy-init="false">
+		<property name="beans">
+			<map>
+				<entry key="bean:name=testBean1" value-ref="testBean"/>
+			</map>
+		</property>
+	</bean>
+	<bean id="testBean" class="org.springframework.jmx.JmxTestBean">
+		<property name="name" value="TEST"/>
+		<property name="age" value="100"/>
+	</bean>
 </beans>
 ----
 
@@ -40308,7 +40296,7 @@ are exposed as attributes and all __public__ methods (bar those inherited from t
 
 
 [[jmx-exporting-mbeanserver]]
-==== Creating an  MBeanServer
+==== Creating an MBeanServer
 
 The above configuration assumes that the application is running in an environment that
 has one (and only one) `MBeanServer` already running. In this case, Spring will attempt
@@ -40329,25 +40317,25 @@ You can also ensure that a specific `MBeanServer` is used by setting the value o
 ----
 <beans>
 
-  <bean id="mbeanServer" class="org.springframework.jmx.support.MBeanServerFactoryBean"/>
+	<bean id="mbeanServer" class="org.springframework.jmx.support.MBeanServerFactoryBean"/>
 
-  <!--
-    this bean needs to be eagerly pre-instantiated in order for the exporting to occur;
-    this means that it must not be marked as lazily initialized
-  -->
-  <bean id="exporter" class="org.springframework.jmx.export.MBeanExporter">
-    <property name="beans">
-      <map>
-        <entry key="bean:name=testBean1" value-ref="testBean"/>
-      </map>
-    </property>
-    <property name="server" ref="mbeanServer"/>
-  </bean>
+	<!--
+	this bean needs to be eagerly pre-instantiated in order for the exporting to occur;
+	this means that it must not be marked as lazily initialized
+	-->
+	<bean id="exporter" class="org.springframework.jmx.export.MBeanExporter">
+		<property name="beans">
+			<map>
+				<entry key="bean:name=testBean1" value-ref="testBean"/>
+			</map>
+		</property>
+		<property name="server" ref="mbeanServer"/>
+	</bean>
 
-  <bean id="testBean" class="org.springframework.jmx.JmxTestBean">
-    <property name="name" value="TEST"/>
-    <property name="age" value="100"/>
-  </bean>
+	<bean id="testBean" class="org.springframework.jmx.JmxTestBean">
+		<property name="name" value="TEST"/>
+		<property name="age" value="100"/>
+	</bean>
 
 </beans>
 ----
@@ -40361,7 +40349,7 @@ correctly, you must (of course) have a JMX implementation on your classpath.
 
 
 [[jmx-mbean-server]]
-==== Reusing an existing  MBeanServer
+==== Reusing an existing MBeanServer
 
 If no server is specified, the `MBeanExporter` tries to automatically detect a running
 `MBeanServer`. This works in most environment where only one `MBeanServer` instance is
@@ -40373,16 +40361,16 @@ be used:
 [subs="verbatim,quotes"]
 ----
 <beans>
-   <bean id="mbeanServer" class="org.springframework.jmx.support.MBeanServerFactoryBean">
-     <!-- indicate to first look for a server -->
-     <property name="locateExistingServerIfPossible" value="true"/>
-     <!-- search for the MBeanServer instance with the given agentId -->
-     <property name="agentId" value="MBeanServer_instance_agentId>"/>
-   </bean>
-   <bean id="exporter" class="org.springframework.jmx.export.MBeanExporter">
-     <property name="server" ref="mbeanServer"/>
-     ...
-   </bean>
+	<bean id="mbeanServer" class="org.springframework.jmx.support.MBeanServerFactoryBean">
+		<!-- indicate to first look for a server -->
+		<property name="locateExistingServerIfPossible" value="true"/>
+		<!-- search for the MBeanServer instance with the given agentId -->
+		<property name="agentId" value="MBeanServer_instance_agentId>"/>
+	</bean>
+	<bean id="exporter" class="org.springframework.jmx.export.MBeanExporter">
+		<property name="server" ref="mbeanServer"/>
+		...
+	</bean>
 </beans>
 ----
 
@@ -40394,15 +40382,15 @@ For platforms/cases where the existing `MBeanServer` has a dynamic (or unknown)
 [subs="verbatim,quotes"]
 ----
 <beans>
-   <bean id="exporter" class="org.springframework.jmx.export.MBeanExporter">
-     <property name="server">
-       <!-- Custom MBeanServerLocator -->
-       <bean class="platform.package.MBeanServerLocator" factory-method="locateMBeanServer"/>
-     </property>
+	<bean id="exporter" class="org.springframework.jmx.export.MBeanExporter">
+		<property name="server">
+			<!-- Custom MBeanServerLocator -->
+			<bean class="platform.package.MBeanServerLocator" factory-method="locateMBeanServer"/>
+		</property>
+	</bean>
 
-     <!-- other beans here -->
+	<!-- other beans here -->
 
-   </bean>
 </beans>
 ----
 
@@ -40429,7 +40417,7 @@ property to `true`:
 [subs="verbatim,quotes"]
 ----
 <bean id="exporter" class="org.springframework.jmx.export.MBeanExporter">
-  <property name="autodetect" value="true"/>
+	<property name="autodetect" value="true"/>
 </bean>
 
 <bean name="spring:mbean=true" class="org.springframework.jmx.export.TestDynamicMBean"/>
@@ -40462,19 +40450,19 @@ these registration behaviors are summarized on the following table:
 | Registration behavior| Explanation
 
 | `REGISTRATION_FAIL_ON_EXISTING`
-|  This is the default registration behavior. If an `MBean` instance has already been
+| This is the default registration behavior. If an `MBean` instance has already been
   registered under the same `ObjectName`, the `MBean` that is being registered will not
   be registered and an `InstanceAlreadyExistsException` will be thrown. The existing
   `MBean` is unaffected.
 
 | `REGISTRATION_IGNORE_EXISTING`
-|  If an `MBean` instance has already been registered under the same `ObjectName`, the
+| If an `MBean` instance has already been registered under the same `ObjectName`, the
   `MBean` that is being registered will __not__ be registered. The existing `MBean` is
   unaffected, and no `Exception` will be thrown. This is useful in settings where
   multiple applications want to share a common `MBean` in a shared `MBeanServer`.
 
 | `REGISTRATION_REPLACE_EXISTING`
-|  If an `MBean` instance has already been registered under the same `ObjectName`, the
+| If an `MBean` instance has already been registered under the same `ObjectName`, the
   existing `MBean` that was previously registered will be unregistered and the new
   `MBean` will be registered in its place (the new `MBean` effectively replaces the
   previous instance).
@@ -40494,19 +40482,19 @@ behavior to the `REGISTRATION_REPLACE_EXISTING` behavior:
 ----
 <beans>
 
-    <bean id="exporter" class="org.springframework.jmx.export.MBeanExporter">
-        <property name="beans">
-            <map>
-                <entry key="bean:name=testBean1" value-ref="testBean"/>
-            </map>
-        </property>
-        <property name="registrationBehaviorName" value="REGISTRATION_REPLACE_EXISTING"/>
-    </bean>
+	<bean id="exporter" class="org.springframework.jmx.export.MBeanExporter">
+		<property name="beans">
+			<map>
+				<entry key="bean:name=testBean1" value-ref="testBean"/>
+			</map>
+		</property>
+		<property name="registrationBehaviorName" value="REGISTRATION_REPLACE_EXISTING"/>
+	</bean>
 
-    <bean id="testBean" class="org.springframework.jmx.JmxTestBean">
-        <property name="name" value="TEST"/>
-        <property name="age" value="100"/>
-    </bean>
+	<bean id="testBean" class="org.springframework.jmx.JmxTestBean">
+		<property name="name" value="TEST"/>
+		<property name="age" value="100"/>
+	</bean>
 
 </beans>
 ----
@@ -40570,47 +40558,55 @@ import org.springframework.jmx.export.annotation.ManagedResource;
 import org.springframework.jmx.export.annotation.ManagedOperation;
 import org.springframework.jmx.export.annotation.ManagedAttribute;
 
-@ManagedResource(objectName="bean:name=testBean4", description="My Managed Bean", log=true,
-    logFile="jmx.log", currencyTimeLimit=15, persistPolicy="OnUpdate", persistPeriod=200,
-    persistLocation="foo", persistName="bar")
+@ManagedResource(
+		objectName="bean:name=testBean4",
+		description="My Managed Bean",
+		log=true,
+		logFile="jmx.log",
+		currencyTimeLimit=15,
+		persistPolicy="OnUpdate",
+		persistPeriod=200,
+		persistLocation="foo",
+		persistName="bar")
 public class AnnotationTestBean implements IJmxTestBean {
 
-  private String name;
-  private int age;
+	private String name;
+	private int age;
 
-  @ManagedAttribute(description="The Age Attribute", currencyTimeLimit=15)
-  public int getAge() {
-    return age;
-  }
+	@ManagedAttribute(description="The Age Attribute", currencyTimeLimit=15)
+	public int getAge() {
+		return age;
+	}
 
-  public void setAge(int age) {
-    this.age = age;
-  }
+	public void setAge(int age) {
+		this.age = age;
+	}
 
-  @ManagedAttribute(description="The Name Attribute",
-      currencyTimeLimit=20,
-      defaultValue="bar",
-      persistPolicy="OnUpdate")
-  public void setName(String name) {
-    this.name = name;
-  }
+	@ManagedAttribute(description="The Name Attribute",
+			currencyTimeLimit=20,
+			defaultValue="bar",
+			persistPolicy="OnUpdate")
+	public void setName(String name) {
+		this.name = name;
+	}
 
-  @ManagedAttribute(defaultValue="foo", persistPeriod=300)
-  public String getName() {
-    return name;
-  }
+	@ManagedAttribute(defaultValue="foo", persistPeriod=300)
+	public String getName() {
+		return name;
+	}
 
-  @ManagedOperation(description="Add two numbers")
-  @ManagedOperationParameters({
-    @ManagedOperationParameter(name = "x", description = "The first number"),
-    @ManagedOperationParameter(name = "y", description = "The second number")})
-  public int add(int x, int y) {
-    return x + y;
-  }
+	@ManagedOperation(description="Add two numbers")
+	@ManagedOperationParameters({
+		@ManagedOperationParameter(name = "x", description = "The first number"),
+		@ManagedOperationParameter(name = "y", description = "The second number")})
+	public int add(int x, int y) {
+		return x + y;
+	}
 
-  public void dontExposeMe() {
-    throw new RuntimeException();
-  }
+	public void dontExposeMe() {
+		throw new RuntimeException();
+	}
+
 }
 ----
 
@@ -40637,31 +40633,31 @@ The configuration below shows how you configure the `MBeanExporter` to use the
 [subs="verbatim,quotes"]
 ----
 <beans>
-    <bean id="exporter" class="org.springframework.jmx.export.MBeanExporter">
-        <property name="assembler" ref="assembler"/>
-        <property name="namingStrategy" ref="namingStrategy"/>
-        <property name="autodetect" value="true"/>
-    </bean>
+	<bean id="exporter" class="org.springframework.jmx.export.MBeanExporter">
+		<property name="assembler" ref="assembler"/>
+		<property name="namingStrategy" ref="namingStrategy"/>
+		<property name="autodetect" value="true"/>
+	</bean>
 
-    <bean id="jmxAttributeSource"
-          class="org.springframework.jmx.export.annotation.AnnotationJmxAttributeSource"/>
+	<bean id="jmxAttributeSource"
+			class="org.springframework.jmx.export.annotation.AnnotationJmxAttributeSource"/>
 
-    <!-- will create management interface using annotation metadata -->
-    <bean id="assembler"
-          class="org.springframework.jmx.export.assembler.MetadataMBeanInfoAssembler">
-        <property name="attributeSource" ref="jmxAttributeSource"/>
-    </bean>
+	<!-- will create management interface using annotation metadata -->
+	<bean id="assembler"
+			class="org.springframework.jmx.export.assembler.MetadataMBeanInfoAssembler">
+		<property name="attributeSource" ref="jmxAttributeSource"/>
+	</bean>
 
-    <!-- will pick up the ObjectName from the annotation -->
-    <bean id="namingStrategy"
-          class="org.springframework.jmx.export.naming.MetadataNamingStrategy">
-        <property name="attributeSource" ref="jmxAttributeSource"/>
-    </bean>
+	<!-- will pick up the ObjectName from the annotation -->
+	<bean id="namingStrategy"
+			class="org.springframework.jmx.export.naming.MetadataNamingStrategy">
+		<property name="attributeSource" ref="jmxAttributeSource"/>
+	</bean>
 
-    <bean id="testBean" class="org.springframework.jmx.AnnotationTestBean">
-        <property name="name" value="TEST"/>
-        <property name="age" value="100"/>
-    </bean>
+	<bean id="testBean" class="org.springframework.jmx.AnnotationTestBean">
+		<property name="name" value="TEST"/>
+		<property name="age" value="100"/>
+	</bean>
 </beans>
 ----
 
@@ -40777,22 +40773,22 @@ bean name as the `ObjectName` which results in a configuration like this:
 ----
 <beans>
 
-  <bean id="exporter" class="org.springframework.jmx.export.MBeanExporter">
-    <!-- notice how no 'beans' are explicitly configured here -->
-    <property name="autodetect" value="true"/>
-    <property name="assembler" ref="assembler"/>
-  </bean>
+	<bean id="exporter" class="org.springframework.jmx.export.MBeanExporter">
+		<!-- notice how no 'beans' are explicitly configured here -->
+		<property name="autodetect" value="true"/>
+		<property name="assembler" ref="assembler"/>
+	</bean>
 
-  <bean id="testBean" class="org.springframework.jmx.JmxTestBean">
-    <property name="name" value="TEST"/>
-    <property name="age" value="100"/>
-  </bean>
+	<bean id="testBean" class="org.springframework.jmx.JmxTestBean">
+		<property name="name" value="TEST"/>
+		<property name="age" value="100"/>
+	</bean>
 
-  <bean id="assembler" class="org.springframework.jmx.export.assembler.MetadataMBeanInfoAssembler">
-    <property name="attributeSource">
-        <bean class="org.springframework.jmx.export.annotation.AnnotationJmxAttributeSource"/>
-    </property>
-  </bean>
+	<bean id="assembler" class="org.springframework.jmx.export.assembler.MetadataMBeanInfoAssembler">
+		<property name="attributeSource">
+			<bean class="org.springframework.jmx.export.annotation.AnnotationJmxAttributeSource"/>
+		</property>
+	</bean>
 
 </beans>
 ----
@@ -40826,17 +40822,18 @@ Consider this interface that is used to define a management interface for the
 ----
 public interface IJmxTestBean {
 
-  public int add(int x, int y);
+	public int add(int x, int y);
 
-  public long myOperation();
+	public long myOperation();
 
-  public int getAge();
+	public int getAge();
 
-  public void setAge(int age);
+	public void setAge(int age);
 
-  public void setName(String name);
+	public void setName(String name);
 
-  public String getName();
+	public String getName();
+
 }
 ----
 
@@ -40849,25 +40846,25 @@ this interface as the definition for the management interface:
 ----
 <beans>
 
-  <bean id="exporter" class="org.springframework.jmx.export.MBeanExporter">
-    <property name="beans">
-      <map>
-        <entry key="bean:name=testBean5" value-ref="testBean"/>
-      </map>
-    </property>
-    <property name="assembler">
-      <bean class="org.springframework.jmx.export.assembler.InterfaceBasedMBeanInfoAssembler">
-        <property name="managedInterfaces">
-          <value>org.springframework.jmx.IJmxTestBean</value>
-        </property>
-      </bean>
-    </property>
-  </bean>
+	<bean id="exporter" class="org.springframework.jmx.export.MBeanExporter">
+		<property name="beans">
+			<map>
+				<entry key="bean:name=testBean5" value-ref="testBean"/>
+			</map>
+		</property>
+		<property name="assembler">
+			<bean class="org.springframework.jmx.export.assembler.InterfaceBasedMBeanInfoAssembler">
+				<property name="managedInterfaces">
+					<value>org.springframework.jmx.IJmxTestBean</value>
+				</property>
+			</bean>
+		</property>
+	</bean>
 
-  <bean id="testBean" class="org.springframework.jmx.JmxTestBean">
-    <property name="name" value="TEST"/>
-    <property name="age" value="100"/>
-  </bean>
+	<bean id="testBean" class="org.springframework.jmx.JmxTestBean">
+		<property name="name" value="TEST"/>
+		<property name="age" value="100"/>
+  	</bean>
 
 </beans>
 ----
@@ -40893,7 +40890,7 @@ management interface.
 
 
 [[jmx-interface-methodnames]]
-==== Using  MethodNameBasedMBeanInfoAssembler
+==== Using MethodNameBasedMBeanInfoAssembler
 
 The `MethodNameBasedMBeanInfoAssembler` allows you to specify a list of method names
 that will be exposed to JMX as attributes and operations. The code below shows a sample
@@ -40903,18 +40900,18 @@ configuration for this:
 [subs="verbatim,quotes"]
 ----
 <bean id="exporter" class="org.springframework.jmx.export.MBeanExporter">
-    <property name="beans">
-      <map>
-        <entry key="bean:name=testBean5" value-ref="testBean"/>
-      </map>
-    </property>
-    <property name="assembler">
-      <bean class="org.springframework.jmx.export.assembler.MethodNameBasedMBeanInfoAssembler">
-        <property name="managedMethods">
-          <value>add,myOperation,getName,setName,getAge</value>
-        </property>
-      </bean>
-    </property>
+	<property name="beans">
+		<map>
+			<entry key="bean:name=testBean5" value-ref="testBean"/>
+		</map>
+	</property>
+	<property name="assembler">
+		<bean class="org.springframework.jmx.export.assembler.MethodNameBasedMBeanInfoAssembler">
+			<property name="managedMethods">
+				<value>add,myOperation,getName,setName,getAge</value>
+			</property>
+		</bean>
+	</property>
 </bean>
 ----
 
@@ -40944,7 +40941,7 @@ uses source level metadata to obtain the `ObjectName`.
 
 
 [[jmx-naming-properties]]
-==== Reading  ObjectNames from Properties
+==== Reading ObjectNames from Properties
 
 You can configure your own `KeyNamingStrategy` instance and configure it to read
 `ObjectName` s from a `Properties` instance rather than use bean key. The
@@ -40959,30 +40956,30 @@ The code below shows a sample configuration for the `KeyNamingStrategy`:
 ----
 <beans>
 
-  <bean id="exporter" class="org.springframework.jmx.export.MBeanExporter">
-    <property name="beans">
-      <map>
-        <entry key="testBean" value-ref="testBean"/>
-      </map>
-    </property>
-    <property name="namingStrategy" ref="namingStrategy"/>
-  </bean>
+	<bean id="exporter" class="org.springframework.jmx.export.MBeanExporter">
+		<property name="beans">
+			<map>
+				<entry key="testBean" value-ref="testBean"/>
+			</map>
+		</property>
+		<property name="namingStrategy" ref="namingStrategy"/>
+	</bean>
 
-  <bean id="testBean" class="org.springframework.jmx.JmxTestBean">
-    <property name="name" value="TEST"/>
-    <property name="age" value="100"/>
-  </bean>
+	<bean id="testBean" class="org.springframework.jmx.JmxTestBean">
+		<property name="name" value="TEST"/>
+		<property name="age" value="100"/>
+	</bean>
 
-  <bean id="namingStrategy" class="org.springframework.jmx.export.naming.KeyNamingStrategy">
-    <property name="mappings">
-      <props>
-        <prop key="testBean">bean:name=testBean1</prop>
-      </props>
-    </property>
-    <property name="mappingLocations">
-      <value>names1.properties,names2.properties</value>
-    </property>
-  </bean
+	<bean id="namingStrategy" class="org.springframework.jmx.export.naming.KeyNamingStrategy">
+		<property name="mappings">
+			<props>
+				<prop key="testBean">bean:name=testBean1</prop>
+			</props>
+		</property>
+		<property name="mappingLocations">
+			<value>names1.properties,names2.properties</value>
+		</property>
+	</bean>
 
 </beans>
 ----
@@ -41011,26 +41008,26 @@ configuration for the `MetadataNamingStrategy`:
 ----
 <beans>
 
-  <bean id="exporter" class="org.springframework.jmx.export.MBeanExporter">
-    <property name="beans">
-      <map>
-        <entry key="testBean" value-ref="testBean"/>
-      </map>
-    </property>
-    <property name="namingStrategy" ref="namingStrategy"/>
-  </bean>
+	<bean id="exporter" class="org.springframework.jmx.export.MBeanExporter">
+		<property name="beans">
+			<map>
+				<entry key="testBean" value-ref="testBean"/>
+			</map>
+		</property>
+		<property name="namingStrategy" ref="namingStrategy"/>
+	</bean>
 
-  <bean id="testBean" class="org.springframework.jmx.JmxTestBean">
-    <property name="name" value="TEST"/>
-    <property name="age" value="100"/>
-  </bean>
+	<bean id="testBean" class="org.springframework.jmx.JmxTestBean">
+		<property name="name" value="TEST"/>
+		<property name="age" value="100"/>
+	</bean>
 
-  <bean id="namingStrategy" class="org.springframework.jmx.export.naming.MetadataNamingStrategy">
-    <property name="attributeSource" ref="attributeSource"/>
-  </bean>
+	<bean id="namingStrategy" class="org.springframework.jmx.export.naming.MetadataNamingStrategy">
+    	<property name="attributeSource" ref="attributeSource"/>
+	</bean>
 
-  <bean id="attributeSource"
-      class="org.springframework.jmx.export.annotation.AnnotationJmxAttributeSource"/>
+	<bean id="attributeSource"
+			class="org.springframework.jmx.export.annotation.AnnotationJmxAttributeSource"/>
 
 </beans>
 ----
@@ -41146,10 +41143,10 @@ To specify another URL and register the `JMXConnectorServer` itself with the
 [subs="verbatim,quotes"]
 ----
 <bean id="serverConnector"
-      class="org.springframework.jmx.support.ConnectorServerFactoryBean">
-  <property name="objectName" value="connector:name=rmi"/>
-  <property name="serviceUrl"
-            value="service:jmx:rmi://localhost/jndi/rmi://localhost:1099/myconnector"/>
+		class="org.springframework.jmx.support.ConnectorServerFactoryBean">
+	<property name="objectName" value="connector:name=rmi"/>
+	<property name="serviceUrl"
+			value="service:jmx:rmi://localhost/jndi/rmi://localhost:1099/myconnector"/>
 </bean>
 ----
 
@@ -41162,17 +41159,17 @@ JMXConnector:
 [subs="verbatim,quotes"]
 ----
 <bean id="serverConnector"
-      class="org.springframework.jmx.support.ConnectorServerFactoryBean">
-  <property name="objectName" value="connector:name=iiop"/>
-  <property name="serviceUrl"
-               value="service:jmx:iiop://localhost/jndi/iiop://localhost:900/myconnector"/>
-  <property name="threaded" value="true"/>
-  <property name="daemon" value="true"/>
-  <property name="environment">
-    <map>
-      <entry key="someKey" value="someValue"/>
-    </map>
-  </property>
+		class="org.springframework.jmx.support.ConnectorServerFactoryBean">
+	<property name="objectName" value="connector:name=iiop"/>
+	<property name="serviceUrl"
+		value="service:jmx:iiop://localhost/jndi/iiop://localhost:900/myconnector"/>
+	<property name="threaded" value="true"/>
+	<property name="daemon" value="true"/>
+	<property name="environment">
+		<map>
+			<entry key="someKey" value="someValue"/>
+		</map>
+	</property>
 </bean>
 ----
 
@@ -41186,7 +41183,7 @@ snippet of configuration:
 [subs="verbatim,quotes"]
 ----
 <bean id="registry" class="org.springframework.remoting.rmi.RmiRegistryFactoryBean">
-  <property name="port" value="1099"/>
+	<property name="port" value="1099"/>
 </bean>
 ----
 
@@ -41201,7 +41198,7 @@ To create an `MBeanServerConnection` to a remote JSR-160 enabled `MBeanServer` u
 [subs="verbatim,quotes"]
 ----
 <bean id="clientConnector" class="org.springframework.jmx.support.MBeanServerConnectionFactoryBean">
-  <property name="serviceUrl" value="service:jmx:rmi://localhost/jndi/rmi://localhost:1099/jmxrmi"/>
+	<property name="serviceUrl" value="service:jmx:rmi://localhost/jndi/rmi://localhost:1099/jmxrmi"/>
 </bean>
 ----
 
@@ -41220,8 +41217,8 @@ others:
 [subs="verbatim,quotes"]
 ----
 <bean id="serverConnector" class="org.springframework.jmx.support.ConnectorServerFactoryBean">
-  <property name="objectName" value="connector:name=burlap"/>
-  <property name="serviceUrl" value="service:jmx:burlap://localhost:9874"/>
+	<property name="objectName" value="connector:name=burlap"/>
+	<property name="serviceUrl" value="service:jmx:burlap://localhost:9874"/>
 </bean>
 ----
 
@@ -41242,8 +41239,8 @@ proxy for an MBean running in a local `MBeanServer`:
 [subs="verbatim,quotes"]
 ----
 <bean id="proxy" class="org.springframework.jmx.access.MBeanProxyFactoryBean">
-    <property name="objectName" value="bean:name=testBean"/>
-    <property name="proxyInterface" value="org.springframework.jmx.IJmxTestBean"/>
+	<property name="objectName" value="bean:name=testBean"/>
+	<property name="proxyInterface" value="org.springframework.jmx.IJmxTestBean"/>
 </bean>
 ----
 
@@ -41262,14 +41259,14 @@ you can override this and provide an `MBeanServerConnection` pointing to a remot
 [subs="verbatim,quotes"]
 ----
 <bean id="clientConnector"
-      class="org.springframework.jmx.support.MBeanServerConnectionFactoryBean">
-  <property name="serviceUrl" value="service:jmx:rmi://remotehost:9875"/>
+		class="org.springframework.jmx.support.MBeanServerConnectionFactoryBean">
+	<property name="serviceUrl" value="service:jmx:rmi://remotehost:9875"/>
 </bean>
 
 <bean id="proxy" class="org.springframework.jmx.access.MBeanProxyFactoryBean">
-  <property name="objectName" value="bean:name=testBean"/>
-  <property name="proxyInterface" value="org.springframework.jmx.IJmxTestBean"/>
-  <property name="server" ref="clientConnector"/>
+	<property name="objectName" value="bean:name=testBean"/>
+	<property name="proxyInterface" value="org.springframework.jmx.IJmxTestBean"/>
+	<property name="server" ref="clientConnector"/>
 </bean>
 ----
 
@@ -41307,16 +41304,17 @@ import javax.management.NotificationFilter;
 import javax.management.NotificationListener;
 
 public class ConsoleLoggingNotificationListener
-               implements NotificationListener, NotificationFilter {
+		implements NotificationListener, NotificationFilter {
 
-    public void handleNotification(Notification notification, Object handback) {
-        System.out.println(notification);
-        System.out.println(handback);
-    }
+	public void handleNotification(Notification notification, Object handback) {
+		System.out.println(notification);
+		System.out.println(handback);
+	}
 
-    public boolean isNotificationEnabled(Notification notification) {
-        return AttributeChangeNotification.class.isAssignableFrom(notification.getClass());
-    }
+	public boolean isNotificationEnabled(Notification notification) {
+		return AttributeChangeNotification.class.isAssignableFrom(notification.getClass());
+	}
+
 }
 ----
 
@@ -41325,25 +41323,25 @@ public class ConsoleLoggingNotificationListener
 ----
 <beans>
 
-  <bean id="exporter" class="org.springframework.jmx.export.MBeanExporter">
-    <property name="beans">
-      <map>
-        <entry key="bean:name=testBean1" value-ref="testBean"/>
-      </map>
-    </property>
-    <property name="notificationListenerMappings">
-      <map>
-        <entry key="bean:name=testBean1">
-          <bean class="com.example.ConsoleLoggingNotificationListener"/>
-        </entry>
-      </map>
-    </property>
-  </bean>
+	<bean id="exporter" class="org.springframework.jmx.export.MBeanExporter">
+		<property name="beans">
+			<map>
+				<entry key="bean:name=testBean1" value-ref="testBean"/>
+			</map>
+		</property>
+		<property name="notificationListenerMappings">
+			<map>
+				<entry key="bean:name=testBean1">
+					<bean class="com.example.ConsoleLoggingNotificationListener"/>
+				</entry>
+			</map>
+		</property>
+	</bean>
 
-  <bean id="testBean" class="org.springframework.jmx.JmxTestBean">
-    <property name="name" value="TEST"/>
-    <property name="age" value="100"/>
-  </bean>
+	<bean id="testBean" class="org.springframework.jmx.JmxTestBean">
+		<property name="name" value="TEST"/>
+		<property name="age" value="100"/>
+	</bean>
 
 </beans>
 ----
@@ -41361,15 +41359,27 @@ You can also use straight bean names as the link between exported beans and list
 ----
 <beans>
 
-  <bean id="exporter" class="org.springframework.jmx.export.MBeanExporter">
-    <property name="beans">
-      <map>
-        <entry key="bean:name=testBean1" value-ref="testBean"/>
-      </map>
-    </property>
-    <property name="notificationListenerMappings">
-      <map>
-        <entry key="__testBean__"> <bean class="com.example.ConsoleLoggingNotificationListener"/> </entry> </map> </property> </bean> <bean id="__testBean__" class="org.springframework.jmx.JmxTestBean"> <property name="name" value="TEST"/> <property name="age" value="100"/> </bean> </beans>
+	<bean id="exporter" class="org.springframework.jmx.export.MBeanExporter">
+		<property name="beans">
+			<map>
+				<entry key="bean:name=testBean1" value-ref="testBean"/>
+			</map>
+		</property>
+		<property name="notificationListenerMappings">
+			<map>
+				<entry key="__testBean__">
+					<bean class="com.example.ConsoleLoggingNotificationListener"/>
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="__testBean__" class="org.springframework.jmx.JmxTestBean">
+		<property name="name" value="TEST"/>
+		<property name="age" value="100"/>
+	</bean>
+
+</beans>
 ----
 
 If one wants to register a single `NotificationListener` instance for all of the beans
@@ -41381,11 +41391,11 @@ map; for example:
 [subs="verbatim,quotes"]
 ----
 <property name="notificationListenerMappings">
-  <map>
-    <entry key="*">
-      <bean class="com.example.ConsoleLoggingNotificationListener"/>
-    </entry>
-  </map>
+	<map>
+		<entry key="*">
+			<bean class="com.example.ConsoleLoggingNotificationListener"/>
+		</entry>
+	</map>
 </property>
 ----
 
@@ -41407,32 +41417,32 @@ different to what was presented previously:
 ----
 <beans>
 
-  <bean id="exporter" class="org.springframework.jmx.export.MBeanExporter">
-    <property name="beans">
-      <map>
-        <entry key="bean:name=testBean1" value-ref="testBean"/>
-      </map>
-    </property>
-    <property name="notificationListeners">
-        <list>
-            <bean class="org.springframework.jmx.export.NotificationListenerBean">
-                <constructor-arg>
-                    <bean class="com.example.ConsoleLoggingNotificationListener"/>
-                </constructor-arg>
-                <property name="mappedObjectNames">
-                    <list>
-                        <value>bean:name=testBean1</value>
-                    </list>
-                </property>
-            </bean>
-        </list>
-    </property>
-  </bean>
+	<bean id="exporter" class="org.springframework.jmx.export.MBeanExporter">
+		<property name="beans">
+			<map>
+				<entry key="bean:name=testBean1" value-ref="testBean"/>
+			</map>
+		</property>
+		<property name="notificationListeners">
+			<list>
+				<bean class="org.springframework.jmx.export.NotificationListenerBean">
+					<constructor-arg>
+						<bean class="com.example.ConsoleLoggingNotificationListener"/>
+					</constructor-arg>
+					<property name="mappedObjectNames">
+						<list>
+							<value>bean:name=testBean1</value>
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
 
-  <bean id="testBean" class="org.springframework.jmx.JmxTestBean">
-    <property name="name" value="TEST"/>
-    <property name="age" value="100"/>
-  </bean>
+	<bean id="testBean" class="org.springframework.jmx.JmxTestBean">
+		<property name="name" value="TEST"/>
+		<property name="age" value="100"/>
+	</bean>
 
 </beans>
 ----
