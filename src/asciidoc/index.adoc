@@ -24487,24 +24487,24 @@ example uses only one configuration method; you will see examples of multiple on
 [subs="verbatim,quotes"]
 ----
 public class JdbcActorDao implements ActorDao {
-    private JdbcTemplate jdbcTemplate;
-    private SimpleJdbcInsert insertActor;
 
-    public void setDataSource(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-        this.insertActor =
-                new SimpleJdbcInsert(dataSource).withTableName("t_actor");
-    }
+	private JdbcTemplate jdbcTemplate;
+	private SimpleJdbcInsert insertActor;
 
-    public void add(Actor actor) {
-        Map<String, Object> parameters = new HashMap<String, Object>(3);
-        parameters.put("id", actor.getId());
-        parameters.put("first_name", actor.getFirstName());
-        parameters.put("last_name", actor.getLastName());
-        insertActor.execute(parameters);
-    }
+	public void setDataSource(DataSource dataSource) {
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
+		this.insertActor = new SimpleJdbcInsert(dataSource).withTableName("t_actor");
+	}
 
-    //  ... additional methods
+	public void add(Actor actor) {
+		Map<String, Object> parameters = new HashMap<String, Object>(3);
+		parameters.put("id", actor.getId());
+		parameters.put("first_name", actor.getFirstName());
+		parameters.put("last_name", actor.getLastName());
+		insertActor.execute(parameters);
+	}
+
+	//  ... additional methods
 }
 ----
 
@@ -24526,37 +24526,36 @@ of the generated key column with the `usingGeneratedKeyColumns` method.
 [subs="verbatim,quotes"]
 ----
 public class JdbcActorDao implements ActorDao {
-    private JdbcTemplate jdbcTemplate;
-    private SimpleJdbcInsert insertActor;
 
-    public void setDataSource(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-        this.insertActor =
-                new SimpleJdbcInsert(dataSource)
-                        .withTableName("t_actor")
-                        .usingGeneratedKeyColumns("id");
-    }
+	private JdbcTemplate jdbcTemplate;
+	private SimpleJdbcInsert insertActor;
 
-    public void add(Actor actor) {
-        Map<String, Object> parameters = new HashMap<String, Object>(2);
-        parameters.put("first_name", actor.getFirstName());
-        parameters.put("last_name", actor.getLastName());
-        Number newId = insertActor.executeAndReturnKey(parameters);
-        actor.setId(newId.longValue());
-    }
+	public void setDataSource(DataSource dataSource) {
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
+		this.insertActor = new SimpleJdbcInsert(dataSource)
+				.withTableName("t_actor")
+				.usingGeneratedKeyColumns("id");
+	}
 
-    //  ... additional methods
+	public void add(Actor actor) {
+		Map<String, Object> parameters = new HashMap<String, Object>(2);
+		parameters.put("first_name", actor.getFirstName());
+		parameters.put("last_name", actor.getLastName());
+		Number newId = insertActor.executeAndReturnKey(parameters);
+		actor.setId(newId.longValue());
+	}
+
+	//  ... additional methods
 }
 ----
 
-The main difference when executing the insert by this second
-      approach is that you do not add the id to the Map and you call the
-      `executeReturningKey` method. This returns a `java.lang.Number` object with which
-you can create an instance of the numerical type that is used in our domain class.You
-cannot rely on all databases to return a specific Java class here; `java.lang.Number` is
-the base class that you can rely on. If you have multiple auto-generated columns, or the
-generated values are non-numeric, then you can use a `KeyHolder` that is returned from
-the `executeReturningKeyHolder` method.
+The main difference when executing the insert by this second approach is that you do not
+add the id to the Map and you call the `executeReturningKey` method. This returns a
+`java.lang.Number` object with which you can create an instance of the numerical type that
+is used in our domain class. You cannot rely on all databases to return a specific Java
+class here; `java.lang.Number` is the base class that you can rely on. If you have
+multiple auto-generated columns, or the generated values are non-numeric, then you can
+use a `KeyHolder` that is returned from the `executeReturningKeyHolder` method.
 
 
 
@@ -24569,32 +24568,32 @@ You can limit the columns for an insert by specifying a list of column names wit
 [subs="verbatim,quotes"]
 ----
 public class JdbcActorDao implements ActorDao {
-    private JdbcTemplate jdbcTemplate;
-    private SimpleJdbcInsert insertActor;
 
-    public void setDataSource(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-        this.insertActor =
-                new SimpleJdbcInsert(dataSource)
-                        .withTableName("t_actor")
-                        .usingColumns("first_name", "last_name")
-                        .usingGeneratedKeyColumns("id");
-    }
+	private JdbcTemplate jdbcTemplate;
+	private SimpleJdbcInsert insertActor;
 
-    public void add(Actor actor) {
-        Map<String, Object> parameters = new HashMap<String, Object>(2);
-        parameters.put("first_name", actor.getFirstName());
-        parameters.put("last_name", actor.getLastName());
-        Number newId = insertActor.executeAndReturnKey(parameters);
-        actor.setId(newId.longValue());
-    }
+	public void setDataSource(DataSource dataSource) {
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
+		this.insertActor = new SimpleJdbcInsert(dataSource)
+				.withTableName("t_actor")
+				.usingColumns("first_name", "last_name")
+				.usingGeneratedKeyColumns("id");
+	}
 
-    //  ... additional methods
+	public void add(Actor actor) {
+		Map<String, Object> parameters = new HashMap<String, Object>(2);
+		parameters.put("first_name", actor.getFirstName());
+		parameters.put("last_name", actor.getLastName());
+		Number newId = insertActor.executeAndReturnKey(parameters);
+		actor.setId(newId.longValue());
+	}
+
+	//  ... additional methods
 }
 ----
 
-The execution of the insert is the same as if you had relied
-      on the metadata to determine which columns to use.
+The execution of the insert is the same as if you had relied on the metadata to determine
+which columns to use.
 
 
 
@@ -24611,61 +24610,61 @@ values. Here is an example:
 [subs="verbatim,quotes"]
 ----
 public class JdbcActorDao implements ActorDao {
-    private JdbcTemplate jdbcTemplate;
-    private SimpleJdbcInsert insertActor;
 
-    public void setDataSource(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-        this.insertActor =
-                new SimpleJdbcInsert(dataSource)
-                        .withTableName("t_actor")
-                        .usingGeneratedKeyColumns("id");
-    }
+	private JdbcTemplate jdbcTemplate;
+	private SimpleJdbcInsert insertActor;
 
-    public void add(Actor actor) {
-        SqlParameterSource parameters = new BeanPropertySqlParameterSource(actor);
-        Number newId = insertActor.executeAndReturnKey(parameters);
-        actor.setId(newId.longValue());
-    }
+	public void setDataSource(DataSource dataSource) {
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
+		this.insertActor = new SimpleJdbcInsert(dataSource)
+				.withTableName("t_actor")
+				.usingGeneratedKeyColumns("id");
+	}
 
-    //  ... additional methods
+	public void add(Actor actor) {
+		SqlParameterSource parameters = new BeanPropertySqlParameterSource(actor);
+		Number newId = insertActor.executeAndReturnKey(parameters);
+		actor.setId(newId.longValue());
+	}
+
+	//  ... additional methods
+
 }
 ----
 
-Another option is the
-      `MapSqlParameterSource` that resembles a Map but provides a more convenient
-`addValue` method that can be chained.
+Another option is the `MapSqlParameterSource` that resembles a Map but provides a more
+convenient `addValue` method that can be chained.
 
 [source,java]
 [subs="verbatim,quotes"]
 ----
 public class JdbcActorDao implements ActorDao {
-    private JdbcTemplate jdbcTemplate;
-    private SimpleJdbcInsert insertActor;
 
-    public void setDataSource(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-        this.insertActor =
-                new SimpleJdbcInsert(dataSource)
-                        .withTableName("t_actor")
-                        .usingGeneratedKeyColumns("id");
-    }
+	private JdbcTemplate jdbcTemplate;
+	private SimpleJdbcInsert insertActor;
 
-    public void add(Actor actor) {
-        SqlParameterSource parameters = new MapSqlParameterSource()
-                .addValue("first_name", actor.getFirstName())
-                .addValue("last_name", actor.getLastName());
-        Number newId = insertActor.executeAndReturnKey(parameters);
-        actor.setId(newId.longValue());
-    }
+	public void setDataSource(DataSource dataSource) {
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
+		this.insertActor = new SimpleJdbcInsert(dataSource)
+				.withTableName("t_actor")
+				.usingGeneratedKeyColumns("id");
+	}
 
-    //  ... additional methods
+	public void add(Actor actor) {
+		SqlParameterSource parameters = new MapSqlParameterSource()
+				.addValue("first_name", actor.getFirstName())
+				.addValue("last_name", actor.getLastName());
+		Number newId = insertActor.executeAndReturnKey(parameters);
+		actor.setId(newId.longValue());
+	}
+
+	//  ... additional methods
+
 }
 ----
 
-As you can see, the configuration is the same; only the
-      executing code has to change to use these alternative input
-      classes.
+As you can see, the configuration is the same; only the executing code has to change to
+use these alternative input classes.
 
 
 
@@ -24709,40 +24708,40 @@ of the stored procedure.
 [subs="verbatim,quotes"]
 ----
 public class JdbcActorDao implements ActorDao {
-    private JdbcTemplate jdbcTemplate;
-    private SimpleJdbcCall procReadActor;
 
-    public void setDataSource(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-        this.procReadActor =
-                new SimpleJdbcCall(dataSource)
-                        .withProcedureName("read_actor");
+	private JdbcTemplate jdbcTemplate;
+	private SimpleJdbcCall procReadActor;
+
+	public void setDataSource(DataSource dataSource) {
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
+		this.procReadActor = new SimpleJdbcCall(dataSource)
+				.withProcedureName("read_actor");
     }
 
     public Actor readActor(Long id) {
-        SqlParameterSource in = new MapSqlParameterSource()
-                .addValue("in_id", id);
-        Map out = procReadActor.execute(in);
-        Actor actor = new Actor();
-        actor.setId(id);
-        actor.setFirstName((String) out.get("out_first_name"));
-        actor.setLastName((String) out.get("out_last_name"));
-        actor.setBirthDate((Date) out.get("out_birth_date"));
-        return actor;
-    }
+		SqlParameterSource in = new MapSqlParameterSource()
+				.addValue("in_id", id);
+		Map out = procReadActor.execute(in);
+		Actor actor = new Actor();
+		actor.setId(id);
+		actor.setFirstName((String) out.get("out_first_name"));
+		actor.setLastName((String) out.get("out_last_name"));
+		actor.setBirthDate((Date) out.get("out_birth_date"));
+		return actor;
+	}
 
-    //  ... additional methods
+	//  ... additional methods
+
 }
 ----
 
-The code you write for the execution of the call involves
-      creating an `SqlParameterSource` containing the IN parameter. It's important to
-match the name provided for the input value with that of the parameter name declared in
-the stored procedure. The case does not have to match because you use metadata to
-determine how database objects should be referred to in a stored procedure. What is
-specified in the source for the stored procedure is not necessarily the way it is stored
-in the database. Some databases transform names to all upper case while others use lower
-case or use the case as specified.
+The code you write for the execution of the call involves creating an `SqlParameterSource`
+containing the IN parameter. It's important to match the name provided for the input value
+with that of the parameter name declared in the stored procedure. The case does not have
+to match because you use metadata to determine how database objects should be referred to
+in a stored procedure. What is specified in the source for the stored procedure is not
+necessarily the way it is stored in the database. Some databases transform names to all
+upper case while others use lower case or use the case as specified.
 
 The `execute` method takes the IN parameters and returns a Map containing any `out`
 parameters keyed by the name as specified in the stored procedure. In this case they are
@@ -24764,22 +24763,23 @@ this configuration:
 [subs="verbatim,quotes"]
 ----
 public class JdbcActorDao implements ActorDao {
-    private SimpleJdbcCall procReadActor;
 
-    public void setDataSource(DataSource dataSource) {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        jdbcTemplate.setResultsMapCaseInsensitive(true);
-        this.procReadActor =
-                new SimpleJdbcCall(jdbcTemplate)
-                        .withProcedureName("read_actor");
-    }
+	private SimpleJdbcCall procReadActor;
 
-    //  ... additional methods
+	public void setDataSource(DataSource dataSource) {
+		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+		jdbcTemplate.setResultsMapCaseInsensitive(true);
+		this.procReadActor = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("read_actor");
+	}
+
+	//  ... additional methods
+
 }
 ----
 
-By taking this action, you avoid conflicts in the case used
-      for the names of your returned `out` parameters.
+By taking this action, you avoid conflicts in the case used for the names of your
+returned `out` parameters.
 
 
 
@@ -24814,31 +24814,30 @@ the preceding example.
 [subs="verbatim,quotes"]
 ----
 public class JdbcActorDao implements ActorDao {
-    private SimpleJdbcCall procReadActor;
 
-    public void setDataSource(DataSource dataSource) {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        jdbcTemplate.setResultsMapCaseInsensitive(true);
-        this.procReadActor =
-                new SimpleJdbcCall(jdbcTemplate)
-                        .withProcedureName("read_actor")
-                        .withoutProcedureColumnMetaDataAccess()
-                        .useInParameterNames("in_id")
-                        .declareParameters(
-                                new SqlParameter("in_id", Types.NUMERIC),
-                                new SqlOutParameter("out_first_name", Types.VARCHAR),
-                                new SqlOutParameter("out_last_name", Types.VARCHAR),
-                                new SqlOutParameter("out_birth_date", Types.DATE)
-                        );
-    }
+	private SimpleJdbcCall procReadActor;
 
-    //  ... additional methods
+	public void setDataSource(DataSource dataSource) {
+		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+		jdbcTemplate.setResultsMapCaseInsensitive(true);
+		this.procReadActor = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("read_actor")
+				.withoutProcedureColumnMetaDataAccess()
+				.useInParameterNames("in_id")
+				.declareParameters(
+						new SqlParameter("in_id", Types.NUMERIC),
+						new SqlOutParameter("out_first_name", Types.VARCHAR),
+						new SqlOutParameter("out_last_name", Types.VARCHAR),
+						new SqlOutParameter("out_birth_date", Types.DATE)
+				);
+	}
+
+	// ... additional methods
 }
 ----
 
-The execution and end results of the two examples are the
-      same; this one specifies all details explicitly rather than relying on
-      metadata.
+The execution and end results of the two examples are the same; this one specifies all
+details explicitly rather than relying on metadata.
 
 
 
@@ -24854,7 +24853,7 @@ like:
 [subs="verbatim,quotes"]
 ----
 new SqlParameter("in_id", Types.NUMERIC),
-   new SqlOutParameter("out_first_name", Types.VARCHAR),
+	new SqlOutParameter("out_first_name", Types.VARCHAR),
 ----
 
 The first line with the `SqlParameter` declares an IN parameter. IN parameters can be
@@ -24900,11 +24899,11 @@ that returns an actor's full name. Here is the MySQL source for this function:
 CREATE FUNCTION get_actor_name (in_id INTEGER)
 RETURNS VARCHAR(200) READS SQL DATA
 BEGIN
-  DECLARE out_name VARCHAR(200);
-  SELECT concat(first_name, ' ', last_name)
-    INTO out_name
-    FROM t_actor where id = in_id;
-  RETURN out_name;
+	DECLARE out_name VARCHAR(200);
+	SELECT concat(first_name, ' ', last_name)
+		INTO out_name
+		FROM t_actor where id = in_id;
+	RETURN out_name;
 END;
 ----
 
@@ -24914,31 +24913,32 @@ To call this function we again create a `SimpleJdbcCall` in the initialization m
 [subs="verbatim,quotes"]
 ----
 public class JdbcActorDao implements ActorDao {
-    private JdbcTemplate jdbcTemplate;
-    private SimpleJdbcCall funcGetActorName;
 
-    public void setDataSource(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        jdbcTemplate.setResultsMapCaseInsensitive(true);
-        this.funcGetActorName =
-                new SimpleJdbcCall(jdbcTemplate)
-                        .withFunctionName("get_actor_name");
-    }
+	private JdbcTemplate jdbcTemplate;
+	private SimpleJdbcCall funcGetActorName;
 
-    public String getActorName(Long id) {
-        SqlParameterSource in = new MapSqlParameterSource()
-                .addValue("in_id", id);
-        String name = funcGetActorName.executeFunction(String.class, in);
-        return name;
-    }
+	public void setDataSource(DataSource dataSource) {
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
+		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+		jdbcTemplate.setResultsMapCaseInsensitive(true);
+		this.funcGetActorName = new SimpleJdbcCall(jdbcTemplate)
+				.withFunctionName("get_actor_name");
+	}
 
-    //  ... additional methods
+	public String getActorName(Long id) {
+		SqlParameterSource in = new MapSqlParameterSource()
+				.addValue("in_id", id);
+		String name = funcGetActorName.executeFunction(String.class, in);
+		return name;
+	}
+
+	//  ... additional methods
+
 }
 ----
 
-The execute method used
-      returns a `String` containing the return value from the function call.
+The execute method used returns a `String` containing the return value from the function
+call.
 
 
 
@@ -24967,39 +24967,38 @@ BEGIN
 END;
 ----
 
-To call this procedure you declare the
-      `RowMapper`. Because the class you want to map to follows the JavaBean rules, you
-can use a `ParameterizedBeanPropertyRowMapper` that is created by passing in the
-required class to map to in the `newInstance` method.
+To call this procedure you declare the `RowMapper`. Because the class you want to map to
+follows the JavaBean rules, you can use a `ParameterizedBeanPropertyRowMapper` that is
+created by passing in the required class to map to in the `newInstance` method.
 
 [source,java]
 [subs="verbatim,quotes"]
 ----
 public class JdbcActorDao implements ActorDao {
-    private SimpleJdbcCall procReadAllActors;
 
-    public void setDataSource(DataSource dataSource) {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        jdbcTemplate.setResultsMapCaseInsensitive(true);
-        this.procReadAllActors =
-                new SimpleJdbcCall(jdbcTemplate)
-                        .withProcedureName("read_all_actors")
-                        .returningResultSet("actors",
-                                ParameterizedBeanPropertyRowMapper.newInstance(Actor.class));
-    }
+	private SimpleJdbcCall procReadAllActors;
 
-    public List getActorsList() {
-        Map m = procReadAllActors.execute(new HashMap<String, Object>(0));
-        return (List) m.get("actors");
-    }
+	public void setDataSource(DataSource dataSource) {
+		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+		jdbcTemplate.setResultsMapCaseInsensitive(true);
+		this.procReadAllActors = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("read_all_actors")
+				.returningResultSet("actors",
+				ParameterizedBeanPropertyRowMapper.newInstance(Actor.class));
+	}
 
-    //  ... additional methods
+	public List getActorsList() {
+		Map m = procReadAllActors.execute(new HashMap<String, Object>(0));
+		return (List) m.get("actors");
+	}
+
+	//  ... additional methods
+
 }
 ----
 
-The execute call passes in an empty Map because this call
-      does not take any parameters. The list of Actors is then retrieved from
-      the results map and returned to the caller.
+The execute call passes in an empty Map because this call does not take any parameters.
+The list of Actors is then retrieved from the results map and returned to the caller.
 
 
 
@@ -25027,7 +25026,7 @@ continue using these classes.
 
 
 [[jdbc-SqlQuery]]
-====  SqlQuery
+==== SqlQuery
 
 `SqlQuery` is a reusable, threadsafe class that encapsulates an SQL query. Subclasses
 must implement the `newRowMapper(..)` method to provide a `RowMapper` instance that can
@@ -25040,7 +25039,7 @@ mapping rows to Java classes. Other implementations that extend `SqlQuery` are
 
 
 [[jdbc-MappingSqlQuery]]
-====  MappingSqlQuery
+==== MappingSqlQuery
 
 `MappingSqlQuery` is a reusable query in which concrete subclasses must implement the
 abstract `mapRow(..)` method to convert each row of the supplied `ResultSet` into an
@@ -25052,20 +25051,20 @@ data from the `t_actor` relation to an instance of the `Actor` class.
 ----
 public class ActorMappingQuery extends MappingSqlQuery<Actor> {
 
-    public ActorMappingQuery(DataSource ds) {
-        super(ds, "select id, first_name, last_name from t_actor where id = ?");
-        super.declareParameter(new SqlParameter("id", Types.INTEGER));
-        compile();
-    }
+	public ActorMappingQuery(DataSource ds) {
+		super(ds, "select id, first_name, last_name from t_actor where id = ?");
+		super.declareParameter(new SqlParameter("id", Types.INTEGER));
+		compile();
+	}
 
-    @Override
-    protected Actor mapRow(ResultSet rs, int rowNumber) throws SQLException {
-        Actor actor = new Actor();
-        actor.setId(rs.getLong("id"));
-        actor.setFirstName(rs.getString("first_name"));
-        actor.setLastName(rs.getString("last_name"));
-        return actor;
-    }
+	@Override
+	protected Actor mapRow(ResultSet rs, int rowNumber) throws SQLException {
+		Actor actor = new Actor();
+		actor.setId(rs.getLong("id"));
+		actor.setFirstName(rs.getString("first_name"));
+		actor.setLastName(rs.getString("last_name"));
+		return actor;
+	}
 
 }
 ----
@@ -25089,11 +25088,11 @@ private ActorMappingQuery actorMappingQuery;
 
 @Autowired
 public void setDataSource(DataSource dataSource) {
-    this.actorMappingQuery = new ActorMappingQuery(dataSource);
+	this.actorMappingQuery = new ActorMappingQuery(dataSource);
 }
 
 public Customer getCustomer(Long id) {
-    return actorMappingQuery.findObject(id);
+	return actorMappingQuery.findObject(id);
 }
 ----
 
@@ -25107,15 +25106,15 @@ methods that takes an array of parameter values passed in as varargs.
 [subs="verbatim,quotes"]
 ----
 public List<Actor> searchForActors(int age, String namePattern) {
-    List<Actor> actors = actorSearchMappingQuery.execute(age, namePattern);
-    return actors;
+	List<Actor> actors = actorSearchMappingQuery.execute(age, namePattern);
+	return actors;
 }
 ----
 
 
 
 [[jdbc-SqlUpdate]]
-====  SqlUpdate
+==== SqlUpdate
 
 The `SqlUpdate` class encapsulates an SQL update. Like a query, an update object is
 reusable, and like all `RdbmsOperation` classes, an update can have parameters and is
@@ -25137,29 +25136,29 @@ import org.springframework.jdbc.object.SqlUpdate;
 
 public class UpdateCreditRating extends SqlUpdate {
 
-    public UpdateCreditRating(DataSource ds) {
-        setDataSource(ds);
-        setSql("update customer set credit_rating = ? where id = ?");
-        declareParameter(new SqlParameter("creditRating", Types.NUMERIC));
-        declareParameter(new SqlParameter("id", Types.NUMERIC));
-        compile();
-    }
+	public UpdateCreditRating(DataSource ds) {
+		setDataSource(ds);
+		setSql("update customer set credit_rating = ? where id = ?");
+		declareParameter(new SqlParameter("creditRating", Types.NUMERIC));
+		declareParameter(new SqlParameter("id", Types.NUMERIC));
+		compile();
+	}
 
-    /**
-     * @param id for the Customer to be updated
-     * @param rating the new value for credit rating
-     * @return number of rows updated
-     */
-    public int execute(int id, int rating) {
-        return update(rating, id);
-    }
+	/**
+	 * @param id for the Customer to be updated
+	 * @param rating the new value for credit rating
+	 * @return number of rows updated
+	 */
+	public int execute(int id, int rating) {
+		return update(rating, id);
+	}
 }
 ----
 
 
 
 [[jdbc-StoredProcedure]]
-====  StoredProcedure
+==== StoredProcedure
 
 The `StoredProcedure` class is a superclass for object abstractions of RDBMS stored
 procedures. This class is `abstract`, and its various `execute(..)` methods have
@@ -25177,7 +25176,7 @@ constants.
 [subs="verbatim,quotes"]
 ----
 new SqlParameter("in_id", Types.NUMERIC),
-   new SqlOutParameter("out_first_name", Types.VARCHAR),
+	new SqlOutParameter("out_first_name", Types.VARCHAR),
 ----
 
 The first line with the `SqlParameter` declares an IN parameter. IN parameters can be
@@ -25220,36 +25219,36 @@ import org.springframework.jdbc.object.StoredProcedure;
 
 public class StoredProcedureDao {
 
-    private GetSysdateProcedure getSysdate;
+	private GetSysdateProcedure getSysdate;
 
-    @Autowired
-    public void init(DataSource dataSource) {
-        this.getSysdate = new GetSysdateProcedure(dataSource);
-    }
+	@Autowired
+	public void init(DataSource dataSource) {
+		this.getSysdate = new GetSysdateProcedure(dataSource);
+	}
 
-    public Date getSysdate() {
-        return getSysdate.execute();
-    }
+	public Date getSysdate() {
+		return getSysdate.execute();
+	}
 
-    private class GetSysdateProcedure extends StoredProcedure {
+	private class GetSysdateProcedure extends StoredProcedure {
 
-        private static final String SQL = "sysdate";
+		private static final String SQL = "sysdate";
 
-        public GetSysdateProcedure(DataSource dataSource) {
-            setDataSource(dataSource);
-            setFunction(true);
-            setSql(SQL);
-            declareParameter(new SqlOutParameter("date", Types.DATE));
-            compile();
-        }
+		public GetSysdateProcedure(DataSource dataSource) {
+			setDataSource(dataSource);
+			setFunction(true);
+			setSql(SQL);
+			declareParameter(new SqlOutParameter("date", Types.DATE));
+			compile();
+		}
 
-        public Date execute() {
-            // the 'sysdate' sproc has no input parameters, so an empty Map is supplied...
-            Map<String, Object> results = execute(new HashMap<String, Object>());
-            Date sysdate = (Date) results.get("date");
-            return sysdate;
-        }
-    }
+		public Date execute() {
+			// the 'sysdate' sproc has no input parameters, so an empty Map is supplied...
+			Map<String, Object> results = execute(new HashMap<String, Object>());
+			Date sysdate = (Date) results.get("date");
+			return sysdate;
+		}
+	}
 
 }
 ----
@@ -25270,19 +25269,19 @@ import java.util.Map;
 
 public class TitlesAndGenresStoredProcedure extends StoredProcedure {
 
-    private static final String SPROC_NAME = "AllTitlesAndGenres";
+	private static final String SPROC_NAME = "AllTitlesAndGenres";
 
-    public TitlesAndGenresStoredProcedure(DataSource dataSource) {
-        super(dataSource, SPROC_NAME);
-        declareParameter(new SqlOutParameter("titles", OracleTypes.CURSOR, new TitleMapper()));
-        declareParameter(new SqlOutParameter("genres", OracleTypes.CURSOR, new GenreMapper()));
-        compile();
-    }
+	public TitlesAndGenresStoredProcedure(DataSource dataSource) {
+		super(dataSource, SPROC_NAME);
+		declareParameter(new SqlOutParameter("titles", OracleTypes.CURSOR, new TitleMapper()));
+		declareParameter(new SqlOutParameter("genres", OracleTypes.CURSOR, new GenreMapper()));
+		compile();
+	}
 
-    public Map<String, Object> execute() {
-        // again, this sproc has no input parameters, so an empty Map is supplied
-        return super.execute(new HashMap<String, Object>());
-    }
+	public Map<String, Object> execute() {
+		// again, this sproc has no input parameters, so an empty Map is supplied
+		return super.execute(new HashMap<String, Object>());
+	}
 }
 ----
 
@@ -25306,12 +25305,12 @@ import com.foo.domain.Title;
 
 public final class TitleMapper implements RowMapper<Title> {
 
-    public Title mapRow(ResultSet rs, int rowNum) throws SQLException {
-        Title title = new Title();
-        title.setId(rs.getLong("id"));
-        title.setName(rs.getString("name"));
-        return title;
-    }
+	public Title mapRow(ResultSet rs, int rowNum) throws SQLException {
+		Title title = new Title();
+		title.setId(rs.getLong("id"));
+		title.setName(rs.getString("name"));
+		return title;
+	}
 }
 ----
 
@@ -25330,9 +25329,9 @@ import com.foo.domain.Genre;
 
 public final class GenreMapper implements RowMapper<Genre> {
 
-    public Genre mapRow(ResultSet rs, int rowNum) throws SQLException {
-        return new Genre(rs.getString("name"));
-    }
+	public Genre mapRow(ResultSet rs, int rowNum) throws SQLException {
+		return new Genre(rs.getString("name"));
+	}
 }
 ----
 
@@ -25358,21 +25357,21 @@ import java.util.Map;
 
 public class TitlesAfterDateStoredProcedure extends StoredProcedure {
 
-    private static final String SPROC_NAME = "TitlesAfterDate";
-    private static final String CUTOFF_DATE_PARAM = "cutoffDate";
+	private static final String SPROC_NAME = "TitlesAfterDate";
+	private static final String CUTOFF_DATE_PARAM = "cutoffDate";
 
-    public TitlesAfterDateStoredProcedure(DataSource dataSource) {
-        super(dataSource, SPROC_NAME);
-        declareParameter(new SqlParameter(CUTOFF_DATE_PARAM, Types.DATE);
-        declareParameter(new SqlOutParameter("titles", OracleTypes.CURSOR, new TitleMapper()));
-        compile();
-    }
+	public TitlesAfterDateStoredProcedure(DataSource dataSource) {
+		super(dataSource, SPROC_NAME);
+		declareParameter(new SqlParameter(CUTOFF_DATE_PARAM, Types.DATE);
+		declareParameter(new SqlOutParameter("titles", OracleTypes.CURSOR, new TitleMapper()));
+		compile();
+	}
 
-    public Map<String, Object> execute(Date cutoffDate) {
-        Map<String, Object> inputs = new HashMap<String, Object>();
-        inputs.put(CUTOFF_DATE_PARAM, cutoffDate);
-        return super.execute(inputs);
-    }
+	public Map<String, Object> execute(Date cutoffDate) {
+		Map<String, Object> inputs = new HashMap<String, Object>();
+		inputs.put(CUTOFF_DATE_PARAM, cutoffDate);
+		return super.execute(inputs);
+	}
 }
 ----
 
@@ -25475,10 +25474,10 @@ with the same instance variable `l` `obHandler` and a reference to a `DefaultLob
 [subs="verbatim,quotes"]
 ----
 List<Map<String, Object>> l = jdbcTemplate.query("select id, a_clob, a_blob from lob_table",
-        new RowMapper<Map<String, Object>>() {
-          public Map<String, Object> mapRow(ResultSet rs, int i) throws SQLException {
-            Map<String, Object> results = new HashMap<String, Object>();
-            String clobText = lobHandler.getClobAsString(rs, "a_clob"); <<1>>
+	new RowMapper<Map<String, Object>>() {
+		public Map<String, Object> mapRow(ResultSet rs, int i) throws SQLException {
+			Map<String, Object> results = new HashMap<String, Object>();
+			String clobText = lobHandler.getClobAsString(rs, "a_clob"); <<1>>
 results.put("CLOB", clobText); byte[] blobBytes = lobHandler.getBlobAsBytes(rs, "a_blob"); <<2>>
 results.put("BLOB", blobBytes); return results; } });
 ----
@@ -25535,21 +25534,20 @@ declaration of an `SqlOutParameter`.
 [subs="verbatim,quotes"]
 ----
 final TestItem = new TestItem(123L, "A test item",
-        new SimpleDateFormat("yyyy-M-d").parse("2010-12-31"));
+		new SimpleDateFormat("yyyy-M-d").parse("2010-12-31"));
 
 declareParameter(new SqlOutParameter("item", OracleTypes.STRUCT, "ITEM_TYPE",
-    new SqlReturnType() {
-      public Object getTypeValue(CallableStatement cs, int colIndx, int sqlType, String typeName)
-          throws SQLException {
-        STRUCT struct = (STRUCT) cs.getObject(colIndx);
-        Object[] attr = struct.getAttributes();
-        TestItem item = new TestItem();
-        item.setId(((Number) attr[0]).longValue());
-        item.setDescription((String) attr[1]);
-        item.setExpirationDate((java.util.Date) attr[2]);
-        return item;
-      }
-    }));
+	new SqlReturnType() {
+		public Object getTypeValue(CallableStatement cs, int colIndx, int sqlType, String typeName) throws SQLException {
+			STRUCT struct = (STRUCT) cs.getObject(colIndx);
+			Object[] attr = struct.getAttributes();
+			TestItem item = new TestItem();
+			item.setId(((Number) attr[0]).longValue());
+			item.setDescription((String) attr[1]);
+			item.setExpirationDate((java.util.Date) attr[2]);
+			return item;
+		}
+	}));
 ----
 
 You use the `SqlTypeValue` to pass in the value of a Java object like `TestItem` into a
@@ -25562,19 +25560,19 @@ the following example, or `ArrayDescriptor` s.
 [subs="verbatim,quotes"]
 ----
 final TestItem = new TestItem(123L, "A test item",
-        new SimpleDateFormat("yyyy-M-d").parse("2010-12-31"));
+		new SimpleDateFormat("yyyy-M-d").parse("2010-12-31"));
 
 SqlTypeValue value = new AbstractSqlTypeValue() {
-  protected Object createTypeValue(Connection conn, int sqlType, String typeName) throws SQLException {
-    StructDescriptor itemDescriptor = new StructDescriptor(typeName, conn);
-    Struct item = new STRUCT(itemDescriptor, conn,
-        new Object[] {
-            testItem.getId(),
-            testItem.getDescription(),
-            new java.sql.Date(testItem.getExpirationDate().getTime())
-        });
-    return item;
-  }
+	protected Object createTypeValue(Connection conn, int sqlType, String typeName) throws SQLException {
+		StructDescriptor itemDescriptor = new StructDescriptor(typeName, conn);
+		Struct item = new STRUCT(itemDescriptor, conn,
+		new Object[] {
+			testItem.getId(),
+			testItem.getDescription(),
+			new java.sql.Date(testItem.getExpirationDate().getTime())
+		});
+		return item;
+	}
 };
 ----
 
@@ -25592,11 +25590,11 @@ it with values from the Java `ARRAY`.
 final Long[] ids = new Long[] {1L, 2L};
 
 SqlTypeValue value = new AbstractSqlTypeValue() {
-  protected Object createTypeValue(Connection conn, int sqlType, String typeName) throws SQLException {
-    ArrayDescriptor arrayDescriptor = new ArrayDescriptor(typeName, conn);
-    ARRAY idArray = new ARRAY(arrayDescriptor, conn, ids);
-    return idArray;
-  }
+	protected Object createTypeValue(Connection conn, int sqlType, String typeName) throws SQLException {
+		ArrayDescriptor arrayDescriptor = new ArrayDescriptor(typeName, conn);
+		ARRAY idArray = new ARRAY(arrayDescriptor, conn, ids);
+		return idArray;
+	}
 };
 ----
 
@@ -25630,9 +25628,9 @@ ApplicationContext, use the embedded-database tag in the spring-jdbc namespace:
 [subs="verbatim,quotes"]
 ----
 <jdbc:embedded-database id="dataSource">
-        <jdbc:script location="classpath:schema.sql"/>
-        <jdbc:script location="classpath:test-data.sql"/>
-    </jdbc:embedded-database>
+	<jdbc:script location="classpath:schema.sql"/>
+	<jdbc:script location="classpath:test-data.sql"/>
+</jdbc:embedded-database>
 ----
 
 The preceding configuration creates an embedded HSQL database populated with SQL from
@@ -25652,9 +25650,9 @@ instance in a standalone environment, such as a data access object unit test:
 [subs="verbatim,quotes"]
 ----
 EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
-    EmbeddedDatabase db = builder.setType(H2).addScript("my-schema.sql").addScript("my-test-data.sql").build();
-    // do stuff against the db (EmbeddedDatabase extends javax.sql.DataSource)
-    db.shutdown()
+EmbeddedDatabase db = builder.setType(H2).addScript("my-schema.sql").addScript("my-test-data.sql").build();
+// do stuff against the db (EmbeddedDatabase extends javax.sql.DataSource)
+db.shutdown()
 ----
 
 
@@ -25708,25 +25706,25 @@ a data access unit test template that uses an embedded database:
 ----
 public class DataAccessUnitTestTemplate {
 
-    private EmbeddedDatabase db;
+	private EmbeddedDatabase db;
 
-    @Before
-    public void setUp() {
-        // creates an HSQL in-memory database populated from default scripts
-        // classpath:schema.sql and classpath:data.sql
-        db = new EmbeddedDatabaseBuilder().addDefaultScripts().build();
-    }
+	@Before
+	public void setUp() {
+		// creates an HSQL in-memory database populated from default scripts
+		// classpath:schema.sql and classpath:data.sql
+		db = new EmbeddedDatabaseBuilder().addDefaultScripts().build();
+	}
 
-    @Test
-    public void testDataAccess() {
-        JdbcTemplate template = new JdbcTemplate(db);
-        template.query(...);
-    }
+	@Test
+	public void testDataAccess() {
+		JdbcTemplate template = new JdbcTemplate(db);
+		template.query(...);
+	}
 
-    @After
-    public void tearDown() {
-        db.shutdown();
-    }
+	@After
+	public void tearDown() {
+		db.shutdown();
+	}
 
 }
 ----
@@ -25752,8 +25750,8 @@ bean, use the `initialize-database` tag in the `spring-jdbc` namespace:
 [subs="verbatim,quotes"]
 ----
 <jdbc:initialize-database data-source="dataSource">
-  <jdbc:script location="classpath:com/foo/sql/db-schema.sql"/>
-  <jdbc:script location="classpath:com/foo/sql/db-test-data.sql"/>
+	<jdbc:script location="classpath:com/foo/sql/db-schema.sql"/>
+	<jdbc:script location="classpath:com/foo/sql/db-test-data.sql"/>
 </jdbc:initialize-database>
 ----
 
@@ -25779,8 +25777,8 @@ from system properties or an environment bean), e.g.
 [subs="verbatim,quotes"]
 ----
 <jdbc:initialize-database data-source="dataSource"
-    **enabled="#{systemProperties.INITIALIZE_DATABASE}"**>
-    <jdbc:script location="..."/>
+	**enabled="#{systemProperties.INITIALIZE_DATABASE}"**>
+	<jdbc:script location="..."/>
 </jdbc:initialize-database>
 ----
 
@@ -25792,7 +25790,7 @@ errors in the SQL it executes from the scripts, e.g.
 [subs="verbatim,quotes"]
 ----
 <jdbc:initialize-database data-source="dataSource" **ignore-failures="DROPS"**>
-    <jdbc:script location="..."/>
+	<jdbc:script location="..."/>
 </jdbc:initialize-database>
 ----
 
@@ -25926,8 +25924,6 @@ Benefits of using the Spring Framework to create your ORM DAOs include:
   for data access that is not suitable for ORM, such as batch processing and BLOB
   streaming, which still need to share common transactions with ORM operations.
 
-__TODO: provide links to current samples__
-
 
 
 
@@ -25998,7 +25994,7 @@ transparently through the `@Repository` annotation:
 @Repository
 public class ProductDaoImpl implements ProductDao {
 
-    // class body here...
+	// class body here...
 
 }
 ----
@@ -26008,10 +26004,10 @@ public class ProductDaoImpl implements ProductDao {
 ----
 <beans>
 
-  <!-- Exception translation bean post processor -->
-  <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
+	<!-- Exception translation bean post processor -->
+	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
 
-  <bean id="myProductDao" class="product.ProductDaoImpl"/>
+	<bean id="myProductDao" class="product.ProductDaoImpl"/>
 
 </beans>
 ----
@@ -26046,7 +26042,7 @@ As of Spring 3.0, Spring requires Hibernate 3.2 or later.
 
 
 [[orm-session-factory-setup]]
-====  SessionFactory setup in a Spring container
+==== SessionFactory setup in a Spring container
 
 To avoid tying application objects to hard-coded resource lookups, you can define
 resources such as a JDBC `DataSource` or a Hibernate `SessionFactory` as beans in the
@@ -26062,26 +26058,26 @@ JDBC `DataSource` and a Hibernate `SessionFactory` on top of it:
 ----
 <beans>
 
-  <bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-    <property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
-    <property name="url" value="jdbc:hsqldb:hsql://localhost:9001"/>
-    <property name="username" value="sa"/>
-    <property name="password" value=""/>
-  </bean>
+	<bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
+		<property name="url" value="jdbc:hsqldb:hsql://localhost:9001"/>
+		<property name="username" value="sa"/>
+		<property name="password" value=""/>
+	</bean>
 
-  <bean id="mySessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
-    <property name="dataSource" ref="myDataSource"/>
-    <property name="mappingResources">
-      <list>
-        <value>product.hbm.xml</value>
-      </list>
-    </property>
-    <property name="hibernateProperties">
-      <value>
-        hibernate.dialect=org.hibernate.dialect.HSQLDialect
-      </value>
-    </property>
-  </bean>
+	<bean id="mySessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="myDataSource"/>
+		<property name="mappingResources">
+			<list>
+				<value>product.hbm.xml</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<value>
+				hibernate.dialect=org.hibernate.dialect.HSQLDialect
+			</value>
+		</property>
+	</bean>
 
 </beans>
 ----
@@ -26094,9 +26090,7 @@ configuration:
 [subs="verbatim,quotes"]
 ----
 <beans>
-
-  <jee:jndi-lookup id="myDataSource" jndi-name="java:comp/env/jdbc/myds"/>
-
+	<jee:jndi-lookup id="myDataSource" jndi-name="java:comp/env/jdbc/myds"/>
 </beans>
 ----
 
@@ -26118,18 +26112,18 @@ implementation resembles the following example, based on the plain Hibernate API
 ----
 public class ProductDaoImpl implements ProductDao {
 
-    private SessionFactory sessionFactory;
+	private SessionFactory sessionFactory;
 
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
 
-    public Collection loadProductsByCategory(String category) {
-        return this.sessionFactory.getCurrentSession()
-                .createQuery("from test.Product product where product.category=?")
-                .setParameter(0, category)
-                .list();
-    }
+	public Collection loadProductsByCategory(String category) {
+		return this.sessionFactory.getCurrentSession()
+				.createQuery("from test.Product product where product.category=?")
+				.setParameter(0, category)
+				.list();
+	}
 }
 ----
 
@@ -26150,9 +26144,9 @@ Spring bean definition, the DAO would resemble the following:
 ----
 <beans>
 
-  <bean id="myProductDao" class="product.ProductDaoImpl">
-    <property name="sessionFactory" ref="mySessionFactory"/>
-  </bean>
+	<bean id="myProductDao" class="product.ProductDaoImpl">
+		<property name="sessionFactory" ref="mySessionFactory"/>
+	</bean>
 
 </beans>
 ----
@@ -26208,41 +26202,41 @@ XML, for a simple service class:
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:aop="http://www.springframework.org/schema/aop"
-       xmlns:tx="http://www.springframework.org/schema/tx"
-       xsi:schemaLocation="
-       http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://www.springframework.org/schema/tx
-       http://www.springframework.org/schema/tx/spring-tx.xsd
-       http://www.springframework.org/schema/aop
-       http://www.springframework.org/schema/aop/spring-aop.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-  <!-- SessionFactory, DataSource, etc. omitted -->
+	<!-- SessionFactory, DataSource, etc. omitted -->
 
-  <bean id="transactionManager"
-            class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-    <property name="sessionFactory" ref="sessionFactory"/>
-  </bean>
+	<bean id="transactionManager"
+			class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
 
-  <aop:config>
-    <aop:pointcut id="productServiceMethods"
-            expression="execution(* product.ProductService.*(..))"/>
-    <aop:advisor advice-ref="txAdvice" pointcut-ref="productServiceMethods"/>
-  </aop:config>
+	<aop:config>
+		<aop:pointcut id="productServiceMethods"
+				expression="execution(* product.ProductService.*(..))"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="productServiceMethods"/>
+	</aop:config>
 
-  <tx:advice id="txAdvice" transaction-manager="myTxManager">
-    <tx:attributes>
-      <tx:method name="increasePrice*" propagation="REQUIRED"/>
-      <tx:method name="someOtherBusinessMethod" propagation="REQUIRES_NEW"/>
-      <tx:method name="*" propagation="SUPPORTS" read-only="true"/>
-    </tx:attributes>
-  </tx:advice>
+	<tx:advice id="txAdvice" transaction-manager="myTxManager">
+		<tx:attributes>
+			<tx:method name="increasePrice*" propagation="REQUIRED"/>
+			<tx:method name="someOtherBusinessMethod" propagation="REQUIRES_NEW"/>
+			<tx:method name="*" propagation="SUPPORTS" read-only="true"/>
+		</tx:attributes>
+	</tx:advice>
 
-  <bean id="myProductService" class="product.SimpleProductService">
-    <property name="productDao" ref="myProductDao"/>
-  </bean>
+	<bean id="myProductService" class="product.SimpleProductService">
+		<property name="productDao" ref="myProductDao"/>
+	</bean>
 
 </beans>
 ----
@@ -26254,19 +26248,19 @@ This is the service class that is advised:
 ----
 public class ProductServiceImpl implements ProductService {
 
-    private ProductDao productDao;
+	private ProductDao productDao;
 
-    public void setProductDao(ProductDao productDao) {
-        this.productDao = productDao;
-    }
+	public void setProductDao(ProductDao productDao) {
+		this.productDao = productDao;
+	}
 
-    // notice the absence of transaction demarcation code in this method
-    // Spring's declarative transaction infrastructure will be demarcating
-    // transactions on your behalf
-    public void increasePriceOfAllProductsInCategory(final String category) {
-        List productsToChange = this.productDao.loadProductsByCategory(category);
-        // ...
-    }
+	// notice the absence of transaction demarcation code in this method
+	// Spring's declarative transaction infrastructure will be demarcating
+	// transactions on your behalf
+	public void increasePriceOfAllProductsInCategory(final String category) {
+		List productsToChange = this.productDao.loadProductsByCategory(category);
+		// ...
+	}
 }
 ----
 
@@ -26280,22 +26274,22 @@ annotated methods.
 ----
 public class ProductServiceImpl implements ProductService {
 
-    private ProductDao productDao;
+	private ProductDao productDao;
 
-    public void setProductDao(ProductDao productDao) {
-        this.productDao = productDao;
-    }
+	public void setProductDao(ProductDao productDao) {
+		this.productDao = productDao;
+	}
 
-    @Transactional
-    public void increasePriceOfAllProductsInCategory(final String category) {
-        List productsToChange = this.productDao.loadProductsByCategory(category);
-        // ...
-    }
+	@Transactional
+	public void increasePriceOfAllProductsInCategory(final String category) {
+		List productsToChange = this.productDao.loadProductsByCategory(category);
+		// ...
+	}
 
-    @Transactional(readOnly = true)
-    public List<Product> findAllProducts() {
-        return this.productDao.findAllProducts();
-    }
+	@Transactional(readOnly = true)
+	public List<Product> findAllProducts() {
+		return this.productDao.findAllProducts();
+	}
 
 }
 ----
@@ -26310,29 +26304,29 @@ provide is the TransactionManager implementation and a "<tx:annotation-driven/>"
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:aop="http://www.springframework.org/schema/aop"
-       xmlns:tx="http://www.springframework.org/schema/tx"
-       xsi:schemaLocation="
-       http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://www.springframework.org/schema/tx
-       http://www.springframework.org/schema/tx/spring-tx.xsd
-       http://www.springframework.org/schema/aop
-       http://www.springframework.org/schema/aop/spring-aop.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-  <!-- SessionFactory, DataSource, etc. omitted -->
+	<!-- SessionFactory, DataSource, etc. omitted -->
 
-  <bean id="transactionManager"
-            class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-    <property name="sessionFactory" ref="sessionFactory"/>
-  </bean>
+	<bean id="transactionManager"
+			class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
 
-  <tx:annotation-driven/>
+	<tx:annotation-driven/>
 
-  <bean id="myProductService" class="product.SimpleProductService">
-    <property name="productDao" ref="myProductDao"/>
-  </bean>
+	<bean id="myProductService" class="product.SimpleProductService">
+		<property name="productDao" ref="myProductDao"/>
+	</bean>
 
 </beans>
 ----
@@ -26355,14 +26349,14 @@ and an example for a business method implementation:
 ----
 <beans>
 
-  <bean id="myTxManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-    <property name="sessionFactory" ref="mySessionFactory"/>
-  </bean>
+	<bean id="myTxManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="mySessionFactory"/>
+	</bean>
 
-  <bean id="myProductService" class="product.ProductServiceImpl">
-    <property name="transactionManager" ref="myTxManager"/>
-    <property name="productDao" ref="myProductDao"/>
-  </bean>
+	<bean id="myProductService" class="product.ProductServiceImpl">
+		<property name="transactionManager" ref="myTxManager"/>
+		<property name="productDao" ref="myProductDao"/>
+	</bean>
 
 </beans>
 ----
@@ -26372,27 +26366,25 @@ and an example for a business method implementation:
 ----
 public class ProductServiceImpl implements ProductService {
 
-    private TransactionTemplate transactionTemplate;
-    private ProductDao productDao;
+	private TransactionTemplate transactionTemplate;
+	private ProductDao productDao;
 
-    public void setTransactionManager(PlatformTransactionManager transactionManager) {
-        this.transactionTemplate = new TransactionTemplate(transactionManager);
-    }
+	public void setTransactionManager(PlatformTransactionManager transactionManager) {
+		this.transactionTemplate = new TransactionTemplate(transactionManager);
+	}
 
-    public void setProductDao(ProductDao productDao) {
-        this.productDao = productDao;
-    }
+	public void setProductDao(ProductDao productDao) {
+		this.productDao = productDao;
+	}
 
-    public void increasePriceOfAllProductsInCategory(final String category) {
-        this.transactionTemplate.execute(new TransactionCallbackWithoutResult() {
-
-                public void doInTransactionWithoutResult(TransactionStatus status) {
-                    List productsToChange = this.productDao.loadProductsByCategory(category);
-                    // do the price increase...
-                }
-            }
-        );
-    }
+	public void increasePriceOfAllProductsInCategory(final String category) {
+		this.transactionTemplate.execute(new TransactionCallbackWithoutResult() {
+			public void doInTransactionWithoutResult(TransactionStatus status) {
+				List productsToChange = this.productDao.loadProductsByCategory(category);
+				// do the price increase...
+			}
+		});
+	}
 }
 ----
 
@@ -26414,7 +26406,7 @@ handling to a `PlatformTransactionManager` instance, which can be a
 JTA subsystem of the container) for Hibernate applications. You can even use a custom
 `PlatformTransactionManager` implementation. Switching from native Hibernate transaction
 management to JTA, such as when facing distributed transaction requirements for certain
-deployments of your application, is just a matter of    configuration. Simply replace
+deployments of your application, is just a matter of configuration. Simply replace
 the Hibernate transaction manager with Spring's JTA transaction implementation. Both
 transaction demarcation and data access code will work without changes, because they
 just use the generic transaction management APIs.
@@ -26432,69 +26424,69 @@ long as it is using `JtaTransactionManager` as the strategy.
 ----
 <beans>
 
-  <jee:jndi-lookup id="dataSource1" jndi-name="java:comp/env/jdbc/myds1"/>
+	<jee:jndi-lookup id="dataSource1" jndi-name="java:comp/env/jdbc/myds1"/>
 
-  <jee:jndi-lookup id="dataSource2" jndi-name="java:comp/env/jdbc/myds2"/>
+	<jee:jndi-lookup id="dataSource2" jndi-name="java:comp/env/jdbc/myds2"/>
 
-  <bean id="mySessionFactory1"
-            class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
-    <property name="dataSource" ref="myDataSource1"/>
-    <property name="mappingResources">
-      <list>
-        <value>product.hbm.xml</value>
-      </list>
-    </property>
-    <property name="hibernateProperties">
-      <value>
-        hibernate.dialect=org.hibernate.dialect.MySQLDialect
-        hibernate.show_sql=true
-      </value>
-    </property>
-  </bean>
+	<bean id="mySessionFactory1"
+			class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="myDataSource1"/>
+		<property name="mappingResources">
+			<list>
+				<value>product.hbm.xml</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<value>
+				hibernate.dialect=org.hibernate.dialect.MySQLDialect
+				hibernate.show_sql=true
+			</value>
+		</property>
+	</bean>
 
-  <bean id="mySessionFactory2"
-            class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
-    <property name="dataSource" ref="myDataSource2"/>
-    <property name="mappingResources">
-      <list>
-        <value>inventory.hbm.xml</value>
-      </list>
-    </property>
-    <property name="hibernateProperties">
-      <value>
-        hibernate.dialect=org.hibernate.dialect.OracleDialect
-      </value>
-    </property>
-  </bean>
+	<bean id="mySessionFactory2"
+			class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="myDataSource2"/>
+		<property name="mappingResources">
+			<list>
+				<value>inventory.hbm.xml</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<value>
+				hibernate.dialect=org.hibernate.dialect.OracleDialect
+			</value>
+		</property>
+	</bean>
 
-  <bean id="myTxManager" class="org.springframework.transaction.jta.JtaTransactionManager"/>
+	<bean id="myTxManager" class="org.springframework.transaction.jta.JtaTransactionManager"/>
 
-  <bean id="myProductDao" class="product.ProductDaoImpl">
-    <property name="sessionFactory" ref="mySessionFactory1"/>
-  </bean>
+	<bean id="myProductDao" class="product.ProductDaoImpl">
+		<property name="sessionFactory" ref="mySessionFactory1"/>
+	</bean>
 
-  <bean id="myInventoryDao" class="product.InventoryDaoImpl">
-    <property name="sessionFactory" ref="mySessionFactory2"/>
-  </bean>
+	<bean id="myInventoryDao" class="product.InventoryDaoImpl">
+		<property name="sessionFactory" ref="mySessionFactory2"/>
+	</bean>
 
-  <bean id="myProductService" class="product.ProductServiceImpl">
-    <property name="productDao" ref="myProductDao"/>
-    <property name="inventoryDao" ref="myInventoryDao"/>
-  </bean>
+	<bean id="myProductService" class="product.ProductServiceImpl">
+		<property name="productDao" ref="myProductDao"/>
+		<property name="inventoryDao" ref="myInventoryDao"/>
+	</bean>
 
-  <aop:config>
-    <aop:pointcut id="productServiceMethods"
-                expression="execution(* product.ProductService.*(..))"/>
-    <aop:advisor advice-ref="txAdvice" pointcut-ref="productServiceMethods"/>
-  </aop:config>
+	<aop:config>
+		<aop:pointcut id="productServiceMethods"
+				expression="execution(* product.ProductService.*(..))"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="productServiceMethods"/>
+	</aop:config>
 
-  <tx:advice id="txAdvice" transaction-manager="myTxManager">
-    <tx:attributes>
-      <tx:method name="increasePrice*" propagation="REQUIRED"/>
-      <tx:method name="someOtherBusinessMethod" propagation="REQUIRES_NEW"/>
-      <tx:method name="*" propagation="SUPPORTS" read-only="true"/>
-    </tx:attributes>
-  </tx:advice>
+	<tx:advice id="txAdvice" transaction-manager="myTxManager">
+		<tx:attributes>
+			<tx:method name="increasePrice*" propagation="REQUIRED"/>
+			<tx:method name="someOtherBusinessMethod" propagation="REQUIRES_NEW"/>
+			<tx:method name="*" propagation="SUPPORTS" read-only="true"/>
+		</tx:attributes>
+	</tx:advice>
 
 </beans>
 ----
@@ -26574,8 +26566,8 @@ active. As an example, here is an actual exception from WebLogic:
 [source]
 [subs="verbatim,quotes"]
 ----
-java.sql.SQLException: The transaction is no longer active - status: 'Committed'.
-   No further JDBC access is allowed within this transaction.
+java.sql.SQLException: The transaction is no longer active - status: 'Committed'. No
+further JDBC access is allowed within this transaction.
 ----
 
 You resolve this warning by simply making Hibernate aware of the JTA
@@ -26639,7 +26631,7 @@ same style as the Hibernate support. The corresponding integration classes resid
 
 
 [[orm-jdo-setup]]
-====  PersistenceManagerFactory setup
+==== PersistenceManagerFactory setup
 
 Spring provides a `LocalPersistenceManagerFactoryBean` class that allows you to define a
 local JDO `PersistenceManagerFactory` within a Spring application context:
@@ -26649,9 +26641,9 @@ local JDO `PersistenceManagerFactory` within a Spring application context:
 ----
 <beans>
 
-  <bean id="myPmf" class="org.springframework.orm.jdo.LocalPersistenceManagerFactoryBean">
-    <property name="configLocation" value="classpath:kodo.properties"/>
-  </bean>
+	<bean id="myPmf" class="org.springframework.orm.jdo.LocalPersistenceManagerFactoryBean">
+		<property name="configLocation" value="classpath:kodo.properties"/>
+	</bean>
 
 </beans>
 ----
@@ -26671,15 +26663,15 @@ this is the XML configuration of the `PersistenceManagerFactory` implementation:
 <beans>
 
  <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-   <property name="driverClassName" value="${jdbc.driverClassName}"/>
-   <property name="url" value="${jdbc.url}"/>
-   <property name="username" value="${jdbc.username}"/>
-   <property name="password" value="${jdbc.password}"/>
+	<property name="driverClassName" value="${jdbc.driverClassName}"/>
+	<property name="url" value="${jdbc.url}"/>
+	<property name="username" value="${jdbc.username}"/>
+	<property name="password" value="${jdbc.password}"/>
  </bean>
 
  <bean id="myPmf" class="org.datanucleus.jdo.JDOPersistenceManagerFactory" destroy-method="close">
-   <property name="connectionFactory" ref="dataSource"/>
-   <property name="nontransactionalRead" value="true"/>
+	<property name="connectionFactory" ref="dataSource"/>
+	<property name="nontransactionalRead" value="true"/>
  </bean>
 
 </beans>
@@ -26706,23 +26698,23 @@ example of a corresponding DAO implementation:
 ----
 public class ProductDaoImpl implements ProductDao {
 
-    private PersistenceManagerFactory persistenceManagerFactory;
+	private PersistenceManagerFactory persistenceManagerFactory;
 
-    public void setPersistenceManagerFactory(PersistenceManagerFactory pmf) {
-        this.persistenceManagerFactory = pmf;
-    }
+	public void setPersistenceManagerFactory(PersistenceManagerFactory pmf) {
+		this.persistenceManagerFactory = pmf;
+	}
 
-    public Collection loadProductsByCategory(String category) {
-        PersistenceManager pm = this.persistenceManagerFactory.getPersistenceManager();
-        try {
-            Query query = pm.newQuery(Product.class, "category = pCategory");
-            query.declareParameters("String pCategory");
-            return query.execute(category);
-        }
-        finally {
-          pm.close();
-        }
-    }
+	public Collection loadProductsByCategory(String category) {
+		PersistenceManager pm = this.persistenceManagerFactory.getPersistenceManager();
+		try {
+			Query query = pm.newQuery(Product.class, "category = pCategory");
+			query.declareParameters("String pCategory");
+			return query.execute(category);
+		}
+		finally {
+			pm.close();
+		}
+	}
 }
 ----
 
@@ -26734,9 +26726,9 @@ Spring container, just as it would if coded against Spring's `JdoTemplate`:
 ----
 <beans>
 
-  <bean id="myProductDao" class="product.ProductDaoImpl">
-    <property name="persistenceManagerFactory" ref="myPmf"/>
-  </bean>
+	<bean id="myProductDao" class="product.ProductDaoImpl">
+		<property name="persistenceManagerFactory" ref="myPmf"/>
+	</bean>
 
 </beans>
 ----
@@ -26752,14 +26744,14 @@ your DAOs as in the following example:
 ----
 <beans>
 
-  <bean id="myPmfProxy"
-      class="org.springframework.orm.jdo.TransactionAwarePersistenceManagerFactoryProxy">
-    <property name="targetPersistenceManagerFactory" ref="myPmf"/>
-  </bean>
+	<bean id="myPmfProxy"
+			class="org.springframework.orm.jdo.TransactionAwarePersistenceManagerFactoryProxy">
+		<property name="targetPersistenceManagerFactory" ref="myPmf"/>
+	</bean>
 
-  <bean id="myProductDao" class="product.ProductDaoImpl">
-    <property name="persistenceManagerFactory" ref="myPmfProxy"/>
-  </bean>
+	<bean id="myProductDao" class="product.ProductDaoImpl">
+		<property name="persistenceManagerFactory" ref="myPmfProxy"/>
+	</bean>
 
 </beans>
 ----
@@ -26780,18 +26772,18 @@ implementations concise:
 ----
 public class ProductDaoImpl implements ProductDao {
 
-    private PersistenceManagerFactory persistenceManagerFactory;
+	private PersistenceManagerFactory persistenceManagerFactory;
 
-    public void setPersistenceManagerFactory(PersistenceManagerFactory pmf) {
-        this.persistenceManagerFactory = pmf;
-    }
+	public void setPersistenceManagerFactory(PersistenceManagerFactory pmf) {
+		this.persistenceManagerFactory = pmf;
+	}
 
-    public Collection loadProductsByCategory(String category) {
-        PersistenceManager pm = this.persistenceManagerFactory.getPersistenceManager();
-        Query query = pm.newQuery(Product.class, "category = pCategory");
-        query.declareParameters("String pCategory");
-        return query.execute(category);
-    }
+	public Collection loadProductsByCategory(String category) {
+		PersistenceManager pm = this.persistenceManagerFactory.getPersistenceManager();
+		Query query = pm.newQuery(Product.class, "category = pCategory");
+		query.declareParameters("String pCategory");
+		return query.execute(category);
+	}
 }
 ----
 
@@ -26804,15 +26796,15 @@ active transactions through turning off
 ----
 <beans>
 
-  <bean id="myPmfProxy"
-      class="org.springframework.orm.jdo.TransactionAwarePersistenceManagerFactoryProxy">
-    <property name="targetPersistenceManagerFactory" ref="myPmf"/>
-    <property name="allowCreate" value="false"/>
-  </bean>
+	<bean id="myPmfProxy"
+			class="org.springframework.orm.jdo.TransactionAwarePersistenceManagerFactoryProxy">
+		<property name="targetPersistenceManagerFactory" ref="myPmf"/>
+		<property name="allowCreate" value="false"/>
+	</bean>
 
-  <bean id="myProductDao" class="product.ProductDaoImpl">
-    <property name="persistenceManagerFactory" ref="myPmfProxy"/>
-  </bean>
+	<bean id="myProductDao" class="product.ProductDaoImpl">
+		<property name="persistenceManagerFactory" ref="myPmfProxy"/>
+	</bean>
 
 </beans>
 ----
@@ -26850,40 +26842,39 @@ declarative transaction facilities. For example:
 [subs="verbatim,quotes"]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
-<beans
-        xmlns="http://www.springframework.org/schema/beans"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:aop="http://www.springframework.org/schema/aop"
-        xmlns:tx="http://www.springframework.org/schema/tx"
-        xsi:schemaLocation="
-   http://www.springframework.org/schema/beans
-   http://www.springframework.org/schema/beans/spring-beans.xsd
-   http://www.springframework.org/schema/tx
-   http://www.springframework.org/schema/tx/spring-tx.xsd
-   http://www.springframework.org/schema/aop
-   http://www.springframework.org/schema/aop/spring-aop.xsd">
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-  <bean id="myTxManager" class="org.springframework.orm.jdo.JdoTransactionManager">
-    <property name="persistenceManagerFactory" ref="myPmf"/>
-  </bean>
+	<bean id="myTxManager" class="org.springframework.orm.jdo.JdoTransactionManager">
+		<property name="persistenceManagerFactory" ref="myPmf"/>
+	</bean>
 
-  <bean id="myProductService" class="product.ProductServiceImpl">
-    <property name="productDao" ref="myProductDao"/>
-  </bean>
+	<bean id="myProductService" class="product.ProductServiceImpl">
+		<property name="productDao" ref="myProductDao"/>
+	</bean>
 
-  <tx:advice id="txAdvice" transaction-manager="txManager">
-    <tx:attributes>
-      <tx:method name="increasePrice*" propagation="REQUIRED"/>
-      <tx:method name="someOtherBusinessMethod" propagation="REQUIRES_NEW"/>
-      <tx:method name="*" propagation="SUPPORTS" read-only="true"/>
-    </tx:attributes>
-  </tx:advice>
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="increasePrice*" propagation="REQUIRED"/>
+			<tx:method name="someOtherBusinessMethod" propagation="REQUIRES_NEW"/>
+			<tx:method name="*" propagation="SUPPORTS" read-only="true"/>
+		</tx:attributes>
+	</tx:advice>
 
-  <aop:config>
-    <aop:pointcut id="productServiceMethods"
-            expression="execution(* product.ProductService.*(..))"/>
-    <aop:advisor advice-ref="txAdvice" pointcut-ref="productServiceMethods"/>
-  </aop:config>
+	<aop:config>
+		<aop:pointcut id="productServiceMethods"
+				expression="execution(* product.ProductService.*(..))"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="productServiceMethods"/>
+	</aop:config>
 
 </beans>
 ----
@@ -26905,7 +26896,7 @@ JDO 2.0 implementations by default.
 
 
 [[orm-jdo-dialect]]
-====  JdoDialect
+==== JdoDialect
 
 As an advanced feature, both `JdoTemplate` and `JdoTransactionManager` support a custom
 `JdoDialect` that can be passed into the `jdoDialect` bean property. In this scenario,
@@ -26946,7 +26937,7 @@ that will be used by the application to obtain an entity manager.
 
 
 [[orm-jpa-setup-lemfb]]
-=====  LocalEntityManagerFactoryBean
+===== LocalEntityManagerFactoryBean
 
 [NOTE]
 ====
@@ -26964,11 +26955,9 @@ persistence unit name:
 [subs="verbatim,quotes"]
 ----
 <beans>
-
-   <bean id="myEmf" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
-      <property name="persistenceUnitName" value="myPersistenceUnit"/>
-   </bean>
-
+	<bean id="myEmf" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
+		<property name="persistenceUnitName" value="myPersistenceUnit"/>
+	</bean>
 </beans>
 ----
 
@@ -26997,9 +26986,7 @@ is simply a matter of changing the XML configuration:
 [subs="verbatim,quotes"]
 ----
 <beans>
-
-    <jee:jndi-lookup id="myEmf" jndi-name="persistence/myPersistenceUnit"/>
-
+	<jee:jndi-lookup id="myEmf" jndi-name="persistence/myPersistenceUnit"/>
 </beans>
 ----
 
@@ -27045,14 +27032,12 @@ process. The following example shows a typical bean definition for a
 [subs="verbatim,quotes"]
 ----
 <beans>
-
- <bean id="myEmf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-  <property name="dataSource" ref="someDataSource"/>
-  <property name="loadTimeWeaver">
-    <bean class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver"/>
-  </property>
- </bean>
-
+	<bean id="myEmf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="someDataSource"/>
+		<property name="loadTimeWeaver">
+			<bean class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver"/>
+		</property>
+	</bean>
 </beans>
 ----
 
@@ -27062,12 +27047,10 @@ The following example shows a typical `persistence.xml` file:
 [subs="verbatim,quotes"]
 ----
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
-
-  <persistence-unit name="myUnit" transaction-type="RESOURCE_LOCAL">
-    <mapping-file>META-INF/orm.xml</mapping-file>
-    <exclude-unlisted-classes/>
-  </persistence-unit>
-
+	<persistence-unit name="myUnit" transaction-type="RESOURCE_LOCAL">
+		<mapping-file>META-INF/orm.xml</mapping-file>
+		<exclude-unlisted-classes/>
+	</persistence-unit>
 </persistence>
 ----
 
@@ -27109,7 +27092,7 @@ load-time weaver __should not__ be used.
 
 The `LoadTimeWeaver` interface is a Spring-provided class that allows JPA
 `ClassTransformer` instances to be plugged in a specific manner, depending whether the
-environment is a web container or application server.  Hooking `ClassTransformers`
+environment is a web container or application server. Hooking `ClassTransformers`
 through a Java 5
 http://java.sun.com/j2se/1.5.0/docs/api/java/lang/instrument/package-summary.html[agent]
 typically is not efficient. The agents work against the __entire virtual machine__ and
@@ -27137,7 +27120,7 @@ all weaver-aware beans:
 ----
 <context:load-time-weaver/>
 <bean id="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-    ...
+	...
 </bean>
 ----
 
@@ -27148,9 +27131,9 @@ However, if needed, one can manually specify a dedicated weaver through the
 [subs="verbatim,quotes"]
 ----
 <bean id="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-  <property name="loadTimeWeaver">
-    <bean class="org.springframework.instrument.classloading.ReflectiveLoadTimeWeaver"/>
-  </property>
+	<property name="loadTimeWeaver">
+		<bean class="org.springframework.instrument.classloading.ReflectiveLoadTimeWeaver"/>
+	</property>
 </bean>
 ----
 
@@ -27174,26 +27157,26 @@ is searched for `META-INF/persistence.xml` files.)
 [subs="verbatim,quotes"]
 ----
 <bean id="pum" class="org.springframework.orm.jpa.persistenceunit.DefaultPersistenceUnitManager">
-  <property name="persistenceXmlLocations">
-    <list>
-     <value>org/springframework/orm/jpa/domain/persistence-multi.xml</value>
-     <value>classpath:/my/package/**/custom-persistence.xml</value>
-     <value>classpath*:META-INF/persistence.xml</value>
-    </list>
-  </property>
-  <property name="dataSources">
-   <map>
-    <entry key="localDataSource" value-ref="local-db"/>
-    <entry key="remoteDataSource" value-ref="remote-db"/>
-   </map>
-  </property>
-  <!-- if no datasource is specified, use this one -->
-  <property name="defaultDataSource" ref="remoteDataSource"/>
+	<property name="persistenceXmlLocations">
+		<list>
+			<value>org/springframework/orm/jpa/domain/persistence-multi.xml</value>
+			<value>classpath:/my/package/**/custom-persistence.xml</value>
+			<value>classpath*:META-INF/persistence.xml</value>
+		</list>
+	</property>
+	<property name="dataSources">
+		<map>
+			<entry key="localDataSource" value-ref="local-db"/>
+			<entry key="remoteDataSource" value-ref="remote-db"/>
+		</map>
+	</property>
+	<!-- if no datasource is specified, use this one -->
+	<property name="defaultDataSource" ref="remoteDataSource"/>
 </bean>
 
 <bean id="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-  <property name="persistenceUnitManager" ref="pum"/>
-  <property name="persistenceUnitName" value="myCustomUnit"/>
+	<property name="persistenceUnitManager" ref="pum"/>
+	<property name="persistenceUnitName" value="myCustomUnit"/>
 </bean>
 ----
 
@@ -27228,26 +27211,26 @@ using the `@PersistenceUnit` annotation might look like this:
 ----
 public class ProductDaoImpl implements ProductDao {
 
-    private EntityManagerFactory emf;
+	private EntityManagerFactory emf;
 
-    @PersistenceUnit
-    public void setEntityManagerFactory(EntityManagerFactory emf) {
-        this.emf = emf;
-    }
+	@PersistenceUnit
+	public void setEntityManagerFactory(EntityManagerFactory emf) {
+		this.emf = emf;
+	}
 
-    public Collection loadProductsByCategory(String category) {
-        EntityManager em = this.emf.createEntityManager();
-        try {
-             Query query = em.createQuery("from Product as p where p.category = ?1");
-             query.setParameter(1, category);
-             return query.getResultList();
-        }
-        finally {
-            if (em != null) {
-                em.close();
-            }
-        }
-    }
+	public Collection loadProductsByCategory(String category) {
+		EntityManager em = this.emf.createEntityManager();
+		try {
+			Query query = em.createQuery("from Product as p where p.category = ?1");
+			query.setParameter(1, category);
+			return query.getResultList();
+		}
+		finally {
+			if (em != null) {
+				em.close();
+			}
+		}
+	}
 }
 ----
 
@@ -27297,14 +27280,14 @@ transactional EntityManager) to be injected instead of the factory:
 ----
 public class ProductDaoImpl implements ProductDao {
 
-    @PersistenceContext
-    private EntityManager em;
+	@PersistenceContext
+	private EntityManager em;
 
-    public Collection loadProductsByCategory(String category) {
-       Query query = em.createQuery("from Product as p where p.category = :category");
-       query.setParameter("category", category);
-       return query.getResultList();
-    }
+	public Collection loadProductsByCategory(String category) {
+		Query query = em.createQuery("from Product as p where p.category = :category");
+		query.setParameter("category", category);
+		return query.getResultList();
+	}
 }
 ----
 
@@ -27361,37 +27344,37 @@ declarative transaction facilities. For example:
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:aop="http://www.springframework.org/schema/aop"
-       xmlns:tx="http://www.springframework.org/schema/tx"
-       xsi:schemaLocation="
-       http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://www.springframework.org/schema/tx
-       http://www.springframework.org/schema/tx/spring-tx.xsd
-       http://www.springframework.org/schema/aop
-       http://www.springframework.org/schema/aop/spring-aop.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-  <bean id="myTxManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-    <property name="entityManagerFactory" ref="myEmf"/>
-  </bean>
+	<bean id="myTxManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="myEmf"/>
+	</bean>
 
-  <bean id="myProductService" class="product.ProductServiceImpl">
-    <property name="productDao" ref="myProductDao"/>
-  </bean>
+	<bean id="myProductService" class="product.ProductServiceImpl">
+		<property name="productDao" ref="myProductDao"/>
+	</bean>
 
-  <aop:config>
-    <aop:pointcut id="productServiceMethods" expression="execution(* product.ProductService.*(..))"/>
-    <aop:advisor advice-ref="txAdvice" pointcut-ref="productServiceMethods"/>
-  </aop:config>
+	<aop:config>
+		<aop:pointcut id="productServiceMethods" expression="execution(* product.ProductService.*(..))"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="productServiceMethods"/>
+	</aop:config>
 
-  <tx:advice id="txAdvice" transaction-manager="myTxManager">
-    <tx:attributes>
-      <tx:method name="increasePrice*" propagation="REQUIRED"/>
-      <tx:method name="someOtherBusinessMethod" propagation="REQUIRES_NEW"/>
-      <tx:method name="*" propagation="SUPPORTS" read-only="true"/>
-    </tx:attributes>
-  </tx:advice>
+	<tx:advice id="txAdvice" transaction-manager="myTxManager">
+		<tx:attributes>
+			<tx:method name="increasePrice*" propagation="REQUIRED"/>
+			<tx:method name="someOtherBusinessMethod" propagation="REQUIRES_NEW"/>
+			<tx:method name="*" propagation="SUPPORTS" read-only="true"/>
+		</tx:attributes>
+	</tx:advice>
 
 </beans>
 ----
@@ -27501,11 +27484,11 @@ below.
 ----
 public interface Marshaller {
 
-    /**
-     * Marshals the object graph with the given root into the provided Result.
-     */
-    void marshal(Object graph, Result result)
-        throws XmlMappingException, IOException;
+	/**
+	 * Marshals the object graph with the given root into the provided Result.
+	 */
+	void marshal(Object graph, Result result) throws XmlMappingException, IOException;
+
 }
 ----
 
@@ -27549,19 +27532,17 @@ interface.
 ----
 public interface Unmarshaller {
 
-    /**
-     * Unmarshals the given provided Source into an object graph.
-     */
-    Object unmarshal(Source source)
-        throws XmlMappingException, IOException;
+	/**
+	 * Unmarshals the given provided Source into an object graph.
+	 */
+	Object unmarshal(Source source) throws XmlMappingException, IOException;
 }
 ----
 
 This interface also has one method, which reads from the given
-                `javax.xml.transform.Source` (an XML input abstraction), and returns the
-object read. As with Result, Source is a tagging interface that has three concrete
-implementations. Each wraps a different XML representation, as indicated in the table
-below.
+`javax.xml.transform.Source` (an XML input abstraction), and returns the object read. As
+with Result, Source is a tagging interface that has three concrete implementations. Each
+wraps a different XML representation, as indicated in the table below.
 
 [[oxm-unmarshller-tbl]]
 |===
@@ -27612,15 +27593,16 @@ will use a simple JavaBean to represent the settings:
 [subs="verbatim,quotes"]
 ----
 public class Settings {
-    private boolean fooEnabled;
 
-    public boolean isFooEnabled() {
-        return fooEnabled;
-    }
+	private boolean fooEnabled;
 
-    public void setFooEnabled(boolean fooEnabled) {
-        this.fooEnabled = fooEnabled;
-    }
+	public boolean isFooEnabled() {
+		return fooEnabled;
+	}
+
+	public void setFooEnabled(boolean fooEnabled) {
+		this.fooEnabled = fooEnabled;
+	}
 }
 ----
 
@@ -27644,50 +27626,51 @@ import org.springframework.oxm.Marshaller;
 import org.springframework.oxm.Unmarshaller;
 
 public class Application {
-    private static final String FILE_NAME = "settings.xml";
-    private Settings settings = new Settings();
-    private Marshaller marshaller;
-    private Unmarshaller unmarshaller;
 
-    public void setMarshaller(Marshaller marshaller) {
-        this.marshaller = marshaller;
-    }
+	private static final String FILE_NAME = "settings.xml";
+	private Settings settings = new Settings();
+	private Marshaller marshaller;
+	private Unmarshaller unmarshaller;
 
-    public void setUnmarshaller(Unmarshaller unmarshaller) {
-        this.unmarshaller = unmarshaller;
-    }
+	public void setMarshaller(Marshaller marshaller) {
+		this.marshaller = marshaller;
+	}
 
-    public void saveSettings() throws IOException {
-        FileOutputStream os = null;
-        try {
-            os = new FileOutputStream(FILE_NAME);
-            this.marshaller.marshal(settings, new StreamResult(os));
-        } finally {
-            if (os != null) {
-                os.close();
-            }
-        }
-    }
+	public void setUnmarshaller(Unmarshaller unmarshaller) {
+		this.unmarshaller = unmarshaller;
+	}
 
-    public void loadSettings() throws IOException {
-        FileInputStream is = null;
-        try {
-            is = new FileInputStream(FILE_NAME);
-            this.settings = (Settings) this.unmarshaller.unmarshal(new StreamSource(is));
-        } finally {
-            if (is != null) {
-                is.close();
-            }
-        }
-    }
+	public void saveSettings() throws IOException {
+		FileOutputStream os = null;
+		try {
+			os = new FileOutputStream(FILE_NAME);
+			this.marshaller.marshal(settings, new StreamResult(os));
+		} finally {
+			if (os != null) {
+				os.close();
+			}
+		}
+	}
 
-    public static void main(String[] args) throws IOException {
-        ApplicationContext appContext =
-            new ClassPathXmlApplicationContext("applicationContext.xml");
-        Application application = (Application) appContext.getBean("application");
-        application.saveSettings();
-        application.loadSettings();
-    }
+	public void loadSettings() throws IOException {
+		FileInputStream is = null;
+		try {
+			is = new FileInputStream(FILE_NAME);
+			this.settings = (Settings) this.unmarshaller.unmarshal(new StreamSource(is));
+		} finally {
+			if (is != null) {
+				is.close();
+			}
+		}
+	}
+
+	public static void main(String[] args) throws IOException {
+		ApplicationContext appContext =
+				new ClassPathXmlApplicationContext("applicationContext.xml");
+		Application application = (Application) appContext.getBean("application");
+		application.saveSettings();
+		application.loadSettings();
+	}
 }
 ----
 
@@ -27698,20 +27681,18 @@ can do so using the following `applicationContext.xml`:
 [subs="verbatim,quotes"]
 ----
 <beans>
-    <bean id="application" class="Application">
-        <property name="marshaller" ref="castorMarshaller" />
-        <property name="unmarshaller" ref="castorMarshaller" />
-    </bean>
-    <bean id="castorMarshaller" class="org.springframework.oxm.castor.CastorMarshaller"/>
+	<bean id="application" class="Application">
+		<property name="marshaller" ref="castorMarshaller" />
+		<property name="unmarshaller" ref="castorMarshaller" />
+	</bean>
+	<bean id="castorMarshaller" class="org.springframework.oxm.castor.CastorMarshaller"/>
 </beans>
 ----
 
 This application context uses Castor, but we could have used any of the other marshaller
-instances described
-            later in this chapter. Note that Castor does not require any further
-configuration by default, so the bean
-            definition is rather simple. Also note that the `CastorMarshaller`
-implements both `Marshaller` and `Unmarshaller`, so we can refer to the
+instances described later in this chapter. Note that Castor does not require any further
+configuration by default, so the bean definition is rather simple. Also note that the
+`CastorMarshaller` implements both `Marshaller` and `Unmarshaller`, so we can refer to the
 `castorMarshaller` bean in both the `marshaller` and `unmarshaller` property of the
 application.
 
@@ -27738,8 +27719,8 @@ preamble of the XML configuration file. Note the 'oxm' related text below:
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    **xmlns:oxm="http://www.springframework.org/schema/oxm"** xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd **http://www.springframework.org/schema/oxm http://www.springframework.org/schema/oxm/spring-oxm.xsd"**>
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	**xmlns:oxm="http://www.springframework.org/schema/oxm"** xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd **http://www.springframework.org/schema/oxm http://www.springframework.org/schema/oxm/spring-oxm.xsd"**>
 ----
 
 Currently, the following tags are available:
@@ -27787,17 +27768,17 @@ validation is performed by specifying one or more schema resource to the bean, l
 [subs="verbatim,quotes"]
 ----
 <beans>
+	<bean id="jaxb2Marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+		<property name="classesToBeBound">
+			<list>
+				<value>org.springframework.oxm.jaxb.Flight</value>
+				<value>org.springframework.oxm.jaxb.Flights</value>
+			</list>
+		</property>
+		<property name="schema" value="classpath:org/springframework/oxm/schema.xsd"/>
+	</bean>
 
-    <bean id="jaxb2Marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
-        <property name="classesToBeBound">
-            <list>
-                <value>org.springframework.oxm.jaxb.Flight</value>
-                <value>org.springframework.oxm.jaxb.Flights</value>
-            </list>
-        </property>
-        <property name="schema" value="classpath:org/springframework/oxm/schema.xsd"/>
-    </bean>
-    ...
+	...
 
 </beans>
 ----
@@ -27821,9 +27802,9 @@ Alternatively, the list of classes to bind can be provided to the marshaller via
 [subs="verbatim,quotes"]
 ----
 <oxm:jaxb2-marshaller id="marshaller">
-    <oxm:class-to-be-bound name="org.springframework.ws.samples.airline.schema.Airport"/>
-    <oxm:class-to-be-bound name="org.springframework.ws.samples.airline.schema.Flight"/>
-    ...
+	<oxm:class-to-be-bound name="org.springframework.ws.samples.airline.schema.Airport"/>
+	<oxm:class-to-be-bound name="org.springframework.ws.samples.airline.schema.Flight"/>
+	...
 </oxm:jaxb2-marshaller>
 ----
 
@@ -27866,10 +27847,8 @@ interface. It can be wired up as follows:
 [subs="verbatim,quotes"]
 ----
 <beans>
-
-    <bean id="castorMarshaller" class="org.springframework.oxm.castor.CastorMarshaller" />
-    ...
-
+	<bean id="castorMarshaller" class="org.springframework.oxm.castor.CastorMarshaller" />
+	...
 </beans>
 ----
 
@@ -27889,9 +27868,9 @@ with a classpath resource.
 [subs="verbatim,quotes"]
 ----
 <beans>
-    <bean id="castorMarshaller" class="org.springframework.oxm.castor.CastorMarshaller" >
-        <property name="mappingLocation" value="classpath:mapping.xml" />
-    </bean>
+	<bean id="castorMarshaller" class="org.springframework.oxm.castor.CastorMarshaller" >
+		<property name="mappingLocation" value="classpath:mapping.xml" />
+	</bean>
 </beans>
 ----
 
@@ -27968,8 +27947,8 @@ It can be configured as follows:
 ----
 <beans>
 
-    <bean id="xmlBeansMarshaller" class="org.springframework.oxm.xmlbeans.XmlBeansMarshaller" />
-    ...
+	<bean id="xmlBeansMarshaller" class="org.springframework.oxm.xmlbeans.XmlBeansMarshaller" />
+	...
 
 </beans>
 ----
@@ -28035,12 +28014,11 @@ set using the `targetClass` property. Optionally, you can set the binding name u
 [subs="verbatim,quotes"]
 ----
 <beans>
-
-    <bean id="jibxFlightsMarshaller" class="org.springframework.oxm.jibx.JibxMarshaller">
-        <property name="targetClass">org.springframework.oxm.jibx.Flights</property>
-    </bean>
-
-    ...
+	<bean id="jibxFlightsMarshaller" class="org.springframework.oxm.jibx.JibxMarshaller">
+		<property name="targetClass">org.springframework.oxm.jibx.Flights</property>
+	</bean>
+	...
+</beans>
 ----
 
 A `JibxMarshaller` is configured for a single class. If you want to marshal multiple
@@ -28101,16 +28079,14 @@ which consists of string aliases mapped to classes:
 [subs="verbatim,quotes"]
 ----
 <beans>
-
-    <bean id="xstreamMarshaller" class="org.springframework.oxm.xstream.XStreamMarshaller">
-        <property name="aliases">
-            <props>
-                <prop key="Flight">org.springframework.oxm.xstream.Flight</prop>
-            </props>
-        </property>
-    </bean>
-    ...
-
+	<bean id="xstreamMarshaller" class="org.springframework.oxm.xstream.XStreamMarshaller">
+		<property name="aliases">
+			<props>
+				<prop key="Flight">org.springframework.oxm.xstream.Flight</prop>
+			</props>
+		</property>
+	</bean>
+	...
 </beans>
 ----
 
@@ -28128,8 +28104,8 @@ unmarshal XML from an external source, set the `supportedClasses` property on th
 [subs="verbatim,quotes"]
 ----
 <bean id="xstreamMarshaller" class="org.springframework.oxm.xstream.XStreamMarshaller">
-    <property name="supportedClasses" value="org.springframework.oxm.xstream.Flight"/>
-    ...
+	<property name="supportedClasses" value="org.springframework.oxm.xstream.Flight"/>
+	...
 </bean>
 ----
 
@@ -28352,17 +28328,16 @@ example shows such a `DispatcherServlet` declaration and mapping:
 [subs="verbatim,quotes"]
 ----
 <web-app>
+	<servlet>
+		<servlet-name>example</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
 
-    <servlet>
-        <servlet-name>example</servlet-name>
-        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>example</servlet-name>
-        <url-pattern>/example/*</url-pattern>
-    </servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>example</servlet-name>
+		<url-pattern>/example/*</url-pattern>
+	</servlet-mapping>
 
 </web-app>
 ----
@@ -28377,12 +28352,12 @@ based equivalent of the above `web.xml` example:
 ----
 public class MyWebApplicationInitializer implements WebApplicationInitializer {
 
-    @Override
-    public void onStartup(ServletContext container) {
-        ServletRegistration.Dynamic registration = container.addServlet("dispatcher", new DispatcherServlet());
-        registration.setLoadOnStartup(1);
-        registration.addMapping("/example/*");
-    }
+	@Override
+	public void onStartup(ServletContext container) {
+		ServletRegistration.Dynamic registration = container.addServlet("dispatcher", new DispatcherServlet());
+		registration.setLoadOnStartup(1);
+		registration.addMapping("/example/*");
+	}
 
 }
 ----
@@ -28418,18 +28393,15 @@ Consider the following `DispatcherServlet` Servlet configuration (in the `web.xm
 [subs="verbatim,quotes"]
 ----
 <web-app>
-
-    <servlet>
-        <servlet-name>**golfing**</servlet-name>
-        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>**golfing**</servlet-name>
-        <url-pattern>/golfing/*</url-pattern>
-    </servlet-mapping>
-
+	<servlet>
+		<servlet-name>**golfing**</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>**golfing**</servlet-name>
+		<url-pattern>/golfing/*</url-pattern>
+	</servlet-mapping>
 </web-app>
 ----
 
@@ -28505,7 +28477,7 @@ As mentioned in the previous section for each special bean the `DispatcherServle
 maintains a list of implementations to use by default. This information is kept in the
 file `DispatcherServlet.properties` in the package `org.springframework.web.servlet`.
 
-All special beans have  some reasonable defaults of their own. Sooner or later though
+All special beans have some reasonable defaults of their own. Sooner or later though
 you'll need to customize one or more of the properties these beans provide. For example
 it's quite common to configure an `InternalResourceViewResolver` settings its `prefix`
 property to the parent location of view files.
@@ -28617,11 +28589,11 @@ __MvcAjax__, __MvcBasic__, __PetClinic__, __PetCare__, and others.
 @Controller
 public class HelloWorldController {
 
-    @RequestMapping("/helloWorld")
-    public String helloWorld(Model model) {
-        model.addAttribute("message", "Hello World!");
-        return "helloWorld";
-    }
+	@RequestMapping("/helloWorld")
+	public String helloWorld(Model model) {
+		model.addAttribute("message", "Hello World!");
+		return "helloWorld";
+	}
 }
 ----
 
@@ -28661,18 +28633,18 @@ snippet:
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:p="http://www.springframework.org/schema/p"
-    xmlns:context="http://www.springframework.org/schema/context"
-    xsi:schemaLocation="
-        http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <context:component-scan base-package="org.springframework.samples.petclinic.web"/>
+	<context:component-scan base-package="org.springframework.samples.petclinic.web"/>
 
-    <!-- ... -->
+	<!-- ... -->
 
 </beans>
 ----
@@ -28698,36 +28670,36 @@ application that uses this annotation:
 **@RequestMapping("/appointments")**
 public class AppointmentsController {
 
-    private final AppointmentBook appointmentBook;
+	private final AppointmentBook appointmentBook;
 
-    @Autowired
-    public AppointmentsController(AppointmentBook appointmentBook) {
-        this.appointmentBook = appointmentBook;
-    }
+	@Autowired
+	public AppointmentsController(AppointmentBook appointmentBook) {
+		this.appointmentBook = appointmentBook;
+	}
 
-    **@RequestMapping(method = RequestMethod.GET)**
-    public Map<String, Appointment> get() {
-        return appointmentBook.getAppointmentsForToday();
-    }
+	**@RequestMapping(method = RequestMethod.GET)**
+	public Map<String, Appointment> get() {
+		return appointmentBook.getAppointmentsForToday();
+	}
 
-    **@RequestMapping(value="/{day}", method = RequestMethod.GET)**
-    public Map<String, Appointment> getForDay(@PathVariable @DateTimeFormat(iso=ISO.DATE) Date day, Model model) {
-        return appointmentBook.getAppointmentsForDay(day);
-    }
+	**@RequestMapping(value="/{day}", method = RequestMethod.GET)**
+	public Map<String, Appointment> getForDay(@PathVariable @DateTimeFormat(iso=ISO.DATE) Date day, Model model) {
+		return appointmentBook.getAppointmentsForDay(day);
+	}
 
-    **@RequestMapping(value="/new", method = RequestMethod.GET)**
-    public AppointmentForm getNewForm() {
-        return new AppointmentForm();
-    }
+	**@RequestMapping(value="/new", method = RequestMethod.GET)**
+	public AppointmentForm getNewForm() {
+		return new AppointmentForm();
+	}
 
-    **@RequestMapping(method = RequestMethod.POST)**
-    public String add(@Valid AppointmentForm appointment, BindingResult result) {
-        if (result.hasErrors()) {
-            return "appointments/new";
-        }
-        appointmentBook.addAppointment(appointment);
-        return "redirect:/appointments";
-    }
+	**@RequestMapping(method = RequestMethod.POST)**
+	public String add(@Valid AppointmentForm appointment, BindingResult result) {
+		if (result.hasErrors()) {
+			return "appointments/new";
+		}
+		appointmentBook.addAppointment(appointment);
+		return "redirect:/appointments";
+	}
 }
 ----
 
@@ -28752,21 +28724,21 @@ application shows a multi-action controller using `@RequestMapping`:
 @Controller
 public class ClinicController {
 
-    private final Clinic clinic;
+	private final Clinic clinic;
 
-    @Autowired
-    public ClinicController(Clinic clinic) {
-        this.clinic = clinic;
-    }
+	@Autowired
+	public ClinicController(Clinic clinic) {
+		this.clinic = clinic;
+	}
 
-    **@RequestMapping("/")**
-    public void welcomeHandler() {
-    }
+	**@RequestMapping("/")**
+	public void welcomeHandler() {
+	}
 
-    **@RequestMapping("/vets")**
-    public ModelMap vetsHandler() {
-        return new ModelMap(this.clinic.getVets());
-    }
+	**@RequestMapping("/vets")**
+	public ModelMap vetsHandler() {
+		return new ModelMap(this.clinic.getVets());
+	}
 
 }
 ----
@@ -28855,9 +28827,9 @@ to the value of a URI template variable:
 ----
 @RequestMapping(value="/owners/{ownerId}", method=RequestMethod.GET)
 public String findOwner(**@PathVariable** String ownerId, Model model) {
-  Owner owner = ownerService.findOwner(ownerId);
-  model.addAttribute("owner", owner);
-  return "displayOwner";
+	Owner owner = ownerService.findOwner(ownerId);
+	model.addAttribute("owner", owner);
+	return "displayOwner";
 }
 ----
 
@@ -28877,7 +28849,7 @@ template variable by name. You can specify it in the annotation:
 ----
 @RequestMapping(value="/owners/{ownerId}", method=RequestMethod.GET)
 public String findOwner(**@PathVariable("ownerId")** String theOwner, Model model) {
-  // implementation omitted
+	// implementation omitted
 }
 ----
 
@@ -28890,7 +28862,7 @@ will match the method argument name to the URI template variable name:
 ----
 @RequestMapping(value="/owners/{ownerId}", method=RequestMethod.GET)
 public String findOwner(**@PathVariable** String ownerId, Model model) {
-  // implementation omitted
+	// implementation omitted
 }
 ----
 ====
@@ -28902,10 +28874,10 @@ A method can have any number of `@PathVariable` annotations:
 ----
 @RequestMapping(value="/owners/{ownerId}/pets/{petId}", method=RequestMethod.GET)
 public String findPet(**@PathVariable** String ownerId, **@PathVariable** String petId, Model model) {
-  Owner owner = ownerService.findOwner(ownerId);
-  Pet pet = owner.getPet(petId);
-  model.addAttribute("pet", pet);
-  return "displayPet";
+	Owner owner = ownerService.findOwner(ownerId);
+	Pet pet = owner.getPet(petId);
+	model.addAttribute("pet", pet);
+	return "displayPet";
 }
 ----
 
@@ -28923,10 +28895,11 @@ annotations. As a result the `findPet()` method can be invoked with a URL such a
 @RequestMapping(**"/owners/{ownerId}"**)
 public class RelativePathUriTemplateController {
 
-  @RequestMapping(**"/pets/{petId}"**)
-  public void findPet(@PathVariable String ownerId, @PathVariable String petId, Model model) {
-    // implementation omitted
-  }
+	@RequestMapping(**"/pets/{petId}"**)
+	public void findPet(@PathVariable String ownerId, @PathVariable String petId, Model model) {
+		// implementation omitted
+	}
+
 }
 ----
 
@@ -28949,9 +28922,9 @@ name and the second - the regular expression.For example:
 [subs="verbatim,quotes"]
 ----
 @RequestMapping("/spring-web/{symbolicName:[a-z-]+}-{version:\\d\\.\\d\\.\\d}{extension:\\.[a-z]+}")
-  public void handle(@PathVariable String version, @PathVariable String extension) {
-    // ...
-  }
+	public void handle(@PathVariable String version, @PathVariable String extension) {
+		// ...
+	}
 }
 ----
 
@@ -29001,8 +28974,8 @@ Below is an example of extracting the matrix variable "q":
 @RequestMapping(value = "/pets/{petId}", method = RequestMethod.GET)
 public void findPet(@PathVariable String petId, @MatrixVariable int q) {
 
-  // petId == 42
-  // q == 11
+	// petId == 42
+	// q == 11
 
 }
 ----
@@ -29017,11 +28990,11 @@ specific to identify where the variable is expected to be:
 
 @RequestMapping(value = "/owners/{ownerId}/pets/{petId}", method = RequestMethod.GET)
 public void findPet(
-    @MatrixVariable(value="q", pathVar="ownerId") int q1,
-    @MatrixVariable(value="q", pathVar="petId") int q2) {
+		@MatrixVariable(value="q", pathVar="ownerId") int q1,
+		@MatrixVariable(value="q", pathVar="petId") int q2) {
 
-  // q1 == 11
-  // q2 == 22
+	// q1 == 11
+	// q2 == 22
 
 }
 ----
@@ -29034,11 +29007,11 @@ A matrix variable may be defined as optional and a default value specified:
 // GET /pets/42
 
 @RequestMapping(value = "/pets/{petId}", method = RequestMethod.GET)
-  public void findPet(@MatrixVariable(required=true, defaultValue="1") int q) {
+public void findPet(@MatrixVariable(required=true, defaultValue="1") int q) {
 
-    // q == 1
+	// q == 1
 
-  }
+}
 ----
 
 All matrix variables may be obtained in a Map:
@@ -29049,14 +29022,14 @@ All matrix variables may be obtained in a Map:
 // GET /owners/42;q=11;r=12/pets/21;q=22;s=23
 
 @RequestMapping(value = "/owners/{ownerId}/pets/{petId}", method = RequestMethod.GET)
-  public void findPet(
-        @MatrixVariable Map<String, String> matrixVars,
-        @MatrixVariable(pathVar="petId"") Map<String, String> petMatrixVars) {
+public void findPet(
+		@MatrixVariable Map<String, String> matrixVars,
+		@MatrixVariable(pathVar="petId"") Map<String, String> petMatrixVars) {
 
-    // matrixVars: ["q" : [11,22], "r" : 12, "s" : 23]
-    // petMatrixVars: ["q" : 11, "s" : 23]
+	// matrixVars: ["q" : [11,22], "r" : 12, "s" : 23]
+	// petMatrixVars: ["q" : 11, "s" : 23]
 
-  }
+}
 ----
 
 Note that to enable the use of matrix variables, you must set the
@@ -29076,7 +29049,7 @@ media type. For example:
 @Controller
 @RequestMapping(value = "/pets", method = RequestMethod.POST, **consumes="application/json"**)
 public void addPet(@RequestBody Pet pet, Model model) {
-  // implementation omitted
+	// implementation omitted
 }
 ----
 
@@ -29107,7 +29080,7 @@ condition. For example:
 @RequestMapping(value = "/pets/{petId}", method = RequestMethod.GET, **produces="application/json"**)
 @ResponseBody
 public Pet getPet(@PathVariable String petId, Model model) {
-  // implementation omitted
+	// implementation omitted
 }
 ----
 
@@ -29137,10 +29110,11 @@ example with a request parameter value condition:
 @RequestMapping("/owners/{ownerId}")
 public class RelativePathUriTemplateController {
 
-  @RequestMapping(value = "/pets/{petId}", method = RequestMethod.GET, **params="myParam=myValue"**)
-  public void findPet(@PathVariable String ownerId, @PathVariable String petId, Model model) {
-    // implementation omitted
-  }
+	@RequestMapping(value = "/pets/{petId}", method = RequestMethod.GET, **params="myParam=myValue"**)
+	public void findPet(@PathVariable String ownerId, @PathVariable String petId, Model model) {
+		// implementation omitted
+	}
+
 }
 ----
 
@@ -29154,10 +29128,11 @@ specific request header value:
 @RequestMapping("/owners/{ownerId}")
 public class RelativePathUriTemplateController {
 
-@RequestMapping(value = "/pets", method = RequestMethod.GET, **headers="myHeader=myValue"**)
-public void findPet(@PathVariable String ownerId, @PathVariable String petId, Model model) {
-    // implementation omitted
-  }
+	@RequestMapping(value = "/pets", method = RequestMethod.GET, **headers="myHeader=myValue"**)
+	public void findPet(@PathVariable String ownerId, @PathVariable String petId, Model model) {
+		// implementation omitted
+	}
+
 }
 ----
 
@@ -29344,15 +29319,18 @@ The following code snippet shows the usage:
 @SessionAttributes("pet")
 public class EditPetForm {
 
-    // ...
+	// ...
 
-    @RequestMapping(method = RequestMethod.GET)
-    public String setupForm(**@RequestParam("petId") int petId**, ModelMap model) {
-       Pet pet = this.clinic.loadPet(petId);
-       model.addAttribute("pet", pet);
-       return "petForm";
-    }
-    // ...
+	@RequestMapping(method = RequestMethod.GET)
+	public String setupForm(**@RequestParam("petId") int petId**, ModelMap model) {
+		Pet pet = this.clinic.loadPet(petId);
+		model.addAttribute("pet", pet);
+		return "petForm";
+	}
+
+	// ...
+
+}
 ----
 
 Parameters using this annotation are required by default, but you can specify that a
@@ -29373,7 +29351,7 @@ be bound to the value of the HTTP request body. For example:
 ----
 @RequestMapping(value = "/something", method = RequestMethod.PUT)
 public void handle(@RequestBody String body, Writer writer) throws IOException {
-  writer.write(body);
+	writer.write(body);
 }
 ----
 
@@ -29402,21 +29380,21 @@ the MVC namespace or the MVC Java config see <<mvc-config-enable>> instead.
 [subs="verbatim,quotes"]
 ----
 <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
-    <property name="messageConverters">
-      <util:list id="beanList">
-        <ref bean="stringHttpMessageConverter"/>
-        <ref bean="marshallingHttpMessageConverter"/>
-      </util:list>
-    </property
+	<property name="messageConverters">
+		<util:list id="beanList">
+			<ref bean="stringHttpMessageConverter"/>
+			<ref bean="marshallingHttpMessageConverter"/>
+		</util:list>
+	</property
 </bean>
 
 <bean id="stringHttpMessageConverter"
-       class="org.springframework.http.converter.StringHttpMessageConverter"/>
+		class="org.springframework.http.converter.StringHttpMessageConverter"/>
 
 <bean id="marshallingHttpMessageConverter"
-      class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
-  <property name="marshaller" ref="castorMarshaller" />
-  <property name="unmarshaller" ref="castorMarshaller" />
+		class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
+	<property name="marshaller" ref="castorMarshaller" />
+	<property name="unmarshaller" ref="castorMarshaller" />
 </bean>
 
 <bean id="castorMarshaller" class="org.springframework.oxm.castor.CastorMarshaller"/>
@@ -29452,8 +29430,8 @@ response body (and not placed in a Model, or interpreted as a view name). For ex
 ----
 @RequestMapping(value = "/something", method = RequestMethod.PUT)
 @ResponseBody
-public String helloWorld()  {
-  return "Hello World";
+public String helloWorld() {
+	return "Hello World";
 }
 ----
 
@@ -29478,13 +29456,14 @@ so:
 ----
 @RequestMapping("/something")
 public ResponseEntity<String> handle(HttpEntity<byte[]> requestEntity) throws UnsupportedEncodingException {
-  String requestHeader = requestEntity.getHeaders().getFirst("MyRequestHeader"));
-  byte[] requestBody = requestEntity.getBody();
-  // do something with request header and body
+	String requestHeader = requestEntity.getHeaders().getFirst("MyRequestHeader"));
+	byte[] requestBody = requestEntity.getBody();
 
-  HttpHeaders responseHeaders = new HttpHeaders();
-  responseHeaders.set("MyResponseHeader", "MyValue");
-  return new ResponseEntity<String>("Hello World", responseHeaders, HttpStatus.CREATED);
+	// do something with request header and body
+
+	HttpHeaders responseHeaders = new HttpHeaders();
+	responseHeaders.set("MyResponseHeader", "MyValue");
+	return new ResponseEntity<String>("Hello World", responseHeaders, HttpStatus.CREATED);
 }
 ----
 
@@ -29519,15 +29498,15 @@ couple of examples:
 
 @ModelAttribute
 public Account addAccount(@RequestParam String number) {
-    return accountManager.findAccount(number);
+	return accountManager.findAccount(number);
 }
 
 // Add multiple attributes
 
 @ModelAttribute
 public void populateModel(@RequestParam String number, Model model) {
-    model.addAttribute(accountManager.findAccount(number));
-    // add more ...
+	model.addAttribute(accountManager.findAccount(number));
+	// add more ...
 }
 ----
 
@@ -29631,11 +29610,11 @@ following the `@ModelAttribute` argument:
 @RequestMapping(value="/owners/{ownerId}/pets/{petId}/edit", method = RequestMethod.POST)
 public String processSubmit(**@ModelAttribute("pet") Pet pet**, BindingResult result) {
 
-    if (result.hasErrors()) {
-        return "petForm";
-    }
+	if (result.hasErrors()) {
+		return "petForm";
+	}
 
-    // ...
+	// ...
 
 }
 ----
@@ -29655,12 +29634,13 @@ subsequently reported back to the user:
 @RequestMapping(value="/owners/{ownerId}/pets/{petId}/edit", method = RequestMethod.POST)
 public String processSubmit(**@ModelAttribute("pet") Pet pet**, BindingResult result) {
 
-    new PetValidator().validate(pet, result);
-    if (result.hasErrors()) {
-        return "petForm";
-    }
+	new PetValidator().validate(pet, result);
+	if (result.hasErrors()) {
+		return "petForm";
+	}
 
-    // ...
+	// ...
+
 }
 ----
 
@@ -29673,11 +29653,12 @@ annotation:
 @RequestMapping(value="/owners/{ownerId}/pets/{petId}/edit", method = RequestMethod.POST)
 public String processSubmit(**@Valid @ModelAttribute("pet") Pet pet**, BindingResult result) {
 
-    if (result.hasErrors()) {
-        return "petForm";
-    }
+	if (result.hasErrors()) {
+		return "petForm";
+	}
 
-    // ...
+	// ...
+
 }
 ----
 
@@ -29703,7 +29684,7 @@ attribute name:
 @RequestMapping("/editPet.do")
 **@SessionAttributes("pet")**
 public class EditPetForm {
-  // ...
+	// ...
 }
 ----
 
@@ -29762,18 +29743,18 @@ To support HTTP PUT and PATCH requests, the `spring-web` module provides the fil
 [subs="verbatim,quotes"]
 ----
 <filter>
-  <filter-name>httpPutFormFilter</filter-name>
-  <filter-class>org.springframework.web.filter.HttpPutFormContentFilter</filter-class>
+	<filter-name>httpPutFormFilter</filter-name>
+	<filter-class>org.springframework.web.filter.HttpPutFormContentFilter</filter-class>
 </filter>
 
 <filter-mapping>
-  <filter-name>httpPutFormFilter</filter-name>
-  <servlet-name>dispatcherServlet</servlet-name>
+	<filter-name>httpPutFormFilter</filter-name>
+	<servlet-name>dispatcherServlet</servlet-name>
 </filter-mapping>
 
 <servlet>
-  <servlet-name>dispatcherServlet</servlet-name>
-  <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+	<servlet-name>dispatcherServlet</servlet-name>
+	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 </servlet>
 ----
 
@@ -29810,8 +29791,8 @@ The following code sample demonstrates how to get the value of the `JSESSIONID` 
 [subs="verbatim,quotes"]
 ----
 @RequestMapping("/displayHeaderInfo.do")
-public void displayHeaderInfo(**@CookieValue("JSESSIONID")** String cookie)  {
-    //...
+public void displayHeaderInfo(**@CookieValue("JSESSIONID")** String cookie) {
+	//...
 }
 ----
 
@@ -29847,8 +29828,8 @@ The following code sample demonstrates how to get the value of the `Accept-Encod
 ----
 @RequestMapping("/displayHeaderInfo.do")
 public void displayHeaderInfo(**@RequestHeader("Accept-Encoding")** String encoding,
-                              **@RequestHeader("Keep-Alive")** long keepAlive)  {
-    //...
+		**@RequestHeader("Keep-Alive")** long keepAlive)  {
+	//...
 }
 ----
 
@@ -29908,14 +29889,15 @@ The following example demonstrates the use of `@InitBinder` to configure a
 @Controller
 public class MyFormController {
 
-    **@InitBinder**
-    public void initBinder(WebDataBinder binder) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        dateFormat.setLenient(false);
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
-    }
+	**@InitBinder**
+	public void initBinder(WebDataBinder binder) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		dateFormat.setLenient(false);
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
+	}
 
-    // ...
+	// ...
+
 }
 ----
 
@@ -29936,10 +29918,10 @@ PropertyEditors required by several of the PetClinic controllers.
 [subs="verbatim,quotes"]
 ----
 <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
-    <property name="cacheSeconds" value="0" />
-    <property name="webBindingInitializer">
-        <bean class="org.springframework.samples.petclinic.web.ClinicBindingInitializer" />
-    </property>
+	<property name="cacheSeconds" value="0" />
+	<property name="webBindingInitializer">
+		<bean class="org.springframework.samples.petclinic.web.ClinicBindingInitializer" />
+	</property>
 </bean>
 ----
 
@@ -29963,16 +29945,16 @@ controller method can achieve that as follows:
 @RequestMapping
 public String myHandleMethod(WebRequest webRequest, Model model) {
 
-    long lastModified = // 1. application-specific calculation
+	long lastModified = // 1. application-specific calculation
 
-    if (request.checkNotModified(lastModified)) {
-        // 2. shortcut exit - no further processing necessary
-        return null;
-     }
+	if (request.checkNotModified(lastModified)) {
+		// 2. shortcut exit - no further processing necessary
+		return null;
+	}
 
-    // 3. or otherwise further request processing, actually preparing content
-    model.addAttribute(...);
-    return "myViewName";
+	// 3. or otherwise further request processing, actually preparing content
+	model.addAttribute(...);
+	return "myViewName";
 }
 ----
 
@@ -30032,12 +30014,13 @@ is an example controller method:
 @RequestMapping(method=RequestMethod.POST)
 public Callable<String> processUpload(final MultipartFile file) {
 
-  return new Callable<String>() {
-    public String call() throws Exception {
-      // ...
-      return "someView";
-    }
-  };
+	return new Callable<String>() {
+		public String call() throws Exception {
+			// ...
+			return "someView";
+		}
+	};
+
 }
 ----
 
@@ -30053,9 +30036,9 @@ controller method:
 @RequestMapping("/quotes")
 @ResponseBody
 public DeferredResult<String> quotes() {
-  DeferredResult<String> deferredResult = new DeferredResult<String>();
-  // Save the deferredResult in in-memory queue ...
-  return deferredResult;
+	DeferredResult<String> deferredResult = new DeferredResult<String>();
+	// Save the deferredResult in in-memory queue ...
+	return deferredResult;
 }
 
 // In some other thread...
@@ -30163,14 +30146,13 @@ To use Servlet 3 async request processing, you need to update `web.xml` to versi
 [subs="verbatim,quotes"]
 ----
 <web-app xmlns="http://java.sun.com/xml/ns/javaee"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-    version="3.0">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0">
 
-    ...
+	...
 
-  </web-app>
-
+</web-app>
 ----
 
 The `DispatcherServlet` and any `Filter` configuration need to have the
@@ -30251,12 +30233,11 @@ The following example shows how to configure an interceptor:
 [subs="verbatim,quotes"]
 ----
 <beans>
-  <bean id="handlerMapping" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
-    <property name="interceptors">
-      <bean class="example.MyInterceptor"/>
-    </property>
-  </bean>
-
+	<bean id="handlerMapping" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+		<property name="interceptors">
+			<bean class="example.MyInterceptor"/>
+		</property>
+	</bean>
 <beans>
 ----
 
@@ -30291,20 +30272,20 @@ the example below:
 [subs="verbatim,quotes"]
 ----
 <beans>
-    <bean id="handlerMapping"
-          class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
-        <property name="interceptors">
-            <list>
-                <ref bean="officeHoursInterceptor"/>
-            </list>
-        </property>
-    </bean>
+	<bean id="handlerMapping"
+			class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+		<property name="interceptors">
+			<list>
+				<ref bean="officeHoursInterceptor"/>
+			</list>
+		</property>
+	</bean>
 
-    <bean id="officeHoursInterceptor"
-          class="samples.TimeBasedAccessInterceptor">
-        <property name="openingTime" value="9"/>
-        <property name="closingTime" value="18"/>
-    </bean>
+	<bean id="officeHoursInterceptor"
+			class="samples.TimeBasedAccessInterceptor">
+		<property name="openingTime" value="9"/>
+		<property name="closingTime" value="18"/>
+	</bean>
 <beans>
 ----
 
@@ -30315,31 +30296,27 @@ package samples;
 
 public class TimeBasedAccessInterceptor extends HandlerInterceptorAdapter {
 
-    private int openingTime;
-    private int closingTime;
+	private int openingTime;
+	private int closingTime;
 
-    public void setOpeningTime(int openingTime) {
-        this.openingTime = openingTime;
-    }
+	public void setOpeningTime(int openingTime) {
+		this.openingTime = openingTime;
+	}
 
-    public void setClosingTime(int closingTime) {
-        this.closingTime = closingTime;
-    }
+	public void setClosingTime(int closingTime) {
+		this.closingTime = closingTime;
+	}
 
-    public boolean preHandle(
-            HttpServletRequest request,
-            HttpServletResponse response,
-            Object handler) throws Exception {
-
-        Calendar cal = Calendar.getInstance();
-        int hour = cal.get(HOUR_OF_DAY);
-        if (openingTime <= hour && hour < closingTime) {
-            return true;
-        } else {
-            response.sendRedirect("http://host.com/outsideOfficeHours.html");
-            return false;
-        }
-    }
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
+			Object handler) throws Exception {
+		Calendar cal = Calendar.getInstance();
+		int hour = cal.get(HOUR_OF_DAY);
+		if (openingTime <= hour && hour < closingTime) {
+			return true;
+		}
+		response.sendRedirect("http://host.com/outsideOfficeHours.html");
+		return false;
+	}
 }
 ----
 
@@ -30441,10 +30418,10 @@ RequestDispatcher to render the view.
 [subs="verbatim,quotes"]
 ----
 <bean id="viewResolver"
-      class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-    <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
-    <property name="prefix" value="/WEB-INF/jsp/"/>
-    <property name="suffix" value=".jsp"/>
+		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+	<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+	<property name="prefix" value="/WEB-INF/jsp/"/>
+	<property name="suffix" value=".jsp"/>
 </bean>
 ----
 
@@ -30458,9 +30435,9 @@ When you combine different view technologies in a web application, you can use t
 [subs="verbatim,quotes"]
 ----
 <bean id="viewResolver"
-      class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
-    <property name="basename" value="views"/>
-    <property name="defaultParentView" value="parentView"/>
+		class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
+	<property name="basename" value="views"/>
+	<property name="defaultParentView" value="parentView"/>
 </bean>
 ----
 
@@ -30499,20 +30476,20 @@ are not supported by the `InternalResourceViewResolver`.
 [subs="verbatim,quotes"]
 ----
 <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-  <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
-  <property name="prefix" value="/WEB-INF/jsp/"/>
-  <property name="suffix" value=".jsp"/>
+	<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+	<property name="prefix" value="/WEB-INF/jsp/"/>
+	<property name="suffix" value=".jsp"/>
 </bean>
 
 <bean id="excelViewResolver" class="org.springframework.web.servlet.view.XmlViewResolver">
-  <property name="order" value="1"/>
-  <property name="location" value="/WEB-INF/views.xml"/>
+	<property name="order" value="1"/>
+	<property name="location" value="/WEB-INF/views.xml"/>
 </bean>
 
 <!-- in views.xml -->
 
 <beans>
-  <bean name="report" class="org.springframework.example.ReportExcelView"/>
+	<bean name="report" class="org.springframework.example.ReportExcelView"/>
 </beans>
 ----
 
@@ -30594,8 +30571,8 @@ through `Model` nor `RedirectAttributes`. For example:
 ----
 @RequestMapping(value = "/files/{path}", method = RequestMethod.POST)
 public String upload(...) {
-    // ...
-    return "redirect:files/{path}";
+	// ...
+	return "redirect:files/{path}";
 }
 ----
 
@@ -30708,27 +30685,27 @@ Here is an example configuration of a `ContentNegotiatingViewResolver:`
 [subs="verbatim,quotes"]
 ----
 <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
-  <property name="mediaTypes">
-    <map>
-      <entry key="atom" value="application/atom+xml"/>
-      <entry key="html" value="text/html"/>
-      <entry key="json" value="application/json"/>
-    </map>
-  </property>
-  <property name="viewResolvers">
-    <list>
-      <bean class="org.springframework.web.servlet.view.BeanNameViewResolver"/>
-      <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/WEB-INF/jsp/"/>
-        <property name="suffix" value=".jsp"/>
-      </bean>
-    </list>
-  </property>
-  <property name="defaultViews">
-    <list>
-      <bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />
-    </list>
-  </property>
+	<property name="mediaTypes">
+		<map>
+			<entry key="atom" value="application/atom+xml"/>
+			<entry key="html" value="text/html"/>
+			<entry key="json" value="application/json"/>
+		</map>
+	</property>
+	<property name="viewResolvers">
+		<list>
+			<bean class="org.springframework.web.servlet.view.BeanNameViewResolver"/>
+			<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+				<property name="prefix" value="/WEB-INF/jsp/"/>
+				<property name="suffix" value=".jsp"/>
+			</bean>
+		</list>
+	</property>
+	<property name="defaultViews">
+		<list>
+			<bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />
+		</list>
+	</property>
 </bean>
 
 <bean id="content" class="com.springsource.samples.rest.SampleContentAtomView"/>
@@ -30770,15 +30747,15 @@ application/atom+xml is shown below.
 @Controller
 public class ContentController {
 
-    private List<SampleContent> contentList = new ArrayList<SampleContent>();
+	private List<SampleContent> contentList = new ArrayList<SampleContent>();
 
-    @RequestMapping(value="/content", method=RequestMethod.GET)
-    public ModelAndView getContent() {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("content");
-        mav.addObject("sampleContentList", contentList);
-        return mav;
-    }
+	@RequestMapping(value="/content", method=RequestMethod.GET)
+	public ModelAndView getContent() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("content");
+		mav.addObject("sampleContentList", contentList);
+		return mav;
+	}
 
 }
 ----
@@ -30844,8 +30821,8 @@ For example you can expand and encode a URI template string:
 [source,java]
 [subs="verbatim,quotes"]
 ----
-UriComponents uriComponents =
-        UriComponentsBuilder.fromUriString("http://example.com/hotels/{hotel}/bookings/{booking}").build();
+UriComponents uriComponents = UriComponentsBuilder.fromUriString(
+		"http://example.com/hotels/{hotel}/bookings/{booking}").build();
 
 URI uri = uriComponents.expand("42", "21").encode().toUri();
 ----
@@ -30858,11 +30835,10 @@ You can also expand and encode using individual URI components:
 [source,java]
 [subs="verbatim,quotes"]
 ----
-UriComponents uriComponents =
-        UriComponentsBuilder.newInstance()
-            .scheme("http").host("example.com").path("/hotels/{hotel}/bookings/{booking}").build()
-            .expand("42", "21")
-            .encode();
+UriComponents uriComponents = UriComponentsBuilder.newInstance()
+		.scheme("http").host("example.com").path("/hotels/{hotel}/bookings/{booking}").build()
+		.expand("42", "21")
+		.encode();
 ----
 
 In a Servlet environment the `ServletUriComponentsBuilder` sub-class provides static
@@ -30876,10 +30852,10 @@ HttpServletRequest request = ...
 // Re-use host, scheme, port, path and query string
 // Replace the "accountId" query param
 
-ServletUriComponentsBuilder ucb =
-        ServletUriComponentsBuilder.fromRequest(request).replaceQueryParam("accountId", "{id}").build()
-            .expand("123")
-            .encode();
+ServletUriComponentsBuilder ucb = ServletUriComponentsBuilder.fromRequest(request)
+		.replaceQueryParam("accountId", "{id}").build()
+		.expand("123")
+		.encode();
 ----
 
 Alternatively, you may choose to copy a subset of the available information up to and
@@ -30891,8 +30867,8 @@ including the context path:
 // Re-use host, port and context path
 // Append "/accounts" to the path
 
-ServletUriComponentsBuilder ucb =
-        ServletUriComponentsBuilder.fromContextPath(request).path("/accounts").build()
+ServletUriComponentsBuilder ucb = ServletUriComponentsBuilder.fromContextPath(request)
+		.path("/accounts").build()
 ----
 
 Or in cases where the `DispatcherServlet` is mapped by name (e.g. `/main/*`), you can
@@ -30905,8 +30881,8 @@ also have the literal part of the servlet mapping included:
 // Append the literal part of the servlet mapping to the path
 // Append "/accounts" to the path
 
-ServletUriComponentsBuilder ucb =
-        ServletUriComponentsBuilder.fromServletMapping(request).path("/accounts").build()
+ServletUriComponentsBuilder ucb = ServletUriComponentsBuilder.fromServletMapping(request)
+		.path("/accounts").build()
 ----
 
 
@@ -30956,10 +30932,10 @@ below an example of defining a `CookieLocaleResolver`.
 ----
 <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
 
-    <property name="cookieName" value="clientlanguage"/>
+	<property name="cookieName" value="clientlanguage"/>
 
-    <!-- in seconds. If set to -1, the cookie is not persisted (deleted when browser shuts down) -->
-    <property name="cookieMaxAge" value="100000">
+	<!-- in seconds. If set to -1, the cookie is not persisted (deleted when browser shuts down) -->
+	<property name="cookieMaxAge" value="100000">
 
 </bean>
 ----
@@ -31011,23 +30987,23 @@ change the site language to Dutch.
 [subs="verbatim,quotes"]
 ----
 <bean id="localeChangeInterceptor"
-      class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
-    <property name="paramName" value="siteLanguage"/>
+		class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+	<property name="paramName" value="siteLanguage"/>
 </bean>
 
 <bean id="localeResolver"
-      class="org.springframework.web.servlet.i18n.CookieLocaleResolver"/>
+		class="org.springframework.web.servlet.i18n.CookieLocaleResolver"/>
 
 <bean id="urlMapping"
-      class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-    <property name="interceptors">
-        <list>
-            <ref bean="localeChangeInterceptor"/>
-        </list>
-    </property>
-    <property name="mappings">
-        <value>/**/*.view=someController</value>
-    </property>
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+	<property name="interceptors">
+		<list>
+			<ref bean="localeChangeInterceptor"/>
+		</list>
+	</property>
+	<property name="mappings">
+		<value>/**/*.view=someController</value>
+	</property>
 </bean>
 ----
 
@@ -31080,12 +31056,12 @@ defined in the previous example to customize the look and feel:
 ----
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <html>
-   <head>
-      <link rel="stylesheet" href="<spring:theme code='styleSheet'/>" type="text/css"/>
-   </head>
-   <body style="background=<spring:theme code='background'/>">
-      ...
-   </body>
+	<head>
+		<link rel="stylesheet" href="<spring:theme code='styleSheet'/>" type="text/css"/>
+	</head>
+	<body style="background=<spring:theme code='background'/>">
+		...
+	</body>
 </html>
 ----
 
@@ -31162,10 +31138,11 @@ The following example shows how to use the `CommonsMultipartResolver`:
 [subs="verbatim,quotes"]
 ----
 <bean id="multipartResolver"
-    class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 
-    <!-- one of the properties available; the maximum file size in bytes -->
-    <property name="maxUploadSize" value="100000"/>
+	<!-- one of the properties available; the maximum file size in bytes -->
+	<property name="maxUploadSize" value="100000"/>
+
 </bean>
 ----
 
@@ -31200,7 +31177,7 @@ you can add the `StandardServletMultipartResolver` to your Spring configuration:
 [subs="verbatim,quotes"]
 ----
 <bean id="multipartResolver"
-    class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
+		class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
 </bean>
 ----
 
@@ -31217,17 +31194,17 @@ encode the form as multipart request:
 [subs="verbatim,quotes"]
 ----
 <html>
-    <head>
-        <title>Upload a file please</title>
-    </head>
-    <body>
-        <h1>Please upload a file</h1>
-        <form method="post" action="/form" enctype="multipart/form-data">
-            <input type="text" name="name"/>
-            <input type="file" name="file"/>
-            <input type="submit"/>
-        </form>
-    </body>
+	<head>
+		<title>Upload a file please</title>
+	</head>
+	<body>
+		<h1>Please upload a file</h1>
+		<form method="post" action="/form" enctype="multipart/form-data">
+			<input type="text" name="name"/>
+			<input type="file" name="file"/>
+			<input type="submit"/>
+		</form>
+	</body>
 </html>
 ----
 
@@ -31241,18 +31218,18 @@ use `MultipartHttpServletRequest` or `MultipartFile` in the method parameters:
 @Controller
 public class FileUploadController {
 
-    @RequestMapping(value = "/form", method = RequestMethod.POST)
-    public String handleFormUpload(@RequestParam("name") String name,
-        @RequestParam("file") MultipartFile file) {
+	@RequestMapping(value = "/form", method = RequestMethod.POST)
+	public String handleFormUpload(@RequestParam("name") String name,
+			@RequestParam("file") MultipartFile file) {
 
-        if (!file.isEmpty()) {
-            byte[] bytes = file.getBytes();
-            // store the bytes somewhere
-           return "redirect:uploadSuccess";
-       } else {
-           return "redirect:uploadFailure";
-       }
-    }
+		if (!file.isEmpty()) {
+			byte[] bytes = file.getBytes();
+			// store the bytes somewhere
+			return "redirect:uploadSuccess";
+		}
+
+		return "redirect:uploadFailure";
+	}
 
 }
 ----
@@ -31270,15 +31247,15 @@ the method parameter:
 @Controller
 public class FileUploadController {
 
-    @RequestMapping(value = "/form", method = RequestMethod.POST)
-    public String handleFormUpload(@RequestParam("name") String name,
-        @RequestParam("file") Part file) {
+	@RequestMapping(value = "/form", method = RequestMethod.POST)
+	public String handleFormUpload(@RequestParam("name") String name,
+			@RequestParam("file") Part file) {
 
-        InputStream inputStream = file.getInputStream();
-        // store bytes from uploaded file somewhere
+		InputStream inputStream = file.getInputStream();
+		// store bytes from uploaded file somewhere
 
-        return "redirect:uploadSuccess";
-    }
+		return "redirect:uploadSuccess";
+	}
 
 }
 ----
@@ -31305,7 +31282,7 @@ Content-Type: application/json; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 {
-  "name": "value"
+	"name": "value"
 }
 --edt7Tfrdusa7r3lNQc79vXuhIIMlatb7PQg7Vp
 Content-Disposition: form-data; name="file-data"; filename="file.properties"
@@ -31330,8 +31307,9 @@ multipart:
 ----
 @RequestMapping(value="/someUrl", method = RequestMethod.POST)
 public String onSubmit(**@RequestPart("meta-data") MetaData metadata,
-                       @RequestPart("file-data") MultipartFile file**) {
-    // ...
+		@RequestPart("file-data") MultipartFile file**) {
+
+	// ...
 
 }
 ----
@@ -31350,7 +31328,7 @@ converted with the help of the `MappingJackson2HttpMessageConverter`.
 
 
 [[mvc-exceptionhandlers-resolver]]
-====  HandlerExceptionResolver
+==== HandlerExceptionResolver
 
 Spring `HandlerExceptionResolver` implementations deal with unexpected exceptions that
 occur during controller execution. A `HandlerExceptionResolver` somewhat resembles the
@@ -31376,7 +31354,7 @@ within an `@Controller` or may apply to many `@Controller` classes when defined 
 
 
 [[mvc-ann-exceptionhandler]]
-====  @ExceptionHandler
+==== @ExceptionHandler
 
 The `HandlerExceptionResolver` interface and the `SimpleMappingExceptionResolver`
 implementations allow you to map Exceptions to specific views declaratively along with
@@ -31398,15 +31376,13 @@ methods from many controllers. Below is an example of a controller-local
 @Controller
 public class SimpleController {
 
-  // @RequestMapping methods omitted ...
+	// @RequestMapping methods omitted ...
 
-  @ExceptionHandler(IOException.class)
-  public ResponseEntity<String> handleIOException(IOException ex) {
-
-    // prepare responseEntity
-
-    return responseEntity;
-  }
+	@ExceptionHandler(IOException.class)
+	public ResponseEntity<String> handleIOException(IOException ex) {
+		// prepare responseEntity
+		return responseEntity;
+	}
 
 }
 ----
@@ -31501,7 +31477,7 @@ response and write error content with message converters. See the Javadoc of
 
 
 [[mvc-ann-annotated-exceptions]]
-==== Annotating Business Exceptions With  @ResponseStatus
+==== Annotating Business Exceptions With @ResponseStatus
 
 A business exception can be annotated with `@ResponseStatus`. When the exception is
 raised, the `ResponseStatusExceptionResolver` handles it by setting the status of the
@@ -31524,7 +31500,7 @@ container error page.
 [subs="verbatim,quotes"]
 ----
 <error-page>
-    <location>/error</location>
+	<location>/error</location>
 </error-page>
 ----
 
@@ -31540,16 +31516,16 @@ When writing error information, the status code and the error message set on the
 @Controller
 public class ErrorController {
 
-    @RequestMapping(value="/error", produces="application/json")
-    @ResponseBody
-    public Map<String, Object> handle(HttpServletRequest request) {
+	@RequestMapping(value="/error", produces="application/json")
+	@ResponseBody
+	public Map<String, Object> handle(HttpServletRequest request) {
 
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("status", request.getAttribute("javax.servlet.error.status_code"));
-        map.put("reason", request.getAttribute("javax.servlet.error.message"));
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("status", request.getAttribute("javax.servlet.error.status_code"));
+		map.put("reason", request.getAttribute("javax.servlet.error.message"));
 
-        return map;
-    }
+		return map;
+	}
 
 }
 ----
@@ -31561,8 +31537,8 @@ or in a JSP:
 ----
 <%@ page contentType="application/json" pageEncoding="UTF-8"%>
 {
-   status:<%=request.getAttribute("javax.servlet.error.status_code") %>,
-   reason:<%=request.getAttribute("javax.servlet.error.message") %>
+	status:<%=request.getAttribute("javax.servlet.error.status_code") %>,
+	reason:<%=request.getAttribute("javax.servlet.error.message") %>
 }
 ----
 
@@ -31586,7 +31562,7 @@ views, and controllers.
 
 
 [[mvc-coc-ccnhm]]
-==== The Controller  ControllerClassNameHandlerMapping
+==== The Controller ControllerClassNameHandlerMapping
 
 The `ControllerClassNameHandlerMapping` class is a `HandlerMapping` implementation that
 uses a convention to determine the mapping between request URLs and the `Controller`
@@ -31600,9 +31576,10 @@ __name__ of the class.
 ----
 public class **ViewShoppingCartController** implements Controller {
 
-    public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) {
-        // the implementation is not hugely important for this example...
-    }
+	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) {
+		// the implementation is not hugely important for this example...
+	}
+
 }
 ----
 
@@ -31614,7 +31591,7 @@ Here is a snippet from the corresponding Spring Web MVC configuration file:
 <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"/>
 
 <bean id="**viewShoppingCart**" class="x.y.z.ViewShoppingCartController">
-    <!-- inject dependencies as required... -->
+	<!-- inject dependencies as required... -->
 </bean>
 ----
 
@@ -31662,18 +31639,18 @@ the following `Controller` implementation; notice that objects are added to the
 ----
 public class DisplayShoppingCartController implements Controller {
 
-    public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) {
 
-        List cartItems = // get a List of CartItem objects
-        User user = // get the User doing the shopping
+		List cartItems = // get a List of CartItem objects
+		User user = // get the User doing the shopping
 
-        ModelAndView mav = new ModelAndView("displayShoppingCart"); <-- the logical view name
+		ModelAndView mav = new ModelAndView("displayShoppingCart"); <-- the logical view name
 
-        mav.addObject(cartItems); <-- look ma, no name, just the object
-        mav.addObject(user); <-- and again ma!
+		mav.addObject(cartItems); <-- look ma, no name, just the object
+		mav.addObject(user); <-- and again ma!
 
-        return mav;
-    }
+		return mav;
+	}
 }
 ----
 
@@ -31723,7 +31700,7 @@ semantics of name generation for collections clearer:
 
 
 [[mvc-coc-r2vnt]]
-==== The View -  RequestToViewNameTranslator
+==== The View - RequestToViewNameTranslator
 
 The `RequestToViewNameTranslator` interface determines a logical `View` name when no
 such logical view name is explicitly supplied. It has just one implementation, the
@@ -31737,13 +31714,14 @@ with this example:
 ----
 public class RegistrationController implements Controller {
 
-    public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) {
-        // process the request...
-        ModelAndView mav = new ModelAndView();
-        // add data as necessary to the model...
-        return mav;
-        // notice that no View or logical view name has been set
-    }
+	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) {
+		// process the request...
+		ModelAndView mav = new ModelAndView();
+		// add data as necessary to the model...
+		return mav;
+		// notice that no View or logical view name has been set
+	}
+
 }
 ----
 
@@ -31752,26 +31730,26 @@ public class RegistrationController implements Controller {
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="
-        http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <!-- this bean with the well known name generates view names for us -->
-    <bean id="viewNameTranslator"
-        class="org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator"/>
+	<!-- this bean with the well known name generates view names for us -->
+	<bean id="viewNameTranslator"
+			class="org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator"/>
 
-    <bean class="x.y.RegistrationController">
-        <!-- inject dependencies as necessary -->
-    </bean>
+	<bean class="x.y.RegistrationController">
+		<!-- inject dependencies as necessary -->
+	</bean>
 
-    <!-- maps request URLs to Controller names -->
-    <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"/>
+	<!-- maps request URLs to Controller names -->
+	<bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"/>
 
-    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/WEB-INF/jsp/"/>
-        <property name="suffix" value=".jsp"/>
-    </bean>
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
 
 </beans>
 ----
@@ -31829,13 +31807,13 @@ You configure the `ShallowEtagHeaderFilter` in `web.xml`:
 [subs="verbatim,quotes"]
 ----
 <filter>
-  <filter-name>etagFilter</filter-name>
-    <filter-class>org.springframework.web.filter.ShallowEtagHeaderFilter</filter-class>
+	<filter-name>etagFilter</filter-name>
+	<filter-class>org.springframework.web.filter.ShallowEtagHeaderFilter</filter-class>
 </filter>
 
 <filter-mapping>
-  <filter-name>etagFilter</filter-name>
-  <servlet-name>petclinic</servlet-name>
+	<filter-name>etagFilter</filter-name>
+	<servlet-name>petclinic</servlet-name>
 </filter-mapping>
 ----
 
@@ -31844,7 +31822,7 @@ You configure the `ShallowEtagHeaderFilter` in `web.xml`:
 
 [[mvc-container-config]]
 === Code-based Servlet container initialization
-In a Servlet 3.0+ environment, you  have the option of configuring the Servlet container
+In a Servlet 3.0+ environment, you have the option of configuring the Servlet container
 programmatically as an alternative or in combination with a `web.xml` file. Below is an
 example of registering a `DispatcherServlet`:
 
@@ -31855,15 +31833,15 @@ import org.springframework.web.WebApplicationInitializer;
 
 public class MyWebApplicationInitializer implements WebApplicationInitializer {
 
-    @Override
-    public void onStartup(ServletContext container) {
-        XmlWebApplicationContext appContext = new XmlWebApplicationContext();
-        appContext.setConfigLocation("/WEB-INF/spring/dispatcher-config.xml");
+	@Override
+	public void onStartup(ServletContext container) {
+		XmlWebApplicationContext appContext = new XmlWebApplicationContext();
+		appContext.setConfigLocation("/WEB-INF/spring/dispatcher-config.xml");
 
-        ServletRegistration.Dynamic registration = container.addServlet("dispatcher", new DispatcherServlet(appContext));
-        registration.setLoadOnStartup(1);
-        registration.addMapping("/");
-    }
+		ServletRegistration.Dynamic registration = container.addServlet("dispatcher", new DispatcherServlet(appContext));
+		registration.setLoadOnStartup(1);
+		registration.addMapping("/");
+	}
 
 }
 ----
@@ -31880,20 +31858,20 @@ location of the `DispatcherServlet` configuration:
 ----
 public class MyWebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
-    @Override
-    protected Class<?>[] getRootConfigClasses() {
-        return null;
-    }
+	@Override
+	protected Class<?>[] getRootConfigClasses() {
+		return null;
+	}
 
-    @Override
-    protected Class<?>[] getServletConfigClasses() {
-        return new Class[] { MyWebConfig.class };
-    }
+	@Override
+	protected Class<?>[] getServletConfigClasses() {
+		return new Class[] { MyWebConfig.class };
+	}
 
-    @Override
-    protected String[] getServletMappings() {
-        return new String[] { "/" };
-    }
+	@Override
+	protected String[] getServletMappings() {
+		return new String[] { "/" };
+	}
 
 }
 ----
@@ -31907,22 +31885,22 @@ using XML-based Spring configuration, extend directly from
 ----
 public class MyWebAppInitializer extends AbstractDispatcherServletInitializer {
 
-    @Override
-    protected WebApplicationContext createRootApplicationContext() {
-        return null;
-    }
+	@Override
+	protected WebApplicationContext createRootApplicationContext() {
+		return null;
+	}
 
-    @Override
-    protected WebApplicationContext createServletApplicationContext() {
-        XmlWebApplicationContext cxt = new XmlWebApplicationContext();
-        cxt.setConfigLocation("/WEB-INF/spring/dispatcher-config.xml");
-        return cxt;
-    }
+	@Override
+	protected WebApplicationContext createServletApplicationContext() {
+		XmlWebApplicationContext cxt = new XmlWebApplicationContext();
+		cxt.setConfigLocation("/WEB-INF/spring/dispatcher-config.xml");
+		return cxt;
+	}
 
-    @Override
-    protected String[] getServletMappings() {
-        return new String[] { "/" };
-    }
+	@Override
+	protected String[] getServletMappings() {
+		return new String[] { "/" };
+	}
 
 }
 ----
@@ -31935,12 +31913,12 @@ instances and have them automatically mapped to the `DispatcherServlet`:
 ----
 public class MyWebAppInitializer extends AbstractDispatcherServletInitializer {
 
-    // ...
+	// ...
 
-    @Override
-    protected Filter[] getServletFilters() {
-        return new Filter[] { new HiddenHttpMethodFilter(), new CharacterEncodingFilter() };
-    }
+	@Override
+	protected Filter[] getServletFilters() {
+		return new Filter[] { new HiddenHttpMethodFilter(), new CharacterEncodingFilter() };
+	}
 
 }
 ----
@@ -31997,15 +31975,15 @@ To achieve the same in XML use the `mvc:annotation-driven` element:
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:mvc="http://www.springframework.org/schema/mvc"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="
-        http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/mvc
-        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <mvc:annotation-driven />
+	<mvc:annotation-driven />
 
 </beans>
 ----
@@ -32067,15 +32045,15 @@ further details:
 @EnableWebMvc
 public class WebConfig extends WebMvcConfigurerAdapter {
 
-  @Override
-  protected void addFormatters(FormatterRegistry registry) {
-    // Add formatters and/or converters
-  }
+	@Override
+	protected void addFormatters(FormatterRegistry registry) {
+		// Add formatters and/or converters
+	}
 
-  @Override
-  public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-    // Configure the list of HttpMessageConverters to use
-  }
+	@Override
+	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+		// Configure the list of HttpMessageConverters to use
+	}
 
 }
 ----
@@ -32090,19 +32068,19 @@ available. The sample below shows a subset of what is available:
 [subs="verbatim,quotes"]
 ----
 <mvc:annotation-driven conversion-service="conversionService">
-    <mvc:message-converters>
-        <bean class="org.example.MyHttpMessageConverter"/>
-        <bean class="org.example.MyOtherHttpMessageConverter"/>
-    </mvc:message-converters>
+	<mvc:message-converters>
+		<bean class="org.example.MyHttpMessageConverter"/>
+		<bean class="org.example.MyOtherHttpMessageConverter"/>
+	</mvc:message-converters>
 </mvc:annotation-driven>
 
 <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
-    <property name="formatters">
-        <list>
-            <bean class="org.example.MyFormatter"/>
-            <bean class="org.example.MyOtherFormatter"/>
-        </list>
-    </property>
+	<property name="formatters">
+		<list>
+			<bean class="org.example.MyFormatter"/>
+			<bean class="org.example.MyOtherFormatter"/>
+		</list>
+	</property>
 </bean>
 ----
 
@@ -32122,12 +32100,12 @@ An example of registering interceptors in Java:
 @EnableWebMvc
 public class WebConfig extends WebMvcConfigurerAdapter {
 
-  @Override
-  public void addInterceptors(InterceptorRegistry registry) {
-    registry.addInterceptor(new LocaleInterceptor());
-    registry.addInterceptor(new ThemeInterceptor()).addPathPatterns("/**").excludePathPatterns("/admin/**");
-    registry.addInterceptor(new SecurityInterceptor()).addPathPatterns("/secure/*");
- }
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(new LocaleInterceptor());
+		registry.addInterceptor(new ThemeInterceptor()).addPathPatterns("/**").excludePathPatterns("/admin/**");
+		registry.addInterceptor(new SecurityInterceptor()).addPathPatterns("/secure/*");
+	}
 
 }
 ----
@@ -32138,16 +32116,16 @@ And in XML use the `<mvc:interceptors>` element:
 [subs="verbatim,quotes"]
 ----
 <mvc:interceptors>
-    <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" />
-    <mvc:interceptor>
-        <mvc:mapping path="/**"/>
-        <mvc:exclude-mapping path="/admin/**"/>
-        <bean class="org.springframework.web.servlet.theme.ThemeChangeInterceptor" />
-    </mvc:interceptor>
-    <mvc:interceptor>
-        <mvc:mapping path="/secure/*"/>
-        <bean class="org.example.SecurityInterceptor" />
-    </mvc:interceptor>
+	<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" />
+	<mvc:interceptor>
+		<mvc:mapping path="/**"/>
+		<mvc:exclude-mapping path="/admin/**"/>
+		<bean class="org.springframework.web.servlet.theme.ThemeChangeInterceptor" />
+	</mvc:interceptor>
+	<mvc:interceptor>
+		<mvc:mapping path="/secure/*"/>
+		<bean class="org.example.SecurityInterceptor" />
+	</mvc:interceptor>
 </mvc:interceptors>
 ----
 
@@ -32185,10 +32163,10 @@ config:
 @EnableWebMvc
 public class WebConfig extends WebMvcConfigurerAdapter {
 
-  @Override
-  public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
-    configurer.favorPathExtension(false).favorParameter(true);
-  }
+	@Override
+	public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
+		configurer.favorPathExtension(false).favorParameter(true);
+	}
 }
 ----
 
@@ -32202,14 +32180,14 @@ that in turn can be created with a `ContentNegotiationManagerFactoryBean`:
 <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager" />
 
 <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
-    <property name="favorPathExtension" value="false" />
-    <property name="favorParameter" value="true" />
-    <property name="mediaTypes" >
-        <value>
-            json=application/json
-            xml=application/xml
-        </value>
-    </property>
+	<property name="favorPathExtension" value="false" />
+	<property name="favorParameter" value="true" />
+	<property name="mediaTypes" >
+		<value>
+			json=application/json
+			xml=application/xml
+		</value>
+	</property>
 </bean>
 ----
 
@@ -32246,10 +32224,10 @@ An example of forwarding a request for `"/"` to a view called `"home"` in Java:
 @EnableWebMvc
 public class WebConfig extends WebMvcConfigurerAdapter {
 
-  @Override
-  public void addViewControllers(ViewControllerRegistry registry) {
-    registry.addViewController("/").setViewName("home");
-  }
+	@Override
+	public void addViewControllers(ViewControllerRegistry registry) {
+		registry.addViewController("/").setViewName("home");
+	}
 
 }
 ----
@@ -32285,10 +32263,10 @@ to serve resource requests with a URL pattern of `/resources/**` from a
 @EnableWebMvc
 public class WebConfig extends WebMvcConfigurerAdapter {
 
-  @Override
-  public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    registry.addResourceHandler("/resources/**").addResourceLocations("/public-resources/");
-  }
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/resources/**").addResourceLocations("/public-resources/");
+	}
 
 }
 ----
@@ -32311,10 +32289,10 @@ browser cache and a reduction in HTTP requests made by the browser:
 @EnableWebMvc
 public class WebConfig extends WebMvcConfigurerAdapter {
 
-  @Override
-  public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    registry.addResourceHandler("/resources/**").addResourceLocations("/public-resources/").setCachePeriod(31556926);
-  }
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/resources/**").addResourceLocations("/public-resources/").setCachePeriod(31556926);
+	}
 
 }
 ----
@@ -32342,11 +32320,11 @@ serving of resources from both the web application root and from a known path of
 @Configuration
 public class WebConfig extends WebMvcConfigurerAdapter {
 
-  @Override
-  public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    registry.addResourceHandler("/resources/**")
-      .addResourceLocations("/", "classpath:/META-INF/public-web-resources/");
-  }
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/resources/**")
+				.addResourceLocations("/", "classpath:/META-INF/public-web-resources/");
+	}
 
 }
 ----
@@ -32410,12 +32388,13 @@ abstraction for access to all defined properties:
 @PropertySource("/WEB-INF/spring/application.properties")
 public class WebConfig extends WebMvcConfigurerAdapter {
 
-  @Inject Environment env;
+	@Inject Environment env;
 
-  @Override
-  public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    registry.addResourceHandler("/resources-" + env.getProperty("application.version") + "/**")
-      .addResourceLocations("/public-resources/");
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler(
+				"/resources-" + env.getProperty("application.version") + "/**")
+				.addResourceLocations("/public-resources/");
   }
 
 }
@@ -32430,7 +32409,7 @@ Spring JSP tags:
 <spring:eval expression="@applicationProps['application.version']" var="applicationVersion"/>
 
 <spring:url value="/resources-{applicationVersion}" var="resourceUrl">
-    <spring:param name="applicationVersion" value="${applicationVersion}"/>
+	<spring:param name="applicationVersion" value="${applicationVersion}"/>
 </spring:url>
 
 <script src="${resourceUrl}/dojo/dojo.js" type="text/javascript"> </script>
@@ -32461,10 +32440,10 @@ To enable the feature using the default setup use:
 @EnableWebMvc
 public class WebConfig extends WebMvcConfigurerAdapter {
 
-  @Override
-  public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-    configurer.enable();
-  }
+	@Override
+	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+		configurer.enable();
+	}
 
 }
 ----
@@ -32493,10 +32472,10 @@ then the default Servlet's name must be explicitly provided as in the following 
 @EnableWebMvc
 public class WebConfig extends WebMvcConfigurerAdapter {
 
-  @Override
-  public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-    configurer.enable("myCustomDefaultServlet");
-  }
+	@Override
+	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+		configurer.enable("myCustomDefaultServlet");
+	}
 
 }
 ----
@@ -32549,18 +32528,17 @@ example:
 @Configuration
 public class WebConfig extends WebMvcConfigurationSupport {
 
-  @Override
-  public void addInterceptors(InterceptorRegistry registry){
-    // ...
-  }
+	@Override
+	public void addInterceptors(InterceptorRegistry registry){
+		// ...
+	}
 
-  @Override
-  @Bean
-  public RequestMappingHandlerAdapter requestMappingHandlerAdapter() {
-
-      // Create or let "super" create the adapter
-      // Then customize one of its properties
-  }
+	@Override
+	@Bean
+	public RequestMappingHandlerAdapter requestMappingHandlerAdapter() {
+		// Create or let "super" create the adapter
+		// Then customize one of its properties
+	}
 
 }
 ----
@@ -32585,11 +32563,11 @@ by type and then modifying its properties as necessary. For example:
 @Component
 public class MyPostProcessor implements BeanPostProcessor {
 
-  public Object postProcessBeforeInitialization(Object bean, String name) throws BeansException {
-    if (bean instanceof RequestMappingHandlerAdapter) {
-      // Modify properties of the adapter
-    }
-  }
+	public Object postProcessBeforeInitialization(Object bean, String name) throws BeansException {
+		if (bean instanceof RequestMappingHandlerAdapter) {
+			// Modify properties of the adapter
+		}
+	}
 
 }
 ----
@@ -32652,7 +32630,7 @@ when developing with JSPs are the `InternalResourceViewResolver` and the
 ----
 <!-- the ResourceBundleViewResolver -->
 <bean id="viewResolver" class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
-  <property name="basename" value="views"/>
+	<property name="basename" value="views"/>
 </bean>
 
 # And a sample properties file is uses (views.properties in WEB-INF/classes):
@@ -32671,9 +32649,9 @@ can mix different types of views using only one resolver.
 [subs="verbatim,quotes"]
 ----
 <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-  <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
-  <property name="prefix" value="/WEB-INF/jsp/"/>
-  <property name="suffix" value=".jsp"/>
+	<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+	<property name="prefix" value="/WEB-INF/jsp/"/>
+	<property name="suffix" value=".jsp"/>
 </bean>
 ----
 
@@ -32754,22 +32732,22 @@ look like:
 [subs="verbatim,quotes"]
 ----
 <form:form>
-      <table>
-          <tr>
-              <td>First Name:</td>
-              <td><form:input path="firstName" /></td>
-          </tr>
-          <tr>
-              <td>Last Name:</td>
-              <td><form:input path="lastName" /></td>
-          </tr>
-          <tr>
-              <td colspan="2">
-                  <input type="submit" value="Save Changes" />
-              </td>
-          </tr>
-      </table>
-  </form:form>
+	<table>
+		<tr>
+			<td>First Name:</td>
+			<td><form:input path="firstName" /></td>
+		</tr>
+		<tr>
+			<td>Last Name:</td>
+			<td><form:input path="lastName" /></td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<input type="submit" value="Save Changes" />
+			</td>
+		</tr>
+	</table>
+</form:form>
 ----
 
 The `firstName` and `lastName` values are retrieved from the command object placed in
@@ -32782,22 +32760,22 @@ The generated HTML looks like a standard form:
 [subs="verbatim,quotes"]
 ----
 <form method="POST">
-      <table>
-        <tr>
-            <td>First Name:</td>
-            <td><input name="firstName" type="text" value="Harry"/></td>
-        </tr>
-        <tr>
-            <td>Last Name:</td>
-            <td><input name="lastName" type="text" value="Potter"/></td>
-        </tr>
-        <tr>
-            <td colspan="2">
-              <input type="submit" value="Save Changes" />
-            </td>
-        </tr>
-      </table>
-  </form>
+	<table>
+		<tr>
+			<td>First Name:</td>
+			<td><input name="firstName" type="text" value="Harry"/></td>
+		</tr>
+		<tr>
+			<td>Last Name:</td>
+			<td><input name="lastName" type="text" value="Potter"/></td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<input type="submit" value="Save Changes" />
+			</td>
+		</tr>
+	</table>
+</form>
 ----
 
 The preceding JSP assumes that the variable name of the form backing object is
@@ -32808,22 +32786,22 @@ The preceding JSP assumes that the variable name of the form backing object is
 [subs="verbatim,quotes"]
 ----
 <form:form commandName="user">
-      <table>
-          <tr>
-              <td>First Name:</td>
-              <td><form:input path="firstName" /></td>
-          </tr>
-          <tr>
-              <td>Last Name:</td>
-              <td><form:input path="lastName" /></td>
-          </tr>
-          <tr>
-              <td colspan="2">
-                  <input type="submit" value="Save Changes" />
-              </td>
-          </tr>
-      </table>
-  </form:form>
+	<table>
+		<tr>
+			<td>First Name:</td>
+			<td><form:input path="firstName" /></td>
+		</tr>
+		<tr>
+			<td>Last Name:</td>
+			<td><form:input path="lastName" /></td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<input type="submit" value="Save Changes" />
+			</td>
+		</tr>
+	</table>
+</form:form>
 ----
 
 
@@ -32849,36 +32827,34 @@ hobbies. Below is an example of the `Preferences` class:
 ----
 public class Preferences {
 
-      private boolean receiveNewsletter;
+	private boolean receiveNewsletter;
+	private String[] interests;
+	private String favouriteWord;
 
-      private String[] interests;
+	public boolean isReceiveNewsletter() {
+		return receiveNewsletter;
+	}
 
-      private String favouriteWord;
+	public void setReceiveNewsletter(boolean receiveNewsletter) {
+		this.receiveNewsletter = receiveNewsletter;
+	}
 
-      public boolean isReceiveNewsletter() {
-          return receiveNewsletter;
-      }
+	public String[] getInterests() {
+		return interests;
+	}
 
-      public void setReceiveNewsletter(boolean receiveNewsletter) {
-          this.receiveNewsletter = receiveNewsletter;
-      }
+	public void setInterests(String[] interests) {
+		this.interests = interests;
+	}
 
-      public String[] getInterests() {
-          return interests;
-      }
+	public String getFavouriteWord() {
+		return favouriteWord;
+	}
 
-      public void setInterests(String[] interests) {
-          this.interests = interests;
-      }
-
-      public String getFavouriteWord() {
-          return favouriteWord;
-      }
-
-      public void setFavouriteWord(String favouriteWord) {
-          this.favouriteWord = favouriteWord;
-      }
-  }
+	public void setFavouriteWord(String favouriteWord) {
+		this.favouriteWord = favouriteWord;
+	}
+}
 ----
 
 The `form.jsp` would look like:
@@ -32887,32 +32863,32 @@ The `form.jsp` would look like:
 [subs="verbatim,quotes"]
 ----
 <form:form>
-      <table>
-          <tr>
-              <td>Subscribe to newsletter?:</td>
-              <%-- Approach 1: Property is of type java.lang.Boolean --%>
-              <td><form:checkbox path="preferences.receiveNewsletter"/></td>
-          </tr>
+	<table>
+		<tr>
+			<td>Subscribe to newsletter?:</td>
+			<%-- Approach 1: Property is of type java.lang.Boolean --%>
+			<td><form:checkbox path="preferences.receiveNewsletter"/></td>
+		</tr>
 
-          <tr>
-              <td>Interests:</td>
-              <td>
-                  <%-- Approach 2: Property is of an array or of type java.util.Collection --%>
-                  Quidditch: <form:checkbox path="preferences.interests" value="Quidditch"/>
-                  Herbology: <form:checkbox path="preferences.interests" value="Herbology"/>
-                  Defence Against the Dark Arts: <form:checkbox path="preferences.interests"
-                      value="Defence Against the Dark Arts"/>
-              </td>
-          </tr>
-          <tr>
-              <td>Favourite Word:</td>
-              <td>
-                  <%-- Approach 3: Property is of type java.lang.Object --%>
-                  Magic: <form:checkbox path="preferences.favouriteWord" value="Magic"/>
-              </td>
-          </tr>
-      </table>
-  </form:form>
+		<tr>
+			<td>Interests:</td>
+			<%-- Approach 2: Property is of an array or of type java.util.Collection --%>
+			<td>
+				Quidditch: <form:checkbox path="preferences.interests" value="Quidditch"/>
+				Herbology: <form:checkbox path="preferences.interests" value="Herbology"/>
+				Defence Against the Dark Arts: <form:checkbox path="preferences.interests" value="Defence Against the Dark Arts"/>
+			</td>
+		</tr>
+
+		<tr>
+			<td>Favourite Word:</td>
+			<%-- Approach 3: Property is of type java.lang.Object --%>
+			<td>
+				Magic: <form:checkbox path="preferences.favouriteWord" value="Magic"/>
+			</td>
+		</tr>
+	</table>
+</form:form>
 ----
 
 There are 3 approaches to the `checkbox` tag which should meet all your checkbox needs.
@@ -32933,17 +32909,16 @@ HTML snippet of some checkboxes:
 [subs="verbatim,quotes"]
 ----
 <tr>
-      <td>Interests:</td>
-      <td>
-          Quidditch: <input name="preferences.interests" type="checkbox" value="Quidditch"/>
-          <input type="hidden" value="1" name="_preferences.interests"/>
-          Herbology: <input name="preferences.interests" type="checkbox" value="Herbology"/>
-          <input type="hidden" value="1" name="_preferences.interests"/>
-          Defence Against the Dark Arts: <input name="preferences.interests" type="checkbox"
-              value="Defence Against the Dark Arts"/>
-          <input type="hidden" value="1" name="_preferences.interests"/>
-      </td>
-  </tr>
+	<td>Interests:</td>
+	<td>
+		Quidditch: <input name="preferences.interests" type="checkbox" value="Quidditch"/>
+		<input type="hidden" value="1" name="_preferences.interests"/>
+		Herbology: <input name="preferences.interests" type="checkbox" value="Herbology"/>
+		<input type="hidden" value="1" name="_preferences.interests"/>
+		Defence Against the Dark Arts: <input name="preferences.interests" type="checkbox" value="Defence Against the Dark Arts"/>
+		<input type="hidden" value="1" name="_preferences.interests"/>
+	</td>
+</tr>
 ----
 
 What you might not expect to see is the additional hidden field after each checkbox.
@@ -32973,16 +32948,16 @@ the JSP using this tag:
 [subs="verbatim,quotes"]
 ----
 <form:form>
-      <table>
-          <tr>
-              <td>Interests:</td>
-              <td>
-                  <%-- Property is of an array or of type java.util.Collection --%>
-                  <form:checkboxes path="preferences.interests" items="${interestList}"/>
-              </td>
-          </tr>
-      </table>
-  </form:form>
+	<table>
+		<tr>
+			<td>Interests:</td>
+			<td>
+				<%-- Property is of an array or of type java.util.Collection --%>
+				<form:checkboxes path="preferences.interests" items="${interestList}"/>
+			</td>
+		</tr>
+	</table>
+</form:form>
 ----
 
 This example assumes that the "interestList" is a `List` available as a model attribute
@@ -33004,10 +32979,12 @@ but with different values.
 [subs="verbatim,quotes"]
 ----
 <tr>
-      <td>Sex:</td>
-      <td>Male: <form:radiobutton path="sex" value="M"/> <br/>
-          Female: <form:radiobutton path="sex" value="F"/> </td>
-  </tr>
+	<td>Sex:</td>
+	<td>
+		Male: <form:radiobutton path="sex" value="M"/> <br/>
+		Female: <form:radiobutton path="sex" value="F"/>
+	</td>
+</tr>
 ----
 
 
@@ -33028,9 +33005,9 @@ label using "itemLabel".
 [subs="verbatim,quotes"]
 ----
 <tr>
-      <td>Sex:</td>
-      <td><form:radiobuttons path="sex" items="${sexOptions}"/></td>
-  </tr>
+	<td>Sex:</td>
+	<td><form:radiobuttons path="sex" items="${sexOptions}"/></td>
+</tr>
 ----
 
 
@@ -33043,11 +33020,11 @@ This tag renders an HTML 'input' tag with type 'password' using the bound value.
 [subs="verbatim,quotes"]
 ----
 <tr>
-      <td>Password:</td>
-      <td>
-          <form:password path="password" />
-      </td>
-  </tr>
+	<td>Password:</td>
+	<td>
+		<form:password path="password" />
+	</td>
+</tr>
 ----
 
 Please note that by default, the password value is __not__ shown. If you do want the
@@ -33058,11 +33035,11 @@ true, like so.
 [subs="verbatim,quotes"]
 ----
 <tr>
-      <td>Password:</td>
-      <td>
-          <form:password path="password" value="^76525bvHGq" showPassword="true" />
-      </td>
-  </tr>
+	<td>Password:</td>
+	<td>
+		<form:password path="password" value="^76525bvHGq" showPassword="true" />
+	</td>
+</tr>
 ----
 
 
@@ -33078,9 +33055,9 @@ Let's assume a `User` has a list of skills.
 [subs="verbatim,quotes"]
 ----
 <tr>
-      <td>Skills:</td>
-      <td><form:select path="skills" items="${skills}"/></td>
-  </tr>
+	<td>Skills:</td>
+	<td><form:select path="skills" items="${skills}"/></td>
+</tr>
 ----
 
 If the `User's` skill were in Herbology, the HTML source of the 'Skills' row would look
@@ -33090,13 +33067,15 @@ like:
 [subs="verbatim,quotes"]
 ----
 <tr>
-      <td>Skills:</td>
-      <td><select name="skills" multiple="true">
-          <option value="Potions">Potions</option>
-          <option value="Herbology" selected="selected">Herbology</option>
-          <option value="Quidditch">Quidditch</option></select>
-      </td>
-  </tr>
+	<td>Skills:</td>
+	<td>
+		<select name="skills" multiple="true">
+			<option value="Potions">Potions</option>
+			<option value="Herbology" selected="selected">Herbology</option>
+			<option value="Quidditch">Quidditch</option>
+		</select>
+	</td>
+</tr>
 ----
 
 
@@ -33110,16 +33089,16 @@ value.
 [subs="verbatim,quotes"]
 ----
 <tr>
-      <td>House:</td>
-      <td>
-          <form:select path="house">
-              <form:option value="Gryffindor"/>
-              <form:option value="Hufflepuff"/>
-              <form:option value="Ravenclaw"/>
-              <form:option value="Slytherin"/>
-          </form:select>
-      </td>
-  </tr>
+	<td>House:</td>
+	<td>
+		<form:select path="house">
+			<form:option value="Gryffindor"/>
+			<form:option value="Hufflepuff"/>
+			<form:option value="Ravenclaw"/>
+			<form:option value="Slytherin"/>
+		</form:select>
+	</td>
+</tr>
 ----
 
 If the `User's` house was in Gryffindor, the HTML source of the 'House' row would look
@@ -33129,16 +33108,16 @@ like:
 [subs="verbatim,quotes"]
 ----
 <tr>
-      <td>House:</td>
-      <td>
-          <select name="house">
-              <option value="Gryffindor" selected="selected">Gryffindor</option>
-              <option value="Hufflepuff">Hufflepuff</option>
-              <option value="Ravenclaw">Ravenclaw</option>
-              <option value="Slytherin">Slytherin</option>
-          </select>
-      </td>
-   </tr>
+	<td>House:</td>
+	<td>
+		<select name="house">
+			<option value="Gryffindor" selected="selected">Gryffindor</option>
+			<option value="Hufflepuff">Hufflepuff</option>
+			<option value="Ravenclaw">Ravenclaw</option>
+			<option value="Slytherin">Slytherin</option>
+		</select>
+	</td>
+</tr>
 ----
 
 
