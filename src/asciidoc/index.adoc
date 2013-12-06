@@ -726,16 +726,16 @@ is your dependency declaration:
 
 And here's a sample log4j.properties for logging to the console:
 
-[source,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	log4j.rootCategory=INFO, stdout
+log4j.rootCategory=INFO, stdout
 
-	log4j.appender.stdout=org.apache.log4j.ConsoleAppender
-	log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
-	log4j.appender.stdout.layout.ConversionPattern=%d{ABSOLUTE} %5p %t %c{2}:%L - %m%n
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+log4j.appender.stdout.layout.ConversionPattern=%d{ABSOLUTE} %5p %t %c{2}:%L - %m%n
 
-	log4j.category.org.springframework.beans.factory=DEBUG
+log4j.category.org.springframework.beans.factory=DEBUG
 ----
 
 [[overview-native-jcl]]
@@ -1224,8 +1224,8 @@ In XML-based configuration metadata, you use the `id` and/or `name` attributes t
 specify the bean identifier(s). The `id` attribute allows you to specify exactly one id.
  Conventionally these names are alphanumeric ('myBean', 'fooService', etc), but may
 special characters as well. If you want to introduce other aliases to the bean, you can
-also specify them in the `name` attribute, separated by a comma ( `,`), semicolon (
-`;`), or white space. As a historical note, in versions prior to Spring 3.1, the `id`
+also specify them in the `name` attribute, separated by a comma (`,`), semicolon (`;`),
+or white space. As a historical note, in versions prior to Spring 3.1, the `id`
 attribute was typed as an `xsd:ID`, which constrained possible characters. As of 3.1,
 it is now `xsd:string`. Note that bean id uniqueness is still enforced by the
 container, though no longer by XML parsers.
@@ -1294,7 +1294,7 @@ creating a namespace), yet they refer to the same bean.
 
 .Java-configuration
 ****
-The `@Bean` annotation can be used to provide aliases if you are using Java-configuration,
+If you are using Java-configuration, the `@Bean` annotation can be used to provide aliases
 see <<beans-java-bean-annotation>> for details.
 ****
 
@@ -1435,6 +1435,7 @@ factory method itself with the `factory-method` attribute.
 [subs="verbatim,quotes"]
 ----
 	public class DefaultServiceLocator {
+
 		private static ClientService clientService = new ClientServiceImpl();
 		private DefaultServiceLocator() {}
 
@@ -1452,6 +1453,7 @@ One factory class can also hold more than one factory method as shown here:
 	<bean id="serviceLocator" class="examples.DefaultServiceLocator">
 		<!-- inject any dependencies required by this locator bean -->
 	</bean>
+
 	<bean id="clientService"
 		factory-bean="serviceLocator"
 		factory-method="createClientServiceInstance"/>
@@ -1465,6 +1467,7 @@ One factory class can also hold more than one factory method as shown here:
 [subs="verbatim,quotes"]
 ----
 	public class DefaultServiceLocator {
+
 		private static ClientService clientService = new ClientServiceImpl();
 		private static AccountService accountService = new AccountServiceImpl();
 
@@ -1477,6 +1480,7 @@ One factory class can also hold more than one factory method as shown here:
 		public AccountService createAccountServiceInstance() {
 			return accountService;
 		}
+
 	}
 ----
 
@@ -1552,6 +1556,7 @@ has no dependencies on container specific interfaces, base classes or annotation
 		}
 
 		// business logic that actually 'uses' the injected MovieFinder is omitted...
+
 	}
 ----
 
@@ -1573,6 +1578,7 @@ being instantiated. Consider the following class:
 		public Foo(Bar bar, Baz baz) {
 			// ...
 		}
+
 	}
 ----
 
@@ -1591,14 +1597,14 @@ element.
 		</bean>
 
 		<bean id="bar" class="x.y.Bar"/>
-		<bean id="baz" class="x.y.Baz"/>
 
+		<bean id="baz" class="x.y.Baz"/>
 	</beans>
 ----
 
 When another bean is referenced, the type is known, and matching can occur (as was the
 case with the preceding example). When a simple type is used, such as
-`<value>true<value>`, Spring cannot determine the type of the value, and so cannot match
+`<value>true</value>`, Spring cannot determine the type of the value, and so cannot match
 by type without help. Consider the following class:
 
 [source,java,indent=0]
@@ -1618,6 +1624,7 @@ by type without help. Consider the following class:
 			this.years = years;
 			this.ultimateAnswer = ultimateAnswer;
 		}
+
 	}
 ----
 
@@ -1690,6 +1697,7 @@ then have to look as follows:
 			this.years = years;
 			this.ultimateAnswer = ultimateAnswer;
 		}
+
 	}
 ----
 --
@@ -1719,6 +1727,7 @@ on container specific interfaces, base classes or annotations.
 		}
 
 		// business logic that actually 'uses' the injected MovieFinder is omitted...
+
 	}
 ----
 
@@ -1868,6 +1877,7 @@ part of a Spring XML configuration file specifies some bean definitions:
 		public void setIntegerProperty(int i) {
 			this.i = i;
 		}
+
 	}
 ----
 
@@ -1908,6 +1918,7 @@ in the XML file. The following example uses constructor-based DI:
 			this.beanTwo = yetAnotherBean;
 			this.i = i;
 		}
+
 	}
 ----
 
@@ -1950,6 +1961,7 @@ told to call a `static` factory method to return an instance of the object:
 			// some other operations...
 			return eb;
 		}
+
 	}
 ----
 
@@ -1975,20 +1987,19 @@ inline. Spring's XML-based configuration metadata supports sub-element types wit
 ===== Straight values (primitives, Strings, and so on)
 
 The `value` attribute of the `<property/>` element specifies a property or constructor
-argument as a human-readable string representation. <<beans-beans-conversion,As
-mentioned previously>>, JavaBeans `PropertyEditors` are used to convert these string
+argument as a human-readable string representation. Spring's
+<<core-convert-ConversionService-API, conversion service>> is used to convert these
 values from a `String` to the actual type of the property or argument.
 
 [source,xml,indent=0]
 [subs="verbatim,quotes"]
 ----
 	<bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-
-	<!-- results in a setDriverClassName(String) call -->
-	<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-	<property name="url" value="jdbc:mysql://localhost:3306/mydb"/>
-	<property name="username" value="root"/>
-	<property name="password" value="masterkaoli"/>
+		<!-- results in a setDriverClassName(String) call -->
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+		<property name="url" value="jdbc:mysql://localhost:3306/mydb"/>
+		<property name="username" value="root"/>
+		<property name="password" value="masterkaoli"/>
 	</bean>
 ----
 
@@ -2004,12 +2015,12 @@ XML configuration.
 		xsi:schemaLocation="http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource"
-		destroy-method="close"
-		p:driverClassName="com.mysql.jdbc.Driver"
-		p:url="jdbc:mysql://localhost:3306/mydb"
-		p:username="root"
-		p:password="masterkaoli"/>
+		<bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource"
+			destroy-method="close"
+			p:driverClassName="com.mysql.jdbc.Driver"
+			p:url="jdbc:mysql://localhost:3306/mydb"
+			p:username="root"
+			p:password="masterkaoli"/>
 
 	</beans>
 ----
@@ -2096,9 +2107,9 @@ validate the bean id earlier, at XML document parse time.
 	</property>
 ----
 
-A common place (at least in versions earlier than Spring 2.0) where the <idref/> element
+A common place (at least in versions earlier than Spring 2.0) where the `<idref/>` element
 brings value is in the configuration of <<aop-pfb-1,AOP interceptors>> in a
-`ProxyFactoryBean` bean definition. Using <idref/> elements when you specify the
+`ProxyFactoryBean` bean definition. Using `<idref/>` elements when you specify the
 interceptor names prevents you from misspelling an interceptor id.
 
 
@@ -2290,12 +2301,12 @@ and instantiated by the container, the resulting instance has an `adminEmails`
 `Properties` collection that contains the result of the merging of the child's
 `adminEmails` collection with the parent's `adminEmails` collection.
 
-[source,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	administrator=administrator@example.com
-	sales=sales@example.com
-	support=support@example.co.uk
+administrator=administrator@example.com
+sales=sales@example.com
+support=support@example.co.uk
 ----
 
 The child `Properties` collection's value set inherits all property elements from the
@@ -2317,16 +2328,15 @@ You cannot merge different collection types (such as a `Map` and a `List`), and 
 do attempt to do so an appropriate `Exception` is thrown. The `merge` attribute must be
 specified on the lower, inherited, child definition; specifying the `merge` attribute on
 a parent collection definition is redundant and will not result in the desired merging.
-The merging feature is available only in Spring 2.0 and later.
 
 [[beans-collection-elements-strongly-typed]]
-====== Strongly-typed collection (Java 5+ only)
-In Java 5 and later, you can use strongly typed collections (using generic types). That
-is, it is possible to declare a `Collection` type such that it can only contain `String`
-elements (for example). If you are using Spring to dependency-inject a strongly-typed
-`Collection` into a bean, you can take advantage of Spring's type-conversion support
-such that the elements of your strongly-typed `Collection` instances are converted to
-the appropriate type prior to being added to the `Collection`.
+====== Strongly-typed collection
+With the introduction of generic types in Java 5, you can use strongly typed collections.
+That is, it is possible to declare a `Collection` type such that it can only contain
+`String` elements (for example). If you are using Spring to dependency-inject a
+strongly-typed `Collection` into a bean, you can take advantage of Spring's
+type-conversion support such that the elements of your strongly-typed `Collection`
+instances are converted to the appropriate type prior to being added to the `Collection`.
 
 [source,java,indent=0]
 [subs="verbatim,quotes"]
@@ -2385,7 +2395,9 @@ The preceding example is equivalent to the following Java code:
 [subs="verbatim,quotes"]
 ----
 	<bean class="ExampleBean">
-		<property name="email"><null/></property>
+		<property name="email">
+			<null/>
+		</property>
 	</bean>
 ----
 
@@ -2561,7 +2573,7 @@ this to work, the `fred` property of `foo`, and the `bob` property of `fred` mus
 ==== Using depends-on
 
 If a bean is a dependency of another that usually means that one bean is set as a
-property of another. Typically you accomplish this with the<<beans-ref-element, `<ref/>`
+property of another. Typically you accomplish this with the <<beans-ref-element, `<ref/>`
 element>> in XML-based configuration metadata. However, sometimes dependencies between
 beans are less direct; for example, a static initializer in a class needs to be
 triggered, such as database driver registration. The `depends-on` attribute can
@@ -2974,7 +2986,6 @@ look like this:
 [subs="verbatim,quotes"]
 ----
 	<bean id="myValueCalculator" class="x.y.z.MyValueCalculator">
-
 		<!-- arbitrary method replacement -->
 		<replaced-method name="computeValue" replacer="replacementComputeValue">
 			<arg-type>String</arg-type>
@@ -3395,8 +3406,11 @@ Thus you need the following, correct and complete, configuration when injecting
 By default, when the Spring container creates a proxy for a bean that is marked up with
 the `<aop:scoped-proxy/>` element, __a CGLIB-based class proxy is created__.
 
-__Note: CGLIB proxies only intercept public method calls!__ Do not call non-public
+[NOTE]
+====
+CGLIB proxies only intercept public method calls! Do not call non-public
 methods on such a proxy; they will not be delegated to the scoped target object.
+====
 
 Alternatively, you can configure the Spring container to create standard JDK
 interface-based proxies for such scoped beans, by specifying `false` for the value of
@@ -3426,7 +3440,7 @@ see <<aop-proxying>>.
 
 [[beans-factory-scopes-custom]]
 ==== Custom scopes
-As of Spring 2.0, the bean scoping mechanism is extensible. You can define your own
+The bean scoping mechanism is extensible; You can define your own
 scopes, or even redefine existing scopes, although the latter is considered bad practice
 and you __cannot__ override the built-in `singleton` and `prototype` scopes.
 
@@ -3596,7 +3610,7 @@ to perform certain actions upon initialization and destruction of your beans.
 The JSR-250 `@PostConstruct` and `@PreDestroy` annotations are generally considered best
 practice for receiving lifecycle callbacks in a modern Spring application. Using these
 annotations means that your beans are not coupled to Spring specific interfaces. For
-details see<<beans-postconstruct-and-predestroy-annotations>>.
+details see <<beans-postconstruct-and-predestroy-annotations>>.
 
 If you don't want to use the JSR-250 annotations but you are still looking to remove
 coupling consider the use of init-method and destroy-method object definition metadata.
@@ -3629,7 +3643,7 @@ the container. The `InitializingBean` interface specifies a single method:
 
 It is recommended that you do not use the `InitializingBean` interface because it
 unnecessarily couples the code to Spring. Alternatively, use
-the<<beans-postconstruct-and-predestroy-annotations, `@PostConstruct` annotation>> or
+the <<beans-postconstruct-and-predestroy-annotations, `@PostConstruct`>> annotation or
 specify a POJO initialization method. In the case of XML-based configuration metadata,
 you use the `init-method` attribute to specify the name of the method that has a void
 no-argument signature. For example, the following definition:
@@ -3648,6 +3662,7 @@ no-argument signature. For example, the following definition:
 		public void init() {
 			// do some initialization work
 		}
+
 	}
 ----
 
@@ -3667,6 +3682,7 @@ no-argument signature. For example, the following definition:
 		public void afterPropertiesSet() {
 			// do some initialization work
 		}
+
 	}
 ----
 
@@ -3687,7 +3703,7 @@ bean to get a callback when the container containing it is destroyed. The
 
 It is recommended that you do not use the `DisposableBean` callback interface because it
 unnecessarily couples the code to Spring. Alternatively, use
-the<<beans-postconstruct-and-predestroy-annotations, `@PreDestroy` annotation>> or
+the <<beans-postconstruct-and-predestroy-annotations, `@PreDestroy`>> annotation or
 specify a generic method that is supported by bean definitions. With XML-based
 configuration metadata, you use the `destroy-method` attribute on the `<bean/>`. For
 example, the following definition:
@@ -3706,10 +3722,11 @@ example, the following definition:
 		public void cleanup() {
 			// do some destruction work (like releasing pooled connections)
 		}
+
 	}
 ----
 
-...is exactly the same as...
+is exactly the same as:
 
 [source,xml,indent=0]
 [subs="verbatim,quotes"]
@@ -3725,10 +3742,11 @@ example, the following definition:
 		public void destroy() {
 			// do some destruction work (like releasing pooled connections)
 		}
+
 	}
 ----
 
-... but does not couple the code to Spring.
+but does not couple the code to Spring.
 
 
 [[beans-factory-lifecycle-default-init-destroy-methods]]
@@ -3769,6 +3787,7 @@ following example.
 				throw new IllegalStateException("The [blogDao] property must be set.");
 			}
 		}
+
 	}
 ----
 
@@ -3897,7 +3916,11 @@ another option, namely the `getPhase()` method as defined on its super-interface
 		int getPhase();
 
 	}
+----
 
+[source,java,indent=0]
+[subs="verbatim,quotes"]
+----
 	public interface SmartLifecycle extends Lifecycle, Phased {
 
 		boolean isAutoStartup();
@@ -3979,8 +4002,9 @@ declared on the `AbstractApplicationContext` class:
 	public final class Boot {
 
 		public static void main(final String[] args) throws Exception {
-			AbstractApplicationContext ctx
-				= new ClassPathXmlApplicationContext(new String []{"beans.xml"});
+
+			AbstractApplicationContext ctx = new ClassPathXmlApplicationContext(
+					new String []{"beans.xml"});
 
 			// add a shutdown hook for the above context...
 			ctx.registerShutdownHook();
@@ -3988,6 +4012,7 @@ declared on the `AbstractApplicationContext` class:
 			// app runs here...
 
 			// main method exits, hook is called prior to the app shutting down...
+
 		}
 	}
 ----
@@ -3995,7 +4020,7 @@ declared on the `AbstractApplicationContext` class:
 
 
 [[beans-factory-aware]]
-==== ApplicationContextAware and `BeanNameAware`
+==== ApplicationContextAware and BeanNameAware
 
 When an `ApplicationContext` creates a class that implements the
 `org.springframework.context.ApplicationContextAware` interface, the class is provided
@@ -4043,11 +4068,12 @@ a reference to the name defined in its associated object definition.
 	public interface BeanNameAware {
 
 		void setBeanName(string name) throws BeansException;
+
 	}
 ----
 
 The callback is invoked after population of normal bean properties but before an
-initialization callback such as `InitializingBean` s __afterPropertiesSet__ or a custom
+initialization callback such as `InitializingBean` __afterPropertiesSet__ or a custom
 init-method.
 
 
@@ -4360,6 +4386,7 @@ Find below the custom `BeanPostProcessor` implementation class definition:
 			System.out.println("Bean '" + beanName + "' created : " + bean.toString());
 			return bean;
 		}
+
 	}
 ----
 
@@ -4392,7 +4419,7 @@ Find below the custom `BeanPostProcessor` implementation class definition:
 Notice how the `InstantiationTracingBeanPostProcessor` is simply defined. It does not
 even have a name, and because it is a bean it can be dependency-injected just like any
 other bean. (The preceding configuration also defines a bean that is backed by a Groovy
-script. The Spring 2.0 dynamic language support is detailed in the chapter entitled
+script. The Spring dynamic language support is detailed in the chapter entitled
 <<dynamic-language>>.)
 
 The following simple Java application executes the preceding code and configuration:
@@ -4411,16 +4438,17 @@ The following simple Java application executes the preceding code and configurat
 			Messenger messenger = (Messenger) ctx.getBean("messenger");
 			System.out.println(messenger);
 		}
+
 	}
 ----
 
 The output of the preceding application resembles the following:
 
-[source,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	Bean 'messenger' created : org.springframework.scripting.groovy.GroovyMessenger@272961
-	org.springframework.scripting.groovy.GroovyMessenger@272961
+Bean 'messenger' created : org.springframework.scripting.groovy.GroovyMessenger@272961
+org.springframework.scripting.groovy.GroovyMessenger@272961
 ----
 
 
@@ -4442,8 +4470,8 @@ actually (configured to be) dependency-injected with a value.
 The next extension point that we will look at is the
 `org.springframework.beans.factory.config.BeanFactoryPostProcessor`. The semantics of
 this interface are similar to those of the `BeanPostProcessor`, with one major
-difference: `BeanFactoryPostProcessor` s operate on the __bean configuration metadata__;
-that is, the Spring IoC container allows `BeanFactoryPostProcessors` to read the
+difference: `BeanFactoryPostProcessor` operates on the __bean configuration metadata__;
+that is, the Spring IoC container allows a `BeanFactoryPostProcessor` to read the
 configuration metadata and potentially change it __before__ the container instantiates
 any beans other than `BeanFactoryPostProcessors`.
 
@@ -4509,7 +4537,7 @@ Consider the following XML-based configuration metadata fragment, where a `DataS
 with placeholder values is defined. The example shows properties configured from an
 external `Properties` file. At runtime, a `PropertyPlaceholderConfigurer` is applied to
 the metadata that will replace some properties of the DataSource. The values to replace
-are specified as __placeholders__ of the form ${property-name} which follows the Ant /
+are specified as __placeholders__ of the form `${property-name}` which follows the Ant /
 log4j / JSP EL style.
 
 [source,xml,indent=0]
@@ -4530,13 +4558,13 @@ log4j / JSP EL style.
 
 The actual values come from another file in the standard Java `Properties` format:
 
-[source,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	jdbc.driverClassName=org.hsqldb.jdbcDriver
-	jdbc.url=jdbc:hsqldb:hsql://production:9002
-	jdbc.username=sa
-	jdbc.password=root
+jdbc.driverClassName=org.hsqldb.jdbcDriver
+jdbc.url=jdbc:hsqldb:hsql://production:9002
+jdbc.username=sa
+jdbc.password=root
 ----
 
 Therefore, the string `${jdbc.username}` is replaced at runtime with the value 'sa', and
@@ -4613,19 +4641,19 @@ values for the same bean property, the last one wins, due to the overriding mech
 
 Properties file configuration lines take this format:
 
-[source,java,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	beanName.property=value
+beanName.property=value
 ----
 
 For example:
 
-[source,java,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	dataSource.driverClassName=com.mysql.jdbc.Driver
-	dataSource.url=jdbc:mysql:mydb
+dataSource.driverClassName=com.mysql.jdbc.Driver
+dataSource.url=jdbc:mysql:mydb
 ----
 
 This example file can be used with a container definition that contains a bean called
@@ -4635,10 +4663,10 @@ Compound property names are also supported, as long as every component of the pa
 except the final property being overridden is already non-null (presumably initialized
 by the constructors). In this example...
 
-[source,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	foo.fred.bob.sammy=123
+foo.fred.bob.sammy=123
 ----
 
 ... the `sammy` property of the `bob` property of the `fred` property of the `foo` bean
@@ -4799,6 +4827,7 @@ example:
 		}
 
 		// ...
+
 	}
 ----
 
@@ -4830,6 +4859,7 @@ As expected, you can apply the `@Autowired` annotation to "traditional" setter m
 		}
 
 		// ...
+
 	}
 ----
 
@@ -4859,6 +4889,7 @@ arguments:
 		}
 
 		// ...
+
 	}
 ----
 
@@ -4880,6 +4911,7 @@ You can apply `@Autowired` to constructors and fields:
 		}
 
 		// ...
+
 	}
 ----
 
@@ -4896,6 +4928,7 @@ of that type:
 		private MovieCatalog[] movieCatalogs;
 
 		// ...
+
 	}
 ----
 
@@ -4914,6 +4947,7 @@ The same applies for typed collections:
 		}
 
 		// ...
+
 	}
 ----
 
@@ -4934,6 +4968,7 @@ corresponding bean names:
 		}
 
 		// ...
+
 	}
 ----
 
@@ -4954,6 +4989,7 @@ indicating __required__ dependencies. This behavior can be changed as demonstrat
 		}
 
 		// ...
+
 	}
 ----
 
@@ -4989,6 +5025,7 @@ automatically resolved, with no special setup necessary.
 		}
 
 		// ...
+
 	}
 ----
 
@@ -5020,6 +5057,7 @@ argument. In the simplest case, this can be a plain descriptive value:
 		private MovieCatalog movieCatalog;
 
 		// ...
+
 	}
 ----
 
@@ -5043,6 +5081,7 @@ method parameters:
 		}
 
 		// ...
+
 	}
 ----
 
@@ -5152,6 +5191,7 @@ Then you can provide the custom qualifier on autowired fields and parameters:
 		}
 
 		// ...
+
 	}
 ----
 
@@ -5223,6 +5263,7 @@ Then add the annotation to the field or property to be autowired:
 		private MovieCatalog offlineCatalog;
 
 		// ...
+
 	}
 ----
 
@@ -5254,6 +5295,7 @@ consider the following annotation definition:
 		String genre();
 
 		Format format();
+
 	}
 ----
 
@@ -5408,6 +5450,7 @@ demonstrated in this example:
 		public void setMovieFinder(MovieFinder movieFinder) {
 			this.movieFinder = movieFinder;
 		}
+
 	}
 ----
 
@@ -5427,6 +5470,7 @@ name "movieFinder" injected into its setter method:
 		public void setMovieFinder(MovieFinder movieFinder) {
 			this.movieFinder = movieFinder;
 		}
+
 	}
 ----
 
@@ -5466,6 +5510,7 @@ dependency type `ApplicationContext`.
 		}
 
 		// ...
+
 	}
 ----
 
@@ -5499,6 +5544,7 @@ pre-populated upon initialization and cleared upon destruction.
 		public void clearMovieCache() {
 			// clears the movie cache upon destruction...
 		}
+
 	}
 ----
 
@@ -5578,6 +5624,7 @@ are eligible for such autodetection:
 		public SimpleMovieLister(MovieFinder movieFinder) {
 			this.movieFinder = movieFinder;
 		}
+
 	}
 ----
 
@@ -5722,6 +5769,7 @@ this with the same `@Bean` annotation used to define bean metadata within
 		public void doWork() {
 			// Component method implementation omitted
 		}
+
 	}
 ----
 
@@ -5771,6 +5819,7 @@ methods:
 		public TestBean requestScopedInstance() {
 			return new TestBean("requestScopedInstance", 3);
 		}
+
 	}
 ----
 
@@ -5881,7 +5930,7 @@ fully-qualified class name when configuring the scanner:
 ----
 
 When using certain non-singleton scopes, it may be necessary to generate proxies for the
-scoped objects. The reasoning is described in<<beans-factory-scopes-other-injection>>.
+scoped objects. The reasoning is described in <<beans-factory-scopes-other-injection>>.
 For this purpose, a __scoped-proxy__ attribute is available on the component-scan
 element. The three possible values are: no, interfaces, and targetClass. For example,
 the following configuration will result in standard JDK dynamic proxies:
@@ -5996,6 +6045,7 @@ Instead of `@Autowired`, `@javax.inject.Inject` may be used as follows:
 		}
 
 		// ...
+
 	}
 ----
 
@@ -6020,6 +6070,7 @@ follows:
 		}
 
 		// ...
+
 	}
 ----
 
@@ -6047,6 +6098,7 @@ Instead of `@Component`, `@javax.inject.Named` may be used as follows:
 		}
 
 		// ...
+
 	}
 ----
 
@@ -6071,6 +6123,7 @@ can be used in a similar fashion:
 		}
 
 		// ...
+
 	}
 ----
 
@@ -6180,10 +6233,12 @@ The simplest possible `@Configuration` class would read as follows:
 ----
 	@Configuration
 	public class AppConfig {
+
 		@Bean
 		public MyService myService() {
 			return new MyServiceImpl();
 		}
+
 	}
 ----
 
@@ -6428,10 +6483,10 @@ The preceding configuration is exactly equivalent to the following Spring XML:
 Both declarations make a bean named `transferService` available in the
 `ApplicationContext`, bound to an object instance of type `TransferServiceImpl`:
 
-[source,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	transferService -> com.acme.TransferServiceImpl
+transferService -> com.acme.TransferServiceImpl
 ----
 
 
@@ -6482,6 +6537,7 @@ on the `bean` element:
 		public Bar bar() {
 			return new Bar();
 		}
+
 	}
 ----
 
@@ -6501,6 +6557,7 @@ method directly during construction:
 		}
 
 		// ...
+
 	}
 ----
 
@@ -6529,11 +6586,13 @@ The default scope is `singleton`, but you can override this with the `@Scope` an
 ----
 	@Configuration
 	public class MyConfiguration {
+
 		@Bean
 		**@Scope("prototype")**
 		public Encryptor encryptor() {
 			// ...
 		}
+
 	}
 ----
 
@@ -6737,6 +6796,7 @@ The following example shows a `@Bean` annotated method being called twice:
 		public ClientDao clientDao() {
 			return new ClientDaoImpl();
 		}
+
 	}
 ----
 
@@ -6789,6 +6849,7 @@ another configuration class:
 		public A a() {
 			return new A();
 		}
+
 	}
 
 	@Configuration
@@ -6799,6 +6860,7 @@ another configuration class:
 		public B b() {
 			return new B();
 		}
+
 	}
 ----
 
@@ -6851,6 +6913,7 @@ depending on beans declared in the others:
 		public TransferService transferService() {
 			return new TransferServiceImpl(accountRepository);
 		}
+
 	}
 
 	@Configuration
@@ -6863,6 +6926,7 @@ depending on beans declared in the others:
 		public AccountRepository accountRepository() {
 			return new JdbcAccountRepository(dataSource);
 		}
+
 	}
 
 	@Configuration
@@ -6873,6 +6937,7 @@ depending on beans declared in the others:
 		public DataSource dataSource() {
 			// return new DataSource
 		}
+
 	}
 
 	public static void main(String[] args) {
@@ -6913,6 +6978,7 @@ configuration classes themselves:
 			// navigate 'through' the config class to the @Bean method!
 			return new TransferServiceImpl(repositoryConfig.accountRepository());
 		}
+
 	}
 ----
 
@@ -6941,6 +7007,7 @@ abstract class-based `@Configuration` classes. Consider the following:
 
 		@Bean
 		AccountRepository accountRepository();
+
 	}
 
 	@Configuration
@@ -6950,6 +7017,7 @@ abstract class-based `@Configuration` classes. Consider the following:
 		public AccountRepository accountRepository() {
 			return new JdbcAccountRepository(...);
 		}
+
 	}
 
 	@Configuration
@@ -6960,6 +7028,7 @@ abstract class-based `@Configuration` classes. Consider the following:
 		public DataSource dataSource() {
 			// return DataSource
 		}
+
 	}
 
 	public static void main(String[] args) {
@@ -7023,6 +7092,7 @@ properly.
 		public TransferService transferService() {
 			return new TransferService(accountRepository());
 		}
+
 	}
 ----
 
@@ -7045,13 +7115,13 @@ properly.
 	</beans>
 ----
 
-[source,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	jdbc.properties
-	jdbc.url=jdbc:hsqldb:hsql://localhost/xdb
-	jdbc.username=sa
-	jdbc.password=
+jdbc.properties
+jdbc.url=jdbc:hsqldb:hsql://localhost/xdb
+jdbc.username=sa
+jdbc.password=
 ----
 
 [source,java,indent=0]
@@ -7130,6 +7200,7 @@ bare minimum.
 		public DataSource dataSource() {
 			return new DriverManagerDataSource(url, username, password);
 		}
+
 	}
 ----
 
@@ -7142,13 +7213,13 @@ bare minimum.
 	</beans>
 ----
 
-[source,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	jdbc.properties
-	jdbc.url=jdbc:hsqldb:hsql://localhost/xdb
-	jdbc.username=sa
-	jdbc.password=
+jdbc.properties
+jdbc.url=jdbc:hsqldb:hsql://localhost/xdb
+jdbc.username=sa
+jdbc.password=
 ----
 
 [source,java,indent=0]
@@ -7348,10 +7419,10 @@ implementations and so can be cast to the `MessageSource` interface.
 
 The resulting output from the above program will be...
 
-[source,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	Alligators rock!
+Alligators rock!
 ----
 
 So to summarize, the `MessageSource` is defined in a file called `beans.xml`, which
@@ -7404,10 +7475,10 @@ converted into Strings and inserted into placeholders in the lookup message.
 
 The resulting output from the invocation of the `execute()` method will be...
 
-[source,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	The userDao argument is required.
+The userDao argument is required.
 ----
 
 With regard to internationalization (i18n), Spring's various `MessageResource`
@@ -7421,11 +7492,11 @@ Typically, locale resolution is managed by the surrounding environment of the
 application. In this example, the locale against which (British) messages will be
 resolved is specified manually.
 
-[source,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	# in exceptions_en_GB.properties
-	argument.required=Ebagum lad, the '{0}' argument is required, I say, required.
+# in exceptions_en_GB.properties
+argument.required=Ebagum lad, the '{0}' argument is required, I say, required.
 ----
 
 [source,java,indent=0]
@@ -7441,10 +7512,10 @@ resolved is specified manually.
 
 The resulting output from the running of the above program will be...
 
-[source,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	Ebagum lad, the 'userDao' argument is required, I say, required.
+Ebagum lad, the 'userDao' argument is required, I say, required.
 ----
 
 You can also use the `MessageSourceAware` interface to acquire a reference to any
@@ -7522,6 +7593,7 @@ simple class that extends Spring's `ApplicationEvent` base class:
 [subs="verbatim,quotes"]
 ----
 	public class BlackListEvent extends ApplicationEvent {
+
 		private final String address;
 		private final String test;
 
@@ -7532,6 +7604,7 @@ simple class that extends Spring's `ApplicationEvent` base class:
 		}
 
 		// accessor and other methods...
+
 	}
 ----
 
@@ -7564,6 +7637,7 @@ example demonstrates such a class:
 			}
 			// send email...
 		}
+
 	}
 ----
 
@@ -7591,6 +7665,7 @@ demonstrates such a class:
 		public void onApplicationEvent(BlackListEvent event) {
 			// notify appropriate parties via notificationAddress...
 		}
+
 	}
 ----
 
@@ -7956,6 +8031,7 @@ access to low-level resources.
 		String getFilename();
 
 		String getDescription();
+
 	}
 ----
 
@@ -7965,6 +8041,7 @@ access to low-level resources.
 	public interface InputStreamSource {
 
 		InputStream getInputStream() throws IOException;
+
 	}
 ----
 
@@ -8116,7 +8193,9 @@ The `ResourceLoader` interface is meant to be implemented by objects that can re
 [subs="verbatim,quotes"]
 ----
 	public interface ResourceLoader {
+
 		Resource getResource(String location);
+
 	}
 ----
 
@@ -8347,14 +8426,14 @@ will derive the path information from the supplied class.
 An example will hopefully make this clear. Consider a directory layout that looks like
 this:
 
-[source,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	com/
-		foo/
-			services.xml
-			daos.xml
-			MessengerService.class
+com/
+  foo/
+    services.xml
+    daos.xml
+    MessengerService.class
 ----
 
 A `ClassPathXmlApplicationContext` instance composed of the beans defined in the
@@ -8396,13 +8475,13 @@ a resource points to just one resource at a time.
 ===== Ant-style Patterns
 When the path location contains an Ant-style pattern, for example:
 
-[source,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	/WEB-INF/*-context.xml
-		com/mycompany/**/applicationContext.xml
-		file:C:/some/path/*-context.xml
-		classpath:com/mycompany/**/applicationContext.xml
+/WEB-INF/*-context.xml
+  com/mycompany/**/applicationContext.xml
+  file:C:/some/path/*-context.xml
+  classpath:com/mycompany/**/applicationContext.xml
 ----
 
 ... the resolver follows a more complex but defined procedure to try to resolve the
@@ -8490,18 +8569,18 @@ Ant-style patterns with " `classpath:`" resources are not guaranteed to find mat
 resources if the root package to search is available in multiple class path locations.
 This is because a resource such as
 
-[source,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	com/mycompany/package1/service-context.xml
+com/mycompany/package1/service-context.xml
 ----
 
 may be in only one location, but when a path such as
 
-[source,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	classpath:com/mycompany/**/service-context.xml
+classpath:com/mycompany/**/service-context.xml
 ----
 
 is used to try to resolve it, the resolver will work off the (first) URL returned by
@@ -9031,14 +9110,14 @@ name as that class, with `'Editor'` appended; for example, one could have the fo
 class and package structure, which would be sufficient for the `FooEditor` class to be
 recognized and used as the `PropertyEditor` for `Foo`-typed properties.
 
-[source,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	com
-		chank
-			pop
-				Foo
-				FooEditor // the PropertyEditor for the Foo class
+com
+  chank
+    pop
+      Foo
+      FooEditor // the PropertyEditor for the Foo class
 ----
 
 Note that you can also use the standard `BeanInfo` JavaBeans mechanism here as well
@@ -9048,14 +9127,14 @@ not-amazing-detail here]). Find below an example of using the `BeanInfo` mechani
 explicitly registering one or more `PropertyEditor` instances with the properties of an
 associated class.
 
-[source,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	com
-		chank
-			pop
-				Foo
-				FooBeanInfo // the BeanInfo for the Foo class
+com
+  chank
+    pop
+      Foo
+      FooBeanInfo // the BeanInfo for the Foo class
 ----
 
 Here is the Java source code for the referenced `FooBeanInfo` class. This would
@@ -11225,7 +11304,7 @@ the method.
 A reference to a Java Method provides the implementation of the function. For example, a
 utility method to reverse a string is shown below.
 
-[source,indent=0]
+[source,java,indent=0]
 [subs="verbatim,quotes"]
 ----
 	public abstract class StringUtils {
@@ -11317,7 +11396,7 @@ http://groovy.codehaus.org/Operators#Operators-ElvisOperator(%3F%3A)[Groovy] lan
 With the ternary operator syntax you usually have to repeat a variable twice, for
 example:
 
-[source,indent=0]
+[source,groovy,indent=0]
 [subs="verbatim,quotes"]
 ----
 	String name = "Elvis Presley";
@@ -11392,7 +11471,7 @@ safe navigation operator will simply return null instead of throwing an exceptio
 The Elvis operator can be used to apply default values in expressions, e.g. in an
 `@Value` expression:
 
-[source,indent=0]
+[source,java,indent=0]
 [subs="verbatim,quotes"]
 ----
 	@Value("#{systemProperties['pop3.port'] ?: 25}")
@@ -11733,7 +11812,7 @@ however, it would be even more confusing if Spring used its own terminology.
 * __Aspect__: a modularization of a concern that cuts across multiple classes.
   Transaction management is a good example of a crosscutting concern in enterprise Java
   applications. In Spring AOP, aspects are implemented using regular classes
-  (the<<aop-schema,schema-based approach>>) or regular classes annotated with the
+  (the <<aop-schema,schema-based approach>>) or regular classes annotated with the
   `@Aspect` annotation (the <<aop-ataspectj, `@AspectJ` style>>).
 * __Join point__: a point during the execution of a program, such as the execution of a
   method or the handling of an exception. In Spring AOP, a join point __always__
@@ -12101,7 +12180,7 @@ purposes). As a consequence, any given pointcut will be matched against __public
 only__!
 
 If your interception needs include protected/private methods or even constructors,
-consider the use of Spring-driven<<aop-aj-ltw,native AspectJ weaving>> instead of
+consider the use of Spring-driven <<aop-aj-ltw,native AspectJ weaving>> instead of
 Spring's proxy-based AOP framework. This constitutes a different mode of AOP usage with
 different characteristics, so be sure to make yourself familiar with weaving first
 before making a decision.
@@ -13746,14 +13825,14 @@ standard output:
 	}
 ----
 
-[source,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	StopWatch 'Profiling for 'Pengo' and '12'': running time (millis) = 0
-	-----------------------------------------
-	ms     %     Task name
-	-----------------------------------------
-	00000  ?  execution(getFoo)
+StopWatch 'Profiling for 'Pengo' and '12'': running time (millis) = 0
+-----------------------------------------
+ms     %     Task name
+-----------------------------------------
+00000  ?  execution(getFoo)
 ----
 
 
@@ -14724,7 +14803,7 @@ profiling tool to that specific area immediately afterwards.
 [NOTE]
 ====
 The example presented here uses XML style configuration, it is also possible to
-configure and use @AspectJ with<<beans-java,Java Configuration>>. Specifically the
+configure and use @AspectJ with <<beans-java,Java Configuration>>. Specifically the
 `@EnableLoadTimeWeaving` annotation can be used as an alternative to
 `<context:load-time-weaver/>` (see <<aop-aj-ltw-spring,below>> for details).
 ====
@@ -14848,10 +14927,10 @@ switch on LTW selectively on a per- `ClassLoader` basis with Spring, and this is
 However, just for this example, we are going to use a Java agent (supplied with Spring)
 to switch on the LTW. This is the command line we will use to run the above `Main` class:
 
-[source,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	java -javaagent:C:/projects/foo/lib/global/spring-instrument.jar foo.Main
+java -javaagent:C:/projects/foo/lib/global/spring-instrument.jar foo.Main
 ----
 
 The ' `-javaagent`' is a Java 5+ flag for specifying and enabling
@@ -14866,16 +14945,16 @@ The output from the execution of the `Main` program will look something like tha
 implementation so that the profiler actually captures something other than 0
 milliseconds - the `01234` milliseconds is __not__ an overhead introduced by the AOP :) )
 
-[source,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	Calculating entitlement
+Calculating entitlement
 
-	StopWatch 'ProfilingAspect': running time (millis) = 1234
-	------ ----- ----------------------------
-	ms     %     Task name
-	------ ----- ----------------------------
-	01234  100%  calculateEntitlement
+StopWatch 'ProfilingAspect': running time (millis) = 1234
+------ ----- ----------------------------
+ms     %     Task name
+------ ----- ----------------------------
+01234  100%  calculateEntitlement
 ----
 
 Since this LTW is effected using full-blown AspectJ, we are not just limited to advising
@@ -15265,10 +15344,10 @@ requires a Spring-specific (but very general) VM agent,
 To use it, you must start the virtual machine with the Spring agent, by supplying the
 following JVM options:
 
-[source,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	-javaagent:/path/to/org.springframework.instrument-{version}.jar
+-javaagent:/path/to/org.springframework.instrument-{version}.jar
 ----
 
 Note that this requires modification of the VM launch script which may prevent you from
@@ -23169,10 +23248,10 @@ example to retrieve a list of all the rows, it would look like this:
 
 The list returned would look something like this:
 
-[source,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	[{name=Bob, id=1}, {name=Mary, id=2}]
+[{name=Bob, id=1}, {name=Mary, id=2}]
 ----
 
 
@@ -23885,7 +23964,7 @@ shows a simple procedure that returns only scalar values in `VARCHAR` and `DATE`
 from a MySQL database. The example procedure reads a specified actor entry and returns
 `first_name`, `last_name`, and `birth_date` columns in the form of `out` parameters.
 
-[source,indent=0]
+[source,sql,indent=0]
 [subs="verbatim,quotes"]
 ----
 	CREATE PROCEDURE read_actor (
@@ -24100,7 +24179,7 @@ named `executeObject` is also available for stored procedures that only have one
 parameter. The following example is based on a stored function named `get_actor_name`
 that returns an actor's full name. Here is the MySQL source for this function:
 
-[source,indent=0]
+[source,sql,indent=0]
 [subs="verbatim,quotes"]
 ----
 	CREATE FUNCTION get_actor_name (in_id INTEGER)
@@ -24165,7 +24244,7 @@ in the results map that is returned from the execute statement.
 The next example uses a stored procedure that takes no IN parameters and returns all
 rows from the t_actor table. Here is the MySQL source for this procedure:
 
-[source,indent=0]
+[source,sql,indent=0]
 [subs="verbatim,quotes"]
 ----
 	CREATE PROCEDURE read_all_actors()
@@ -24953,7 +25032,7 @@ an instance running on a server somewhere.
 If you want to initialize a database and you can provide a reference to a DataSource
 bean, use the `initialize-database` tag in the `spring-jdbc` namespace:
 
-[source,indent=0]
+[source,xml,indent=0]
 [subs="verbatim,quotes"]
 ----
 	<jdbc:initialize-database data-source="dataSource">
@@ -24980,7 +25059,7 @@ namespace provides a couple more options. The first is flag to switch the initia
 on and off. This can be set according to the environment (e.g. to pull a boolean value
 from system properties or an environment bean), e.g.
 
-[source,indent=0]
+[source,xml,indent=0]
 [subs="verbatim,quotes"]
 ----
 	<jdbc:initialize-database data-source="dataSource"
@@ -24993,7 +25072,7 @@ The second option to control what happens with existing data is to be more toler
 failures. To this end you can control the ability of the initializer to ignore certain
 errors in the SQL it executes from the scripts, e.g.
 
-[source,indent=0]
+[source,xml,indent=0]
 [subs="verbatim,quotes"]
 ----
 	<jdbc:initialize-database data-source="dataSource" **ignore-failures="DROPS"**>
@@ -25770,11 +25849,11 @@ These warnings or exceptions indicate that the connection being accessed is no l
 valid, or JDBC access is no longer valid, possibly because the transaction is no longer
 active. As an example, here is an actual exception from WebLogic:
 
-[source,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	java.sql.SQLException: The transaction is no longer active - status: 'Committed'. No
-	further JDBC access is allowed within this transaction.
+java.sql.SQLException: The transaction is no longer active - status: 'Committed'. No
+further JDBC access is allowed within this transaction.
 ----
 
 You resolve this warning by simply making Hibernate aware of the JTA
@@ -27471,7 +27550,7 @@ Spring's web module includes many unique web support features:
   descriptor, see the appendix entitled <<spring.tld>>
 * __A JSP form tag library, introduced in Spring 2.0, that makes writing forms in JSP
   pages much easier.__ For information on the tag library descriptor, see the appendix
-  entitled<<spring-form.tld>>
+  entitled <<spring-form.tld>>
 * __Beans whose lifecycle is scoped to the current HTTP request or HTTP `Session`.__
   This is not a specific feature of Spring MVC itself, but rather of the
   `WebApplicationContext` container(s) that Spring MVC uses. These bean scopes are
@@ -27574,7 +27653,7 @@ code-based configuration is detected and automatically used to initialize any Se
 container. An abstract base class implementation of this interace named
 `AbstractDispatcherServletInitializer` makes it even easier to register the
 `DispatcherServlet` by simply specifying its servlet mapping.
-See<<mvc-container-config,Code-based Servlet container initialization>> for more details.
+See <<mvc-container-config,Code-based Servlet container initialization>> for more details.
 
 The above is only the first step in setting up Spring Web MVC. You now need to configure
 the various beans used by the Spring Web MVC framework (over and above the
@@ -28987,10 +29066,10 @@ HTTP cookie.
 
 Let us consider that the following cookie has been received with an http request:
 
-[source,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	JSESSIONID=415A4AC178C59DACE0B2C9CA727CDD84
+JSESSIONID=415A4AC178C59DACE0B2C9CA727CDD84
 ----
 
 The following code sample demonstrates how to get the value of the `JSESSIONID` cookie:
@@ -29017,15 +29096,15 @@ The `@RequestHeader` annotation allows a method parameter to be bound to a reque
 
 Here is a sample request header:
 
-[source,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	Host                    localhost:8080
-	Accept                  text/html,application/xhtml+xml,application/xml;q=0.9
-	Accept-Language         fr,en-gb;q=0.7,en;q=0.3
-	Accept-Encoding         gzip,deflate
-	Accept-Charset          ISO-8859-1,utf-8;q=0.7,*;q=0.7
-	Keep-Alive              300
+Host                    localhost:8080
+Accept                  text/html,application/xhtml+xml,application/xml;q=0.9
+Accept-Language         fr,en-gb;q=0.7,en;q=0.3
+Accept-Encoding         gzip,deflate
+Accept-Charset          ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive              300
 ----
 
 The following code sample demonstrates how to get the value of the `Accept-Encoding` and
@@ -29855,10 +29934,10 @@ server:
 One issue with the `Accept` header is that it is impossible to set it in a web browser
 within HTML. For example, in Firefox, it is fixed to:
 
-[source,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
 ----
 
 For this reason it is common to see the use of a distinct URI for each representation
@@ -30247,11 +30326,11 @@ The web application context automatically detects a bean with that name and uses
 When using the `ResourceBundleThemeSource`, a theme is defined in a simple properties
 file. The properties file lists the resources that make up the theme. Here is an example:
 
-[source,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	styleSheet=/themes/cool/style.css
-	background=/themes/cool/img/coolBg.jpg
+styleSheet=/themes/cool/style.css
+background=/themes/cool/img/coolBg.jpg
 ----
 
 The keys of the properties are the names that refer to the themed elements from view
@@ -30478,25 +30557,25 @@ unlike browsers that typically submit files and simple form fields, a programmat
 client can also send more complex data of a specific content type -- for example a
 multipart request with a file and second part with JSON formatted data:
 
-[source,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	POST /someUrl
-	Content-Type: multipart/mixed
+POST /someUrl
+Content-Type: multipart/mixed
 
-	--edt7Tfrdusa7r3lNQc79vXuhIIMlatb7PQg7Vp
-	Content-Disposition: form-data; name="meta-data"
-	Content-Type: application/json; charset=UTF-8
-	Content-Transfer-Encoding: 8bit
+--edt7Tfrdusa7r3lNQc79vXuhIIMlatb7PQg7Vp
+Content-Disposition: form-data; name="meta-data"
+Content-Type: application/json; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-	{
-		"name": "value"
-	}
-	--edt7Tfrdusa7r3lNQc79vXuhIIMlatb7PQg7Vp
-	Content-Disposition: form-data; name="file-data"; filename="file.properties"
-	Content-Type: text/xml
-	Content-Transfer-Encoding: 8bit
-	... File Data ...
+{
+	"name": "value"
+}
+--edt7Tfrdusa7r3lNQc79vXuhIIMlatb7PQg7Vp
+Content-Disposition: form-data; name="file-data"; filename="file.properties"
+Content-Type: text/xml
+Content-Transfer-Encoding: 8bit
+... File Data ...
 ----
 
 You could access the part named "meta-data" with a `@RequestParam("meta-data") String
@@ -31561,10 +31640,10 @@ to be forced to re-download that custom-built `dojo.js` resource any time a new 
 of the application is deployed. A simple way to achieve this would be to manage the
 version of the application in a properties file, such as:
 
-[source,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	application.version=1.0.0
+application.version=1.0.0
 ----
 
 and then to make the properties file's values accessible to SpEL as a bean using the
@@ -32848,7 +32927,7 @@ definition to your `'*-servlet.xml'` as shown below:
 	</bean>
 ----
 
-[source,indent=0]
+[source,xml,indent=0]
 [subs="verbatim,quotes"]
 ----
 	<!-- freemarker config -->
@@ -33197,7 +33276,7 @@ occurs through Spring's Validation framework.
 
 The generated HTML looks like this:
 
-[source,indent=0]
+[source,jsp,indent=0]
 [subs="verbatim,quotes"]
 ----
 	Name:
@@ -33231,7 +33310,7 @@ value of 'London' for this field and so no validation is necessary. When the for
 rendered, the entire list of cities to choose from is supplied as reference data in the
 model under the name 'cityMap'.
 
-[source,indent=0]
+[source,jsp,indent=0]
 [subs="verbatim,quotes"]
 ----
 	...
@@ -33246,7 +33325,7 @@ keys are what the form actually submits as POSTed request parameters, map values
 labels that the user sees. In the example above, given a list of three well known cities
 and a default value in the form backing object, the HTML would be
 
-[source,indent=0]
+[source,jsp,indent=0]
 [subs="verbatim,quotes"]
 ----
 	Town:
@@ -33276,7 +33355,7 @@ codes would be created with suitable keys like the example below.
 The code would now produce output where the radio values are the relevant codes but the
 user still sees the more user friendly city names.
 
-[source,indent=0]
+[source,jsp,indent=0]
 [subs="verbatim,quotes"]
 ----
 	Town:
@@ -33299,7 +33378,7 @@ template processing to provide different behavior for different fields in your f
 To switch to XHTML compliance for your tags, specify a value of 'true' for a
 model/context variable named xhtmlCompliant:
 
-[source,indent=0]
+[source,jsp,indent=0]
 [subs="verbatim,quotes"]
 ----
 	## for Velocity..
@@ -33452,12 +33531,12 @@ The views.properties file (or equivalent xml definition if you're using an XML b
 view resolver as we did in the Velocity examples above) looks like this for the one-view
 application that is 'My First Words':
 
-[source,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	home.(class)=xslt.HomePage
-	home.stylesheetLocation=/WEB-INF/xsl/home.xslt
-	home.root=words
+home.(class)=xslt.HomePage
+home.stylesheetLocation=/WEB-INF/xsl/home.xslt
+home.root=words
 ----
 
 Here, you can see how the view is tied in with the `HomePage` class just written which
@@ -33506,33 +33585,33 @@ the war file in the `'WEB-INF/xsl'` directory.
 A summary of the files discussed and their location in the WAR file is shown in the
 simplified WAR structure below.
 
-[source,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	ProjectRoot
-	  |
-	  +- WebContent
-	      |
-	      +- WEB-INF
-	          |
-	          +- classes
-	          |    |
-	          |    +- xslt
-	          |    |   |
-	          |    |   +- HomePageController.class
-	          |    |   +- HomePage.class
-	          |    |
-	          |    +- views.properties
-	          |
-	          +- lib
-	          |   |
-	          |   +- spring-*.jar
-	          |
-	          +- xsl
-	          |   |
-	          |   +- home.xslt
-	          |
-	          +- frontcontroller-servlet.xml
+ProjectRoot
+  |
+  +- WebContent
+      |
+      +- WEB-INF
+          |
+          +- classes
+          |    |
+          |    +- xslt
+          |    |   |
+          |    |   +- HomePageController.class
+          |    |   +- HomePage.class
+          |    |
+          |    +- views.properties
+          |
+          +- lib
+          |   |
+          |   +- spring-*.jar
+          |
+          +- xsl
+          |   |
+          |   +- home.xslt
+          |
+          +- frontcontroller-servlet.xml
 ----
 
 You will also need to ensure that an XML parser and an XSLT engine are available on the
@@ -33574,16 +33653,16 @@ First, let's amend the views.properties file (or xml equivalent) and add a simpl
 definition for both document types. The entire file now looks like this with the XSLT
 view shown from earlier:
 
-[source,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	home.(class)=xslt.HomePage
-	home.stylesheetLocation=/WEB-INF/xsl/home.xslt
-	home.root=words
+home.(class)=xslt.HomePage
+home.stylesheetLocation=/WEB-INF/xsl/home.xslt
+home.root=words
 
-	xl.(class)=excel.HomePage
+xl.(class)=excel.HomePage
 
-	pdf.(class)=pdf.HomePage
+pdf.(class)=pdf.HomePage
 ----
 
 __If you want to start with a template spreadsheet or a fillable PDF form to add your
@@ -33800,11 +33879,11 @@ Mapping one of these classes to a view name and a report file is a matter of add
 appropriate entries in the resource bundle configured in the previous section as shown
 here:
 
-[source,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	simpleReport.(class)=org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView
-	simpleReport.url=/WEB-INF/reports/DataSourceReport.jasper
+simpleReport.(class)=org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView
+simpleReport.url=/WEB-INF/reports/DataSourceReport.jasper
 ----
 
 Here you can see that the view with name `simpleReport` is mapped to the
@@ -33935,12 +34014,12 @@ class. In both cases Spring will wrap instances of `Collection` in a
 Here you can see that two `Collection` instances are being added to the model. To ensure
 that the correct one is used, we simply modify our view configuration as appropriate:
 
-[source,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	simpleReport.(class)=org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView
-	simpleReport.url=/WEB-INF/reports/DataSourceReport.jasper
-	simpleReport.reportDataKey=myBeanData
+simpleReport.(class)=org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView
+simpleReport.url=/WEB-INF/reports/DataSourceReport.jasper
+simpleReport.reportDataKey=myBeanData
 ----
 
 Be aware that when using the first approach, Spring will use the first instance of
@@ -35633,7 +35712,7 @@ context.
 ----
 
 The class above and the declaration in the web application context is all you need
-besides setting up a handler mapping (see<<portlet-handlermapping>>) to get this very
+besides setting up a handler mapping (see <<portlet-handlermapping>>) to get this very
 simple controller working.
 
 
@@ -38423,10 +38502,10 @@ managed implementation of the `ConnectionFactory`.
 The standard API involves creating many intermediate objects. To send a message the
 following 'API' walk is performed
 
-[source,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	ConnectionFactory->Connection->Session->MessageProducer->send
+ConnectionFactory->Connection->Session->MessageProducer->send
 ----
 
 Between the ConnectionFactory and the Send operation there are three intermediate
@@ -38554,7 +38633,7 @@ with Java EE environments.
 ==== Transaction management
 Spring provides a `JmsTransactionManager` that manages transactions for a single JMS
 `ConnectionFactory`. This allows JMS applications to leverage the managed transaction
-features of Spring as described in<<transaction>>. The `JmsTransactionManager` performs
+features of Spring as described in <<transaction>>. The `JmsTransactionManager` performs
 local resource transactions, binding a JMS Connection/Session pair from the specified
 `ConnectionFactory` to the thread. `JmsTemplate` automatically detects such
 transactional resources and operates on them accordingly.
@@ -38690,22 +38769,22 @@ example below demonstrates how to modify a message header and a property after a
 
 This results in a message of the form:
 
-[source,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	MapMessage={
-		Header={
-			... standard headers ...
-			CorrelationID={123-00001}
-		}
-		Properties={
-			AccountID={Integer:1234}
-		}
-		Fields={
-			Name={String:Mark}
-			Age={Integer:47}
-		}
+MapMessage={
+	Header={
+		... standard headers ...
+		CorrelationID={123-00001}
 	}
+	Properties={
+		AccountID={Integer:1234}
+	}
+	Fields={
+		Name={String:Mark}
+		Age={Integer:47}
+	}
+}
 ----
 
 
@@ -39494,7 +39573,7 @@ The pertinent bean definition from the above configuration snippet is the `expor
 bean. The `beans` property tells the `MBeanExporter` exactly which of your beans must be
 exported to the JMX `MBeanServer`. In the default configuration, the key of each entry
 in the `beans` `Map` is used as the `ObjectName` for the bean referenced by the
-corresponding entry value. This behavior can be changed as described in<<jmx-naming>>.
+corresponding entry value. This behavior can be changed as described in <<jmx-naming>>.
 
 With this configuration the `testBean` bean is exposed as an MBean under the
 `ObjectName` `bean:name=testBean1`. By default, all __public__ properties of the bean
@@ -43450,7 +43529,7 @@ Please note that this chapter does not attempt to explain the syntax and idioms 
 supported dynamic languages. For example, if you want to use Groovy to write certain of
 the classes in your application, then the assumption is that you already know Groovy. If
 you need further details about the dynamic languages themselves, please
-consult<<dynamic-language-resources>> at the end of this chapter.
+consult <<dynamic-language-resources>> at the end of this chapter.
 
 
 
@@ -43537,7 +43616,7 @@ Please note that this feature is __off__ by default.
 Let's take a look at an example to see just how easy it is to start using refreshable
 beans. To __turn on__ the refreshable beans feature, you simply have to specify exactly
 __one__ additional attribute on the `<lang:language/>` element of your bean definition.
-So if we stick with<<dynamic-language-a-first-example,the example>> from earlier in this
+So if we stick with <<dynamic-language-a-first-example,the example>> from earlier in this
 chapter, here's what we would change in the Spring XML configuration to effect
 refreshable beans:
 
@@ -43875,10 +43954,10 @@ the following exception when creating your dynamic-language-backed bean and the
 following text is there in the corresponding stacktrace, this will hopefully allow you
 to identify and then easily rectify the issue):
 
-[source,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	org.springframework.scripting.ScriptCompilationException: Compilation of JRuby script returned ''
+org.springframework.scripting.ScriptCompilationException: Compilation of JRuby script returned ''
 ----
 
 To rectify this, simply instantiate a new instance of whichever class you want to expose
@@ -44282,7 +44361,7 @@ framework actually is unaware that a bean that is being advised might be a scrip
 bean, so all of the AOP use cases and functionality that you may be using or aim to use
 will work with scripted beans. There is just one (small) thing that you need to be aware
 of when advising scripted beans... you cannot use class-based proxies, you must
-use<<aop-proxying,interface-based proxies>>.
+use <<aop-proxying,interface-based proxies>>.
 
 You are of course not just limited to advising scripted beans... you can also write
 aspects themselves in a supported dynamic language and use such beans to advise other
@@ -44300,7 +44379,7 @@ bean. (The default scope is <<beans-factory-scopes-singleton,singleton>>, just a
 with 'regular' beans.)
 
 Find below an example of using the `scope` attribute to define a Groovy bean scoped as
-a<<beans-factory-scopes-prototype,prototype>>.
+a <<beans-factory-scopes-prototype,prototype>>.
 
 [source,xml,indent=0]
 [subs="verbatim,quotes"]

@@ -3641,10 +3641,10 @@ these special properties files, the formats of which are detailed below.
 The properties file called `'spring.handlers'` contains a mapping of XML Schema URIs to
 namespace handler classes. So for our example, we need to write the following:
 
-[source,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	http\://www.mycompany.com/schema/myns=org.springframework.samples.xml.MyNamespaceHandler
+http\://www.mycompany.com/schema/myns=org.springframework.samples.xml.MyNamespaceHandler
 ----
 
 __(The `':'` character is a valid delimiter in the Java properties format, and so the
@@ -3667,10 +3667,10 @@ Internet access to retrieve the schema file. If you specify the mapping in this
 properties file, Spring will search for the schema on the classpath (in this case
 `'myns.xsd'` in the `'org.springframework.samples.xml'` package):
 
-[source,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	http\://www.mycompany.com/schema/myns/myns.xsd=org/springframework/samples/xml/myns.xsd
+http\://www.mycompany.com/schema/myns/myns.xsd=org/springframework/samples/xml/myns.xsd
 ----
 
 The upshot of this is that you are encouraged to deploy your XSD file(s) right alongside
@@ -3934,18 +3934,18 @@ Next up is the custom `BeanDefinitionParser`. Remember that what we are creating
 
 Lastly, the various artifacts need to be registered with the Spring XML infrastructure.
 
-[source,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	# in 'META-INF/spring.handlers'
-	http\://www.foo.com/schema/component=com.foo.ComponentNamespaceHandler
+# in 'META-INF/spring.handlers'
+http\://www.foo.com/schema/component=com.foo.ComponentNamespaceHandler
 ----
 
-[source,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	# in 'META-INF/spring.schemas'
-	http\://www.foo.com/schema/component/component.xsd=com/foo/component.xsd
+# in 'META-INF/spring.schemas'
+http\://www.foo.com/schema/component/component.xsd=com/foo/component.xsd
 ----
 
 
@@ -4096,18 +4096,18 @@ attribute, we write a `BeanDefinitionDecorator` rather than a `BeanDefinitionPar
 
 Lastly, the various artifacts need to be registered with the Spring XML infrastructure.
 
-[source,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	# in 'META-INF/spring.handlers'
-	http\://www.foo.com/schema/jcache=com.foo.JCacheNamespaceHandler
+# in 'META-INF/spring.handlers'
+http\://www.foo.com/schema/jcache=com.foo.JCacheNamespaceHandler
 ----
 
-[source,indent=0]
+[literal]
 [subs="verbatim,quotes"]
 ----
-	# in 'META-INF/spring.schemas'
-	http\://www.foo.com/schema/jcache/jcache.xsd=com/foo/jcache.xsd
+# in 'META-INF/spring.schemas'
+http\://www.foo.com/schema/jcache/jcache.xsd=com/foo/jcache.xsd
 ----
 
 
