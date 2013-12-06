@@ -763,6 +763,26 @@ the exact version and feature set of the container.
 [[spring-whats-new]]
 = What's New in Spring 4
 
+[[new-in-4.0]]
+== What's New in Spring 4.0
+
+TODO
+
+* websockets
+* generic injection
+* removed deprecation
+* bill of materials POM
+* java 8 (@Repeatable, date time)
+* messaging
+* meta-annotation overrides
+* proxy without default constructor
+* async rest
+* @Condition
+* @RestController
+* @Description annotation
+* Timezone support in MVC
+* Java EE updates
+* Groovy bean builds
 
 
 [[spring-core]]
