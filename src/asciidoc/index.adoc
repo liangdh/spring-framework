@@ -1384,7 +1384,7 @@ URI template variables from the current request are used in more places:
 
 
 [[new-in-3.1-mvc-valid-requestbody]]
-=== @Valid On  @RequestBody Controller Method Arguments
+=== @Valid On @RequestBody Controller Method Arguments
 An `@RequestBody` method argument can be annotated with `@Valid` to invoke automatic
 validation similar to the support for `@ModelAttribute` method arguments. A resulting
 `MethodArgumentNotValidException` is handled in the `DefaultHandlerExceptionResolver`
@@ -1402,7 +1402,7 @@ part. See <<mvc-multipart-forms-non-browsers>> and <<mvc-multipart>>.
 
 
 [[new-in-3.1-mvc-uricomponentsbuilder]]
-=== UriComponentsBuilder and  UriComponents
+=== UriComponentsBuilder and UriComponents
 A new `UriComponents` class has been added, which is an immutable container of URI
 components providing access to all contained URI components. A new
 `UriComponentsBuilder` class is also provided to help create `UriComponents` instances.
@@ -1658,7 +1658,7 @@ testing will hopefully convince you of this as well.
 [[beans-introduction]]
 === Introduction to the Spring IoC container and beans
 This chapter covers the Spring Framework implementation of the Inversion of Control
-(IoC)  footnote:[See pass:specialcharacters,macros[<<background-ioc>>] ] principle. IoC
+(IoC) footnote:[See pass:specialcharacters,macros[<<background-ioc>>] ] principle. IoC
 is also known as __dependency injection__ (DI). It is a process whereby objects define
 their dependencies, that is, the other objects they work with, only through constructor
 arguments, arguments to a factory method, or properties that are set on the object
@@ -2001,31 +2001,31 @@ This metadata translates to a set of properties that make up each bean definitio
 | Property| Explained in...
 
 | class
-|  <<beans-factory-class>>
+| <<beans-factory-class>>
 
 | name
-|  <<beans-beanname>>
+| <<beans-beanname>>
 
 | scope
-|  <<beans-factory-scopes>>
+| <<beans-factory-scopes>>
 
 | constructor arguments
-|  <<beans-factory-collaborators>>
+| <<beans-factory-collaborators>>
 
 | properties
-|  <<beans-factory-collaborators>>
+| <<beans-factory-collaborators>>
 
 | autowiring mode
-|  <<beans-factory-autowire>>
+| <<beans-factory-autowire>>
 
 | lazy-initialization mode
-|  <<beans-factory-lazy-init>>
+| <<beans-factory-lazy-init>>
 
 | initialization method
-|  <<beans-factory-lifecycle-initializingbean>>
+| <<beans-factory-lifecycle-initializingbean>>
 
 | destruction method
-|  <<beans-factory-lifecycle-disposablebean>>
+| <<beans-factory-lifecycle-disposablebean>>
 |===
 
 In addition to bean definitions that contain information on how to create a specific
@@ -2048,11 +2048,11 @@ requires more than one, the extra ones can be considered aliases.
 In XML-based configuration metadata, you use the `id` and/or `name` attributes to
 specify the bean identifier(s). The `id` attribute allows you to specify exactly one id.
  Conventionally these names are alphanumeric ('myBean', 'fooService', etc), but may
-special characters as well.  If you want to introduce other aliases to the bean, you can
+special characters as well. If you want to introduce other aliases to the bean, you can
 also specify them in the `name` attribute, separated by a comma ( `,`), semicolon (
-`;`), or white space.  As a historical note, in versions prior to Spring 3.1, the `id`
-attribute was typed as an `xsd:ID`, which constrained possible characters.  As of 3.1,
-it is now `xsd:string`.  Note that bean id uniqueness is still enforced by the
+`;`), or white space. As a historical note, in versions prior to Spring 3.1, the `id`
+attribute was typed as an `xsd:ID`, which constrained possible characters. As of 3.1,
+it is now `xsd:string`. Note that bean id uniqueness is still enforced by the
 container, though no longer by XML parsers.
 
 You are not required to supply a name or id for a bean. If no name or id is supplied
@@ -2275,7 +2275,7 @@ One factory class can also hold more than one factory method as shown here:
 [subs="verbatim,quotes"]
 ----
 <bean id="serviceLocator" class="examples.DefaultServiceLocator">
-  <!-- inject any dependencies required by this locator bean -->
+	<!-- inject any dependencies required by this locator bean -->
 </bean>
 <bean id="clientService"
 	factory-bean="serviceLocator"
@@ -2732,7 +2732,7 @@ public class ExampleBean {
 		this.beanOne = anotherBean;
 		this.beanTwo = yetAnotherBean;
 		this.i = i;
-  }
+	}
 }
 ----
 
@@ -2984,10 +2984,10 @@ container with a proxy that will have the same name as the parent bean.
 [subs="verbatim,quotes"]
 ----
 <!-- in the child (descendant) context -->
-<bean id="accountService"  <-- bean name is the same as the parent bean -->
+<bean id="accountService" <-- bean name is the same as the parent bean -->
 	class="org.springframework.aop.framework.ProxyFactoryBean">
 	<property name="target">
-		<ref parent="accountService"/>  <!-- notice how we refer to the parent bean -->
+		<ref parent="accountService"/> <!-- notice how we refer to the parent bean -->
 	</property>
 	<!-- insert other configuration and dependencies as required here -->
 </bean>
@@ -3855,23 +3855,23 @@ The following scopes are supported out of the box. You can also create
 |===
 | Scope| Description
 
-|  <<beans-factory-scopes-singleton,singleton>>
+| <<beans-factory-scopes-singleton,singleton>>
 | (Default) Scopes a single bean definition to a single object instance per Spring IoC
   container.
 
-|  <<beans-factory-scopes-prototype,prototype>>
+| <<beans-factory-scopes-prototype,prototype>>
 | Scopes a single bean definition to any number of object instances.
 
-|  <<beans-factory-scopes-request,request>>
+| <<beans-factory-scopes-request,request>>
 | Scopes a single bean definition to the lifecycle of a single HTTP request; that is,
   each HTTP request has its own instance of a bean created off the back of a single bean
   definition. Only valid in the context of a web-aware Spring `ApplicationContext`.
 
-|  <<beans-factory-scopes-session,session>>
+| <<beans-factory-scopes-session,session>>
 | Scopes a single bean definition to the lifecycle of an HTTP `Session`. Only valid in
   the context of a web-aware Spring `ApplicationContext`.
 
-|  <<beans-factory-scopes-global-session,global session>>
+| <<beans-factory-scopes-global-session,global session>>
 | Scopes a single bean definition to the lifecycle of a global HTTP `Session`. Typically
   only valid when used in a portlet context. Only valid in the context of a web-aware
   Spring `ApplicationContext`.
@@ -4161,7 +4161,7 @@ understand the "why" as well as the "how" behind it.
 ----
 
 To create such a proxy, you insert a child `<aop:scoped-proxy/>` element into a scoped
-bean definition.  See <<beans-factory-scopes-other-injection-proxies>> and
+bean definition. See <<beans-factory-scopes-other-injection-proxies>> and
 <<xsd-config>>.) Why do definitions of beans scoped at the `request`, `session`,
 `globalSession` and custom-scope levels require the `<aop:scoped-proxy/>` element ?
 Let's examine the following singleton bean definition and contrast it with what you need
@@ -4820,7 +4820,7 @@ public final class Boot {
 
 
 [[beans-factory-aware]]
-====  ApplicationContextAware and `BeanNameAware`
+==== ApplicationContextAware and `BeanNameAware`
 
 When an `ApplicationContext` creates a class that implements the
 `org.springframework.context.ApplicationContextAware` interface, the class is provided
@@ -4831,7 +4831,8 @@ with a reference to that `ApplicationContext`.
 ----
 public interface ApplicationContextAware {
 
-  void setApplicationContext(ApplicationContext applicationContext) throws BeansException;
+	void setApplicationContext(ApplicationContext applicationContext) throws BeansException;
+
 }
 ----
 
@@ -4989,7 +4990,7 @@ specifying the parent bean as the value of this attribute.
 		class="org.springframework.beans.DerivedTestBean"
 		**parent="inheritedTestBean"** init-method="initialize">
 	<property name="name" value="override"/>
-	<!-- the age property value of 1 will be inherited from  parent -->
+	<!-- the age property value of 1 will be inherited from parent -->
 </bean>
 ----
 
@@ -5116,9 +5117,9 @@ While the recommended approach for `BeanPostProcessor` registration is through
 register them __programmatically__ against a `ConfigurableBeanFactory` using the
 `addBeanPostProcessor` method. This can be useful when needing to evaluate conditional
 logic before registration, or even for copying bean post processors across contexts in a
-hierarchy.  Note however that `BeanPostProcessors` added programmatically __do not
+hierarchy. Note however that `BeanPostProcessors` added programmatically __do not
 respect the `Ordered` interface__. Here it is the __order of registration__ that
-dictates the order of execution.  Note also that `BeanPostProcessors` registered
+dictates the order of execution. Note also that `BeanPostProcessors` registered
 programmatically are always processed before those registered through auto-detection,
 regardless of any explicit ordering.
 ====
@@ -5142,7 +5143,7 @@ eligible for getting processed by all BeanPostProcessor interfaces (for example:
 eligible for auto-proxying)__".
 
 Note that if you have beans wired into your `BeanPostProcessor` using autowiring or
-`@Resource` (which may fall back to autowiring),  Spring might access unexpected beans
+`@Resource` (which may fall back to autowiring), Spring might access unexpected beans
 when searching for type-matching dependency candidates, and therefore make them
 ineligible for auto-proxying or other kinds of bean post-processing. For example, if you
 have a dependency annotated with `@Resource` where the field/setter name does not
@@ -5605,7 +5606,7 @@ it only checks for `@Autowired` beans in your controllers, and not your services
 
 
 [[beans-required-annotation]]
-====  @Required
+==== @Required
 
 The `@Required` annotation applies to bean property setter methods, as in the following
 example:
@@ -5637,7 +5638,7 @@ references and values even when you use the class outside of a container.
 
 
 [[beans-autowired-annotation]]
-====  @Autowired
+==== @Autowired
 
 As expected, you can apply the `@Autowired` annotation to "traditional" setter methods:
 
@@ -6175,7 +6176,7 @@ the following example.
 
 
 [[beans-custom-autowire-configurer]]
-====  CustomAutowireConfigurer
+==== CustomAutowireConfigurer
 
 The
 http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/factory/annotation/CustomAutowireConfigurer.html[`CustomAutowireConfigurer`]
@@ -6210,7 +6211,7 @@ the candidates has a `primary` attribute set to `true`, it will be selected.
 
 
 [[beans-resource-annotation]]
-====  @Resource
+==== @Resource
 
 Spring also supports injection using the JSR-250 `@Resource` annotation on fields or
 bean property setter methods. This is a common pattern in Java EE 5 and 6, for example
@@ -6296,7 +6297,7 @@ public class MovieRecommender {
 
 
 [[beans-postconstruct-and-predestroy-annotations]]
-====  @PostConstruct and `@PreDestroy`
+==== @PostConstruct and `@PreDestroy`
 
 The `CommonAnnotationBeanPostProcessor` not only recognizes the `@Resource` annotation
 but also the JSR-250 __lifecycle__ annotations. Introduced in Spring 2.5, the support
@@ -6361,7 +6362,7 @@ than using the traditional XML files. Take a look at the `@Configuration`, `@Bea
 
 
 [[beans-stereotype-annotations]]
-====  @Component and further stereotype annotations
+==== @Component and further stereotype annotations
 
 In Spring 2.0 and later, the `@Repository` annotation is a marker for any class that
 fulfills the role or __stereotype__ (also known as Data Access Object or DAO) of a
@@ -6541,7 +6542,7 @@ public class FactoryMethodComponent {
 	@Bean @Qualifier("public")
 	public TestBean publicInstance() {
 		return new TestBean("publicInstance");
-  }
+	}
 
 	public void doWork() {
 		// Component method implementation omitted
@@ -6564,7 +6565,7 @@ methods:
 @Component
 public class FactoryMethodComponent {
 
-  private static int i;
+	private static int i;
 
 	@Bean
 	@Qualifier("public")
@@ -6931,7 +6932,7 @@ features are not available as shown in the table below:
 
 | @Scope("singleton")
 | @Singleton
-|  The JSR-330 default scope is like Spring's `prototype`. However, in order to keep it
+| The JSR-330 default scope is like Spring's `prototype`. However, in order to keep it
   consistent with Spring's general defaults, a JSR-330 bean declared in the Spring
   container is a `singleton` by default. In order to use a scope other than `singleton`,
   you should use Spring's `@Scope` annotation.
@@ -6976,7 +6977,7 @@ bean methods declared in a `@Component` or even in a __plain old class__ will be
 considered 'lite'.
 
 Unlike full `@Configuration`, lite `@Bean` methods cannot easily declare inter-bean
-dependencies. Usually one `@Bean` method should not invoke another  `@Bean` method when
+dependencies. Usually one `@Bean` method should not invoke another `@Bean` method when
 operating in 'lite' mode.
 
 Only using `@Bean` methods within `@Configuration` classes is a recommended approach of
@@ -7362,7 +7363,7 @@ public class MyConfiguration {
 ----
 
 [[beans-java-scoped-proxy]]
-======  @Scope and scoped-proxy
+====== @Scope and scoped-proxy
 
 Spring offers a convenient way of working with scoped dependencies through
 <<beans-factory-scopes-other-injection,scoped proxies>>. The easiest way to create such
@@ -8589,7 +8590,7 @@ directly through a classic singleton lookup.
 
 
 [[context-introduction-ctx-vs-beanfactory]]
-====  BeanFactory or `ApplicationContext`?
+==== BeanFactory or `ApplicationContext`?
 
 Use an `ApplicationContext` unless you have a good reason for not doing so.
 
@@ -8812,7 +8813,7 @@ box in Spring:
 
 
 [[resources-implementations-urlresource]]
-====  UrlResource
+==== UrlResource
 
 The `UrlResource` wraps a `java.net.URL`, and may be used to access any object that is
 normally accessible via a URL, such as files, an HTTP target, an FTP target, etc. All
@@ -8833,7 +8834,7 @@ create a `UrlResource`.
 
 
 [[resources-implementations-classpathresource]]
-====  ClassPathResource
+==== ClassPathResource
 
 This class represents a resource which should be obtained from the classpath. This uses
 either the thread context class loader, a given class loader, or a given class for
@@ -8854,7 +8855,7 @@ path, and create a `ClassPathResource` in that case.
 
 
 [[resources-implementations-filesystemresource]]
-====  FileSystemResource
+==== FileSystemResource
 
 This is a `Resource` implementation for `java.io.File` handles. It obviously supports
 resolution as a `File`, and as a `URL`.
@@ -8862,7 +8863,7 @@ resolution as a `File`, and as a `URL`.
 
 
 [[resources-implementations-servletcontextresource]]
-====  ServletContextResource
+==== ServletContextResource
 
 This is a `Resource` implementation for `ServletContext` resources, interpreting
 relative paths within the relevant web application's root directory.
@@ -8876,7 +8877,7 @@ dependent on the Servlet container.
 
 
 [[resources-implementations-inputstreamresource]]
-====  InputStreamResource
+==== InputStreamResource
 
 A `Resource` implementation for a given `InputStream`. This should only be used if no
 specific `Resource` implementation is applicable. In particular, prefer
@@ -8890,7 +8891,7 @@ times.
 
 
 [[resources-implementations-bytearrayresource]]
-====  ByteArrayResource
+==== ByteArrayResource
 
 This is a `Resource` implementation for a given byte array. It creates a
 `ByteArrayInputStream` for the given byte array.
@@ -8969,21 +8970,21 @@ The following table summarizes the strategy for converting `String` s to `Resour
 | Prefix| Example| Explanation
 
 | classpath:
-|  `classpath:com/myapp/config.xml`
+| `classpath:com/myapp/config.xml`
 | Loaded from the classpath.
 
 | file:
-|  `file:/data/config.xml`
-|  Loaded as a `URL`, from the filesystem.  footnote:[But see also
+| `file:/data/config.xml`
+| Loaded as a `URL`, from the filesystem. footnote:[But see also
   pass:specialcharacters,macros[<<resources-filesystemresource-caveats>>].]
 
 | http:
-|  `http://myserver/logo.png`
+| `http://myserver/logo.png`
 | Loaded as a `URL`.
 
 | (none)
-|  `/data/config.xml`
-|  Depends on the underlying `ApplicationContext`.
+| `/data/config.xml`
+| Depends on the underlying `ApplicationContext`.
 |===
 
 
@@ -9032,7 +9033,7 @@ annotation. For more information, see <<beans-autowired-annotation>>.
 
 
 [[resources-as-dependencies]]
-===  Resources as dependencies
+=== Resources as dependencies
 
 If the bean itself is going to determine and supply the resource path through some sort
 of dynamic process, it probably makes sense for the bean to use the `ResourceLoader`
@@ -9308,7 +9309,7 @@ will search all class path locations that contain the root package.
 
 
 [[resources-filesystemresource-caveats]]
-====  FileSystemResource caveats
+==== FileSystemResource caveats
 
 A `FileSystemResource` that is not attached to a `FileSystemApplicationContext` (that
 is, a `FileSystemApplicationContext` is not the actual `ResourceLoader`) will treat
@@ -11322,7 +11323,7 @@ type `T` or converted using the registered type converter.
 The more common usage of SpEL is to provide an expression string that is evaluated
 against a specific object instance (called the root object). There are two options here
 and which to choose depends on whether the object against which the expression is being
-evaluated will be changing with each call to evaluate the expression.  In the following
+evaluated will be changing with each call to evaluate the expression. In the following
 example we retrieve the `name` property from an instance of the Inventor class.
 
 [source,java]
@@ -11332,7 +11333,7 @@ example we retrieve the `name` property from an instance of the Inventor class.
 GregorianCalendar c = new GregorianCalendar();
 c.set(1856, 7, 9);
 
-//  The constructor arguments are name, birthday, and nationality.
+// The constructor arguments are name, birthday, and nationality.
 Inventor tesla = new Inventor("Nikola Tesla", c.getTime(), "Serbian");
 
 ExpressionParser parser = new SpelExpressionParser();
@@ -11344,8 +11345,8 @@ String name = (String) exp.getValue(context);
 
 In the last line, the value of the string variable 'name' will be set to "Nikola Tesla".
 The class StandardEvaluationContext is where you can specify which object the "name"
-property will be evaluated against.  This is the mechanism to use if the root object is
-unlikely to change, it can simply be set once in the evaluation context.  If the root
+property will be evaluated against. This is the mechanism to use if the root object is
+unlikely to change, it can simply be set once in the evaluation context. If the root
 object is likely to change repeatedly, it can be supplied on each call to `getValue`, as
 this next example shows:
 
@@ -11356,7 +11357,7 @@ this next example shows:
 GregorianCalendar c = new GregorianCalendar();
 c.set(1856, 7, 9);
 
-//  The constructor arguments are name, birthday, and nationality.
+// The constructor arguments are name, birthday, and nationality.
 Inventor tesla = new Inventor("Nikola Tesla", c.getTime(), "Serbian");
 
 ExpressionParser parser = new SpelExpressionParser();
@@ -11370,7 +11371,7 @@ internally - it did not require one to be supplied.
 
 The StandardEvaluationContext is relatively expensive to construct and during repeated
 usage it builds up cached state that enables subsequent expression evaluations to be
-performed more quickly.  For this reason it is better to cache and reuse them where
+performed more quickly. For this reason it is better to cache and reuse them where
 possible, rather than construct a new one for each expression evaluation.
 
 In some cases it can be desirable to use a configured evaluation context and yet still
@@ -11446,7 +11447,7 @@ simple.booleanList.add(true);
 
 StandardEvaluationContext simpleContext = new StandardEvaluationContext(simple);
 
-// false is passed in here as a string.  SpEL and the conversion service will
+// false is passed in here as a string. SpEL and the conversion service will
 // correctly recognize that it needs to be a Boolean and convert it
 parser.parseExpression("booleanList[0]").setValue(simpleContext, "false");
 
@@ -11626,7 +11627,7 @@ ExpressionParser parser = new SpelExpressionParser();
 // evals to "Hello World"
 String helloWorld = (String) parser.parseExpression("'Hello World'").getValue();
 
-double avogadrosNumber  = (Double) parser.parseExpression("6.0221415E+23").getValue();
+double avogadrosNumber = (Double) parser.parseExpression("6.0221415E+23").getValue();
 
 // evals to 2147483647
 int maxValue = (Integer) parser.parseExpression("0x7FFFFFFF").getValue();
@@ -11722,7 +11723,7 @@ List numbers = (List) parser.parseExpression("{1,2,3,4}").getValue(context);
 List listOfLists = (List) parser.parseExpression("{{'a','b'},{'x','y'}}").getValue(context);
 ----
 
-{} by itself means an empty list.  For performance reasons, if the list is itself
+{} by itself means an empty list. For performance reasons, if the list is itself
 entirely composed of fixed literals then a constant list is created to represent the
 expression, rather than building a new list on each evaluation.
 
@@ -11809,9 +11810,9 @@ boolean falseValue = parser.parseExpression(
 		"'5.0067' matches '^-?\\d+(\\.\\d{2})?$'").getValue(Boolean.class);
 ----
 
-Each symbolic operator can also be specified as a purely alphabetic equivalent.  This
+Each symbolic operator can also be specified as a purely alphabetic equivalent. This
 avoids problems where the symbols used have special meaning for the document type in
-which the expression is embedded (eg. an XML document).  The textual equivalents are
+which the expression is embedded (eg. an XML document). The textual equivalents are
 shown here: lt ('<'), gt ('>'), le ('<='), ge ('>='), eq ('=='), ne ('!='), div ('/'),
 mod ('%'), not ('!'). These are case insensitive.
 
@@ -11830,7 +11831,7 @@ below.
 boolean falseValue = parser.parseExpression("true and false").getValue(Boolean.class);
 
 // evaluates to true
-String expression =  "isMember('Nikola Tesla') and isMember('Mihajlo Pupin')";
+String expression = "isMember('Nikola Tesla') and isMember('Mihajlo Pupin')";
 boolean trueValue = parser.parseExpression(expression).getValue(societyContext, Boolean.class);
 
 // -- OR --
@@ -11839,7 +11840,7 @@ boolean trueValue = parser.parseExpression(expression).getValue(societyContext, 
 boolean trueValue = parser.parseExpression("true or false").getValue(Boolean.class);
 
 // evaluates to true
-String expression =  "isMember('Nikola Tesla') or isMember('Albert Einstein')";
+String expression = "isMember('Nikola Tesla') or isMember('Albert Einstein')";
 boolean trueValue = parser.parseExpression(expression).getValue(societyContext, Boolean.class);
 
 // -- NOT --
@@ -11848,7 +11849,7 @@ boolean trueValue = parser.parseExpression(expression).getValue(societyContext, 
 boolean falseValue = parser.parseExpression("!true").getValue(Boolean.class);
 
 // -- AND and NOT --
-String expression =  "isMember('Nikola Tesla') and !isMember('Mihajlo Pupin')";
+String expression = "isMember('Nikola Tesla') and !isMember('Mihajlo Pupin')";
 boolean falseValue = parser.parseExpression(expression).getValue(societyContext, Boolean.class);
 ----
 
@@ -17015,7 +17016,7 @@ with an ordinary Java object:
 [subs="verbatim,quotes"]
 ----
 <bean id="personUser" class="com.mycompany.PersonUser">
-  <property name="person"><ref bean="person"/></property>
+	<property name="person"><ref bean="person"/></property>
 </bean>
 ----
 
@@ -21493,7 +21494,7 @@ behind the scenes and you won't need to write any special code.
 
 
 [[tx-resource-synchronization-tadsp]]
-====  TransactionAwareDataSourceProxy
+==== TransactionAwareDataSourceProxy
 
 At the very lowest level exists the `TransactionAwareDataSourceProxy` class. This is a
 proxy for a target `DataSource`, which wraps the target `DataSource` to add awareness of
@@ -21621,13 +21622,13 @@ package x.y.service;
 
 public interface FooService {
 
-  Foo getFoo(String fooName);
+	Foo getFoo(String fooName);
 
-  Foo getFoo(String fooName, String barName);
+	Foo getFoo(String fooName, String barName);
 
-  void insertFoo(Foo foo);
+	void insertFoo(Foo foo);
 
-  void updateFoo(Foo foo);
+	void updateFoo(Foo foo);
 
 }
 ----
@@ -24316,7 +24317,7 @@ public class JdbcActorDao implements ActorDao {
 		return updateCounts;
 	}
 
-	//  ... additional methods
+	// ... additional methods
 }
 ----
 
@@ -24359,7 +24360,7 @@ public class JdbcActorDao implements ActorDao {
 		return updateCounts;
 	}
 
-	//  ... additional methods
+	// ... additional methods
 }
 ----
 
@@ -24396,7 +24397,7 @@ public class JdbcActorDao implements ActorDao {
 		return updateCounts;
 	}
 
-	//  ... additional methods
+	// ... additional methods
 
 }
 ----
@@ -24446,7 +24447,7 @@ public class JdbcActorDao implements ActorDao {
 		return updateCounts;
 	}
 
-	//  ... additional methods
+	// ... additional methods
 
 }
 ----
@@ -24504,7 +24505,7 @@ public class JdbcActorDao implements ActorDao {
 		insertActor.execute(parameters);
 	}
 
-	//  ... additional methods
+	// ... additional methods
 }
 ----
 
@@ -24545,7 +24546,7 @@ public class JdbcActorDao implements ActorDao {
 		actor.setId(newId.longValue());
 	}
 
-	//  ... additional methods
+	// ... additional methods
 }
 ----
 
@@ -24588,7 +24589,8 @@ public class JdbcActorDao implements ActorDao {
 		actor.setId(newId.longValue());
 	}
 
-	//  ... additional methods
+	// ... additional methods
+
 }
 ----
 
@@ -24627,7 +24629,7 @@ public class JdbcActorDao implements ActorDao {
 		actor.setId(newId.longValue());
 	}
 
-	//  ... additional methods
+	// ... additional methods
 
 }
 ----
@@ -24658,7 +24660,7 @@ public class JdbcActorDao implements ActorDao {
 		actor.setId(newId.longValue());
 	}
 
-	//  ... additional methods
+	// ... additional methods
 
 }
 ----
@@ -24682,14 +24684,14 @@ from a MySQL database. The example procedure reads a specified actor entry and r
 [subs="verbatim,quotes"]
 ----
 CREATE PROCEDURE read_actor (
-  IN in_id INTEGER,
-  OUT out_first_name VARCHAR(100),
-  OUT out_last_name VARCHAR(100),
-  OUT out_birth_date DATE)
+	IN in_id INTEGER,
+	OUT out_first_name VARCHAR(100),
+	OUT out_last_name VARCHAR(100),
+	OUT out_birth_date DATE)
 BEGIN
-  SELECT first_name, last_name, birth_date
-  INTO out_first_name, out_last_name, out_birth_date
-  FROM t_actor where id = in_id;
+	SELECT first_name, last_name, birth_date
+	INTO out_first_name, out_last_name, out_birth_date
+	FROM t_actor where id = in_id;
 END;
 ----
 
@@ -24716,9 +24718,9 @@ public class JdbcActorDao implements ActorDao {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 		this.procReadActor = new SimpleJdbcCall(dataSource)
 				.withProcedureName("read_actor");
-    }
+	}
 
-    public Actor readActor(Long id) {
+	public Actor readActor(Long id) {
 		SqlParameterSource in = new MapSqlParameterSource()
 				.addValue("in_id", id);
 		Map out = procReadActor.execute(in);
@@ -24730,7 +24732,7 @@ public class JdbcActorDao implements ActorDao {
 		return actor;
 	}
 
-	//  ... additional methods
+	// ... additional methods
 
 }
 ----
@@ -24773,7 +24775,7 @@ public class JdbcActorDao implements ActorDao {
 				.withProcedureName("read_actor");
 	}
 
-	//  ... additional methods
+	// ... additional methods
 
 }
 ----
@@ -24932,7 +24934,7 @@ public class JdbcActorDao implements ActorDao {
 		return name;
 	}
 
-	//  ... additional methods
+	// ... additional methods
 
 }
 ----
@@ -24992,7 +24994,7 @@ public class JdbcActorDao implements ActorDao {
 		return (List) m.get("actors");
 	}
 
-	//  ... additional methods
+	// ... additional methods
 
 }
 ----
@@ -25448,8 +25450,8 @@ final File clobIn = new File("large.txt");
 final InputStream clobIs = new FileInputStream(clobIn);
 final InputStreamReader clobReader = new InputStreamReader(clobIs);
 jdbcTemplate.execute(
-  "INSERT INTO lob_table (id, a_clob, a_blob) VALUES (?, ?, ?)",
-  new AbstractLobCreatingPreparedStatementCallback(lobHandler) { <<1>>
+	"INSERT INTO lob_table (id, a_clob, a_blob) VALUES (?, ?, ?)",
+	new AbstractLobCreatingPreparedStatementCallback(lobHandler) { <<1>>
 protected void setValues(PreparedStatement ps, LobCreator lobCreator) throws SQLException { ps.setLong(1, 1L); lobCreator.setClobAsCharacterStream(ps, 2, clobReader, (int)clobIn.length()); <<2>>
 lobCreator.setBlobAsBinaryStream(ps, 3, blobIs, (int)blobIn.length()); <<3>>
 } }
@@ -27243,10 +27245,10 @@ injection of the default `EntityManagerFactory`:
 ----
 <beans>
 
-  <!-- bean post-processor for JPA annotations -->
-  <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
+	<!-- bean post-processor for JPA annotations -->
+	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
 
-  <bean id="myProductDao" class="product.ProductDaoImpl"/>
+	<bean id="myProductDao" class="product.ProductDaoImpl"/>
 
 </beans>
 ----
@@ -27262,10 +27264,10 @@ post-processors for annotation-based configuration, including
 ----
 <beans>
 
-  <!-- post-processors for all standard config annotations -->
-  <context:annotation-config/>
+	<!-- post-processors for all standard config annotations -->
+	<context:annotation-config/>
 
-  <bean id="myProductDao" class="product.ProductDaoImpl"/>
+	<bean id="myProductDao" class="product.ProductDaoImpl"/>
 
 </beans>
 ----
@@ -27499,7 +27501,7 @@ representations, as indicated in the table below.
 
 [[oxm-marshller-tbl]]
 |===
-|  Result implementation| Wraps XML representation
+| Result implementation| Wraps XML representation
 
 | `DOMResult`
 | `org.w3c.dom.Node`
@@ -27546,7 +27548,7 @@ wraps a different XML representation, as indicated in the table below.
 
 [[oxm-unmarshller-tbl]]
 |===
-|  Source implementation| Wraps XML representation
+| Source implementation| Wraps XML representation
 
 | `DOMSource`
 | `org.w3c.dom.Node`
@@ -28435,7 +28437,7 @@ see the table below listing the special bean types the `DispatcherServlet` relie
 |===
 | Bean type| Explanation
 
-a| <<mvc-handlermapping,HandlerMapping>>
+| <<mvc-handlermapping,HandlerMapping>>
 | Maps incoming requests to handlers and a list of pre- and post-processors (handler
   interceptors) based on some criteria the details of which vary by `HandlerMapping`
   implementation. The most popular implementation supports annotated controllers but
@@ -28447,24 +28449,24 @@ a| <<mvc-handlermapping,HandlerMapping>>
   requires resolving various annotations. Thus the main purpose of a `HandlerAdapter` is
   to shield the `DispatcherServlet` from such details.
 
-a| <<mvc-exceptionhandlers,HandlerExceptionResolver>>
+| <<mvc-exceptionhandlers,HandlerExceptionResolver>>
 | Maps exceptions to views also allowing for more complex exception handling code.
 
-a| <<mvc-viewresolver,ViewResolver>>
+| <<mvc-viewresolver,ViewResolver>>
 | Resolves logical String-based view names to actual `View` types.
 
-a| <<mvc-localeresolver,LocaleResolver>>
+| <<mvc-localeresolver,LocaleResolver>>
 | Resolves the locale a client is using, in order to be able to offer internationalized
   views
 
-a| <<mvc-themeresolver,ThemeResolver>>
+| <<mvc-themeresolver,ThemeResolver>>
 | Resolves themes your web application can use, for example, to offer personalized layouts
 
-a| <<mvc-multipart,MultipartResolver>>
+| <<mvc-multipart,MultipartResolver>>
 | Parses multi-part requests for example to support processing file uploads from HTML
   forms.
 
-a| <<mvc-flash-attributes,FlashMapManager>>
+| <<mvc-flash-attributes,FlashMapManager>>
 | Stores and retrieves the "input" and the "output" `FlashMap` that can be used to pass
   attributes from one request to another, usually across a redirect.
 |===
@@ -29828,7 +29830,7 @@ The following code sample demonstrates how to get the value of the `Accept-Encod
 ----
 @RequestMapping("/displayHeaderInfo.do")
 public void displayHeaderInfo(**@RequestHeader("Accept-Encoding")** String encoding,
-		**@RequestHeader("Keep-Alive")** long keepAlive)  {
+		**@RequestHeader("Keep-Alive")** long keepAlive) {
 	//...
 }
 ----
@@ -30373,7 +30375,7 @@ examples follow.
 [[mvc-view-resolvers-tbl]]
 .View resolvers
 |===
-|  ViewResolver| Description
+| ViewResolver| Description
 
 | `AbstractCachingViewResolver`
 | Abstract view resolver that caches views. Often views need preparation before they can
@@ -32395,7 +32397,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		registry.addResourceHandler(
 				"/resources-" + env.getProperty("application.version") + "/**")
 				.addResourceLocations("/public-resources/");
-  }
+	}
 
 }
 ----
@@ -33257,7 +33259,7 @@ The `form.jsp` would look like:
 			<td>Last Name:</td>
 			<td><form:input path="lastName" /></td>
 			<%-- Show errors for lastName field --%>
-			<td><form:errors path="lastName"  /></td>
+			<td><form:errors path="lastName" /></td>
 		</tr>
 		<tr>
 			<td colspan="3">
@@ -33322,7 +33324,7 @@ field-specific errors next to the fields:
 		<tr>
 			<td>Last Name:</td>
 			<td><form:input path="lastName" /></td>
-			<td><form:errors path="lastName"  /></td>
+			<td><form:errors path="lastName" /></td>
 		</tr>
 		<tr>
 			<td colspan="3">
@@ -35830,10 +35832,10 @@ public abstract class Login extends BasePage implements ErrorProperty, PageRende
 	}
 
 	/**
-	 *  Attempts to login.
+	 * Attempts to login.
 	 * <p>
-	 *  If the user name is not known, or the password is invalid, then an error
-	 *  message is displayed.
+	 * If the user name is not known, or the password is invalid, then an error
+	 * message is displayed.
 	 */
 	public void attemptLogin(IRequestCycle cycle) {
 
@@ -35867,7 +35869,7 @@ public abstract class Login extends BasePage implements ErrorProperty, PageRende
 	 * and redirects to the appropriate page, or
 	 * a specified page).
 	 */
-    public void loginUser(User user, IRequestCycle cycle) {
+	public void loginUser(User user, IRequestCycle cycle) {
 
 		String username = user.getUsername();
 
@@ -37342,7 +37344,7 @@ public class PetSitesEditController {
 		return this.petSites;
 	}
 
-	@RequestMapping(params = "action=add")  // action phase
+	@RequestMapping(params = "action=add") // action phase
 	public void populateSite( @ModelAttribute("site") PetSite petSite, BindingResult result, SessionStatus status, ActionResponse response) {
 		new PetSiteValidator().validate(petSite, result);
 		if (!result.hasErrors()) {
@@ -39935,7 +39937,7 @@ namespace elements you will need to reference the JMS schema:
 			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 			**http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms.xsd**">
 
-       <!-- bean definitions here -->
+	<!-- bean definitions here -->
 
 </beans>
 ----
@@ -41023,7 +41025,7 @@ configuration for the `MetadataNamingStrategy`:
 	</bean>
 
 	<bean id="namingStrategy" class="org.springframework.jmx.export.naming.MetadataNamingStrategy">
-    	<property name="attributeSource" ref="attributeSource"/>
+		<property name="attributeSource" ref="attributeSource"/>
 	</bean>
 
 	<bean id="attributeSource"
@@ -41459,45 +41461,48 @@ specification (1.2) entitled 'The JMX Notification Model'.)
 ----
 <beans>
 
-  <bean id="exporter" class="org.springframework.jmx.export.MBeanExporter">
-    <property name="beans">
-      <map>
-        <entry key="bean:name=testBean1" value-ref="testBean1"/>
-        <entry key="bean:name=testBean2" value-ref="testBean2"/>
-      </map>
-    </property>
-    <property name="notificationListeners">
-        <list>
-            <bean class="org.springframework.jmx.export.NotificationListenerBean">
-                <constructor-arg ref="customerNotificationListener"/>
-                <property name="mappedObjectNames">
-                    <list>
-                        <!-- handles notifications from two distinct MBeans -->
-                        <value>bean:name=testBean1</value>
-                        <value>bean:name=testBean2</value>
-                    </list>
-                </property>
-                <property name="handback">
-                    <bean class="java.lang.String">
-                        <constructor-arg value="This could be anything..."/>
-                    </bean>
-                </property>
-                <property name="notificationFilter" ref="customerNotificationListener"/>
-            </bean>
-        </list>
-    </property>
-  </bean>
+	<bean id="exporter" class="org.springframework.jmx.export.MBeanExporter">
+		<property name="beans">
+			<map>
+				<entry key="bean:name=testBean1" value-ref="testBean1"/>
+				<entry key="bean:name=testBean2" value-ref="testBean2"/>
+			</map>
+		</property>
+		<property name="notificationListeners">
+			<list>
+				<bean class="org.springframework.jmx.export.NotificationListenerBean">
+					<constructor-arg ref="customerNotificationListener"/>
+					<property name="mappedObjectNames">
+						<list>
+							<!-- handles notifications from two distinct MBeans -->
+							<value>bean:name=testBean1</value>
+							<value>bean:name=testBean2</value>
+						</list>
+					</property>
+					<property name="handback">
+						<bean class="java.lang.String">
+							<constructor-arg value="This could be anything..."/>
+						</bean>
+					</property>
+					<property name="notificationFilter" ref="customerNotificationListener"/>
+				</bean>
+			</list>
+		</property>
+	</bean>
 
-  <!-- implements both the NotificationListener and NotificationFilter interfaces -->
-  <bean id="customerNotificationListener" class="com.example.ConsoleLoggingNotificationListener"/>
-  <bean id="testBean1" class="org.springframework.jmx.JmxTestBean">
-      <property name="name" value="TEST"/>
-      <property name="age" value="100"/>
-  </bean>
-  <bean id="testBean2" class="org.springframework.jmx.JmxTestBean">
-      <property name="name" value="ANOTHER TEST"/>
-      <property name="age" value="200"/>
-  </bean>
+	<!-- implements both the NotificationListener and NotificationFilter interfaces -->
+	<bean id="customerNotificationListener" class="com.example.ConsoleLoggingNotificationListener"/>
+
+	<bean id="testBean1" class="org.springframework.jmx.JmxTestBean">
+		<property name="name" value="TEST"/>
+		<property name="age" value="100"/>
+	</bean>
+
+	<bean id="testBean2" class="org.springframework.jmx.JmxTestBean">
+		<property name="name" value="ANOTHER TEST"/>
+		<property name="age" value="200"/>
+	</bean>
+
 </beans>
 ----
 
@@ -41554,26 +41559,27 @@ import javax.management.Notification;
 
 public class JmxTestBean implements IJmxTestBean, NotificationPublisherAware {
 
-    private String name;
-    private int age;
-    private boolean isSuperman;
-    private NotificationPublisher publisher;
+	private String name;
+	private int age;
+	private boolean isSuperman;
+	private NotificationPublisher publisher;
 
-    // other getters and setters omitted for clarity
+	// other getters and setters omitted for clarity
 
-    public int add(int x, int y) {
-        int answer = x + y;
-        this.publisher.sendNotification(new Notification("add", this, 0));
-        return answer;
-    }
+	public int add(int x, int y) {
+		int answer = x + y;
+		this.publisher.sendNotification(new Notification("add", this, 0));
+		return answer;
+	}
 
-    public void dontExposeMe() {
-        throw new RuntimeException();
-    }
+	public void dontExposeMe() {
+		throw new RuntimeException();
+	}
 
-    public void setNotificationPublisher(NotificationPublisher notificationPublisher) {
-        this.publisher = notificationPublisher;
-    }
+	public void setNotificationPublisher(NotificationPublisher notificationPublisher) {
+		this.publisher = notificationPublisher;
+	}
+
 }
 ----
 
@@ -41681,7 +41687,7 @@ might be running.
 
 
 [[cci-config-connectionfactory]]
-====  ConnectionFactory configuration in Spring
+==== ConnectionFactory configuration in Spring
 
 In order to make connections to the EIS, you need to obtain a `ConnectionFactory` from
 the application server if you are in a managed mode, or directly from Spring if you are
@@ -41705,13 +41711,13 @@ connector, exposing the application-level CCI `ConnectionFactory`.
 [subs="verbatim,quotes"]
 ----
 <bean id="eciManagedConnectionFactory" class="com.ibm.connector2.cics.ECIManagedConnectionFactory">
-  <property name="serverName" value="TXSERIES"/>
-  <property name="connectionURL" value="tcp://localhost/"/>
-  <property name="portNumber" value="2006"/>
+	<property name="serverName" value="TXSERIES"/>
+	<property name="connectionURL" value="tcp://localhost/"/>
+	<property name="portNumber" value="2006"/>
 </bean>
 
 <bean id="eciConnectionFactory" class="org.springframework.jca.support.LocalConnectionFactoryBean">
-  <property name="managedConnectionFactory" ref="eciManagedConnectionFactory"/>
+	<property name="managedConnectionFactory" ref="eciManagedConnectionFactory"/>
 </bean>
 ----
 
@@ -41741,14 +41747,14 @@ corresponding local `ManagedConnectionFactory` implementation.
 [subs="verbatim,quotes"]
 ----
 public interface ConnectionFactory implements Serializable, Referenceable {
-  ...
-  Connection getConnection() throws ResourceException;
-  Connection getConnection(ConnectionSpec connectionSpec) throws ResourceException;
-  ...
+	...
+	Connection getConnection() throws ResourceException;
+	Connection getConnection(ConnectionSpec connectionSpec) throws ResourceException;
+	...
 }
 ----
 
-Spring provides a  `ConnectionSpecConnectionFactoryAdapter` that allows for specifying a
+Spring provides a `ConnectionSpecConnectionFactoryAdapter` that allows for specifying a
 `ConnectionSpec` instance to use for all operations on a given factory. If the adapter's
 `connectionSpec` property is specified, the adapter uses the `getConnection` variant
 with the `ConnectionSpec` argument, otherwise the variant without argument.
@@ -41757,25 +41763,25 @@ with the `ConnectionSpec` argument, otherwise the variant without argument.
 [subs="verbatim,quotes"]
 ----
 <bean id="managedConnectionFactory"
-    class="com.sun.connector.cciblackbox.CciLocalTxManagedConnectionFactory">
-  <property name="connectionURL" value="jdbc:hsqldb:hsql://localhost:9001"/>
-  <property name="driverName" value="org.hsqldb.jdbcDriver"/>
+		class="com.sun.connector.cciblackbox.CciLocalTxManagedConnectionFactory">
+	<property name="connectionURL" value="jdbc:hsqldb:hsql://localhost:9001"/>
+	<property name="driverName" value="org.hsqldb.jdbcDriver"/>
 </bean>
 
 <bean id="targetConnectionFactory"
-    class="org.springframework.jca.support.LocalConnectionFactoryBean">
-  <property name="managedConnectionFactory" ref="managedConnectionFactory"/>
+		class="org.springframework.jca.support.LocalConnectionFactoryBean">
+	<property name="managedConnectionFactory" ref="managedConnectionFactory"/>
 </bean>
 
 <bean id="connectionFactory"
-    class="org.springframework.jca.cci.connection.ConnectionSpecConnectionFactoryAdapter">
-  <property name="targetConnectionFactory" ref="targetConnectionFactory"/>
-  <property name="connectionSpec">
-    <bean class="com.sun.connector.cciblackbox.CciConnectionSpec">
-      <property name="user" value="sa"/>
-      <property name="password" value=""/>
-    </bean>
-  </property>
+		class="org.springframework.jca.cci.connection.ConnectionSpecConnectionFactoryAdapter">
+	<property name="targetConnectionFactory" ref="targetConnectionFactory"/>
+	<property name="connectionSpec">
+		<bean class="com.sun.connector.cciblackbox.CciConnectionSpec">
+			<property name="user" value="sa"/>
+			<property name="password" value=""/>
+		</bean>
+	</property>
 </bean>
 ----
 
@@ -41793,20 +41799,20 @@ accordingly, all sharing the same underlying physical connection.
 [subs="verbatim,quotes"]
 ----
 <bean id="eciManagedConnectionFactory"
-    class="com.ibm.connector2.cics.ECIManagedConnectionFactory">
-  <property name="serverName" value="TEST"/>
-  <property name="connectionURL" value="tcp://localhost/"/>
-  <property name="portNumber" value="2006"/>
+		class="com.ibm.connector2.cics.ECIManagedConnectionFactory">
+	<property name="serverName" value="TEST"/>
+	<property name="connectionURL" value="tcp://localhost/"/>
+	<property name="portNumber" value="2006"/>
 </bean>
 
 <bean id="targetEciConnectionFactory"
-    class="org.springframework.jca.support.LocalConnectionFactoryBean">
-  <property name="managedConnectionFactory" ref="eciManagedConnectionFactory"/>
+		class="org.springframework.jca.support.LocalConnectionFactoryBean">
+	<property name="managedConnectionFactory" ref="eciManagedConnectionFactory"/>
 </bean>
 
 <bean id="eciConnectionFactory"
-    class="org.springframework.jca.cci.connection.SingleConnectionFactory">
-  <property name="targetConnectionFactory" ref="targetEciConnectionFactory"/>
+		class="org.springframework.jca.cci.connection.SingleConnectionFactory">
+	<property name="targetConnectionFactory" ref="targetEciConnectionFactory"/>
 </bean>
 ----
 
@@ -41842,7 +41848,8 @@ of the `RecordCreator` interface.
 ----
 public interface RecordCreator {
 
-  Record createRecord(RecordFactory recordFactory) throws ResourceException, DataAccessException;
+	Record createRecord(RecordFactory recordFactory) throws ResourceException, DataAccessException;
+
 }
 ----
 
@@ -41857,11 +41864,12 @@ records.
 ----
 public class MyRecordCreator implements RecordCreator {
 
-  public Record createRecord(RecordFactory recordFactory) throws ResourceException {
-    IndexedRecord input = recordFactory.createIndexedRecord("input");
-    input.add(new Integer(id));
-    return input;
-  }
+	public Record createRecord(RecordFactory recordFactory) throws ResourceException {
+		IndexedRecord input = recordFactory.createIndexedRecord("input");
+		input.add(new Integer(id));
+		return input;
+	}
+
 }
 ----
 
@@ -41874,7 +41882,8 @@ implementation of the `RecordExtractor` interface can be passed to Spring's
 ----
 public interface RecordExtractor {
 
-  Object extractData(Record record) throws ResourceException, SQLException, DataAccessException;
+	Object extractData(Record record) throws ResourceException, SQLException, DataAccessException;
+
 }
 ----
 
@@ -41885,13 +41894,14 @@ The following sample shows how to use the `RecordExtractor` interface.
 ----
 public class MyRecordExtractor implements RecordExtractor {
 
-  public Object extractData(Record record) throws ResourceException {
-    CommAreaRecord commAreaRecord = (CommAreaRecord) record;
-    String str = new String(commAreaRecord.toByteArray());
-    String field1 = string.substring(0,6);
-    String field2 = string.substring(6,1);
-    return new OutputObject(Long.parseLong(field1), field2);
-  }
+	public Object extractData(Record record) throws ResourceException {
+		CommAreaRecord commAreaRecord = (CommAreaRecord) record;
+		String str = new String(commAreaRecord.toByteArray());
+		String field1 = string.substring(0,6);
+		String field2 = string.substring(6,1);
+		return new OutputObject(Long.parseLong(field1), field2);
+	}
+
 }
 ----
 
@@ -41914,11 +41924,15 @@ CCI `Interaction` interface provides two execute method signatures:
 [subs="verbatim,quotes"]
 ----
 public interface javax.resource.cci.Interaction {
-  ...
-  boolean execute(InteractionSpec spec, Record input, Record output) throws ResourceException;
 
-  Record execute(InteractionSpec spec, Record input) throws ResourceException;
-  ...
+	...
+
+	boolean execute(InteractionSpec spec, Record input, Record output) throws ResourceException;
+
+	Record execute(InteractionSpec spec, Record input) throws ResourceException;
+
+	...
+
 }
 ----
 
@@ -41941,11 +41955,11 @@ methods directly correspond to those on the `Interaction` interface.
 ----
 public class CciTemplate implements CciOperations {
 
-  public Record execute(InteractionSpec spec, Record inputRecord)
-      throws DataAccessException { ... }
+	public Record execute(InteractionSpec spec, Record inputRecord)
+			throws DataAccessException { ... }
 
-  public void execute(InteractionSpec spec, Record inputRecord, Record outputRecord)
-      throws DataAccessException { ... }
+	public void execute(InteractionSpec spec, Record inputRecord, Record outputRecord)
+			throws DataAccessException { ... }
 
 }
 ----
@@ -41959,14 +41973,20 @@ on record conversion. The corresponding `CciTemplate` methods are the following:
 ----
 public class CciTemplate implements CciOperations {
 
-  public Record execute(InteractionSpec spec, RecordCreator inputCreator)
-      throws DataAccessException { ... }
+	public Record execute(InteractionSpec spec,
+			RecordCreator inputCreator) throws DataAccessException {
+		// ...
+	}
 
-  public Object execute(InteractionSpec spec, Record inputRecord, RecordExtractor outputExtractor)
-      throws DataAccessException { ... }
+	public Object execute(InteractionSpec spec, Record inputRecord,
+			RecordExtractor outputExtractor) throws DataAccessException {
+		// ...
+	}
 
-  public Object execute(InteractionSpec spec, RecordCreator creator, RecordExtractor extractor)
-      throws DataAccessException { ... }
+	public Object execute(InteractionSpec spec, RecordCreator creator,
+			RecordExtractor extractor) throws DataAccessException {
+		// ...
+	}
 
 }
 ----
@@ -41986,9 +42006,9 @@ output `Record` as return value.
 ----
 public class CciTemplate implements CciOperations {
 
-  public IndexedRecord createIndexedRecord(String name) throws DataAccessException { ... }
+	public IndexedRecord createIndexedRecord(String name) throws DataAccessException { ... }
 
-  public MappedRecord createMappedRecord(String name) throws DataAccessException { ... }
+	public MappedRecord createMappedRecord(String name) throws DataAccessException { ... }
 
 }
 ----
@@ -42008,11 +42028,21 @@ Internally, this class will create a `CciTemplate` instance for a passed-in
 ----
 public abstract class CciDaoSupport {
 
-  public void setConnectionFactory(ConnectionFactory connectionFactory) { ... }
-  public ConnectionFactory getConnectionFactory() { ... }
+	public void setConnectionFactory(ConnectionFactory connectionFactory) {
+		// ...
+	}
 
-  public void setCciTemplate(CciTemplate cciTemplate) { ... }
-  public CciTemplate getCciTemplate() { ... }
+	public ConnectionFactory getConnectionFactory() {
+		// ...
+	}
+
+	public void setCciTemplate(CciTemplate cciTemplate) {
+		// ...
+	}
+
+	public CciTemplate getCciTemplate() {
+		// ...
+	}
 
 }
 ----
@@ -42048,8 +42078,8 @@ dedicated bean instance:
 <bean id="eciOutputRecordCreator" class="eci.EciOutputRecordCreator"/>
 
 <bean id="cciTemplate" class="org.springframework.jca.cci.core.CciTemplate">
-  <property name="connectionFactory" ref="eciConnectionFactory"/>
-  <property name="outputRecordCreator" ref="eciOutputRecordCreator"/>
+	<property name="connectionFactory" ref="eciConnectionFactory"/>
+	<property name="outputRecordCreator" ref="eciOutputRecordCreator"/>
 </bean>
 ----
 
@@ -42082,7 +42112,7 @@ corresponding methods called on the CCI `Interaction` interface:
 
 | void execute(InteractionSpec, Record, Record)
 | not set
-| void execute(InteractionSpec, Record,             Record)
+| void execute(InteractionSpec, Record, Record)
 
 | void execute(InteractionSpec, Record, Record)
 | set
@@ -42133,8 +42163,9 @@ was created with. The latter can be useful for example to get an associated
 ----
 public interface ConnectionCallback {
 
-  Object doInConnection(Connection connection, ConnectionFactory connectionFactory)
-      throws ResourceException, SQLException, DataAccessException;
+	Object doInConnection(Connection connection, ConnectionFactory connectionFactory)
+			throws ResourceException, SQLException, DataAccessException;
+
 }
 ----
 
@@ -42146,8 +42177,9 @@ custom operations on it, plus the corresponding CCI `ConnectionFactory`.
 ----
 public interface InteractionCallback {
 
-  Object doInInteraction(Interaction interaction, ConnectionFactory connectionFactory)
-      throws ResourceException, SQLException, DataAccessException;
+	Object doInInteraction(Interaction interaction, ConnectionFactory connectionFactory)
+		throws ResourceException, SQLException, DataAccessException;
+
 }
 ----
 
@@ -42160,7 +42192,7 @@ created inside every callback method. This is completely up to the DAO implement
 
 
 [[cci-template-example]]
-==== Example for  CciTemplate usage
+==== Example for CciTemplate usage
 
 In this section, the usage of the `CciTemplate` will be shown to acces to a CICS with
 ECI mode, with the IBM CICS ECI connector.
@@ -42184,27 +42216,27 @@ objects and CCI `Records`.
 ----
 public class MyDaoImpl extends CciDaoSupport implements MyDao {
 
-  public OutputObject getData(InputObject input) {
-    ECIInteractionSpec interactionSpec = ...;
+	public OutputObject getData(InputObject input) {
+		ECIInteractionSpec interactionSpec = ...;
 
-    OutputObject output = (ObjectOutput) getCciTemplate().execute(interactionSpec,
-        new RecordCreator() {
-          public Record createRecord(RecordFactory recordFactory) throws ResourceException {
-            return new CommAreaRecord(input.toString().getBytes());
-          }
-        },
-        new RecordExtractor() {
-          public Object extractData(Record record) throws ResourceException {
-            CommAreaRecord commAreaRecord = (CommAreaRecord)record;
-            String str = new String(commAreaRecord.toByteArray());
-            String field1 = string.substring(0,6);
-            String field2 = string.substring(6,1);
-            return new OutputObject(Long.parseLong(field1), field2);
-          }
-        });
+	OutputObject output = (ObjectOutput) getCciTemplate().execute(interactionSpec,
+		new RecordCreator() {
+			public Record createRecord(RecordFactory recordFactory) throws ResourceException {
+				return new CommAreaRecord(input.toString().getBytes());
+			}
+		},
+		new RecordExtractor() {
+			public Object extractData(Record record) throws ResourceException {
+				CommAreaRecord commAreaRecord = (CommAreaRecord)record;
+				String str = new String(commAreaRecord.toByteArray());
+				String field1 = string.substring(0,6);
+				String field2 = string.substring(6,1);
+				return new OutputObject(Long.parseLong(field1), field2);
+			}
+		});
 
-    return output;
-  }
+		return output;
+	}
 }
 ----
 
@@ -42216,18 +42248,20 @@ interactions.
 ----
 public class MyDaoImpl extends CciDaoSupport implements MyDao {
 
-  public OutputObject getData(InputObject input) {
-    ObjectOutput output = (ObjectOutput) getCciTemplate().execute(
-        new ConnectionCallback() {
-          public Object doInConnection(Connection connection, ConnectionFactory factory)
-              throws ResourceException {
+	public OutputObject getData(InputObject input) {
+		ObjectOutput output = (ObjectOutput) getCciTemplate().execute(
+			new ConnectionCallback() {
+				public Object doInConnection(Connection connection,
+						ConnectionFactory factory) throws ResourceException {
 
-            // do something...
-          }
-        });
-    }
-    return output;
-  }
+					// do something...
+
+				}
+			});
+		}
+		return output;
+	}
+
 }
 ----
 
@@ -42246,22 +42280,21 @@ For a more specific callback, you can implement an `InteractionCallback`. The pa
 ----
 public class MyDaoImpl extends CciDaoSupport implements MyDao {
 
-  public String getData(String input) {
-    ECIInteractionSpec interactionSpec = ...;
+	public String getData(String input) {
+		ECIInteractionSpec interactionSpec = ...;
+		String output = (String) getCciTemplate().execute(interactionSpec,
+			new InteractionCallback() {
+				public Object doInInteraction(Interaction interaction,
+						ConnectionFactory factory) throws ResourceException {
+					Record input = new CommAreaRecord(inputString.getBytes());
+					Record output = new CommAreaRecord();
+					interaction.execute(holder.getInteractionSpec(), input, output);
+					return new String(output.toByteArray());
+				}
+			});
+		return output;
+	}
 
-    String output = (String) getCciTemplate().execute(interactionSpec,
-        new InteractionCallback() {
-          public Object doInInteraction(Interaction interaction, ConnectionFactory factory)
-              throws ResourceException {
-            Record input = new CommAreaRecord(inputString.getBytes());
-            Record output = new CommAreaRecord();
-            interaction.execute(holder.getInteractionSpec(), input, output);
-            return new String(output.toByteArray());
-          }
-        });
-
-    return output;
-  }
 }
 ----
 
@@ -42272,18 +42305,18 @@ could look like this in non-managed mode:
 [subs="verbatim,quotes"]
 ----
 <bean id="managedConnectionFactory" class="com.ibm.connector2.cics.ECIManagedConnectionFactory">
-  <property name="serverName" value="TXSERIES"/>
-  <property name="connectionURL" value="local:"/>
-  <property name="userName" value="CICSUSER"/>
-  <property name="password" value="CICS"/>
+	<property name="serverName" value="TXSERIES"/>
+	<property name="connectionURL" value="local:"/>
+	<property name="userName" value="CICSUSER"/>
+	<property name="password" value="CICS"/>
 </bean>
 
 <bean id="connectionFactory" class="org.springframework.jca.support.LocalConnectionFactoryBean">
-  <property name="managedConnectionFactory" ref="managedConnectionFactory"/>
+	<property name="managedConnectionFactory" ref="managedConnectionFactory"/>
 </bean>
 
 <bean id="component" class="mypackage.MyDaoImpl">
-  <property name="connectionFactory" ref="connectionFactory"/>
+	<property name="connectionFactory" ref="connectionFactory"/>
 </bean>
 ----
 
@@ -42296,7 +42329,7 @@ follows:
 <jee:jndi-lookup id="connectionFactory" jndi-name="eis/cicseci"/>
 
 <bean id="component" class="MyDaoImpl">
-  <property name="connectionFactory" ref="connectionFactory"/>
+	<property name="connectionFactory" ref="connectionFactory"/>
 </bean>
 ----
 
@@ -42319,7 +42352,7 @@ CCI support.
 
 
 [[cci-object-mapping-record]]
-====  MappingRecordOperation
+==== MappingRecordOperation
 
 `MappingRecordOperation` essentially performs the same work as `CciTemplate`, but
 represents a specific, pre-configured operation as an object. It provides two template
@@ -42336,13 +42369,21 @@ Here are the signatures of these methods:
 [subs="verbatim,quotes"]
 ----
 public abstract class MappingRecordOperation extends EisOperation {
-  ...
-  protected abstract Record createInputRecord(RecordFactory recordFactory, Object inputObject)
-      throws ResourceException, DataAccessException { ... }
 
-  protected abstract Object extractOutputData(Record outputRecord)
-      throws ResourceException, SQLException, DataAccessException { ... }
-  ...
+	...
+
+	protected abstract Record createInputRecord(RecordFactory recordFactory,
+			Object inputObject) throws ResourceException, DataAccessException {
+		// ...
+	}
+
+	protected abstract Object extractOutputData(Record outputRecord)
+			throws ResourceException, SQLException, DataAccessException {
+		// ...
+	}
+
+	...
+
 }
 ----
 
@@ -42354,9 +42395,13 @@ output object as result:
 [subs="verbatim,quotes"]
 ----
 public abstract class MappingRecordOperation extends EisOperation {
-  ...
-  public Object execute(Object inputObject) throws DataAccessException {
-  ...
+
+	...
+
+	public Object execute(Object inputObject) throws DataAccessException {
+	}
+
+	...
 }
 ----
 
@@ -42376,7 +42421,7 @@ MyMappingRecordOperation eisOperation = new MyMappingRecordOperation(getConnecti
 
 
 [[cci-object-mapping-comm-area]]
-====  MappingCommAreaOperation
+==== MappingCommAreaOperation
 
 Some connectors use records based on a COMMAREA which represents an array of bytes
 containing parameters to send to the EIS and data returned by it. Spring provides a
@@ -42390,13 +42435,17 @@ input COMMAREA and the output COMMAREA into an output object.
 [subs="verbatim,quotes"]
 ----
 public abstract class MappingCommAreaOperation extends MappingRecordOperation {
-  ...
-  protected abstract byte[] objectToBytes(Object inObject)
-      throws IOException, DataAccessException;
 
-  protected abstract Object bytesToObject(byte[] bytes)
-      throws IOException, DataAccessException;
-  ...
+	...
+
+	protected abstract byte[] objectToBytes(Object inObject)
+			throws IOException, DataAccessException;
+
+	protected abstract Object bytesToObject(byte[] bytes)
+		throws IOException, DataAccessException;
+
+	...
+
 }
 ----
 
@@ -42433,7 +42482,7 @@ The operation object approach uses records in the same manner as the `CciTemplat
 
 
 [[cci-objects-mappring-record-example]]
-==== Example for  MappingRecordOperation usage
+==== Example for MappingRecordOperation usage
 
 In this section, the usage of the `MappingRecordOperation` will be shown to access a
 database with the Blackbox CCI connector.
@@ -42454,33 +42503,33 @@ to an instance of the `Person` class.
 ----
 public class PersonMappingOperation extends MappingRecordOperation {
 
-  public PersonMappingOperation(ConnectionFactory connectionFactory) {
-    setConnectionFactory(connectionFactory);
-    CciInteractionSpec interactionSpec = new CciConnectionSpec();
-    interactionSpec.setSql("select * from person where person_id=?");
-    setInteractionSpec(interactionSpec);
-  }
+	public PersonMappingOperation(ConnectionFactory connectionFactory) {
+		setConnectionFactory(connectionFactory);
+		CciInteractionSpec interactionSpec = new CciConnectionSpec();
+		interactionSpec.setSql("select * from person where person_id=?");
+		setInteractionSpec(interactionSpec);
+	}
 
-  protected Record createInputRecord(RecordFactory recordFactory, Object inputObject)
-      throws ResourceException {
-    Integer id = (Integer) inputObject;
-    IndexedRecord input = recordFactory.createIndexedRecord("input");
-    input.add(new Integer(id));
-    return input;
-  }
+	protected Record createInputRecord(RecordFactory recordFactory,
+			Object inputObject) throws ResourceException {
+		Integer id = (Integer) inputObject;
+		IndexedRecord input = recordFactory.createIndexedRecord("input");
+		input.add(new Integer(id));
+		return input;
+	}
 
-  protected Object extractOutputData(Record outputRecord)
-      throws ResourceException, SQLException {
-    ResultSet rs = (ResultSet) outputRecord;
-    Person person = null;
-    if (rs.next()) {
-      Person person = new Person();
-      person.setId(rs.getInt("person_id"));
-      person.setLastName(rs.getString("person_last_name"));
-      person.setFirstName(rs.getString("person_first_name"));
-    }
-    return person;
-  }
+	protected Object extractOutputData(Record outputRecord)
+			throws ResourceException, SQLException {
+		ResultSet rs = (ResultSet) outputRecord;
+		Person person = null;
+		if (rs.next()) {
+			Person person = new Person();
+			person.setId(rs.getInt("person_id"));
+			person.setLastName(rs.getString("person_last_name"));
+			person.setFirstName(rs.getString("person_first_name"));
+		}
+		return person;
+	}
 }
 ----
 
@@ -42493,11 +42542,11 @@ thread-safe.
 ----
 public class MyDaoImpl extends CciDaoSupport implements MyDao {
 
-  public Person getPerson(int id) {
-    PersonMappingOperation query = new PersonMappingOperation(getConnectionFactory());
-    Person person = (Person) query.execute(new Integer(id));
-    return person;
-  }
+	public Person getPerson(int id) {
+		PersonMappingOperation query = new PersonMappingOperation(getConnectionFactory());
+		Person person = (Person) query.execute(new Integer(id));
+		return person;
+	}
 }
 ----
 
@@ -42507,29 +42556,29 @@ The corresponding configuration of Spring beans could look as follows in non-man
 [subs="verbatim,quotes"]
 ----
 <bean id="managedConnectionFactory"
-    class="com.sun.connector.cciblackbox.CciLocalTxManagedConnectionFactory">
-  <property name="connectionURL" value="jdbc:hsqldb:hsql://localhost:9001"/>
-  <property name="driverName" value="org.hsqldb.jdbcDriver"/>
+		class="com.sun.connector.cciblackbox.CciLocalTxManagedConnectionFactory">
+	<property name="connectionURL" value="jdbc:hsqldb:hsql://localhost:9001"/>
+	<property name="driverName" value="org.hsqldb.jdbcDriver"/>
 </bean>
 
 <bean id="targetConnectionFactory"
-    class="org.springframework.jca.support.LocalConnectionFactoryBean">
-  <property name="managedConnectionFactory" ref="managedConnectionFactory"/>
+		class="org.springframework.jca.support.LocalConnectionFactoryBean">
+	<property name="managedConnectionFactory" ref="managedConnectionFactory"/>
 </bean>
 
 <bean id="connectionFactory"
-    class="org.springframework.jca.cci.connection.ConnectionSpecConnectionFactoryAdapter">
-  <property name="targetConnectionFactory" ref="targetConnectionFactory"/>
-  <property name="connectionSpec">
-    <bean class="com.sun.connector.cciblackbox.CciConnectionSpec">
-      <property name="user" value="sa"/>
-      <property name="password" value=""/>
-    </bean>
-  </property>
+		class="org.springframework.jca.cci.connection.ConnectionSpecConnectionFactoryAdapter">
+	<property name="targetConnectionFactory" ref="targetConnectionFactory"/>
+	<property name="connectionSpec">
+		<bean class="com.sun.connector.cciblackbox.CciConnectionSpec">
+			<property name="user" value="sa"/>
+			<property name="password" value=""/>
+		</bean>
+	</property>
 </bean>
 
 <bean id="component" class="MyDaoImpl">
-  <property name="connectionFactory" ref="connectionFactory"/>
+	<property name="connectionFactory" ref="connectionFactory"/>
 </bean>
 ----
 
@@ -42542,25 +42591,25 @@ follows:
 <jee:jndi-lookup id="targetConnectionFactory" jndi-name="eis/blackbox"/>
 
 <bean id="connectionFactory"
-    class="org.springframework.jca.cci.connection.ConnectionSpecConnectionFactoryAdapter">
-  <property name="targetConnectionFactory" ref="targetConnectionFactory"/>
-  <property name="connectionSpec">
-    <bean class="com.sun.connector.cciblackbox.CciConnectionSpec">
-      <property name="user" value="sa"/>
-      <property name="password" value=""/>
-    </bean>
-  </property>
+		class="org.springframework.jca.cci.connection.ConnectionSpecConnectionFactoryAdapter">
+	<property name="targetConnectionFactory" ref="targetConnectionFactory"/>
+	<property name="connectionSpec">
+		<bean class="com.sun.connector.cciblackbox.CciConnectionSpec">
+			<property name="user" value="sa"/>
+			<property name="password" value=""/>
+		</bean>
+	</property>
 </bean>
 
 <bean id="component" class="MyDaoImpl">
-  <property name="connectionFactory" ref="connectionFactory"/>
+	<property name="connectionFactory" ref="connectionFactory"/>
 </bean>
 ----
 
 
 
 [[cci-objects-mapping-comm-area-example]]
-==== Example for  MappingCommAreaOperation usage
+==== Example for MappingCommAreaOperation usage
 
 In this section, the usage of the `MappingCommAreaOperation` will be shown: accessing a
 CICS with ECI mode with the IBM CICS ECI connector.
@@ -42573,21 +42622,22 @@ to access and how to interact with it.
 ----
 public abstract class EciMappingOperation extends MappingCommAreaOperation {
 
-  public EciMappingOperation(ConnectionFactory connectionFactory, String programName) {
-    setConnectionFactory(connectionFactory);
-    ECIInteractionSpec interactionSpec = new ECIInteractionSpec(),
-    interactionSpec.setFunctionName(programName);
-    interactionSpec.setInteractionVerb(ECIInteractionSpec.SYNC_SEND_RECEIVE);
-    interactionSpec.setCommareaLength(30);
-    setInteractionSpec(interactionSpec);
-    setOutputRecordCreator(new EciOutputRecordCreator());
-  }
+	public EciMappingOperation(ConnectionFactory connectionFactory, String programName) {
+		setConnectionFactory(connectionFactory);
+		ECIInteractionSpec interactionSpec = new ECIInteractionSpec(),
+		interactionSpec.setFunctionName(programName);
+		interactionSpec.setInteractionVerb(ECIInteractionSpec.SYNC_SEND_RECEIVE);
+		interactionSpec.setCommareaLength(30);
+		setInteractionSpec(interactionSpec);
+		setOutputRecordCreator(new EciOutputRecordCreator());
+	}
 
-  private static class EciOutputRecordCreator implements RecordCreator {
-    public Record createRecord(RecordFactory recordFactory) throws ResourceException {
-      return new CommAreaRecord();
-    }
-  }
+	private static class EciOutputRecordCreator implements RecordCreator {
+		public Record createRecord(RecordFactory recordFactory) throws ResourceException {
+			return new CommAreaRecord();
+		}
+	}
+
 }
 ----
 
@@ -42599,23 +42649,26 @@ between custom objects and `Records`.
 ----
 public class MyDaoImpl extends CciDaoSupport implements MyDao {
 
-  public OutputObject getData(Integer id) {
-    EciMappingOperation query = new EciMappingOperation(getConnectionFactory(), "MYPROG") {
-      protected abstract byte[] objectToBytes(Object inObject) throws IOException {
-        Integer id = (Integer) inObject;
-        return String.valueOf(id);
-      }
-      protected abstract Object bytesToObject(byte[] bytes) throws IOException;
-        String str = new String(bytes);
-        String field1 = str.substring(0,6);
-        String field2 = str.substring(6,1);
-        String field3 = str.substring(7,1);
-        return new OutputObject(field1, field2, field3);
-      }
-    });
+	public OutputObject getData(Integer id) {
+		EciMappingOperation query = new EciMappingOperation(getConnectionFactory(), "MYPROG") {
 
-    return (OutputObject) query.execute(new Integer(id));
-  }
+			protected abstract byte[] objectToBytes(Object inObject) throws IOException {
+				Integer id = (Integer) inObject;
+				return String.valueOf(id);
+			}
+
+			protected abstract Object bytesToObject(byte[] bytes) throws IOException;
+				String str = new String(bytes);
+				String field1 = str.substring(0,6);
+				String field2 = str.substring(6,1);
+				String field3 = str.substring(7,1);
+				return new OutputObject(field1, field2, field3);
+			}
+		});
+
+		return (OutputObject) query.execute(new Integer(id));
+	}
+
 }
 ----
 
@@ -42625,18 +42678,18 @@ The corresponding configuration of Spring beans could look as follows in non-man
 [subs="verbatim,quotes"]
 ----
 <bean id="managedConnectionFactory" class="com.ibm.connector2.cics.ECIManagedConnectionFactory">
-  <property name="serverName" value="TXSERIES"/>
-  <property name="connectionURL" value="local:"/>
-  <property name="userName" value="CICSUSER"/>
-  <property name="password" value="CICS"/>
+	<property name="serverName" value="TXSERIES"/>
+	<property name="connectionURL" value="local:"/>
+	<property name="userName" value="CICSUSER"/>
+	<property name="password" value="CICS"/>
 </bean>
 
 <bean id="connectionFactory" class="org.springframework.jca.support.LocalConnectionFactoryBean">
-  <property name="managedConnectionFactory" ref="managedConnectionFactory"/>
+	<property name="managedConnectionFactory" ref="managedConnectionFactory"/>
 </bean>
 
 <bean id="component" class="MyDaoImpl">
-  <property name="connectionFactory" ref="connectionFactory"/>
+	<property name="connectionFactory" ref="connectionFactory"/>
 </bean>
 ----
 
@@ -42649,7 +42702,7 @@ follows:
 <jee:jndi-lookup id="connectionFactory" jndi-name="eis/cicseci"/>
 
 <bean id="component" class="MyDaoImpl">
-  <property name="connectionFactory" ref="connectionFactory"/>
+	<property name="connectionFactory" ref="connectionFactory"/>
 </bean>
 ----
 
@@ -42668,15 +42721,11 @@ with an IMS connector).
 [subs="verbatim,quotes"]
 ----
 <connector>
-
-  <resourceadapter>
-
-    <!-- <transaction-support>NoTransaction</transaction-support> -->
-    <!-- <transaction-support>LocalTransaction</transaction-support> -->
-    <transaction-support>XATransaction</transaction-support>
-
-  <resourceadapter>
-
+	<resourceadapter>
+		<!-- <transaction-support>NoTransaction</transaction-support> -->
+		<!-- <transaction-support>LocalTransaction</transaction-support> -->
+		<transaction-support>XATransaction</transaction-support>
+	<resourceadapter>
 <connector>
 ----
 
@@ -42697,8 +42746,8 @@ local CCI transactions, fully compliant with Spring's generic
 <jee:jndi-lookup id="eciConnectionFactory" jndi-name="eis/cicseci"/>
 
 <bean id="eciTransactionManager"
-    class="org.springframework.jca.cci.connection.CciLocalTransactionManager">
-  <property name="connectionFactory" ref="eciConnectionFactory"/>
+		class="org.springframework.jca.cci.connection.CciLocalTransactionManager">
+	<property name="connectionFactory" ref="eciConnectionFactory"/>
 </bean>
 ----
 
@@ -42767,7 +42816,8 @@ Let's assume there is a business interface called `OrderManager`:
 ----
 public interface OrderManager {
 
-    void placeOrder(Order order);
+	void placeOrder(Order order);
+
 }
 ----
 
@@ -42777,7 +42827,7 @@ order number needs to be generated and sent to a customer placing the relevant o
 
 
 [[mail-usage-simple]]
-==== Basic  MailSender and SimpleMailMessage usage
+==== Basic MailSender and SimpleMailMessage usage
 
 [source,java]
 [subs="verbatim,quotes"]
@@ -42788,39 +42838,40 @@ import org.springframework.mail.SimpleMailMessage;
 
 public class SimpleOrderManager implements OrderManager {
 
-    private MailSender mailSender;
-    private SimpleMailMessage templateMessage;
+	private MailSender mailSender;
+	private SimpleMailMessage templateMessage;
 
-    public void setMailSender(MailSender mailSender) {
-        this.mailSender = mailSender;
-    }
+	public void setMailSender(MailSender mailSender) {
+		this.mailSender = mailSender;
+	}
 
-    public void setTemplateMessage(SimpleMailMessage templateMessage) {
-        this.templateMessage = templateMessage;
-    }
+	public void setTemplateMessage(SimpleMailMessage templateMessage) {
+		this.templateMessage = templateMessage;
+	}
 
-    public void placeOrder(Order order) {
+	public void placeOrder(Order order) {
 
-        // Do the business calculations...
+		// Do the business calculations...
 
-        // Call the collaborators to persist the order...
+		// Call the collaborators to persist the order...
 
-        // Create a thread safe "copy" of the template message and customize it
-        SimpleMailMessage msg = new SimpleMailMessage(this.templateMessage);
-        msg.setTo(order.getCustomer().getEmailAddress());
-        msg.setText(
-            "Dear " + order.getCustomer().getFirstName()
-                + order.getCustomer().getLastName()
-                + ", thank you for placing order. Your order number is "
-                + order.getOrderNumber());
-        try{
-            this.mailSender.send(msg);
-        }
-        catch(MailException ex) {
-            // simply log it and go on...
-            System.err.println(ex.getMessage());
-        }
-    }
+		// Create a thread safe "copy" of the template message and customize it
+		SimpleMailMessage msg = new SimpleMailMessage(this.templateMessage);
+		msg.setTo(order.getCustomer().getEmailAddress());
+		msg.setText(
+			"Dear " + order.getCustomer().getFirstName()
+				+ order.getCustomer().getLastName()
+				+ ", thank you for placing order. Your order number is "
+				+ order.getOrderNumber());
+		try{
+			this.mailSender.send(msg);
+		}
+		catch (MailException ex) {
+			// simply log it and go on...
+			System.err.println(ex.getMessage());
+		}
+	}
+
 }
 ----
 
@@ -42830,18 +42881,18 @@ Find below the bean definitions for the above code:
 [subs="verbatim,quotes"]
 ----
 <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-  <property name="host" value="mail.mycompany.com"/>
+	<property name="host" value="mail.mycompany.com"/>
 </bean>
 
 <!-- this is a template message that we can pre-load with default state -->
 <bean id="templateMessage" class="org.springframework.mail.SimpleMailMessage">
-  <property name="from" value="customerservice@mycompany.com"/>
-  <property name="subject" value="Your order"/>
+	<property name="from" value="customerservice@mycompany.com"/>
+	<property name="subject" value="Your order"/>
 </bean>
 
 <bean id="orderManager" class="com.mycompany.businessapp.support.SimpleOrderManager">
-  <property name="mailSender" ref="mailSender"/>
-  <property name="templateMessage" ref="templateMessage"/>
+	<property name="mailSender" ref="mailSender"/>
+	<property name="templateMessage" ref="templateMessage"/>
 </bean>
 ----
 
@@ -42869,40 +42920,42 @@ import org.springframework.mail.javamail.MimeMessagePreparator;
 
 public class SimpleOrderManager implements OrderManager {
 
-    private JavaMailSender mailSender;
+	private JavaMailSender mailSender;
 
-    public void setMailSender(JavaMailSender mailSender) {
-        this.mailSender = mailSender;
-    }
+	public void setMailSender(JavaMailSender mailSender) {
+		this.mailSender = mailSender;
+	}
 
-    public void placeOrder(final Order order) {
+	public void placeOrder(final Order order) {
 
-        // Do the business calculations...
+		// Do the business calculations...
 
-        // Call the collaborators to persist the order...
+		// Call the collaborators to persist the order...
 
-        MimeMessagePreparator preparator = new MimeMessagePreparator() {
+		MimeMessagePreparator preparator = new MimeMessagePreparator() {
 
-            public void prepare(MimeMessage mimeMessage) throws Exception {
+			public void prepare(MimeMessage mimeMessage) throws Exception {
 
-                mimeMessage.setRecipient(Message.RecipientType.TO,
-                        new InternetAddress(order.getCustomer().getEmailAddress()));
-                mimeMessage.setFrom(new InternetAddress("mail@mycompany.com"));
-                mimeMessage.setText(
-                    "Dear " + order.getCustomer().getFirstName() + " "
-                        + order.getCustomer().getLastName()
-                        + ", thank you for placing order. Your order number is "
-                        + order.getOrderNumber());
-            }
-        };
-        try {
-            this.mailSender.send(preparator);
-        }
-        catch (MailException ex) {
-            // simply log it and go on...
-            System.err.println(ex.getMessage());
-        }
-    }
+				mimeMessage.setRecipient(Message.RecipientType.TO,
+						new InternetAddress(order.getCustomer().getEmailAddress()));
+				mimeMessage.setFrom(new InternetAddress("mail@mycompany.com"));
+				mimeMessage.setText(
+						"Dear " + order.getCustomer().getFirstName() + " "
+							+ order.getCustomer().getLastName()
+							+ ", thank you for placing order. Your order number is "
+							+ order.getOrderNumber());
+			}
+		};
+
+		try {
+			this.mailSender.send(preparator);
+		}
+		catch (MailException ex) {
+			// simply log it and go on...
+			System.err.println(ex.getMessage());
+		}
+	}
+
 }
 ----
 
@@ -42920,7 +42973,7 @@ Please refer to the relevant JavaDocs for more information.
 
 
 [[mail-javamail-mime]]
-=== Using the JavaMail  MimeMessageHelper
+=== Using the JavaMail MimeMessageHelper
 
 A class that comes in pretty handy when dealing with JavaMail messages is the
 `org.springframework.mail.javamail.MimeMessageHelper` class, which shields you from
@@ -43054,14 +43107,13 @@ text editor.
 ----
 # in the com/foo/package
 <html>
-<body>
-<h3>Hi ${user.userName}, welcome to the Chipping Sodbury On-the-Hill message boards!</h3>
+	<body>
+		<h3>Hi ${user.userName}, welcome to the Chipping Sodbury On-the-Hill message boards!</h3>
 
-<div>
-   Your email address is <a href="mailto:${user.emailAddress}">${user.emailAddress}</a>.
-</div>
-</body>
-
+		<div>
+			Your email address is <a href="mailto:${user.emailAddress}">${user.emailAddress}</a>.
+		</div>
+	</body>
 </html>
 ----
 
@@ -43085,39 +43137,40 @@ import java.util.Map;
 
 public class SimpleRegistrationService implements RegistrationService {
 
-   private JavaMailSender mailSender;
-   private VelocityEngine velocityEngine;
+	private JavaMailSender mailSender;
+	private VelocityEngine velocityEngine;
 
-   public void setMailSender(JavaMailSender mailSender) {
-      this.mailSender = mailSender;
-   }
+	public void setMailSender(JavaMailSender mailSender) {
+		this.mailSender = mailSender;
+	}
 
-   public void setVelocityEngine(VelocityEngine velocityEngine) {
-      this.velocityEngine = velocityEngine;
-   }
+	public void setVelocityEngine(VelocityEngine velocityEngine) {
+		this.velocityEngine = velocityEngine;
+	}
 
-   public void register(User user) {
+	public void register(User user) {
 
-      // Do the registration logic...
+		// Do the registration logic...
 
-      sendConfirmationEmail(user);
-   }
+		sendConfirmationEmail(user);
+	}
 
-   private void sendConfirmationEmail(final User user) {
-      MimeMessagePreparator preparator = new MimeMessagePreparator() {
-         public void prepare(MimeMessage mimeMessage) throws Exception {
-            MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
-            message.setTo(user.getEmailAddress());
-            message.setFrom("webmaster@csonth.gov.uk"); // could be parameterized...
-            Map model = new HashMap();
-            model.put("user", user);
-            String text = VelocityEngineUtils.mergeTemplateIntoString(
-               velocityEngine, "com/dns/registration-confirmation.vm", model);
-            message.setText(text, true);
-         }
-      };
-      this.mailSender.send(preparator);
-   }
+	private void sendConfirmationEmail(final User user) {
+		MimeMessagePreparator preparator = new MimeMessagePreparator() {
+			public void prepare(MimeMessage mimeMessage) throws Exception {
+				MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
+				message.setTo(user.getEmailAddress());
+				message.setFrom("webmaster@csonth.gov.uk"); // could be parameterized...
+				Map model = new HashMap();
+				model.put("user", user);
+				String text = VelocityEngineUtils.mergeTemplateIntoString(
+						velocityEngine, "com/dns/registration-confirmation.vm", model);
+				message.setText(text, true);
+			}
+		};
+		this.mailSender.send(preparator);
+	}
+
 }
 ----
 
@@ -43126,27 +43179,27 @@ public class SimpleRegistrationService implements RegistrationService {
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:schemaLocation="http://www.springframework.org/schema/beans
-   http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-   <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-      <property name="host" value="mail.csonth.gov.uk"/>
-   </bean>
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="mail.csonth.gov.uk"/>
+	</bean>
 
-   <bean id="registrationService" class="com.foo.SimpleRegistrationService">
-      <property name="mailSender" ref="mailSender"/>
-      <property name="velocityEngine" ref="velocityEngine"/>
-   </bean>
+	<bean id="registrationService" class="com.foo.SimpleRegistrationService">
+		<property name="mailSender" ref="mailSender"/>
+		<property name="velocityEngine" ref="velocityEngine"/>
+	</bean>
 
-   <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
-      <property name="velocityProperties">
-         <value>
-          resource.loader=class
-          class.resource.loader.class=org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
-         </value>
-      </property>
-   </bean>
+	<bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+		<property name="velocityProperties">
+			<value>
+				resource.loader=class
+				class.resource.loader.class=org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+			</value>
+		</property>
+	</bean>
 
 </beans>
 ----
@@ -43182,7 +43235,7 @@ operation).
 
 
 [[scheduling-task-executor]]
-=== The Spring  TaskExecutor abstraction
+=== The Spring TaskExecutor abstraction
 
 Spring 2.0 introduces a new abstraction for dealing with executors. Executors are the
 Java 5 name for the concept of thread pools. The "executor" naming is due to the fact
@@ -43205,7 +43258,7 @@ behavior, it is possible to use this abstraction for your own needs.
 
 
 [[scheduling-task-executor-types]]
-====  TaskExecutor types
+==== TaskExecutor types
 
 There are a number of pre-built implementations of `TaskExecutor` included with the
 Spring distribution. In all likelihood, you shouldn't ever need to implement your own.
@@ -43271,7 +43324,7 @@ therefore can be used directly as a WorkManager as well.
 
 
 [[scheduling-task-executor-usage]]
-==== Using a  TaskExecutor
+==== Using a TaskExecutor
 
 Spring's `TaskExecutor` implementations are used as simple JavaBeans. In the example
 below, we define a bean that uses the `ThreadPoolTaskExecutor` to asynchronously print
@@ -43284,31 +43337,32 @@ import org.springframework.core.task.TaskExecutor;
 
 public class TaskExecutorExample {
 
-  private class MessagePrinterTask implements Runnable {
+	private class MessagePrinterTask implements Runnable {
 
-    private String message;
+		private String message;
 
-    public MessagePrinterTask(String message) {
-      this.message = message;
-    }
+		public MessagePrinterTask(String message) {
+			this.message = message;
+		}
 
-    public void run() {
-      System.out.println(message);
-    }
+		public void run() {
+			System.out.println(message);
+		}
 
-  }
+	}
 
-  private TaskExecutor taskExecutor;
+	private TaskExecutor taskExecutor;
 
-  public TaskExecutorExample(TaskExecutor taskExecutor) {
-    this.taskExecutor = taskExecutor;
-  }
+	public TaskExecutorExample(TaskExecutor taskExecutor) {
+		this.taskExecutor = taskExecutor;
+	}
 
-  public void printMessages() {
-    for(int i = 0; i < 25; i++) {
-      taskExecutor.execute(new MessagePrinterTask("Message" + i));
-    }
-  }
+	public void printMessages() {
+		for(int i = 0; i < 25; i++) {
+			taskExecutor.execute(new MessagePrinterTask("Message" + i));
+		}
+	}
+
 }
 ----
 
@@ -43323,13 +43377,13 @@ been exposed.
 [subs="verbatim,quotes"]
 ----
 <bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
-  <property name="corePoolSize" value="5" />
-  <property name="maxPoolSize" value="10" />
-  <property name="queueCapacity" value="25" />
+	<property name="corePoolSize" value="5" />
+	<property name="maxPoolSize" value="10" />
+	<property name="queueCapacity" value="25" />
 </bean>
 
 <bean id="taskExecutorExample" class="TaskExecutorExample">
-  <constructor-arg ref="taskExecutor" />
+	<constructor-arg ref="taskExecutor" />
 </bean>
 ----
 
@@ -43337,7 +43391,7 @@ been exposed.
 
 
 [[scheduling-task-scheduler]]
-=== The Spring  TaskScheduler abstraction
+=== The Spring TaskScheduler abstraction
 
 In addition to the `TaskExecutor` abstraction, Spring 3.0 introduces a `TaskScheduler`
 with a variety of methods for scheduling tasks to run at some point in the future.
@@ -43347,17 +43401,17 @@ with a variety of methods for scheduling tasks to run at some point in the futur
 ----
 public interface TaskScheduler {
 
-    ScheduledFuture schedule(Runnable task, Trigger trigger);
+	ScheduledFuture schedule(Runnable task, Trigger trigger);
 
-    ScheduledFuture schedule(Runnable task, Date startTime);
+	ScheduledFuture schedule(Runnable task, Date startTime);
 
-    ScheduledFuture scheduleAtFixedRate(Runnable task, Date startTime, long period);
+	ScheduledFuture scheduleAtFixedRate(Runnable task, Date startTime, long period);
 
-    ScheduledFuture scheduleAtFixedRate(Runnable task, long period);
+	ScheduledFuture scheduleAtFixedRate(Runnable task, long period);
 
-    ScheduledFuture scheduleWithFixedDelay(Runnable task, Date startTime, long delay);
+	ScheduledFuture scheduleWithFixedDelay(Runnable task, Date startTime, long delay);
 
-    ScheduledFuture scheduleWithFixedDelay(Runnable task, long delay);
+	ScheduledFuture scheduleWithFixedDelay(Runnable task, long delay);
 
 }
 ----
@@ -43385,7 +43439,7 @@ is quite simple:
 ----
 public interface Trigger {
 
-    Date nextExecutionTime(TriggerContext triggerContext);
+	Date nextExecutionTime(TriggerContext triggerContext);
 
 }
 ----
@@ -43400,11 +43454,11 @@ default). Here you can see what methods are available for `Trigger` implementati
 ----
 public interface TriggerContext {
 
-    Date lastScheduledExecutionTime();
+	Date lastScheduledExecutionTime();
 
-    Date lastActualExecutionTime();
+	Date lastActualExecutionTime();
 
-    Date lastCompletionTime();
+	Date lastCompletionTime();
 
 }
 ----
@@ -43412,7 +43466,7 @@ public interface TriggerContext {
 
 
 [[scheduling-trigger-implementations]]
-====  Trigger implementations
+==== Trigger implementations
 
 Spring provides two implementations of the `Trigger` interface. The most interesting one
 is the `CronTrigger`. It enables the scheduling of tasks based on cron expressions. For
@@ -43439,7 +43493,7 @@ could be configured externally.
 
 
 [[scheduling-task-scheduler-implementations]]
-====  TaskScheduler implementations
+==== TaskScheduler implementations
 
 As with Spring's `TaskExecutor` abstraction, the primary benefit of the `TaskScheduler`
 is that code relying on scheduling behavior need not be coupled to a particular
@@ -43514,7 +43568,7 @@ invocation.
 ----
 @Scheduled(fixedDelay=5000)
 public void doSomething() {
-    // something that should execute periodically
+	// something that should execute periodically
 }
 ----
 
@@ -43527,7 +43581,7 @@ successive start times of each invocation.
 ----
 @Scheduled(fixedRate=5000)
 public void doSomething() {
-    // something that should execute periodically
+	// something that should execute periodically
 }
 ----
 
@@ -43539,7 +43593,7 @@ number of milliseconds to wait before the first execution of the method.
 ----
 @Scheduled(initialDelay=1000, fixedRate=5000)
 public void doSomething() {
-    // something that should execute periodically
+	// something that should execute periodically
 }
 ----
 
@@ -43551,7 +43605,7 @@ provided. For example, the following will only execute on weekdays.
 ----
 @Scheduled(cron="*/5 * * * * MON-FRI")
 public void doSomething() {
-    // something that should execute on weekdays only
+	// something that should execute on weekdays only
 }
 ----
 
@@ -43585,7 +43639,7 @@ applied to a `void`-returning method.
 ----
 @Async
 void doSomething() {
-    // this will be executed asynchronously
+	// this will be executed asynchronously
 }
 ----
 
@@ -43599,7 +43653,7 @@ a legitimate application of the `@Async` annotation.
 ----
 @Async
 void doSomething(String s) {
-    // this will be executed asynchronously
+	// this will be executed asynchronously
 }
 ----
 
@@ -43613,7 +43667,7 @@ asynchronous execution so that the caller can perform other tasks prior to calli
 ----
 @Async
 Future<String> returnSomething(int i) {
-    // this will be executed asynchronously
+	// this will be executed asynchronously
 }
 ----
 
@@ -43627,22 +43681,26 @@ target then.
 ----
 public class SampleBeanImpl implements SampleBean {
 
-  @Async
-  void doSomething() { ... }
+	@Async
+	void doSomething() {
+		// ...
+	}
+
 }
 
 public class SampleBeanInititalizer {
 
-  private final SampleBean bean;
+	private final SampleBean bean;
 
-  public SampleBeanInitializer(SampleBean bean) {
-    this.bean = bean;
-  }
+	public SampleBeanInitializer(SampleBean bean) {
+		this.bean = bean;
+	}
 
-  @PostConstruct
-  public void initialize() {
-    bean.doSomething();
-  }
+	@PostConstruct
+	public void initialize() {
+		bean.doSomething();
+	}
+
 }
 ----
 
@@ -43660,7 +43718,7 @@ executor other than the default should be used when executing a given method.
 ----
 @Async("otherExecutor")
 void doSomething(String s) {
-    // this will be executed asynchronously by "otherExecutor"
+	// this will be executed asynchronously by "otherExecutor"
 }
 ----
 
@@ -43719,9 +43777,10 @@ have a fixed-size thread pool (the core and max sizes are the same). However, th
 [source,xml]
 [subs="verbatim,quotes"]
 ----
-<task:executor id="executorWithPoolSizeRange"
-                 pool-size="5-25"
-                 queue-capacity="100"/>
+<task:executor
+		id="executorWithPoolSizeRange"
+		pool-size="5-25"
+		queue-capacity="100"/>
 ----
 
 As you can see from that configuration, a 'queue-capacity' value has also been provided.
@@ -43766,10 +43825,11 @@ element.
 [source,xml]
 [subs="verbatim,quotes"]
 ----
-<task:executor id="executorWithCallerRunsPolicy"
-               pool-size="5-25"
-               queue-capacity="100"
-               rejection-policy="CALLER_RUNS"/>
+<task:executor
+		id="executorWithCallerRunsPolicy"
+		pool-size="5-25"
+		queue-capacity="100"
+		rejection-policy="CALLER_RUNS"/>
 ----
 
 
@@ -43787,7 +43847,7 @@ invoked on that object. Here is a simple example.
 [subs="verbatim,quotes"]
 ----
 <task:scheduled-tasks scheduler="myScheduler">
-    <task:scheduled ref="beanA" method="methodA" fixed-delay="5000"/>
+	<task:scheduled ref="beanA" method="methodA" fixed-delay="5000"/>
 </task:scheduled-tasks>
 
 <task:scheduler id="myScheduler" pool-size="10"/>
@@ -43807,9 +43867,9 @@ provided instead. Here is an example demonstrating these other options.
 [subs="verbatim,quotes"]
 ----
 <task:scheduled-tasks scheduler="myScheduler">
-    <task:scheduled ref="beanA" method="methodA" fixed-delay="5000" initial-delay="1000"/>
-    <task:scheduled ref="beanB" method="methodB" fixed-rate="5000"/>
-    <task:scheduled ref="beanC" method="methodC" cron="*/5 * * * * MON-FRI"/>
+	<task:scheduled ref="beanA" method="methodA" fixed-delay="5000" initial-delay="1000"/>
+	<task:scheduled ref="beanB" method="methodB" fixed-rate="5000"/>
+	<task:scheduled ref="beanC" method="methodC" cron="*/5 * * * * MON-FRI"/>
 </task:scheduled-tasks>
 
 <task:scheduler id="myScheduler" pool-size="10"/>
@@ -43837,12 +43897,12 @@ sensible defaults. Let's have a look at an example:
 [subs="verbatim,quotes"]
 ----
 <bean name="exampleJob" class="org.springframework.scheduling.quartz.JobDetailBean">
-  <property name="jobClass" value="example.ExampleJob" />
-  <property name="jobDataAsMap">
-    <map>
-      <entry key="timeout" value="5" />
-    </map>
-  </property>
+	<property name="jobClass" value="example.ExampleJob" />
+	<property name="jobDataAsMap">
+		<map>
+			<entry key="timeout" value="5" />
+		</map>
+	</property>
 </bean>
 ----
 
@@ -43860,19 +43920,20 @@ package example;
 
 public class ExampleJob extends QuartzJobBean {
 
-  private int timeout;
+	private int timeout;
 
-  /**
-   * Setter called after the ExampleJob is instantiated
-   * with the value from the JobDetailBean (5)
-   */
-  public void setTimeout(int timeout) {
-    this.timeout = timeout;
-  }
+	/**
+	 * Setter called after the ExampleJob is instantiated
+	 * with the value from the JobDetailBean (5)
+	 */
+	public void setTimeout(int timeout) {
+		this.timeout = timeout;
+	}
 
-  protected void executeInternal(JobExecutionContext ctx) throws JobExecutionException {
-      // do the actual work
-  }
+	protected void executeInternal(JobExecutionContext ctx) throws JobExecutionException {
+		// do the actual work
+	}
+
 }
 ----
 
@@ -43894,8 +43955,8 @@ Often you just need to invoke a method on a specific object. Using the
 [subs="verbatim,quotes"]
 ----
 <bean id="jobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-  <property name="targetObject" ref="exampleBusinessObject" />
-  <property name="targetMethod" value="doIt" />
+	<property name="targetObject" ref="exampleBusinessObject" />
+	<property name="targetMethod" value="doIt" />
 </bean>
 ----
 
@@ -43907,11 +43968,11 @@ The above example will result in the `doIt` method being called on the
 ----
 public class ExampleBusinessObject {
 
-  // properties and collaborators
+	// properties and collaborators
 
-  public void doIt() {
-    // do the actual work
-  }
+	public void doIt() {
+		// do the actual work
+	}
 }
 ----
 
@@ -43937,9 +43998,9 @@ job will not start before the first one has finished. To make jobs resulting fro
 [subs="verbatim,quotes"]
 ----
 <bean id="jobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-  <property name="targetObject" ref="exampleBusinessObject" />
-  <property name="targetMethod" value="doIt" />
-  <property name="concurrent" value="false" />
+	<property name="targetObject" ref="exampleBusinessObject" />
+	<property name="targetMethod" value="doIt" />
+	<property name="concurrent" value="false" />
 </bean>
 ----
 
@@ -43970,18 +44031,18 @@ Find below a couple of examples:
 [subs="verbatim,quotes"]
 ----
 <bean id="simpleTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
-    <!-- see the example of method invoking job above -->
-    <property name="jobDetail" ref="jobDetail" />
-    <!-- 10 seconds -->
-    <property name="startDelay" value="10000" />
-    <!-- repeat every 50 seconds -->
-    <property name="repeatInterval" value="50000" />
+	<!-- see the example of method invoking job above -->
+	<property name="jobDetail" ref="jobDetail" />
+	<!-- 10 seconds -->
+	<property name="startDelay" value="10000" />
+	<!-- repeat every 50 seconds -->
+	<property name="repeatInterval" value="50000" />
 </bean>
 
 <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
-    <property name="jobDetail" ref="exampleJob" />
-    <!-- run every morning at 6 AM -->
-    <property name="cronExpression" value="0 0 6 * * ?" />
+	<property name="jobDetail" ref="exampleJob" />
+	<!-- run every morning at 6 AM -->
+	<property name="cronExpression" value="0 0 6 * * ?" />
 </bean>
 ----
 
@@ -43993,12 +44054,12 @@ seconds and one every morning at 6 AM. To finalize everything, we need to set up
 [subs="verbatim,quotes"]
 ----
 <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
-    <property name="triggers">
-        <list>
-            <ref bean="cronTrigger" />
-            <ref bean="simpleTrigger" />
-        </list>
-    </property>
+	<property name="triggers">
+		<list>
+			<ref bean="cronTrigger" />
+			<ref bean="simpleTrigger" />
+		</list>
+	</property>
 </bean>
 ----
 
@@ -44077,7 +44138,8 @@ package org.springframework.scripting;
 
 public interface Messenger {
 
-    String getMessage();
+	String getMessage();
+
 }
 ----
 
@@ -44090,15 +44152,16 @@ package org.springframework.scripting;
 
 public class DefaultBookingService implements BookingService {
 
-    private Messenger messenger;
+	private Messenger messenger;
 
-    public void setMessenger(Messenger messenger) {
-        this.messenger = messenger;
-    }
+	public void setMessenger(Messenger messenger) {
+		this.messenger = messenger;
+	}
 
-    public void processBooking() {
-        // use the injected Messenger object...
-    }
+	public void processBooking() {
+		// use the injected Messenger object...
+	}
+
 }
 ----
 
@@ -44116,7 +44179,8 @@ import org.springframework.scripting.Messenger
 // define the implementation in Groovy
 class GroovyMessenger implements Messenger {
 
-    String message
+	String message
+
 }
 ----
 
@@ -44141,20 +44205,20 @@ For more information on schema-based configuration, see <<xsd-config>>.
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:lang="http://www.springframework.org/schema/lang"
-       xsi:schemaLocation="
-http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd">
+	xmlns:lang="http://www.springframework.org/schema/lang"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd">
 
-    <!-- this is the bean definition for the Groovy-backed Messenger implementation -->
-    <lang:groovy id="messenger" script-source="classpath:Messenger.groovy">
-        <lang:property name="message" value="I Can Do The Frug" />
-    </lang:groovy>
+	<!-- this is the bean definition for the Groovy-backed Messenger implementation -->
+	<lang:groovy id="messenger" script-source="classpath:Messenger.groovy">
+		<lang:property name="message" value="I Can Do The Frug" />
+	</lang:groovy>
 
-    <!-- an otherwise normal bean that will be injected by the Groovy-backed Messenger -->
-    <bean id="bookingService" class="x.y.DefaultBookingService">
-        <property name="messenger" ref="messenger" />
-    </bean>
+	<!-- an otherwise normal bean that will be injected by the Groovy-backed Messenger -->
+	<bean id="bookingService" class="x.y.DefaultBookingService">
+		<property name="messenger" ref="messenger" />
+	</bean>
 
 </beans>
 ----
@@ -44190,7 +44254,7 @@ The steps involved in using dynamic-language-backed beans are as follows:
 
 * Write the test for the dynamic language source code (naturally)
 * __Then__ write the dynamic language source code itself :)
-*  Define your dynamic-language-backed beans using the appropriate `<lang:language/>`
+* Define your dynamic-language-backed beans using the appropriate `<lang:language/>`
   element in the XML configuration (you can of course define such beans programmatically
   using the Spring API - although you will have to consult the source code for
   directions on how to do this as this type of advanced configuration is not covered in
@@ -44276,16 +44340,16 @@ refreshable beans:
 ----
 <beans>
 
-    <!-- this bean is now 'refreshable' due to the presence of the 'refresh-check-delay' attribute -->
-    <lang:groovy id="messenger"
-          refresh-check-delay="5000" <!-- switches refreshing on with 5 seconds between checks -->
-          script-source="classpath:Messenger.groovy">
-        <lang:property name="message" value="I Can Do The Frug" />
-    </lang:groovy>
+	<!-- this bean is now 'refreshable' due to the presence of the 'refresh-check-delay' attribute -->
+	<lang:groovy id="messenger"
+			refresh-check-delay="5000" <!-- switches refreshing on with 5 seconds between checks -->
+			script-source="classpath:Messenger.groovy">
+		<lang:property name="message" value="I Can Do The Frug" />
+	</lang:groovy>
 
-    <bean id="bookingService" class="x.y.DefaultBookingService">
-        <property name="messenger" ref="messenger" />
-    </bean>
+	<bean id="bookingService" class="x.y.DefaultBookingService">
+		<property name="messenger" ref="messenger" />
+	</bean>
 
 </beans>
 ----
@@ -44313,15 +44377,14 @@ import org.springframework.scripting.Messenger;
 
 public final class Boot {
 
-    public static void main(final String[] args) throws Exception {
-
-        ApplicationContext ctx = new ClassPathXmlApplicationContext("beans.xml");
-        Messenger messenger = (Messenger) ctx.getBean("messenger");
-        System.out.println(messenger.getMessage());
-        // pause execution while I go off and make changes to the source file...
-        System.in.read();
-        System.out.println(messenger.getMessage());
-    }
+	public static void main(final String[] args) throws Exception {
+		ApplicationContext ctx = new ClassPathXmlApplicationContext("beans.xml");
+		Messenger messenger = (Messenger) ctx.getBean("messenger");
+		System.out.println(messenger.getMessage());
+		// pause execution while I go off and make changes to the source file...
+		System.in.read();
+		System.out.println(messenger.getMessage());
+	}
 }
 ----
 
@@ -44337,16 +44400,16 @@ package org.springframework.scripting
 
 class GroovyMessenger implements Messenger {
 
-    private String message = "Bingo"
+	private String message = "Bingo"
 
-    public String getMessage() {
-        // change the implementation to surround the message in quotes
-        return "'" + this.message + "'"
-    }
+	public String getMessage() {
+		// change the implementation to surround the message in quotes
+		return "'" + this.message + "'"
+	}
 
-    public void setMessage(String message) {
-        this.message = message
-    }
+	public void setMessage(String message) {
+		this.message = message
+	}
 }
 ----
 
@@ -44385,17 +44448,18 @@ feature crystal clear:
 [subs="verbatim,quotes"]
 ----
 <lang:groovy id="messenger">
-    <lang:inline-script>
+	<lang:inline-script>
+
 package org.springframework.scripting.groovy;
 
 import org.springframework.scripting.Messenger
 
 class GroovyMessenger implements Messenger {
-
-    String message
+	String message
 }
-    </lang:inline-script>
-    <lang:property name="message" value="I Can Do The Frug" />
+
+	</lang:inline-script>
+	<lang:property name="message" value="I Can Do The Frug" />
 </lang:groovy>
 ----
 
@@ -44415,24 +44479,26 @@ a `<![CDATA[]]>` region might be better.)
 [subs="verbatim,quotes"]
 ----
 <lang:jruby id="messenger" script-interfaces="org.springframework.scripting.Messenger">
-    <lang:inline-script>
+	<lang:inline-script>
+
 require 'java'
 
 include_class 'org.springframework.scripting.Messenger'
 
 class RubyMessenger &lt; Messenger
 
- def setMessage(message)
-  @@message = message
- end
+	def setMessage(message)
+		@@message = message
+	end
 
- def getMessage
-  @@message
- end
+	def getMessage
+		@@message
+	end
 
 end
-    </lang:inline-script>
-    <lang:property name="message" value="Hello World!" />
+
+		</lang:inline-script>
+	<lang:property name="message" value="Hello World!" />
 </lang:jruby>
 ----
 
@@ -44456,16 +44522,17 @@ import org.springframework.scripting.Messenger
 
 class GroovyMessenger implements Messenger {
 
-    GroovyMessenger() {}
+	GroovyMessenger() {}
 
-    // this constructor is not available for Constructor Injection
-    GroovyMessenger(String message) {
-        this.message = message;
-    }
+	// this constructor is not available for Constructor Injection
+	GroovyMessenger(String message) {
+		this.message = message;
+	}
 
-    String message
+	String message
 
-    String anotherMessage
+	String anotherMessage
+
 }
 ----
 
@@ -44473,13 +44540,13 @@ class GroovyMessenger implements Messenger {
 [subs="verbatim,quotes"]
 ----
 <lang:groovy id="badMessenger"
-    script-source="classpath:Messenger.groovy">
-<!-- this next constructor argument will *not* be injected into the GroovyMessenger -->
-    <!--     in fact, this isn't even allowed according to the schema -->
-    <constructor-arg value="This will *not* work" />
+	script-source="classpath:Messenger.groovy">
+	<!-- this next constructor argument will *not* be injected into the GroovyMessenger -->
+	<!-- in fact, this isn't even allowed according to the schema -->
+	<constructor-arg value="This will *not* work" />
 
-    <!-- only property values are injected into the dynamic-language-backed object -->
-    <lang:property name="anotherMessage" value="Passed straight through to the dynamic-language-backed object" />
+	<!-- only property values are injected into the dynamic-language-backed object -->
+	<lang:property name="anotherMessage" value="Passed straight through to the dynamic-language-backed object" />
 
 </lang>
 ----
@@ -44529,7 +44596,8 @@ package org.springframework.scripting;
 
 public interface Messenger {
 
-    String getMessage();
+	String getMessage();
+
 }
 ----
 
@@ -44539,15 +44607,15 @@ public interface Messenger {
 require 'java'
 
 class RubyMessenger
-    include org.springframework.scripting.Messenger
+	include org.springframework.scripting.Messenger
 
-    def setMessage(message)
-        @@message = message
-    end
+	def setMessage(message)
+		@@message = message
+	end
 
-    def getMessage
-        @@message
-    end
+	def getMessage
+		@@message
+	end
 end
 
 # this last line is not essential (but see below)
@@ -44560,10 +44628,10 @@ And here is the Spring XML that defines an instance of the `RubyMessenger` JRuby
 [subs="verbatim,quotes"]
 ----
 <lang:jruby id="messageService"
-            script-interfaces="org.springframework.scripting.Messenger"
-            script-source="classpath:RubyMessenger.rb">
+		script-interfaces="org.springframework.scripting.Messenger"
+		script-source="classpath:RubyMessenger.rb">
 
-    <lang:property name="message" value="Hello World!" />
+	<lang:property name="message" value="Hello World!" />
 
 </lang:jruby>
 ----
@@ -44649,7 +44717,8 @@ package org.springframework.scripting;
 
 public interface Calculator {
 
-    int add(int x, int y);
+	int add(int x, int y);
+
 }
 ----
 
@@ -44663,9 +44732,10 @@ package org.springframework.scripting.groovy
 
 class GroovyCalculator implements Calculator {
 
-    int add(int x, int y) {
-        x + y
-    }
+	int add(int x, int y) {
+		x + y
+	}
+
 }
 ----
 
@@ -44674,7 +44744,7 @@ class GroovyCalculator implements Calculator {
 ----
 <-- from the file 'beans.xml' -->
 <beans>
-    <lang:groovy id="calculator" script-source="classpath:calculator.groovy"/>
+	<lang:groovy id="calculator" script-source="classpath:calculator.groovy"/>
 </beans>
 ----
 
@@ -44690,17 +44760,17 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Main {
 
-    public static void Main(String[] args) {
-        ApplicationContext ctx = new ClassPathXmlApplicationContext("beans.xml");
-        Calculator calc = (Calculator) ctx.getBean("calculator");
-        System.out.println(calc.add(2, 8));
-    }
+	public static void Main(String[] args) {
+		ApplicationContext ctx = new ClassPathXmlApplicationContext("beans.xml");
+		Calculator calc = (Calculator) ctx.getBean("calculator");
+		System.out.println(calc.add(2, 8));
+	}
 }
 ----
 
 The resulting output from running the above program will be (unsurprisingly) __10__.
 (Exciting example, huh? Remember that the intent is to illustrate the concept. Please
-consult the dynamic language showcase project for a  more complex example, or indeed
+consult the dynamic language showcase project for a more complex example, or indeed
 <<dynamic-language-scenarios>> later in this chapter).
 
 It is important that you __do not__ define more than one class per Groovy source file.
@@ -44721,7 +44791,8 @@ set some default property values, or specify a custom `MetaClass`.
 ----
 public interface GroovyObjectCustomizer {
 
-   void customize(GroovyObject goo);
+	void customize(GroovyObject goo);
+
 }
 ----
 
@@ -44736,17 +44807,18 @@ will want to do with this callback, and you can see an example of doing that bel
 ----
 public final class SimpleMethodTracingCustomizer implements GroovyObjectCustomizer {
 
-   public void customize(GroovyObject goo) {
-      DelegatingMetaClass metaClass = new DelegatingMetaClass(goo.getMetaClass()) {
+	public void customize(GroovyObject goo) {
+		DelegatingMetaClass metaClass = new DelegatingMetaClass(goo.getMetaClass()) {
 
-         public Object invokeMethod(Object object, String methodName, Object[] arguments) {
-            System.out.println("Invoking '" + methodName + "'.");
-            return super.invokeMethod(object, methodName, arguments);
-         }
-      };
-      metaClass.initialize();
-      goo.setMetaClass(metaClass);
-   }
+			public Object invokeMethod(Object object, String methodName, Object[] arguments) {
+				System.out.println("Invoking '" + methodName + "'.");
+				return super.invokeMethod(object, methodName, arguments);
+			}
+		};
+		metaClass.initialize();
+		goo.setMetaClass(metaClass);
+	}
+
 }
 ----
 
@@ -44761,10 +44833,10 @@ of a `GroovyObjectCustomizer` is easy if you are using the Spring 2.0 namespace 
 <!-- define the GroovyObjectCustomizer just like any other bean -->
 <bean id="tracingCustomizer" class="example.SimpleMethodTracingCustomizer" />
 
-   <!-- ... and plug it into the desired Groovy bean via the 'customizer-ref' attribute -->
-   <lang:groovy id="calculator"
-      script-source="classpath:org/springframework/scripting/groovy/Calculator.groovy"
-      customizer-ref="tracingCustomizer" />
+	<!-- ... and plug it into the desired Groovy bean via the 'customizer-ref' attribute -->
+	<lang:groovy id="calculator"
+		script-source="classpath:org/springframework/scripting/groovy/Calculator.groovy"
+		customizer-ref="tracingCustomizer" />
 ----
 
 If you are not using the Spring 2.0 namespace support, you can still use the
@@ -44774,11 +44846,11 @@ If you are not using the Spring 2.0 namespace support, you can still use the
 [subs="verbatim,quotes"]
 ----
 <bean id="calculator" class="org.springframework.scripting.groovy.GroovyScriptFactory">
-      <constructor-arg value="classpath:org/springframework/scripting/groovy/Calculator.groovy"/>
-      <!-- define the GroovyObjectCustomizer (as an inner bean) -->
-      <constructor-arg>
-         <bean id="tracingCustomizer" class="example.SimpleMethodTracingCustomizer" />
-      </constructor-arg>
+	<constructor-arg value="classpath:org/springframework/scripting/groovy/Calculator.groovy"/>
+	<!-- define the GroovyObjectCustomizer (as an inner bean) -->
+	<constructor-arg>
+		<bean id="tracingCustomizer" class="example.SimpleMethodTracingCustomizer" />
+	</constructor-arg>
 </bean>
 
 <bean class="org.springframework.scripting.support.ScriptFactoryPostProcessor"/>
@@ -44825,7 +44897,8 @@ package org.springframework.scripting;
 
 public interface Messenger {
 
-    String getMessage();
+	String getMessage();
+
 }
 ----
 
@@ -44838,11 +44911,11 @@ Here is the BeanShell 'implementation' (the term is used loosely here) of the
 String message;
 
 String getMessage() {
-    return message;
+	return message;
 }
 
 void setMessage(String aMessage) {
-    message = aMessage;
+	message = aMessage;
 }
 ----
 
@@ -44853,9 +44926,9 @@ term is used very loosely here).
 [subs="verbatim,quotes"]
 ----
 <lang:bsh id="messageService" script-source="classpath:BshMessenger.bsh"
-    script-interfaces="org.springframework.scripting.Messenger">
+	script-interfaces="org.springframework.scripting.Messenger">
 
-    <lang:property name="message" value="Hello World!" />
+	<lang:property name="message" value="Hello World!" />
 </lang:bsh>
 ----
 
@@ -44880,7 +44953,7 @@ of Spring MVC controllers. In pure Spring MVC applications, the navigational flo
 through a web application is to a large extent determined by code encapsulated within
 your Spring MVC controllers. As the navigational flow and other presentation layer logic
 of a web application needs to be updated to respond to support issues or changing
-business requirements, it may well be easier to effect any such required changes  by
+business requirements, it may well be easier to effect any such required changes by
 editing one or more dynamic language source files and seeing those changes being
 immediately reflected in the state of a running application.
 
@@ -44918,13 +44991,13 @@ import javax.servlet.http.HttpServletResponse
 
 class FortuneController implements Controller {
 
-    @Property FortuneService fortuneService
+	@Property FortuneService fortuneService
 
-    ModelAndView handleRequest(
-            HttpServletRequest request, HttpServletResponse httpServletResponse) {
+	ModelAndView handleRequest(HttpServletRequest request,
+			HttpServletResponse httpServletResponse) {
+		return new ModelAndView("tell", "fortune", this.fortuneService.tellFortune())
+	}
 
-        return new ModelAndView("tell", "fortune", this.fortuneService.tellFortune())
-    }
 }
 ----
 
@@ -44932,9 +45005,9 @@ class FortuneController implements Controller {
 [subs="verbatim,quotes"]
 ----
 <lang:groovy id="fortune"
-             refresh-check-delay="3000"
-             script-source="/WEB-INF/groovy/FortuneController.groovy">
-    <lang:property name="fortuneService" ref="fortuneService"/>
+		refresh-check-delay="3000"
+		script-source="/WEB-INF/groovy/FortuneController.groovy">
+	<lang:property name="fortuneService" ref="fortuneService"/>
 </lang:groovy>
 ----
 
@@ -44973,16 +45046,17 @@ import org.springframework.beans.TestBean
 
 class TestBeanValidator implements Validator {
 
-    boolean supports(Class clazz) {
-        return TestBean.class.isAssignableFrom(clazz)
-    }
+	boolean supports(Class clazz) {
+		return TestBean.class.isAssignableFrom(clazz)
+	}
 
-    void validate(Object bean, Errors errors) {
-        if(bean.name?.trim()?.size() > 0) {
-            return
-        }
-        errors.reject("whitespace", "Cannot be composed wholly of whitespace.")
-    }
+	void validate(Object bean, Errors errors) {
+		if(bean.name?.trim()?.size() > 0) {
+			return
+		}
+		errors.reject("whitespace", "Cannot be composed wholly of whitespace.")
+	}
+
 }
 ----
 
@@ -45027,18 +45101,18 @@ a<<beans-factory-scopes-prototype,prototype>>.
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:lang="http://www.springframework.org/schema/lang"
-       xsi:schemaLocation="
-http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd">
+	xmlns:lang="http://www.springframework.org/schema/lang"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd">
 
-    <lang:groovy id="messenger" script-source="classpath:Messenger.groovy" scope="prototype">
-        <lang:property name="message" value="I Can Do The RoboCop" />
-    </lang:groovy>
+	<lang:groovy id="messenger" script-source="classpath:Messenger.groovy" scope="prototype">
+		<lang:property name="message" value="I Can Do The RoboCop" />
+	</lang:groovy>
 
-    <bean id="bookingService" class="x.y.DefaultBookingService">
-        <property name="messenger" ref="messenger" />
-    </bean>
+	<bean id="bookingService" class="x.y.DefaultBookingService">
+		<property name="messenger" ref="messenger" />
+	</bean>
 
 </beans>
 ----
@@ -45150,7 +45224,7 @@ take a closer look at each annotation:
 
 
 [[cache-annotations-cacheable]]
-====  @Cacheable annotation
+==== @Cacheable annotation
 
 As the name implies, `@Cacheable` is used to demarcate methods that are cacheable - that
 is, methods for whom the result is stored into the cache so on subsequent invocations
@@ -45287,7 +45361,7 @@ public Book findBook(String name)
 
 
 [[cache-spel-context]]
-===== Available caching  SpEL evaluation context
+===== Available caching SpEL evaluation context
 
 Each `SpEL` expression evaluates again a dedicated
 <<expressions-language-ref,`context`>>. In addition to the build in parameters, the
@@ -45347,7 +45421,7 @@ conditional(see next section) computations:
 
 
 [[cache-annotations-put]]
-====  @CachePut annotation
+==== @CachePut annotation
 
 For cases where the cache needs to be updated without interfering with the method
 execution, one can use the `@CachePut` annotation. That is, the method will always be
@@ -45365,7 +45439,7 @@ other), such declarations should be avoided.
 
 
 [[cache-annotations-evict]]
-====  @CacheEvict annotation
+==== @CacheEvict annotation
 
 The cache abstraction allows not just population of a cache store but also eviction.
 This process is useful for removing stale or unused data from the cache. Opposed to
@@ -45406,7 +45480,7 @@ and thus requires a result.
 
 
 [[cache-annotations-caching]]
-====  @Caching annotation
+==== @Caching annotation
 
 There are cases when multiple annotations of the same type, such as `@CacheEvict` or
 `@CachePut` need to be specified, for example because the condition or the key
@@ -45450,11 +45524,14 @@ Alternatively for XML configuration use the `cache:annotation-driven` element:
 [subs="verbatim,quotes"]
 ----
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:cache="http://www.springframework.org/schema/cache"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
 
-       <cache:annotation-driven />
+		<cache:annotation-driven />
+
 </beans>
 ----
 
@@ -45611,15 +45688,15 @@ The previous example can be translated into:
 
 <!-- cache definitions -->
 <cache:advice id="cacheAdvice" cache-manager="cacheManager">
-    <cache:caching cache="books">
-        <cache:cacheable method="findBook" key="#isbn"/>
-        <cache:cache-evict method="loadBooks" all-entries="true"/>
-    </cache:caching>
+	<cache:caching cache="books">
+		<cache:cacheable method="findBook" key="#isbn"/>
+		<cache:cache-evict method="loadBooks" all-entries="true"/>
+	</cache:caching>
 </cache:advice>
 
 <!-- apply the cacheable behavior to all BookService interfaces -->
 <aop:config>
-    <aop:advisor advice-ref="cacheAdvice" pointcut="execution(* x.y.BookService.*(..))"/>
+	<aop:advisor advice-ref="cacheAdvice" pointcut="execution(* x.y.BookService.*(..))"/>
 </aop:config>
 
 <!-- cache manager definition omitted -->
@@ -45671,12 +45748,12 @@ as a backing `Cache` store.
 ----
 <!-- generic cache manager -->
 <bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
-    <property name="caches">
-        <set>
-            <bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean" p:name="default"/>
-            <bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean" p:name="books"/>
-        </set>
-    </property>
+	<property name="caches">
+		<set>
+			<bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean" p:name="default"/>
+			<bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean" p:name="books"/>
+		</set>
+	</property>
 </bean>
 ----
 
@@ -45692,7 +45769,7 @@ eviction contracts.
 
 
 [[cache-store-configuration-ehcache]]
-==== EhCache-based  Cache
+==== EhCache-based Cache
 
 The EhCache implementation is located under `org.springframework.cache.ehcache` package.
 Again, to use it, one simply needs to declare the appropriate `CacheManager`:
@@ -45713,7 +45790,7 @@ ehcache-specific configuration is read from the resource `ehcache.xml`.
 
 
 [[cache-store-configuration-gemfire]]
-==== GemFire-based  Cache
+==== GemFire-based Cache
 
 GemFire is a memory-oriented/disk-backed, elastically scalable, continuously available,
 active (with built-in pattern-based subscription notifications), globally replicated
@@ -45737,13 +45814,13 @@ performs no caching - that is, forces the cached methods to be executed every ti
 [subs="verbatim,quotes"]
 ----
 <bean id="cacheManager" class="org.springframework.cache.support.CompositeCacheManager">
-    <property name="cacheManagers">
-        <list>
-            <ref bean="jdkCache"/>
-            <ref bean="gemfireCache"/>
-        </list>
-    </property>
-    <property name="fallbackToNoOpCache" value="true"/>
+	<property name="cacheManagers">
+		<list>
+			<ref bean="jdkCache"/>
+			<ref bean="gemfireCache"/>
+		</list>
+	</property>
+	<property name="fallbackToNoOpCache" value="true"/>
 </bean>
 ----
 
