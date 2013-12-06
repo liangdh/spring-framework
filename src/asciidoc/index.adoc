@@ -1,9 +1,7 @@
 = Spring Framework Reference Documentation
 Rod Johnson; Juergen Hoeller; Keith Donald; Colin Sampaleanu; Rob Harrop; Thomas Risberg; Alef Arendsen; Darren Davison; Dmitriy Kopylenko; Mark Pollack; Thierry Templier; Erwin Vervaet; Portia Tung; Ben Hale; Adrian Colyer; John Lewis; Costin Leau; Mark Fisher; Sam Brannen; Ramnivas Laddad; Arjen Poutsma; Chris Beams; Tareq Abedrabbo; Andy Clement; Dave Syer; Oliver Gierke; Rossen Stoyanchev; Phillip Webb; Rob Winch
 
-
-
-
+:javadoc-baseurl: http://docs.spring.io/spring/docs/current/javadoc-api
 
 [[spring-introduction]]
 = Overview of Spring Framework
@@ -1670,10 +1668,10 @@ construction of classes, or a mechanism such as the __Service Locator__ pattern.
 
 The `org.springframework.beans` and `org.springframework.context` packages are the basis
 for Spring Framework's IoC container. The
-http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/factory/BeanFactory.html[BeanFactory]
+{javadoc-baseurl}/org/springframework/beans/factory/BeanFactory.html[BeanFactory]
 interface provides an advanced configuration mechanism capable of managing any type of
 object.
-http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/context/ApplicationContext.html[ApplicationContext]
+{javadoc-baseurl}/org/springframework/context/ApplicationContext.html[ApplicationContext]
 is a sub-interface of `BeanFactory`. It adds easier integration with Spring's AOP
 features; message resource handling (for use in internationalization), event
 publication; and application-layer specific contexts such as the `WebApplicationContext`
@@ -1708,8 +1706,8 @@ between such objects.
 Several implementations of the `ApplicationContext` interface are supplied
 out-of-the-box with Spring. In standalone applications it is common to create an
 instance of
-http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/context/support/ClassPathXmlApplicationContext.html[`ClassPathXmlApplicationContext`]
-or http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/context/support/FileSystemXmlApplicationContext.html[`FileSystemXmlApplicationContext`].
+{javadoc-baseurl}/org/springframework/context/support/ClassPathXmlApplicationContext.html[`ClassPathXmlApplicationContext`]
+or {javadoc-baseurl}/org/springframework/context/support/FileSystemXmlApplicationContext.html[`FileSystemXmlApplicationContext`].
  While XML has been the traditional format for defining configuration metadata you can
 instruct the container to use Java annotations or code as the metadata format by
 providing a small amount of XML configuration to declaratively enable support for these
@@ -3881,7 +3879,7 @@ The following scopes are supported out of the box. You can also create
 ====
 As of Spring 3.0, a __thread scope__ is available, but is not registered by default. For
 more information, see the documentation for
-http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/context/support/SimpleThreadScope.html[SimpleThreadScope].
+{javadoc-baseurl}/org/springframework/context/support/SimpleThreadScope.html[SimpleThreadScope].
 For instructions on how to register this or any other custom scope, see
 <<beans-factory-scopes-custom-using>>.
 ====
@@ -4262,7 +4260,7 @@ To integrate your custom scope(s) into the Spring container, you need to impleme
 `org.springframework.beans.factory.config.Scope` interface, which is described in this
 section. For an idea of how to implement your own scopes, see the `Scope`
 implementations that are supplied with the Spring Framework itself and the
-http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/factory/config/Scope.html[Scope
+{javadoc-baseurl}/org/springframework/beans/factory/config/Scope.html[Scope
 Javadoc], which explains the methods you need to implement in more detail.
 
 The `Scope` interface has four methods to get objects from the scope, remove them from
@@ -5588,11 +5586,11 @@ configuration (notice the inclusion of the `context` namespace):
 ----
 
 (The implicitly registered post-processors include
-http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/factory/annotation/AutowiredAnnotationBeanPostProcessor.html[`AutowiredAnnotationBeanPostProcessor`],
- http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/context/annotation/CommonAnnotationBeanPostProcessor.html[`CommonAnnotationBeanPostProcessor`],
- http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/orm/jpa/support/PersistenceAnnotationBeanPostProcessor.html[`PersistenceAnnotationBeanPostProcessor`],
+{javadoc-baseurl}/org/springframework/beans/factory/annotation/AutowiredAnnotationBeanPostProcessor.html[`AutowiredAnnotationBeanPostProcessor`],
+ {javadoc-baseurl}/org/springframework/context/annotation/CommonAnnotationBeanPostProcessor.html[`CommonAnnotationBeanPostProcessor`],
+ {javadoc-baseurl}/org/springframework/orm/jpa/support/PersistenceAnnotationBeanPostProcessor.html[`PersistenceAnnotationBeanPostProcessor`],
 as well as the aforementioned
-http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/factory/annotation/RequiredAnnotationBeanPostProcessor.html[`RequiredAnnotationBeanPostProcessor`].)
+{javadoc-baseurl}/org/springframework/beans/factory/annotation/RequiredAnnotationBeanPostProcessor.html[`RequiredAnnotationBeanPostProcessor`].)
 
 [NOTE]
 ====
@@ -6179,7 +6177,7 @@ the following example.
 ==== CustomAutowireConfigurer
 
 The
-http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/factory/annotation/CustomAutowireConfigurer.html[`CustomAutowireConfigurer`]
+{javadoc-baseurl}/org/springframework/beans/factory/annotation/CustomAutowireConfigurer.html[`CustomAutowireConfigurer`]
 is a `BeanFactoryPostProcessor` that enables you to register your own custom qualifier
 annotation types even if they are not annotated with Spring's `@Qualifier` annotation.
 
@@ -6260,7 +6258,7 @@ name "movieFinder" injected into its setter method:
 The name provided with the annotation is resolved as a bean name by the
 `ApplicationContext` of which the `CommonAnnotationBeanPostProcessor` is aware. The
 names can be resolved through JNDI if you configure Spring's
-http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/jndi/support/SimpleJndiBeanFactory.html[`SimpleJndiBeanFactory`]
+{javadoc-baseurl}/org/springframework/jndi/support/SimpleJndiBeanFactory.html[`SimpleJndiBeanFactory`]
 explicitly. However, it is recommended that you rely on the default behavior and simply
 use Spring's JNDI lookup capabilities to preserve the level of indirection.
 ====
@@ -6650,7 +6648,7 @@ were detected, the names would be myMovieLister and movieFinderImpl:
 ====
 If you do not want to rely on the default bean-naming strategy, you can provide a custom
 bean-naming strategy. First, implement the
-http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/factory/support/BeanNameGenerator.html[`BeanNameGenerator`]
+{javadoc-baseurl}/org/springframework/beans/factory/support/BeanNameGenerator.html[`BeanNameGenerator`]
 interface, and be sure to include a default no-arg constructor. Then, provide the
 fully-qualified class name when configuring the scanner:
 ====
@@ -6691,7 +6689,7 @@ within the annotation:
 ====
 To provide a custom strategy for scope resolution rather than relying on the
 annotation-based approach, implement the
-http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/context/annotation/ScopeMetadataResolver.html[`ScopeMetadataResolver`]
+{javadoc-baseurl}/org/springframework/context/annotation/ScopeMetadataResolver.html[`ScopeMetadataResolver`]
 interface, and be sure to include a default no-arg constructor. Then, provide the
 fully-qualified class name when configuring the scanner:
 ====
@@ -8034,7 +8032,7 @@ AspectJ load-time weaving, see <<aop-aj-ltw>>.
 As was discussed in the chapter introduction, the `org.springframework.beans.factory`
 package provides basic functionality for managing and manipulating beans, including in a
 programmatic way. The `org.springframework.context` package adds the
-http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/context/ApplicationContext.html[`ApplicationContext`]
+{javadoc-baseurl}/org/springframework/context/ApplicationContext.html[`ApplicationContext`]
 interface, which extends the `BeanFactory` interface, in addition to extending other
 interfaces to provide additional functionality in a more __application
 framework-oriented style__. Many people use the `ApplicationContext` in a completely
@@ -8547,7 +8545,7 @@ and JMX support facilities. Application components can also interact with the
 application server's JCA WorkManager through Spring's `TaskExecutor` abstraction.
 
 Check out the JavaDoc of the
-http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/jca/context/SpringContextResourceAdapter.html[SpringContextResourceAdapter]
+{javadoc-baseurl}/org/springframework/jca/context/SpringContextResourceAdapter.html[SpringContextResourceAdapter]
 class for the configuration details involved in RAR deployment.
 
 __For a simple deployment of a Spring ApplicationContext as a J2EE RAR file:__ package
@@ -8699,7 +8697,7 @@ option for accessing shared Spring-managed components, such as in an EJB 2.1
 environment, or when you want to share a single ApplicationContext as a parent to
 WebApplicationContexts across WAR files. In this case you should look into using the
 utility class
-http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/context/access/ContextSingletonBeanFactoryLocator.html[`ContextSingletonBeanFactoryLocator`]
+{javadoc-baseurl}/org/springframework/context/access/ContextSingletonBeanFactoryLocator.html[`ContextSingletonBeanFactoryLocator`]
 locator that is described in this
 http://blog.springsource.com/2007/06/11/using-a-shared-parent-application-context-in-a-multi-war-spring-application/[SpringSource
 team blog entry].
@@ -9569,9 +9567,9 @@ convenience to aid developers in targeting error messages and suchlike.
 
 More information on the `MessageCodesResolver` and the default strategy can be found
 online with the Javadocs for
-http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/validation/MessageCodesResolver.html[MessageCodesResolver]
+{javadoc-baseurl}/org/springframework/validation/MessageCodesResolver.html[MessageCodesResolver]
 and
-http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/validation/DefaultMessageCodesResolver.html[DefaultMessageCodesResolver]
+{javadoc-baseurl}/org/springframework/validation/DefaultMessageCodesResolver.html[DefaultMessageCodesResolver]
 respectively.
 
 
@@ -28114,7 +28112,7 @@ unmarshal XML from an external source, set the `supportedClasses` property on th
 This will make sure that only the registered classes are eligible for unmarshalling.
 
 Additionally, you can register
-http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/oxm/xstream/XStreamMarshaller.html#setConverters(com.thoughtworks.xstream.converters.ConverterMatcher...)[custom
+{javadoc-baseurl}/org/springframework/oxm/xstream/XStreamMarshaller.html#setConverters(com.thoughtworks.xstream.converters.ConverterMatcher...)[custom
 converters] to make sure that only your supported classes can be unmarshalled. You might
 want to add a `CatchAllConverter` as the last converter in the list, in addition to
 converters that explicitly support the domain classes that should be supported. As a
@@ -29996,7 +29994,7 @@ attributes:
 ----
 
 Check out the
-http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/ControllerAdvice.html[@ControllerAdvice
+{javadoc-baseurl}/org/springframework/web/bind/annotation/ControllerAdvice.html[@ControllerAdvice
 documentation] for more details.
 
 [[mvc-ann-async]]
@@ -32147,7 +32145,7 @@ corresponding dependencies such as Jackson, JAXB2, or Rome are present on the cl
 Additional extensions may be not need to be registered explicitly if they can be
 discovered via `ServletContext.getMimeType(String)` or the __Java Activation Framework__
 (see `javax.activation.MimetypesFileTypeMap`). You can register more extensions with the
-http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/servlet/mvc/method/annotation/RequestMappingHandlerMapping.html#setUseRegisteredSuffixPatternMatch(boolean)[setUseRegisteredSuffixPatternMatch
+{javadoc-baseurl}/org/springframework/web/servlet/mvc/method/annotation/RequestMappingHandlerMapping.html#setUseRegisteredSuffixPatternMatch(boolean)[setUseRegisteredSuffixPatternMatch
 method].
 
 The introduction of `ContentNegotiationManger` also enables selective suffix pattern
@@ -33726,7 +33724,7 @@ inline properties.
 ----
 
 Refer to the
-http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/ui/velocity/VelocityEngineFactory.html[API
+{javadoc-baseurl}/org/springframework/ui/velocity/VelocityEngineFactory.html[API
 documentation] for Spring configuration of Velocity, or the Velocity documentation for
 examples and definitions of the `'velocity.properties'` file itself.
 
@@ -35046,7 +35044,7 @@ context'). This section details how one configures a Spring container (a
 `WebApplicationContext`) that contains all of the 'business beans' in one's application.
 
 On to specifics: all that one need do is to declare a
-http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/context/ContextLoaderListener.html[`ContextLoaderListener`]
+{javadoc-baseurl}/org/springframework/web/context/ContextLoaderListener.html[`ContextLoaderListener`]
 in the standard Java EE servlet `web.xml` file of one's web application, and add a
 `contextConfigLocation`<context-param/> section (in the same file) that defines which
 set of Spring XML configuration files to load.
@@ -35075,7 +35073,7 @@ Find below the <context-param/> configuration:
 If you don't specify the `contextConfigLocation` context parameter, the
 `ContextLoaderListener` will look for a file called `/WEB-INF/applicationContext.xml` to
 load. Once the context files are loaded, Spring creates a
-http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/context/WebApplicationContext.html[`WebApplicationContext`]
+{javadoc-baseurl}/org/springframework/web/context/WebApplicationContext.html[`WebApplicationContext`]
 object based on the bean definitions and stores it in the `ServletContext` of the web
 application.
 
@@ -35090,7 +35088,7 @@ created by the `ContextLoaderListener`.
 ----
 
 The
-http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/context/support/WebApplicationContextUtils.html[`WebApplicationContextUtils`]
+{javadoc-baseurl}/org/springframework/web/context/support/WebApplicationContextUtils.html[`WebApplicationContextUtils`]
 class is for convenience, so you don't have to remember the name of the `ServletContext`
 attribute. Its __getWebApplicationContext()__ method will return `null` if an object
 doesn't exist under the `WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE`
@@ -35138,7 +35136,7 @@ JSF EL integration.
 ==== DelegatingVariableResolver (JSF 1.1/1.2)
 The easiest way to integrate one's Spring middle-tier with one's JSF web layer is to use
 the
-http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/jsf/DelegatingVariableResolver.html[`DelegatingVariableResolver`]
+{javadoc-baseurl}/org/springframework/web/jsf/DelegatingVariableResolver.html[`DelegatingVariableResolver`]
 class. To configure this variable resolver in one's application, one will need to edit
 one's __faces-context.xml__ file. After the opening `<faces-config/>` element, add an
 `<application/>` element and a `<variable-resolver/>` element within it. The value of
@@ -35237,7 +35235,7 @@ __faces-context.xml__ file:
 ==== FacesContextUtils
 A custom `VariableResolver` works well when mapping one's properties to beans
 in__faces-config.xml__, but at times one may need to grab a bean explicitly. The
-http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/jsf/FacesContextUtils.html[`FacesContextUtils`]
+{javadoc-baseurl}/org/springframework/web/jsf/FacesContextUtils.html[`FacesContextUtils`]
 class makes this easy. It is similar to `WebApplicationContextUtils`, except that it
 takes a `FacesContext` parameter rather than a `ServletContext` parameter.
 
@@ -35285,7 +35283,7 @@ To integrate your Struts 1.x application with Spring, you have two options:
 [[struts-contextloaderplugin]]
 ==== ContextLoaderPlugin
 The
-http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/struts/ContextLoaderPlugIn.html[`ContextLoaderPlugin`]
+{javadoc-baseurl}/org/springframework/web/struts/ContextLoaderPlugIn.html[`ContextLoaderPlugin`]
 is a Struts 1.1+ plug-in that loads a Spring context file for the Struts
 `ActionServlet`. This context refers to the root `WebApplicationContext` (loaded by the
 `ContextLoaderListener`) as its parent. The default name of the context file is the name
@@ -35350,7 +35348,7 @@ You must define that Action's bean with the "/users" name in __action-servlet.xm
 [[struts-delegatingrequestprocessor]]
 ===== DelegatingRequestProcessor
 To configure the
-http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/struts/DelegatingRequestProcessor.html[`DelegatingRequestProcessor`]
+{javadoc-baseurl}/org/springframework/web/struts/DelegatingRequestProcessor.html[`DelegatingRequestProcessor`]
 in your __struts-config.xml__ file, override the "processorClass" property in the
 <controller> element. These lines follow the <action-mapping> element.
 
@@ -35382,7 +35380,7 @@ prefix. For example, an action defined as `<action path="/user"/>` with module p
 ====
 If you are using Tiles in your Struts application, you must configure your <controller>
 with the
-http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/struts/DelegatingTilesRequestProcessor.html[`DelegatingTilesRequestProcessor`]
+{javadoc-baseurl}/org/springframework/web/struts/DelegatingTilesRequestProcessor.html[`DelegatingTilesRequestProcessor`]
 instead.
 ====
 
@@ -35391,7 +35389,7 @@ instead.
 ===== DelegatingActionProxy
 If you have a custom `RequestProcessor` and can't use the `DelegatingRequestProcessor`
 or `DelegatingTilesRequestProcessor` approaches, you can use the
-http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/struts/DelegatingActionProxy.html[`DelegatingActionProxy`]
+{javadoc-baseurl}/org/springframework/web/struts/DelegatingActionProxy.html[`DelegatingActionProxy`]
 as the type in your action-mapping.
 
 [source,xml,indent=0]
@@ -35427,7 +35425,7 @@ As previously mentioned, you can retrieve the `WebApplicationContext` from the
 `ServletContext` using the `WebApplicationContextUtils` class. An easier way is to
 extend Spring's `Action` classes for Struts. For example, instead of subclassing Struts'
 `Action` class, you can subclass Spring's
-http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/struts/ActionSupport.html[`ActionSupport`]
+{javadoc-baseurl}/org/springframework/web/struts/ActionSupport.html[`ActionSupport`]
 class.
 
 The `ActionSupport` class provides additional convenience methods,
@@ -35455,11 +35453,11 @@ Action:
 Spring includes subclasses for all of the standard Struts Actions - the Spring versions
 merely have __Support__ appended to the name:
 
-* http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/struts/ActionSupport.html[`ActionSupport`],
-* http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/struts/DispatchActionSupport.html[`DispatchActionSupport`],
-* http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/struts/LookupDispatchActionSupport.html[`LookupDispatchActionSupport`]
+* {javadoc-baseurl}/org/springframework/web/struts/ActionSupport.html[`ActionSupport`],
+* {javadoc-baseurl}/org/springframework/web/struts/DispatchActionSupport.html[`DispatchActionSupport`],
+* {javadoc-baseurl}/org/springframework/web/struts/LookupDispatchActionSupport.html[`LookupDispatchActionSupport`]
   and
-* http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/struts/MappingDispatchActionSupport.html[`MappingDispatchActionSupport`].
+* {javadoc-baseurl}/org/springframework/web/struts/MappingDispatchActionSupport.html[`MappingDispatchActionSupport`].
 
 The recommended strategy is to use the approach that best suits your project.
 Subclassing makes your code more readable, and you know exactly how your dependencies
@@ -38497,33 +38495,33 @@ practices.
 | HTTP Method | RestTemplate Method
 
 | DELETE
-| http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/client/RestTemplate.html#delete(String,%20Object...)[delete]
+| {javadoc-baseurl}/org/springframework/web/client/RestTemplate.html#delete(String,%20Object...)[delete]
 
 | GET
-| http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/client/RestTemplate.html#getForObject(String,%20Class,%20Object...)[getForObject]
-  http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/client/RestTemplate.html#getForEntity(String,%20Class,%20Object...)[getForEntity]
+| {javadoc-baseurl}/org/springframework/web/client/RestTemplate.html#getForObject(String,%20Class,%20Object...)[getForObject]
+  {javadoc-baseurl}/org/springframework/web/client/RestTemplate.html#getForEntity(String,%20Class,%20Object...)[getForEntity]
 
 | HEAD
-| http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/client/RestTemplate.html#headForHeaders(String,%20Object...)[headForHeaders(String
+| {javadoc-baseurl}/org/springframework/web/client/RestTemplate.html#headForHeaders(String,%20Object...)[headForHeaders(String
   url, String... urlVariables)]
 
 | OPTIONS
-| http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/client/RestTemplate.html#optionsForAllow(String,%20Object...)[optionsForAllow(String
+| {javadoc-baseurl}/org/springframework/web/client/RestTemplate.html#optionsForAllow(String,%20Object...)[optionsForAllow(String
   url, String... urlVariables)]
 
 | POST
-| http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/client/RestTemplate.html#postForLocation(String,%20Object,%20Object...)[postForLocation(String
+| {javadoc-baseurl}/org/springframework/web/client/RestTemplate.html#postForLocation(String,%20Object,%20Object...)[postForLocation(String
   url, Object request, String... urlVariables)]
-  http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/client/RestTemplate.html#postForObject(java.lang.String,%20java.lang.Object,%20java.lang.Class,%20java.lang.String...)[postForObject(String
+  {javadoc-baseurl}/org/springframework/web/client/RestTemplate.html#postForObject(java.lang.String,%20java.lang.Object,%20java.lang.Class,%20java.lang.String...)[postForObject(String
   url, Object request, Class<T> responseType, String... uriVariables)]
 
 | PUT
-| http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/client/RestTemplate.html#put(String,%20Object,%20Object...)[put(String
+| {javadoc-baseurl}/org/springframework/web/client/RestTemplate.html#put(String,%20Object,%20Object...)[put(String
   url, Object request, String...urlVariables)]
 
 | PATCH and others
-| http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/client/RestTemplate.html#exchange(java.lang.String,%20org.springframework.http.HttpMethod,%20org.springframework.http.HttpEntity,%20java.lang.Class,%20java.lang.Object...)[exchange]
-  http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/client/RestTemplate.html#execute(java.lang.String,%20org.springframework.http.HttpMethod,%20org.springframework.web.client.RequestCallback,%20org.springframework.web.client.ResponseExtractor,%20java.lang.Object...)[execute]
+| {javadoc-baseurl}/org/springframework/web/client/RestTemplate.html#exchange(java.lang.String,%20org.springframework.http.HttpMethod,%20org.springframework.http.HttpEntity,%20java.lang.Class,%20java.lang.Object...)[exchange]
+  {javadoc-baseurl}/org/springframework/web/client/RestTemplate.html#execute(java.lang.String,%20org.springframework.http.HttpMethod,%20org.springframework.web.client.RequestCallback,%20org.springframework.web.client.ResponseExtractor,%20java.lang.Object...)[execute]
 |===
 
 The names of `RestTemplate` methods follow a naming convention, the first part indicates
@@ -44066,7 +44064,7 @@ seconds and one every morning at 6 AM. To finalize everything, we need to set up
 More properties are available for the `SchedulerFactoryBean` for you to set, such as the
 calendars used by the job details, properties to customize Quartz with, etc. Have a look
 at the
-http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/scheduling/quartz/SchedulerFactoryBean.html[SchedulerFactoryBean
+{javadoc-baseurl}/org/springframework/scheduling/quartz/SchedulerFactoryBean.html[SchedulerFactoryBean
 Javadoc] for more information.
 
 
