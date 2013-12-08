@@ -737,15 +737,15 @@ TODO
 * websockets
 * generic injection
 * removed deprecation
-* bill of materials POM
+* bill of materials POM <<overview-maven-bom>>
 * java 8 (@Repeatable, date time)
 * messaging
 * meta-annotation overrides
 * proxy without default constructor
 * async rest
-* @Condition
+* @Conditional <<beans-java-conditional>>
 * @RestController
-* @Description annotation
+* @Description annotation <<beans-java-bean-description>>
 * Timezone support in MVC
 * Java EE updates
 * Groovy bean builds
