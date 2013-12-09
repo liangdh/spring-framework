@@ -1029,11 +1029,11 @@ The following example shows the data access objects `daos.xml` file:
 			http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 		<bean id="accountDao"
-			class="org.springframework.samples.jpetstore.dao.jpa.SqlMapAccountDao">
+			class="org.springframework.samples.jpetstore.dao.jpa.JpaAccountDao">
 			<!-- additional collaborators and configuration for this bean go here -->
 		</bean>
 
-		<bean id="itemDao" class="org.springframework.samples.jpetstore.dao.jpa.SqlMapItemDao">
+		<bean id="itemDao" class="org.springframework.samples.jpetstore.dao.jpa.JapItemDao">
 			<!-- additional collaborators and configuration for this bean go here -->
 		</bean>
 
@@ -1043,7 +1043,7 @@ The following example shows the data access objects `daos.xml` file:
 ----
 
 In the preceding example, the service layer consists of the class `PetStoreServiceImpl`,
-and two data access objects of the type `SqlMapAccountDao` and `SqlMapItemDao` (based
+and two data access objects of the type `JpaAccountDao` and `JpaItemDao` (based
 on the JPA Object/Relational mapping standard). The `property name` element refers to the
 name of the JavaBean property, and the `ref` element refers to the name of another bean
 definition. This linkage between `id` and `ref` elements expresses the dependency between
