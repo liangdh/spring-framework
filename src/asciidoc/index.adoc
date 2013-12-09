@@ -165,11 +165,10 @@ The <<jdbc-introduction,JDBC>> module provides a JDBC-abstraction layer that rem
 need to do tedious JDBC coding and parsing of database-vendor specific error codes.
 
 The <<orm-introduction,__ORM__>> module provides integration layers for popular
-object-relational mapping APIs, including <<orm-jpa,JPA>>, <<orm-jdo,JDO>>,
-<<orm-hibernate,Hibernate>>, and <<orm-ibatis,iBatis>>. Using the ORM package you can
-use all of these O/R-mapping frameworks in combination with all of the other features
-Spring offers, such as the simple declarative transaction management feature mentioned
-previously.
+object-relational mapping APIs, including <<orm-jpa,JPA>>, <<orm-jdo,JDO>>, and
+<<orm-hibernate,Hibernate>>. Using the ORM package you can use all of these O/R-mapping
+frameworks in combination with all of the other features Spring offers, such as the simple
+declarative transaction management feature mentioned previously.
 
 The <<oxm,OXM>> module provides an abstraction layer that supports Object/XML mapping
 implementations for JAXB, Castor, XMLBeans, JiBX and XStream.
@@ -247,7 +246,7 @@ container-managed transactions. All your custom business logic can be implemente
 simple POJOs and managed by Spring's IoC container. Additional services include support
 for sending email and validation that is independent of the web layer, which lets you
 choose where to execute validation rules. Spring's ORM support is integrated with JPA,
-Hibernate, JDO and iBatis; for example, when using Hibernate, you can continue to use
+Hibernate and and JDO; for example, when using Hibernate, you can continue to use
 your existing mapping files and standard Hibernate `SessionFactory` configuration. Form
 controllers seamlessly integrate the web-layer with the domain model, removing the need
 for `ActionForms` or other classes that transform HTTP parameters to values for your
@@ -1030,11 +1029,11 @@ The following example shows the data access objects `daos.xml` file:
 			http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 		<bean id="accountDao"
-			class="org.springframework.samples.jpetstore.dao.ibatis.SqlMapAccountDao">
+			class="org.springframework.samples.jpetstore.dao.jpa.SqlMapAccountDao">
 			<!-- additional collaborators and configuration for this bean go here -->
 		</bean>
 
-		<bean id="itemDao" class="org.springframework.samples.jpetstore.dao.ibatis.SqlMapItemDao">
+		<bean id="itemDao" class="org.springframework.samples.jpetstore.dao.jpa.SqlMapItemDao">
 			<!-- additional collaborators and configuration for this bean go here -->
 		</bean>
 
@@ -1044,12 +1043,12 @@ The following example shows the data access objects `daos.xml` file:
 ----
 
 In the preceding example, the service layer consists of the class `PetStoreServiceImpl`,
-and two data access objects of the type `SqlMapAccountDao` and `SqlMapItemDao` are based
-on the http://ibatis.apache.org/[iBatis] Object/Relational mapping framework. The
-`property name` element refers to the name of the JavaBean property, and the `ref`
-element refers to the name of another bean definition. This linkage between `id` and `ref`
-elements expresses the dependency between collaborating objects. For details of
-configuring an object's dependencies, see <<beans-dependencies,Dependencies>>.
+and two data access objects of the type `SqlMapAccountDao` and `SqlMapItemDao` (based
+on the JPA Object/Relational mapping standard). The `property name` element refers to the
+name of the JavaBean property, and the `ref` element refers to the name of another bean
+definition. This linkage between `id` and `ref` elements expresses the dependency between
+collaborating objects. For details of configuring an object's dependencies, see
+<<beans-dependencies,Dependencies>>.
 
 
 [[beans-factory-xml-import]]
@@ -1083,7 +1082,7 @@ same directory or classpath location as the file doing the importing, while
 location of the importing file. As you can see, a leading slash is ignored, but given
 that these paths are relative, it is better form not to use the slash at all. The
 contents of the files being imported, including the top level `<beans/>` element, must
-be valid XML bean definitions according to the Spring Schema or DTD.
+be valid XML bean definitions according to the Spring Schema.
 
 [NOTE]
 ====
@@ -2911,7 +2910,6 @@ bean is returned each time.
 
 [TIP]
 ====
-
 The interested reader may also find the `ServiceLocatorFactoryBean` (in the
 `org.springframework.beans.factory.config` package) to be of use. The approach used in
 ServiceLocatorFactoryBean is similar to that of another utility class,
@@ -25204,8 +25202,8 @@ The second option can also be easy. Some suggestions on how to implement this ar
 
 [[orm-introduction]]
 === Introduction to ORM with Spring
-The Spring Framework supports integration with Hibernate, Java Persistence API (JPA),
-Java Data Objects (JDO) and iBATIS SQL Maps for resource management, data access object
+The Spring Framework supports integration with Hibernate, Java Persistence API (JPA)
+and Java Data Objects (JDO) for resource management, data access object
 (DAO) implementations, and transaction strategies. For example, for Hibernate there is
 first-class support with several convenient IoC features that address many typical
 Hibernate integration issues. You can configure all of the supported features for O/R
@@ -25241,14 +25239,14 @@ Benefits of using the Spring Framework to create your ORM DAOs include:
   perform some operations with JDBC within a consistent programming model.
 * __General resource management.__ Spring application contexts can handle the location
   and configuration of Hibernate `SessionFactory` instances, JPA `EntityManagerFactory`
-  instances, JDBC `DataSource` instances, iBATIS SQL Maps configuration objects, and
-  other related resources. This makes these values easy to manage and change. Spring
-  offers efficient, easy, and safe handling of persistence resources. For example,
-  related code that uses Hibernate generally needs to use the same Hibernate `Session`
-  to ensure efficiency and proper transaction handling. Spring makes it easy to create
-  and bind a `Session` to the current thread transparently, by exposing a current
-  `Session` through the Hibernate `SessionFactory`. Thus Spring solves many chronic
-  problems of typical Hibernate usage, for any local or JTA transaction environment.
+  instances, JDBC `DataSource` instances, and other related resources. This makes these
+  values easy to manage and change. Spring offers efficient, easy, and safe handling of
+  persistence resources. For example, related code that uses Hibernate generally needs to
+  use the same Hibernate `Session` to ensure efficiency and proper transaction handling.
+  Spring makes it easy to create and bind a `Session` to the current thread transparently,
+  by exposing a current `Session` through the Hibernate `SessionFactory`. Thus Spring
+  solves many chronic problems of typical Hibernate usage, for any local or JTA
+  transaction environment.
 * __Integrated transaction management.__ You can wrap your ORM code with a declarative,
   aspect-oriented programming (AOP) style method interceptor either through the
   `@Transactional` annotation or by explicitly configuring the transaction AOP advice in
@@ -25262,6 +25260,14 @@ Benefits of using the Spring Framework to create your ORM DAOs include:
   for data access that is not suitable for ORM, such as batch processing and BLOB
   streaming, which still need to share common transactions with ORM operations.
 
+[TIP]
+====
+For more comprehensive ORM support, including support for alternative database
+technologies such as MongoDB, you might want to check out the
+http://projects.spring.io/spring-data/[Spring Data] suite of projects. If you are
+a JPA user, the https://spring.io/guides/gs/accessing-data-jpa/[Getting Started Accessing
+Data with JPA] guide from http://spring.io provides a great introduction.
+====
 
 
 
