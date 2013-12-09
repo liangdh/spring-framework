@@ -769,6 +769,9 @@ TODO
 * Timezone support in MVC
 * Java EE updates
 * Groovy bean builds
+* ordered list/arry injection with @Autowired (@Order on each element bean)
+* Lazy resolution of proxies driven by @Lay on injection point
+* Attribute override with composable annotations
 
 
 [[spring-core]]
