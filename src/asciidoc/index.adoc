@@ -33,6 +33,26 @@ list or on the support forums at http://forum.spring.io/[].
 
 
 
+[[overview-getting-started-with-spring]]
+== Getting Started With Spring
+This reference guide provides detailed information about the Spring Framework.
+It provides comprehensive documentation for all features, as well as some background
+about the underlying concepts (such as __"Dependency Injection"__) that Spring has
+embraced.
+
+If you are just getting started with Spring, you may want to begin with the lighter
+https://spring.io/guides["Getting Started"] guides that are available from
+http://spring.io. As well as being easier to digest, these guide are very
+__task focused__. They also cover other projects from the Spring portfolio that you might
+ want to consider when solving a particular problem.
+
+https://spring.io/guides/gs/rest-service/[Getting Started Building a RESTful Web Service]
+would be an excellent first choice to get your feet wet.
+
+
+
+
+
 [[overview]]
 == Introduction to Spring Framework
 Spring Framework is a Java platform that provides comprehensive infrastructure support
@@ -734,6 +754,7 @@ the exact version and feature set of the container.
 
 TODO
 
+* the new spring.io site and getting started <<overview-getting-started-with-spring>>
 * websockets
 * generic injection
 * removed deprecation
