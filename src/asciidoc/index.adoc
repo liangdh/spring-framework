@@ -28764,19 +28764,20 @@ section and <<rest-message-conversion,Message Converters>>.
 ===== Creating REST Controllers with the @RestController annotation
 
 It's a very common use case to have Controllers implement a REST API, thus serving only
-JSON, XML or custom MediaTypes content. Instead of annotating all your @RequestMapping
-methods with @ResponseBody, you can annotate your Controller with @RestController.
+JSON, XML or custom MediaType content. For convenience, instead of annotating all your
+`@RequestMapping` methods with `@ResponseBody`, you can annotate your Controller Class
+with `@RestController`.
 
-{javadoc-baseurl}org/springframework/web/bind/annotation/RestController.html[@RestController]
-is a stereotype annotation that implies @ResponseBody on your Controller class. More than
+{javadoc-baseurl}org/springframework/web/bind/annotation/RestController.html[`@RestController`]
+is a stereotype annotation that combines `@ResponseBody` and `@Controller`. More than
 that, it gives more meaning to your Controller and also may carry additional semantics
 in future releases of the framework.
 
-You may then assist those REST Controllers using @ControllerAdvice for resolving custom
-REST exceptions. See the <<mvc-ann-controller-advice>> section for more details.
+As with regular `@Controllers`, a `@RestController` may be assisted by a
+`@ControllerAdvice` Bean. See the <<mvc-ann-controller-advice>> section for more details.
 
 [[mvc-ann-httpentity]]
-===== Using HttpEntity<?>
+===== Using HttpEntity
 
 The `HttpEntity` is similar to `@RequestBody` and `@ResponseBody`. Besides getting
 access to the request and response body, `HttpEntity` (and the response-specific
