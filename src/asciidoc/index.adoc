@@ -257,7 +257,7 @@ image::images/overview-thirdparty-web.png[]
 
 Sometimes circumstances do not allow you to completely switch to a different framework.
 The Spring Framework does __not__ force you to use everything within it; it is not an
-__all-or-nothing__ solution. Existing front-ends built with WebWork, Struts, Tapestry,
+__all-or-nothing__ solution. Existing front-ends built with Struts, Tapestry, JSF
 or other UI frameworks can be integrated with a Spring-based middle-tier, which allows
 you to use Spring transaction features. You simply need to wire up your business logic
 using an `ApplicationContext` and use a `WebApplicationContext` to integrate your web
@@ -27621,20 +27621,20 @@ Spring's web module includes many unique web support features:
 Non-Spring MVC implementations are preferable for some projects. Many teams expect to
 leverage their existing investment in skills and tools. A large body of knowledge and
 experience exist for the Struts framework. If you can abide Struts' architectural flaws,
-it can be a viable choice for the web layer; the same applies to WebWork and other web
+it can be a viable choice for the web layer; the same applies to JSF and other web
 MVC frameworks.
 
 If you do not want to use Spring's web MVC, but intend to leverage other solutions that
 Spring offers, you can integrate the web MVC framework of your choice with Spring
 easily. Simply start up a Spring root application context through its
 `ContextLoaderListener`, and access it through its `ServletContext` attribute (or
-Spring's respective helper method) from within a Struts or WebWork action. No "plug-ins"
+Spring's respective helper method) from within a Struts action. No "plug-ins"
 are involved, so no dedicated integration is necessary. From the web layer's point of
 view, you simply use Spring as a library, with the root application context instance as
 the entry point.
 
 Your registered beans and Spring's services can be at your fingertips even without
-Spring's Web MVC. Spring does not compete with Struts or WebWork in this scenario. It
+Spring's Web MVC. Spring does not compete with Struts in this scenario. It
 simply addresses the many areas that the pure web MVC frameworks do not, from bean
 configuration to data access and transaction handling. So you can enrich your
 application with a Spring middle tier and/or data access tier, even if you just want to
@@ -34344,8 +34344,7 @@ For more information about SWF, consult the Spring Web Flow website.
 ****
 
 This chapter details Spring's integration with third party web frameworks such as
-http://java.sun.com/javaee/javaserverfaces/[JSF], http://struts.apache.org/[Struts],
-http://en.wikipedia.org/wiki/WebWork[WebWork], and
+http://java.sun.com/javaee/javaserverfaces/[JSF], http://struts.apache.org/[Struts], and
 http://tapestry.apache.org/[Tapestry].
 
 One of the core value propositions of the Spring Framework is that of enabling
@@ -34624,11 +34623,9 @@ web developers.
 ====
 __The following section discusses Struts 1 a.k.a. "Struts Classic".__
 
-Struts 2 is effectively a different product - a successor of WebWork 2.2 (as discussed
-in <<webwork>>), carrying the Struts brand now. Check out the Struts 2
-http://struts.apache.org/2.x/docs/spring-plugin.html[Spring Plugin] for the built-in
-Spring integration shipped with Struts 2. In general, Struts 2 is closer to WebWork 2.2
-than to Struts 1 in terms of its Spring integration implications.
+Struts 2 is effectively a different product, carrying the Struts brand now. Check out the
+Struts 2 http://struts.apache.org/2.x/docs/spring-plugin.html[Spring Plugin] for the
+built-in Spring integration shipped with Struts 2.
 ====
 
 To integrate your Struts 1.x application with Spring, you have two options:
@@ -34824,45 +34821,6 @@ Subclassing makes your code more readable, and you know exactly how your depende
 are resolved. In contrast, using the `ContextLoaderPlugin` allows you to easily add new
 dependencies in your context XML file. Either way, Spring provides some nice options for
 integrating with Struts.
-
-
-
-
-[[webwork]]
-=== WebWork 2.x
-From the http://www.opensymphony.com/webwork/[WebWork homepage]:
-
-"__WebWork is a Java web-application development framework. It is built specifically
-with developer productivity and code simplicity in mind, providing robust support for
-building reusable UI templates, such as form controls, UI themes, internationalization,
-dynamic form parameter mapping to JavaBeans, robust client and server side validation,
-and much more.__"
-
-Web work's architecture and concepts are easy to understand, and the framework also has
-an extensive tag library as well as nicely decoupled validation.
-
-One of the key enablers in WebWork's technology stack is
-http://www.opensymphony.com/webwork/wikidocs/IoC%20Overview.html[an IoC container] to
-manage Webwork Actions, handle the "wiring" of business objects, etc. Prior to WebWork
-version 2.2, WebWork used its own proprietary IoC container (and provided integration
-points so that one could integrate an IoC container such as Spring's into the mix).
-However, as of WebWork version 2.2, the default IoC container that is used within
-WebWork __is__ Spring. This is obviously great news if one is a Spring developer,
-because it means that one is immediately familiar with the basics of IoC configuration,
-idioms, and suchlike within WebWork.
-
-Now in the interests of adhering to the DRY (Don't Repeat Yourself) principle, it would
-be foolish to document the Spring-WebWork integration in light of the fact that the
-WebWork team have already written such a writeup. Please consult the
-http://www.opensymphony.com/webwork/wikidocs/Spring.html[Spring-WebWork integration
-page] on the http://wiki.opensymphony.com/display/WW/WebWork[WebWork wiki] for the full
-lowdown.
-
-Note that the Spring-WebWork integration code was developed (and continues to be
-maintained and improved) by the WebWork developers themselves. So please refer first to
-the WebWork site and forums if you are having issues with the integration. But feel free
-to post comments and queries regarding the Spring-WebWork integration on the
-http://forum.springframework.org/forumdisplay.php?f=25[Spring support forums], too.
 
 
 
@@ -35356,7 +35314,6 @@ chapter.
 
 * The http://java.sun.com/javaee/javaserverfaces/[JSF] homepage
 * The http://struts.apache.org/[Struts] homepage
-* The http://www.opensymphony.com/webwork/[WebWork] homepage
 * The http://tapestry.apache.org/[Tapestry] homepage
 
 
