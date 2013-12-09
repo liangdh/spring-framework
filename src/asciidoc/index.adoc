@@ -4722,7 +4722,7 @@ product of the `FactoryBean`; whereas, invoking `getBean("&myBean")` returns the
 The introduction of annotation-based configurations raised the question of whether this
 approach is 'better' than XML. The short answer is __it depends__. The long answer is
 that each approach has its pros and cons, and usually it is up to the developer to
-decide which strategy suits her better. Due to the way they are defined, annotations
+decide which strategy suits them better. Due to the way they are defined, annotations
 provide a lot of context in their declaration, leading to shorter and more concise
 configuration. However, XML excels at wiring up components without touching their source
 code or recompiling them. Some developers prefer having the wiring close to the source
@@ -5505,7 +5505,7 @@ dependency type `ApplicationContext`.
 
 
 [[beans-postconstruct-and-predestroy-annotations]]
-==== @PostConstruct and `@PreDestroy`
+==== @PostConstruct and @PreDestroy
 
 The `CommonAnnotationBeanPostProcessor` not only recognizes the `@Resource` annotation
 but also the JSR-250 __lifecycle__ annotations. Introduced in Spring 2.5, the support
@@ -6014,7 +6014,7 @@ You can add the following dependency to your file pom.xml:
 
 
 [[beans-inject-named]]
-==== Dependency Injection with @Inject and `@Named`
+==== Dependency Injection with @Inject and @Named
 
 Instead of `@Autowired`, `@javax.inject.Inject` may be used as follows:
 
@@ -6065,7 +6065,7 @@ follows:
 
 
 [[beans-named]]
-==== @Named: a standard equivalent to the `@Component` annotation
+==== @Named: a standard equivalent to the @Component annotation
 
 Instead of `@Component`, `@javax.inject.Named` may be used as follows:
 
@@ -7225,7 +7225,7 @@ functionality.
 --
 
 [[beans-java-combining-java-centric]]
-====== @Configuration class-centric use of XML with `@ImportResource`
+====== @Configuration class-centric use of XML with @ImportResource
 
 In applications where `@Configuration` classes are the primary mechanism for configuring
 the container, it will still likely be necessary to use at least some XML. In these
@@ -7922,7 +7922,7 @@ directly through a classic singleton lookup.
 
 
 [[context-introduction-ctx-vs-beanfactory]]
-==== BeanFactory or `ApplicationContext`?
+==== BeanFactory or ApplicationContext?
 
 Use an `ApplicationContext` unless you have a good reason for not doing so.
 
@@ -30317,7 +30317,7 @@ below an example of defining a `CookieLocaleResolver`.
 | Integer.MAX_INT
 | The maximum time a cookie will stay persistent on the client. If -1 is specified, the
   cookie will not be persisted; it will only be available until the client shuts down
-  his or her browser.
+  their browser.
 
 | cookiePath
 | /
@@ -34354,7 +34354,7 @@ One of the core value propositions of the Spring Framework is that of enabling
 __choice__. In a general sense, Spring does not force one to use or buy into any
 particular architecture, technology, or methodology (although it certainly recommends
 some over others). This freedom to pick and choose the architecture, technology, or
-methodology that is most relevant to a developer and his or her development team is
+methodology that is most relevant to a developer and their development team is
 arguably most evident in the web area, where Spring provides its own web framework
 (<<mvc,Spring MVC>>), while at the same time providing integration with a number of
 popular third party web frameworks. This allows one to continue to leverage any and all
@@ -44944,7 +44944,7 @@ using the aspectj mode in this case.
 
 [[cache-annotation-stereotype]]
 ==== Using custom annotations
-The caching abstraction allows one to use her own annotations to identify what method
+The caching abstraction allows you to use your own annotations to identify what method
 trigger cache population or eviction. This is quite handy as a template mechanism as it
 eliminates the need to duplicate cache annotation declarations (especially useful if the
 key or condition are specified) or if the foreign imports ( `org.springframework`) are
