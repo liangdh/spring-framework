@@ -828,7 +828,7 @@ There have been several general improvements to the core IoC container:
 * Spring now treats __generic types__ as a form of __qualifier__ when injecting Beans. For
   example, if you are using a Spring Data `Repository` you can now easily inject specific
   implementations: `@Autowired Repository<Customer> customerRepository`.
-* If use Spring's meta-annotation support, you can now develop custom annotations that
+* If you use Spring's meta-annotation support, you can now develop custom annotations that
   <<beans-meta-annotations,expose specific attributes from the source annotation>>.
 * Beans can now be `Ordered` when they are injected into lists and arrays. Both the
   `@Ordered` annotation and `Ordered` interface are supported.
@@ -5695,7 +5695,7 @@ supported as a marker for automatic exception translation in your persistence la
 
 [[beans-meta-annotations]]
 ==== Meta-annotations
-Many of the annotations provided by Spring can be used to as "meta-annotations" in
+Many of the annotations provided by Spring can be used as "meta-annotations" in
 your own code. A meta-annotation is simply an annotation, that can be applied to another
 annotation. For example, The `@Service` annotation mentioned above is meta-annotated with
 with `@Component`:
