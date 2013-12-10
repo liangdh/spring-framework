@@ -3117,7 +3117,6 @@ The following example defines a bean as a prototype in XML:
 [source,xml,indent=0]
 [subs="verbatim,quotes"]
 ----
-	<!-- using spring-beans-2.0.dtd -->
 	<bean id="accountService" class="com.foo.DefaultAccountService" scope="prototype"/>
 ----
 
@@ -12127,15 +12126,6 @@ element:
 This assumes that you are using schema support as described in <<xsd-config>>. See
 <<xsd-config-body-schemas-aop>> for how to import the tags in the aop namespace.
 
-If you are using the DTD, it is still possible to enable @AspectJ support by adding the
-following definition to your application context:
-
-[source,xml,indent=0]
-[subs="verbatim,quotes"]
-----
-	<bean class="org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProxyCreator" />
-----
-
 
 
 [[aop-at-aspectj]]
@@ -14673,15 +14663,6 @@ If you prefer XML based configuration, the Spring <<xsd-config-body-schemas-cont
 [subs="verbatim,quotes"]
 ----
 	<context:spring-configured/>
-----
-
-If you are using the DTD instead of schema, the equivalent definition is:
-
-[source,xml,indent=0]
-[subs="verbatim,quotes"]
-----
-	<bean class="org.springframework.beans.factory.aspectj.AnnotationBeanConfigurerAspect"
-			factory-method="aspectOf"/>
 ----
 
 Instances of `@Configurable` objects created __before__ the aspect has been configured
@@ -43779,19 +43760,6 @@ of your dynamic language source files.
 
 [[dynamic-language-beans-concepts-xml-language-element]]
 ===== The <lang:language/> element
-
-.XML Schema
-****
-All of the configuration examples in this chapter make use of the new XML Schema support
-that was added in Spring 2.0.
-
-It is possible to forego the use of XML Schema and stick with the old-style DTD based
-validation of your Spring XML files, but then you lose out on the convenience offered by
-the `<lang:language/>` element. See the Spring test suite for examples of the older
-style configuration that doesn't require XML Schema-based validation (it is quite
-verbose and doesn't hide any of the underlying Spring implementation from you).
-****
-
 The final step involves defining dynamic-language-backed bean definitions, one for each
 bean that you want to configure (this is no different from normal JavaBean
 configuration). However, instead of specifying the fully qualified classname of the
