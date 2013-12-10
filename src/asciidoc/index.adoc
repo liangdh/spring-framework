@@ -762,7 +762,7 @@ TODO
 * messaging
 * meta-annotation overrides <<beans-meta-annotations>>
 * proxy without default constructor
-* async rest
+* async rest <<rest-async-resttemplate>>
 * @Conditional <<beans-java-conditional>>
 * @RestController <<mvc-ann-restcontroller>>
 * @Description annotation <<beans-java-bean-description>>
@@ -835,10 +835,10 @@ construction of classes, or a mechanism such as the __Service Locator__ pattern.
 
 The `org.springframework.beans` and `org.springframework.context` packages are the basis
 for Spring Framework's IoC container. The
-{javadoc-baseurl}/org/springframework/beans/factory/BeanFactory.html[BeanFactory]
+{javadoc-baseurl}/org/springframework/beans/factory/BeanFactory.html[`BeanFactory`]
 interface provides an advanced configuration mechanism capable of managing any type of
 object.
-{javadoc-baseurl}/org/springframework/context/ApplicationContext.html[ApplicationContext]
+{javadoc-baseurl}/org/springframework/context/ApplicationContext.html[`ApplicationContext`]
 is a sub-interface of `BeanFactory`. It adds easier integration with Spring's AOP
 features; message resource handling (for use in internationalization), event
 publication; and application-layer specific contexts such as the `WebApplicationContext`
@@ -3056,7 +3056,7 @@ The following scopes are supported out of the box. You can also create
 ====
 As of Spring 3.0, a __thread scope__ is available, but is not registered by default. For
 more information, see the documentation for
-{javadoc-baseurl}/org/springframework/context/support/SimpleThreadScope.html[SimpleThreadScope].
+{javadoc-baseurl}/org/springframework/context/support/SimpleThreadScope.html[`SimpleThreadScope`].
 For instructions on how to register this or any other custom scope, see
 <<beans-factory-scopes-custom-using>>.
 ====
@@ -3442,7 +3442,7 @@ To integrate your custom scope(s) into the Spring container, you need to impleme
 `org.springframework.beans.factory.config.Scope` interface, which is described in this
 section. For an idea of how to implement your own scopes, see the `Scope`
 implementations that are supplied with the Spring Framework itself and the
-{javadoc-baseurl}/org/springframework/beans/factory/config/Scope.html[Scope
+{javadoc-baseurl}/org/springframework/beans/factory/config/Scope.html[`Scope`
 Javadoc], which explains the methods you need to implement in more detail.
 
 The `Scope` interface has four methods to get objects from the scope, remove them from
@@ -7150,7 +7150,7 @@ implementation that returns `true` or `false`. For example, here is the actual
 ----
 
 See the {javadoc-baseurl}/org/springframework/context/annotation/Conditional.html[
-@Conditional Javadoc] for more detail.
+`@Conditional` Javadoc] for more detail.
 
 [[beans-java-combining]]
 ===== Combining Java and XML configuration
@@ -7365,8 +7365,8 @@ over a configurable hierarchy of property sources.
 You can find out more about
 http://spring.io/blog/2011/02/15/spring-3-1-m1-unified-property-management/[Unified
 Property Management], the
-{javadoc-baseurl}/org/springframework/core/env/PropertySource.html[PropertySource class]
-and the {javadoc-baseurl}org/springframework/context/annotation/PropertySource.html[@PropertySource
+{javadoc-baseurl}/org/springframework/core/env/PropertySource.html[`PropertySource` class]
+and the {javadoc-baseurl}org/springframework/context/annotation/PropertySource.html[`@PropertySource`
 annotation].
 
 
@@ -7932,7 +7932,7 @@ and JMX support facilities. Application components can also interact with the
 application server's JCA WorkManager through Spring's `TaskExecutor` abstraction.
 
 Check out the JavaDoc of the
-{javadoc-baseurl}/org/springframework/jca/context/SpringContextResourceAdapter.html[SpringContextResourceAdapter]
+{javadoc-baseurl}/org/springframework/jca/context/SpringContextResourceAdapter.html[`SpringContextResourceAdapter`]
 class for the configuration details involved in RAR deployment.
 
 __For a simple deployment of a Spring ApplicationContext as a J2EE RAR file:__ package
@@ -8958,9 +8958,9 @@ convenience to aid developers in targeting error messages and suchlike.
 
 More information on the `MessageCodesResolver` and the default strategy can be found
 online with the Javadocs for
-{javadoc-baseurl}/org/springframework/validation/MessageCodesResolver.html[MessageCodesResolver]
+{javadoc-baseurl}/org/springframework/validation/MessageCodesResolver.html[`MessageCodesResolver`]
 and
-{javadoc-baseurl}/org/springframework/validation/DefaultMessageCodesResolver.html[DefaultMessageCodesResolver]
+{javadoc-baseurl}/org/springframework/validation/DefaultMessageCodesResolver.html[`DefaultMessageCodesResolver`]
 respectively.
 
 
@@ -29413,7 +29413,7 @@ attributes:
 ----
 
 Check out the
-{javadoc-baseurl}/org/springframework/web/bind/annotation/ControllerAdvice.html[@ControllerAdvice
+{javadoc-baseurl}/org/springframework/web/bind/annotation/ControllerAdvice.html[`@ControllerAdvice`
 documentation] for more details.
 
 [[mvc-ann-async]]
@@ -37871,6 +37871,12 @@ RestTemplate provides higher level methods that correspond to each of the six ma
 methods that make invoking many RESTful services a one-liner and enforce REST best
 practices.
 
+
+[NOTE]
+====
+RestTemplate has an asynchronous counter-part: see <<rest-async-resttemplate>>.
+====
+
 [[rest-overview-of-resttemplate-methods-tbl]]
 .Overview of RestTemplate methods
 [cols="1,3"]
@@ -38213,8 +38219,70 @@ An `HttpMessageConverter` implementation that can read and write
 `java.awt.image.BufferedImage` from the HTTP request and response. This converter reads
 and writes the media type supported by the Java I/O API.
 
+[[rest-async-resttemplate]]
+==== Async RestTemplate
 
+Web applications often need to query external REST services those days. The very nature of
+HTTP and synchronous calls can lead up to challenges when scaling applications for those
+needs: multiple threads may be blocked, waiting for remote HTTP responses.
 
+`AsyncRestTemplate` and <<rest-resttemplate>>'s APIs are very similar; see
+<<rest-overview-of-resttemplate-methods-tbl>>. The main difference between those APIs is
+that `AsyncRestTemplate` returns
+{javadoc-baseurl}/org/springframework/util/concurrent/ListenableFuture.html[`ListenableFuture`]
+wrappers as opposed to concrete results.
+
+The previous `RestTemplate` example translates to:
+
+[source,java,indent=0]
+[subs="verbatim,quotes"]
+----
+	// async call
+	Future<ResponseEntity<String>> futureEntity = template.getForEntity(
+		"http://example.com/hotels/{hotel}/bookings/{booking}", String.class, "42", "21");
+
+	// get the concrete result - synchronous call
+	ResponseEntity<String> entity = futureEntity.get();
+----
+
+{javadoc-baseurl}/org/springframework/util/concurrent/ListenableFuture.html[`ListenableFuture`]
+accepts completion callbacks:
+
+[source,java,indent=0]
+[subs="verbatim,quotes"]
+----
+	ListenableFuture<ResponseEntity<String>> futureEntity = template.getForEntity(
+		"http://example.com/hotels/{hotel}/bookings/{booking}", String.class, "42", "21");
+
+	// register a callback
+	futureEntity.addCallback(new ListenableFutureCallback<ResponseEntity<String>>() {
+		@Override
+		public void onSuccess(ResponseEntity<String> entity) {
+			//...
+		}
+
+		@Override
+		public void onFailure(Throwable t) {
+			//...
+		}
+	});
+----
+
+[NOTE]
+====
+The default `AsyncRestTemplate` constructor registers a
+{javadoc-baseurl}/org/springframework/core/task/SimpleAsyncTaskExecutor.html[`SimpleAsyncTaskExecutor`
+] for executing HTTP requests.
+When dealing with a large number of short-lived requests, a thread-pooling TaskExecutor
+implementation like
+{javadoc-baseurl}/org/springframework/scheduling/concurrent/ThreadPoolTaskExecutor.html[`ThreadPoolTaskExecutor`]
+may be a good choice.
+====
+
+See {javadoc-baseurl}/org/springframework/util/concurrent/ListenableFuture.html[`ListenableFuture`
+Javadoc] and
+{javadoc-baseurl}/org/springframework/web/client/AsyncRestTemplate.html[`AsyncRestTemplate`
+Javadoc] for more details.
 
 
 [[ejb]]
@@ -43453,8 +43521,8 @@ seconds and one every morning at 6 AM. To finalize everything, we need to set up
 More properties are available for the `SchedulerFactoryBean` for you to set, such as the
 calendars used by the job details, properties to customize Quartz with, etc. Have a look
 at the
-{javadoc-baseurl}/org/springframework/scheduling/quartz/SchedulerFactoryBean.html[SchedulerFactoryBean
-Javadoc] for more information.
+{javadoc-baseurl}/org/springframework/scheduling/quartz/SchedulerFactoryBean.html[`SchedulerFactoryBean
+Javadoc`] for more information.
 
 
 
