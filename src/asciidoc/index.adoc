@@ -32854,12 +32854,14 @@ is the default type.
 It is possible to integrate Tiles - just as any other view technology - in web
 applications using Spring. The following describes in a broad way how to do this.
 
-__NOTE:__ This section focuses on Spring's support for Tiles 2 (the standalone version
-of Tiles, requiring Java 5+) in the `org.springframework.web.servlet.view.tiles2`
-package as as well as Tiles 3 in the `org.springframework.web.servlet.view.tiles3`
-package. Spring also continues to support Tiles 1.x (a.k.a. "Struts Tiles", as shipped
-with Struts 1.1+; compatible with Java 1.4) in the original
-`org.springframework.web.servlet.view.tiles` package.
+
+[NOTE]
+====
+This section focuses on Spring's support for Tiles v3 in the
+`org.springframework.web.servlet.view.tiles3` package as well as Tiles v2 in the
+`org.springframework.web.servlet.view.tiles2` package. Tiles v1 (a.k.a. "Struts Tiles")
+is no longer supported by Spring.
+====
 
 
 
@@ -32954,15 +32956,14 @@ viewnames and viewclasses the resolver can use:
 As you can see, when using the `ResourceBundleViewResolver`, you can easily mix
 different view technologies.
 
-Note that the `TilesView` class for Tiles 2 supports JSTL (the JSP Standard Tag Library)
-out of the box, whereas there is a separate `TilesJstlView` subclass in the Tiles 1.x
-support.
+Note that the `TilesView` class supports JSTL (the JSP Standard Tag Library) out of the
+box.
 
 
 [[view-tiles-preparer]]
 ===== SimpleSpringPreparerFactory and SpringBeanPreparerFactory
 
-As an advanced feature, Spring also supports two special Tiles 2 `PreparerFactory`
+As an advanced feature, Spring also supports two special Tiles `PreparerFactory`
 implementations. Check out the Tiles documentation for details on how to use
 `ViewPreparer` references in your Tiles definition files.
 
