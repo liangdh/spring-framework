@@ -5599,10 +5599,10 @@ supported as a marker for automatic exception translation in your persistence la
 
 [[beans-meta-annotations]]
 ==== Meta-annotations
-Many of the annotations provided by Spring can be used to create "meta-annotations" in
-your own code. A meta-annotation is simply an annotation, that is itself annotated. For
-example, The `@Service` annotation mentioned above is in fact a meta-annotation since the
-definition is annotated with `@Component`:
+Many of the annotations provided by Spring can be used to as "meta-annotations" in
+your own code. A meta-annotation is simply an annotation, that can be applied to another
+annotation. For example, The `@Service` annotation mentioned above is meta-annotated with
+with `@Component`:
 
 [source,java,indent=0]
 [subs="verbatim,quotes"]
@@ -5618,15 +5618,15 @@ definition is annotated with `@Component`:
 	}
 ----
 
-Meta-annotations can also be used to combine several Spring annotations into a single
-convenient stereotype. For example, the `@RestController` annotation from Spring MVC is a
-meta-annotation of `@Controller` and `@ResponseBody`.
+Meta-annotations can also be combined together to create __composed annotations__. For
+example, the `@RestController` annotation from Spring MVC is __composed__ of
+`@Controller` and `@ResponseBody`.
 
-With the exception of `value()`, meta-annotations may redeclare attributes from the
+With the exception of `value()`, meta-annotated types may redeclare attributes from the
 source annotation to allow user customization. This can be particularly useful when you
 want to only expose a subset of the source annotation attributes. For example, here is a
-custom `@Scope` meta-annotation that defines `session` scope, but still allows
-customization of the `proxyMode`.
+custom `@Scope` annotation that defines `session` scope, but still allows customization
+of the `proxyMode`.
 
 
 [source,java,indent=0]
