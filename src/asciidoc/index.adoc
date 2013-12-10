@@ -31454,8 +31454,9 @@ the classpath.
 To customize the default configuration in Java you simply implement the
 `WebMvcConfigurer` interface or more likely extend the class `WebMvcConfigurerAdapter`
 and override the methods you need. Below is an example of some of the available methods
-to override. See `WebMvcConifgurer` for a list of all methods and the Javadoc for
-further details:
+to override. See
+{javadoc-baseurl}/org/springframework/web/servlet/config/annotation/WebMvcConfigurer.html[`WebMvcConfigurer`]
+for a list of all methods and the Javadoc for further details:
 
 [source,java,indent=0]
 [subs="verbatim,quotes"]
@@ -31938,14 +31939,15 @@ the `@Import` statement.
 The next step towards more fine-grained control is to customize a property on one of the
 beans created in `WebMvcConfigurationSupport` or perhaps to provide your own instance.
 This requires two things -- remove the `@EnableWebMvc` annotation in order to prevent
-the import and then extend directly from `WebMvcConfigurationSupport`. Here is an
-example:
+the import and then extend from `DelegatingWebMvcConfiguration`, a subclass of
+`WebMvcConfigurationSupport`.
+Here is an example:
 
 [source,java,indent=0]
 [subs="verbatim,quotes"]
 ----
 	@Configuration
-	public class WebConfig extends WebMvcConfigurationSupport {
+	public class WebConfig extends DelegatingWebMvcConfiguration {
 
 		@Override
 		public void addInterceptors(InterceptorRegistry registry){
@@ -31962,8 +31964,16 @@ example:
 	}
 ----
 
-Note that modifying beans in this way does not prevent you from using any of the
-higher-level constructs shown earlier in this section.
+[NOTE]
+====
+An application should have only one configuration extending `DelegatingWebMvcConfiguration`
+or a single `@EnableWebMvc` annotated class, since they both register the same underlying
+beans.
+
+Modifying beans in this way does not prevent you from using any of the higher-level
+constructs shown earlier in this section. `WebMvcConfigurerAdapter` subclasses and
+`WebMvcConfigurer` implementations are still being used.
+====
 
 
 
