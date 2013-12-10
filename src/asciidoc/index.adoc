@@ -30304,7 +30304,53 @@ also have the literal part of the servlet mapping included:
 			.path("/accounts").build()
 ----
 
+[[mvc-construct-uri-controllers]]
+=== Building URIs to Controllers and methods
 
+Spring MVC provides another mechanism for building and encoding URIs that link to
+Controllers and methods defined within an application.
+{javadoc-baseurl}/org/springframework/web/servlet/mvc/method/annotation/MvcUriComponentsBuilder.html[`MvcUriComponentsBuilder`]
+extends `UriComponentsBuilder` and provides such possibilities.
+
+Given this Controller:
+
+[source,java,indent=0]
+[subs="verbatim,quotes"]
+----
+	@Controller
+	@RequestMapping("/hotels/{hotel}")
+	public class BookingController {
+
+		@RequestMapping("/bookings/{booking}")
+		public String getBooking(@PathVariable Long booking) {
+
+		// ...
+
+	}
+----
+
+and using the `MvcUriComponentsBuilder`, the previous example is now:
+
+[source,java,indent=0]
+[subs="verbatim,quotes"]
+----
+	UriComponents uriComponents = MvcUriComponentsBuilder
+		.fromMethodName(BookingController.class, "getBooking",21).buildAndExpand(42);
+
+	URI uri = uriComponents.encode().toUri();
+----
+
+The `MvcUriComponentsBuilder` can also create "mock Controllers", thus enabling to create
+URIs by coding against the actual Controller's API:
+
+[source,java,indent=0]
+[subs="verbatim,quotes"]
+----
+	UriComponents uriComponents = MvcUriComponentsBuilder
+		.fromMethodCall(on(BookingController.class).getBooking(21)).buildAndExpand(42);
+
+	URI uri = uriComponents.encode().toUri();
+----
 
 
 [[mvc-localeresolver]]
