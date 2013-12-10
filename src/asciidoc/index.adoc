@@ -15951,13 +15951,16 @@ methods can be combined in a single class.
 	}
 ----
 
-__Note:__ If a throws-advice method throws an exception itself, it will override the
+[NOTE]
+====
+If a throws-advice method throws an exception itself, it will override the
 original exception (i.e. change the exception thrown to the user). The overriding
 exception will typically be a RuntimeException; this is compatible with any method
 signature. However, if a throws-advice method throws a checked exception, it will have
 to match the declared exceptions of the target method and is hence to some degree
 coupled to specific target method signatures. __Do not throw an undeclared checked
 exception that is incompatible with the target method's signature!__
+====
 
 [TIP]
 ====
@@ -36692,11 +36695,14 @@ a generic `java.lang.Object`, thus increasing type safety.
 model (see the `getPetSites()` method below). For this usage the method signature can
 contain the same types as documented above for the `@RequestMapping` annotation.
 
-__Note:__ `@ModelAttribute` annotated methods will be executed __before__ the chosen
+[NOTE]
+====
+`@ModelAttribute` annotated methods will be executed __before__ the chosen
 `@RequestMapping` annotated handler method. They effectively pre-populate the implicit
 model with specific attributes, often loaded from a database. Such an attribute can then
 already be accessed through `@ModelAttribute` annotated handler method parameters in the
 chosen handler method, potentially with binding and validation applied to it.
+====
 
 The following code snippet shows these two usages of this annotation:
 
@@ -37569,11 +37575,14 @@ From the client code we can access the web service just as if it was a normal cl
 	}
 ----
 
-__NOTE:__ The above is slightly simplified in that JAX-WS requires endpoint interfaces
+[NOTE]
+====
+The above is slightly simplified in that JAX-WS requires endpoint interfaces
 and implementation classes to be annotated with `@WebService`, `@SOAPBinding` etc
 annotations. This means that you cannot (easily) use plain Java interfaces and
 implementation classes as JAX-WS endpoint artifacts; you need to annotate them
 accordingly first. Check the JAX-WS documentation for details on those requirements.
+====
 
 
 
@@ -41716,9 +41725,12 @@ CCI API: an application-level input object will be passed to the operation objec
 can construct the input record and then convert the received record data to an
 application-level output object and return it.
 
-__Note__: This approach is internally based on the `CciTemplate` class and the
+[NOTE]
+====
+This approach is internally based on the `CciTemplate` class and the
 `RecordCreator` / `RecordExtractor` interfaces, reusing the machinery of Spring's core
 CCI support.
+====
 
 
 
@@ -43310,9 +43322,12 @@ automatically apply it:
 
 All additional settings from the job detail bean are of course available to you as well.
 
-__Note: Using the `name` and `group` properties, you can modify the name and the group
+[NOTE]
+====
+Using the `name` and `group` properties, you can modify the name and the group
 of the job, respectively. By default, the name of the job matches the bean name of the
-job detail bean (in the example above, this is `exampleJob`).__
+job detail bean (in the example above, this is `exampleJob`).
+====
 
 
 
@@ -43481,9 +43496,12 @@ The dynamic languages currently supported are:
 Fully working examples of where this dynamic language support can be immediately useful
 are described in <<dynamic-language-scenarios>>.
 
-__Note:__ Only the specific versions as listed above are supported in Spring 2.5. In
+[NOTE]
+====
+Only the specific versions as listed above are supported in Spring 2.5. In
 particular, JRuby 1.1 (which introduced many incompatible API changes) is __not__
 supported at this point of time.
+====
 
 
 
