@@ -121,7 +121,7 @@ are grouped into Core Container, Data Access/Integration, Web, AOP (Aspect Orien
 Programming), Instrumentation, and Test, as shown in the following diagram.
 
 .Overview of the Spring Framework
-image::images/spring-overview.png[]
+image::images/spring-overview.png[width=400]
 
 
 
@@ -238,7 +238,7 @@ from applets to full-fledged enterprise applications that use Spring's transacti
 management functionality and web framework integration.
 
 .Typical full-fledged Spring web application
-image::images/overview-full.png[]
+image::images/overview-full.png[width=400]
 
 Spring's <<transaction-declarative,declarative transaction management features>> make
 the web application fully transactional, just as it would be if you used EJB
@@ -253,7 +253,7 @@ for `ActionForms` or other classes that transform HTTP parameters to values for 
 domain model.
 
 .Spring middle-tier using a third-party web framework
-image::images/overview-thirdparty-web.png[]
+image::images/overview-thirdparty-web.png[width=400]
 
 Sometimes circumstances do not allow you to completely switch to a different framework.
 The Spring Framework does __not__ force you to use everything within it; it is not an
@@ -264,14 +264,14 @@ using an `ApplicationContext` and use a `WebApplicationContext` to integrate you
 layer.
 
 .Remoting usage scenario
-image::images/overview-remoting.png[]
+image::images/overview-remoting.png[width=400]
 
 When you need to access existing code through web services, you can use Spring's
 `Hessian-`, `Burlap-`, `Rmi-` or `JaxRpcProxyFactory` classes. Enabling remote access to
 existing applications is not difficult.
 
 .EJBs - Wrapping existing POJOs
-image::images/overview-ejb.png[]
+image::images/overview-ejb.png[width=400]
 
 The Spring Framework also provides an <<ejb,access and abstraction layer>> for
 Enterprise JavaBeans, enabling you to reuse your existing POJOs and wrap them in
@@ -894,7 +894,7 @@ created and initialized, you have a fully configured and executable system or
 application.
 
 .The Spring IoC container
-image::images/container-magic.png[]
+image::images/container-magic.png[width=250]
 
 
 
@@ -3075,7 +3075,7 @@ defined by that bean definition. This single instance is stored in a cache of su
 singleton beans, and __all subsequent requests and references__ for that named bean
 return the cached object.
 
-image::images/singleton.png[]
+image::images/singleton.png[width=400]
 
 Spring's concept of a singleton bean differs from the Singleton pattern as defined in
 the Gang of Four (GoF) patterns book. The GoF Singleton hard-codes the scope of an
@@ -3110,7 +3110,7 @@ The following diagram illustrates the Spring prototype scope. __A data access ob
 any conversational state; it was just easier for this author to reuse the core of the
 singleton diagram.__
 
-image::images/prototype.png[]
+image::images/prototype.png[width=400]
 
 The following example defines a bean as a prototype in XML:
 
@@ -14382,7 +14382,7 @@ code snippet.
 If you invoke a method on an object reference, the method is invoked __directly__ on
 that object reference, as can be seen below.
 
-image::images/aop-proxy-plain-pojo-call.png[]
+image::images/aop-proxy-plain-pojo-call.png[width=400]
 
 [source,java,indent=0]
 [subs="verbatim,quotes"]
@@ -14402,7 +14402,7 @@ image::images/aop-proxy-plain-pojo-call.png[]
 Things change slightly when the reference that client code has is a proxy. Consider the
 following diagram and code snippet.
 
-image::images/aop-proxy-call.png[]
+image::images/aop-proxy-call.png[width=400]
 
 [source,java,indent=0]
 [subs="verbatim,quotes"]
@@ -20992,7 +20992,7 @@ Spring AOP is covered in <<aop>>.
 
 Conceptually, calling a method on a transactional proxy looks like this...
 
-image::images/tx.png[]
+image::images/tx.png[width=400]
 
 
 
@@ -21878,7 +21878,7 @@ __logical__ transactions, and how the propagation setting applies to this differ
 
 [[tx-propagation-required]]
 ===== Required
-image::images/tx_prop_required.png[]
+image::images/tx_prop_required.png[width=400]
 
 PROPAGATION_REQUIRED
 
@@ -21904,7 +21904,7 @@ indicate clearly that a rollback was performed instead.
 
 [[tx-propagation-requires_new]]
 ===== RequiresNew
-image::images/tx_prop_requires_new.png[]
+image::images/tx_prop_requires_new.png[width=400]
 
 PROPAGATION_REQUIRES_NEW
 
@@ -22495,7 +22495,7 @@ The exception hierarchy that Spring provides can be seen below. (Please note tha
 class hierarchy detailed in the image shows only a subset of the entire
 `DataAccessException` hierarchy.)
 
-image::images/DataAccessException.gif[]
+image::images/DataAccessException.gif[width=400]
 
 
 
@@ -26979,7 +26979,7 @@ provide a distinction between marshalling and unmarshalling operations, even tho
 underlying O/X mapping tool does not do so.
 
 The O/X Mapping exception hierarchy is shown in the following figure:
-image::images/oxm-exceptions.png[]
+image::images/oxm-exceptions.png[width=400]
 
 O/X Mapping exception hierarchy
 
@@ -27717,7 +27717,7 @@ in the following diagram. The pattern-savvy reader will recognize that the
 `DispatcherServlet` is an expression of the "Front Controller" design pattern (this is a
 pattern that Spring Web MVC shares with many other leading web frameworks).
 
-image::images/mvc.png[]
+image::images/mvc.png[width=400]
 
 The request processing workflow in Spring Web MVC (high level)
 
@@ -27783,7 +27783,7 @@ scoped. In the Web MVC framework, each `DispatcherServlet` has its own
 scope, and you can define new scope-specific beans local to a given Servlet instance.
 
 .Context hierarchy in Spring Web MVC
-image::images/mvc-contexts.gif[]
+image::images/mvc-contexts.gif[width=400]
 
 Upon initialization of a `DispatcherServlet`, Spring MVC looks for a file named
 __[servlet-name]-servlet.xml__ in the `WEB-INF` directory of your web application and
