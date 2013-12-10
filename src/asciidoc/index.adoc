@@ -772,6 +772,7 @@ TODO
 * ordered list/arry injection with @Autowired (@Order on each element bean)
 * Lazy resolution of proxies driven by @Lay on injection point
 * Attribute override with composable annotations
+* scripting JRuby 1.5 + Groovy 1.8 (possibly add in migration guide)
 
 
 [[spring-core]]
@@ -43467,11 +43468,23 @@ Javadoc] for more information.
 
 [[dynamic-language-introduction]]
 === Introduction
+Spring 2.0 introduces comprehensive support for using classes and objects that have been
+defined using a dynamic language (such as JRuby) with Spring. This support allows you to
+write any number of classes in a supported dynamic language, and have the Spring
+container transparently instantiate, configure and dependency inject the resulting
+objects.
+
+The dynamic languages currently supported are:
+
+* JRuby 1.5+
+* Groovy 1.8+
+* BeanShell 2.0
+
 .Why only these languages?
 ****
-The supported languages were chosen because a) the languages have a lot of traction in
-the Java enterprise community, b) no requests were made for other languages within the
-Spring 2.0 development timeframe, and c) the Spring developers were most familiar with
+The supported languages were chosen because __a)__ the languages have a lot of traction in
+the Java enterprise community, __b)__ no requests were made for other languages at the time
+that this support was added, and __c)__ the Spring developers were most familiar with
 them.
 
 There is nothing stopping the inclusion of further languages though. If you want to see
@@ -43481,27 +43494,8 @@ http://opensource.atlassian.com/projects/spring/secure/Dashboard.jspa[JIRA] page
 implement such support yourself).
 ****
 
-Spring 2.0 introduces comprehensive support for using classes and objects that have been
-defined using a dynamic language (such as JRuby) with Spring. This support allows you to
-write any number of classes in a supported dynamic language, and have the Spring
-container transparently instantiate, configure and dependency inject the resulting
-objects.
-
-The dynamic languages currently supported are:
-
-* JRuby 0.9 / 1.0
-* Groovy 1.0 / 1.5
-* BeanShell 2.0
-
 Fully working examples of where this dynamic language support can be immediately useful
 are described in <<dynamic-language-scenarios>>.
-
-[NOTE]
-====
-Only the specific versions as listed above are supported in Spring 2.5. In
-particular, JRuby 1.1 (which introduced many incompatible API changes) is __not__
-supported at this point of time.
-====
 
 
 
@@ -44084,9 +44078,9 @@ JRuby-based beans.
 The Groovy scripting support in Spring requires the following libraries to be on the
 classpath of your application.
 
-* `groovy-1.5.5.jar`
-* `asm-2.2.2.jar`
-* `antlr-2.7.6.jar`
+* `groovy-1.8.jar`
+* `asm-3.2.jar`
+* `antlr-2.7.7.jar`
 ****
 
 From the Groovy homepage...
