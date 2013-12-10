@@ -3179,9 +3179,11 @@ setup is necessary: `DispatcherServlet` and `DispatcherPortlet` already expose a
 relevant state.
 
 If you use a Servlet 2.4+ web container, with requests processed outside of Spring's
-DispatcherServlet (for example, when using JSF or Struts), you need to add the following
-`javax.servlet.ServletRequestListener` to the declarations in your web applications
-`web.xml` file:
+DispatcherServlet (for example, when using JSF or Struts), you need to register the
+`org.springframework.web.context.request.RequestContextListener` `ServletRequestListener`.
+For Servlet 3.0+, this can done programmatically via the `WebApplicationInitializer`
+interface. Alternatively, or for older containers, add the following declaration to your
+web applications `web.xml` file:
 
 [source,xml,indent=0]
 [subs="verbatim,quotes"]
