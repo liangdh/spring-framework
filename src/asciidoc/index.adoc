@@ -5034,6 +5034,14 @@ The same applies for typed collections:
 	}
 ----
 
+[TIP]
+====
+Your beans can implement the `org.springframework.core.Ordered` interface or use the
+the `@Ordered` annotation if you want items in the array or list to be sorted into a
+specific order.
+====
+
+
 Even typed Maps can be autowired as long as the expected key type is `String`. The Map
 values will contain all beans of the expected type, and the keys will contain the
 corresponding bean names:
