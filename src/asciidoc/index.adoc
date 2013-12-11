@@ -294,9 +294,9 @@ modules that separate the dependencies as much as possible, so for example if yo
 want to write a web application you don't need the spring-web modules. To refer to
 Spring library modules in this guide we use a shorthand naming convention `spring-*` or
 `spring-*.jar,` where `*` represents the short name for the module (e.g. `spring-core`,
-`spring-webmvc`, `spring-jms`, etc.). The actual jar file name that you use may be in
-this form (see below) or it may not, and normally it also has a version number in the
-file name (e.g. __spring-core-{spring-version}.jar__).
+`spring-webmvc`, `spring-jms`, etc.). The actual jar file name that you use is normally
+the module name concatenated with the version number
+(e.g. __spring-core-{spring-version}.jar__).
 
 Each release of the Spring Framework will publish artifacts to the following places:
 
@@ -310,7 +310,7 @@ Each release of the Spring Framework will publish artifacts to the following pla
   GA releases, this repository also hosts development snapshots and milestones. The jar
   file names are in the same form as Maven Central, so this is a useful place to get
   development versions of Spring to use with other libraries deployed in Maven Central.
-  This repository also contains a bundle distribution zip file that contains the Spring
+  This repository also contains a bundle distribution zip file that contains all Spring
   jars  bundled together for easy download.
 
 So the first thing you need to decide is how to manage your dependencies: we generally
@@ -407,11 +407,11 @@ And for snapshots:
 [[overview-maven-bom]]
 ===== Maven "Bill Of Materials" Dependency =====
 It is possible to accidentally mix different versions of Spring JARs when using Maven.
-For example, you may find that that a third-party library, or another Spring project,
+For example, you may find that a third-party library, or another Spring project,
 pulls in a transitive dependency to an older release. If you forget to explicitly declare
 a direct dependency yourself, all sorts of unexpected issues can arise.
 
-To overcome such problems Maven supports the concept of "bill of materials" (BOM)
+To overcome such problems Maven supports the concept of a "bill of materials" (BOM)
 dependency. You can import the `spring-framework-bom` in your `dependencyManagement`
 section to ensure that all spring dependencies (both direct and transitive) are at
 the same version.
@@ -461,6 +461,7 @@ include the appropriate URL in the `repositories` section:
 ----
 	repositories {
 		mavenCentral()
+		// and optionally...
 		maven { url "http://repo.spring.io/release" }
 	}
 ----
@@ -474,7 +475,7 @@ usual Gradle way:
 ----
 	dependencies {
 		compile("org.springframework:spring-context:{spring-version}")
-		testCompile("org.springframework:spring-context:{spring-test}")
+		testCompile("org.springframework:spring-test:{spring-version}")
 	}
 ----
 
@@ -519,7 +520,7 @@ zip file.
 Distribution zips are published to the Spring Maven Repository (this is just for our
 convenience, you don't need Maven or any other build system in order to download them).
 
-To download a distribution zip open a web browser at
+To download a distribution zip open a web browser to
 http://repo.spring.io/release/org/springframework/spring and select the appropriate
 subfolder for the version that you want. Distribution files end `-dist.zip`, for example
 +spring-framework-{spring-version}-RELEASE-dist.zip+. Distributions are also published
@@ -763,7 +764,7 @@ previous version.
 
 
 === Improved Getting Started Experience
-The new http://spring.io[spring.io] website provides whole series of series of
+The new http://spring.io[spring.io] website provides a whole series of
 http://spring.io/guides["Getting Started"] guides to help you learn Spring. You
 can read more about the guides in the <<overview-getting-started-with-spring>> section
 in this document. The new website also provides a comprehensive overview of the many
@@ -790,20 +791,20 @@ Differences Report].
 
 === Java 8
 Spring Framework 4.0 provides support for several Java 8 features. You can make use of
-lambda expressions and method references with Spring's callback interfaces. There is
-first class support for `java.time` (http://jcp.org/en/jsr/detail?id=310[JSR-310]) and
+__lambda expressions__ and __method references__ with Spring's callback interfaces. There
+is first class support for `java.time` (http://jcp.org/en/jsr/detail?id=310[JSR-310]) and
 several existing annotations have been retrofitted as `@Repeatable`. You can also use
 Java 8's parameter name discovery as an alternative to compiling your code with debug
 information enabled.
 
-Spring remains compatible with older versions of Java; 6.0 and above are fully
+Spring remains compatible with older versions of Java, 6.0 and above are fully
 supported.
 
 
 
 
 === WebSocket Support
-The new `spring-websocket` module provide first class support for WebSockets
+The new `spring-websocket` module provides first class support for WebSockets
 (http://tools.ietf.org/html/rfc6455[RFC 6455]). Spring offers both low-level support for
 the WebSocket protocol (including http://jcp.org/en/jsr/detail?id=356[JSR-356]) as well
 as a much higher-level general __web messaging__ programming model, complete with STOMP
@@ -824,7 +825,7 @@ There have been several general improvements to the core IoC container:
 
 * Spring now treats <<beans-generics-as-qualifiers,__generic types__ as a form of
   __qualifier__>> when injecting Beans. For example, if you are using a Spring Data
-  `Repository` you can now easily inject specific implementations:
+  `Repository` you can now easily inject a specific implementation:
   `@Autowired Repository<Customer> customerRepository`.
 * If you use Spring's meta-annotation support, you can now develop custom annotations that
   <<beans-meta-annotations,expose specific attributes from the source annotation>>.
@@ -5513,7 +5514,7 @@ configuration:
 ----
 
 Assuming that beans above implement a generic interface, i.e. `Store<String>` and
-`Store<Interface>`, you can `@Autowire` the `Store` interface and the __generic__ will
+`Store<Integer>`, you can `@Autowire` the `Store` interface and the __generic__ will
 be used as a qualifier:
 
 [source,java,indent=0]
@@ -7278,8 +7279,8 @@ than the usual process of navigating interface-based code.
 
 [[beans-java-conditional]]
 ===== Conditionally including @Configuration classes or @Beans
-It is often useful to conditionally enable to disable a complete `@Configuration` class
-or even individual `@Bean` methods based on some arbitrary system state. One common
+It is often useful to conditionally enable to disable a complete `@Configuration` class,
+or even individual `@Bean` methods, based on some arbitrary system state. One common
 example of this it to use the `@Profile` annotation to active beans only when a specific
 profile has been enabled in the Spring `Environment` (see <<beans-definition-profiles>>
 for details).
@@ -7291,7 +7292,7 @@ The `@Conditional` annotation indicates specific
 consulted before a `@Bean` is registered.
 
 Implementations of the `Condition` interface simply provide a `matches(...)`
-implementation that returns `true` or `false`. For example, here is the actual
+method that returns `true` or `false`. For example, here is the actual
 `Condition` implementation used for `@Profile`:
 
 [source,java,indent=0]
