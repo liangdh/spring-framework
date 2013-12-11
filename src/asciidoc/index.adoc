@@ -841,6 +841,7 @@ There have been several general improvements to the core IoC container:
   definitions.
 * The <<beans-java-bean-description,`@Description` annotation has been added>> for
   developers using Java-based configuration.
+* It is now possible to specify a time zone with the `@Scheduled` annotation.
 
 
 
@@ -43818,6 +43819,13 @@ provided. For example, the following will only execute on weekdays.
 		// something that should execute on weekdays only
 	}
 ----
+
+[TIP]
+====
+You can additionally use the `zone` attribute to specify the time zone in which the cron
+expression will be resolved.
+====
+
 
 Notice that the methods to be scheduled must have void returns and must not expect any
 arguments. If the method needs to interact with other objects from the Application
