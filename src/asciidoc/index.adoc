@@ -9988,10 +9988,10 @@ should throw a ParseException or IllegalArgumentException if a parse attempt fai
 care to ensure your Formatter implementation is thread-safe.
 
 Several Formatter implementations are provided in `format` subpackages as a convenience.
-The `number` package provides a NumberFormatter, CurrencyFormatter, and PercentFormatter
-to format java.lang.Number objects using a java.text.NumberFormat. The `datetime`
-package provides a DateFormatter to format java.util.Date objects with a
-java.text.DateFormat. The `datetime.joda` package provides comprehensive datetime
+The `number` package provides a `NumberFormatter`, `CurrencyFormatter`, and
+`PercentFormatter` to format `java.lang.Number` objects using a `java.text.NumberFormat`.
+The `datetime` package provides a `DateFormatter` to format `java.util.Date` objects with
+a `java.text.DateFormat`. The `datetime.joda` package provides comprehensive datetime
 formatting support based on the http://joda-time.sourceforge.net[Joda Time library].
 
 Consider `DateFormatter` as an example `Formatter` implementation:
@@ -27780,7 +27780,8 @@ SWF allows you to capture logical page flows as self-contained modules that are 
 in different situations, and as such is ideal for building web application modules that
 guide the user through controlled navigations that drive business processes.
 
-For more information about SWF, consult the Spring Web Flow website.
+For more information about SWF, consult the
+http://projects.spring.io/spring-webflow/[Spring Web Flow website].
 ****
 
 Spring's web module includes many unique web support features:
